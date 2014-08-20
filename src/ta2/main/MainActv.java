@@ -1,0 +1,141 @@
+package ta2.main;
+
+import java.util.List;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import ta2.utils.Methods;
+import twitter4j.Paging;
+import twitter4j.Query;
+import twitter4j.QueryResult;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.text.Html;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActv extends Activity {
+
+    @Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		
+		// Log
+		String log_msg = "onStart()";
+
+		Log.d("[" + "MainActv.java : "
+				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ " : "
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", log_msg);
+		
+		
+//		do_test();
+		
+	}
+
+    
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		// Log
+		String log_msg = "onResume()";
+
+		Log.d("[" + "MainActv.java : "
+				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ " : "
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", log_msg);
+		
+	}
+
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actv_main);
+		
+		this.setTitle(this.getClass().getName());
+		
+		// Log
+		String log_msg = "Starting => onCreate()";
+
+		Log.d("[" + "MainActv.java : "
+				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ " : "
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", log_msg);
+		
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+         
+        
+	}//protected void onCreate(Bundle savedInstanceState)
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_actv, menu);
+		return true;
+		
+	}
+
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		
+//		case R.id.menu_main_logout://--------------------
+//			
+//			case_Menu_Logout();
+////			this.logoutFromTwitter();
+//			
+//			break;
+			
+		default://-------------------------------------
+			break;
+	
+		}
+		
+		return super.onOptionsItemSelected(item);
+		
+	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		Methods.confirm_quit(this, keyCode);
+		
+		return super.onKeyDown(keyCode, event);
+	}
+
+}//public class MainActv extends Activity

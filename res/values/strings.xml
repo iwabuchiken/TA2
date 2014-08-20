@@ -1,5 +1,34 @@
 <resources>
 
     <string name="app_name">TA2</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Generic items -->
+	    <string name="generic_bt_ok">OK</string>
+	    <string name="generic_bt_cancel">キャンセル</string>
+	    
+	    <string name="generic_tv_confirm">確認</string>
+	    <string name="generic_tv_menu">メニュー</string>
+	    <string name="generic_tv_register">登録</string>
+	    <string name="generic_tv_edit">編集</string>
+	    <string name="generic_tv_delete">削除</string>
+	    <string name="generic_tv_upload">Upload</string>
+	    <string name="generic_tv_quit_app">Quit app?</string>
+    	<string name="generic_notice">Notice</string>
+    
+    
+    <!-- UI labels -->
+    	<string name="btn_lbl_time_line">Timeline</string>
+    	<string name="btn_lbl_memo_patterns">Pattern</string>
 
+    <!-- Menu: main -->
+    	<string name="menu_main_logout">Logout</string>
+    	<string name="menu_main_query">Query</string>
+    	<string name="menu_main_timeline">Timeline</string>
+    	<string name="menu_main_tweet">Tweet</string>
+    	<string name="menu_main_refresh_screen">Refresh screen</string>
+    	<string name="menu_main_admin">Admin</string>
+    	<string name="menu_main_horizontal_listview">Horizontal LV</string>
+    	
+    	
 </resources>

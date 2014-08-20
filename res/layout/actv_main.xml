@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+     
+    <!-- Twitter Login Button -->
+
+    <Button
+        android:id="@+id/btnLoginTwitter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dip"
+        android:text="Login with Twitter"
+        android:textSize="25sp" />
+     
+    <!-- user name label -->
+ 
+    <!-- label update status -->
+     
+    <!-- Tweet EditText -->
+     
+    <!-- Tweet Button -->
+
+    <Button
+        android:id="@+id/btnTweet"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dp"
+        android:background="@color/blue1"
+        android:text="Tweet"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:visibility="gone" />
+     
+    <!-- Timeline Button -->
+
+    <Button
+        android:id="@+id/btnTimeLine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dp"
+        android:background="@color/green4"
+        android:text="@string/btn_lbl_time_line"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:visibility="gone" />
+     
+    <!-- Twitter Logout button -->
+
+    <Button
+        android:id="@+id/btnLogoutTwitter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="50dip"
+        android:text="Logout from Twitter"
+        android:textSize="25sp"
+        android:visibility="gone" />
+ 
+</LinearLayout>

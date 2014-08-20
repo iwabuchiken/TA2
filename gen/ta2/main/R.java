@@ -10,11 +10,83 @@ package ta2.main;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        /**  REF color names http://www.workwithcolor.com/color-chart-full-01.htm 
+         */
+        public static final int Arsenic=0x7f04000b;
+        public static final int black=0x7f040001;
+        public static final int blue1=0x7f040002;
+        public static final int darkgreen=0x7f040003;
+        public static final int darkolivegreen4=0x7f040005;
+        public static final int gold2=0x7f040007;
+        /**  /main.xml 
+         */
+        public static final int gray1=0x7f04000a;
+        public static final int green4=0x7f040004;
+        public static final int purple4=0x7f040006;
+        public static final int red=0x7f040008;
+        /**  Source=http://www.somacon.com/p142.php 
+ main.xml 
+         */
+        public static final int white=0x7f040000;
+        public static final int yello=0x7f040009;
+        /**  TwtActv::Timeline::background 
+         */
+        public static final int yellow_bright=0x7f04000c;
+        public static final int yellow_dark=0x7f04000d;
+    }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int app_icon_93x93=0x7f020000;
+        public static final int app_icon_93x93_modified=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int menu_icon_admin_32x32=0x7f020003;
+        public static final int menu_icon_horizontal_listview_32x32=0x7f020004;
+        public static final int menu_icon_logout_32x32=0x7f020005;
+    }
+    public static final class id {
+        public static final int btnLoginTwitter=0x7f080000;
+        public static final int btnLogoutTwitter=0x7f080003;
+        public static final int btnTimeLine=0x7f080002;
+        public static final int btnTweet=0x7f080001;
+        public static final int menu_main_admin=0x7f080006;
+        public static final int menu_main_horizontal_listview=0x7f080007;
+        public static final int menu_main_logout=0x7f080005;
+        public static final int menu_main_settings=0x7f080004;
+    }
+    public static final class layout {
+        public static final int actv_main=0x7f030000;
+    }
+    public static final class menu {
+        public static final int main_actv=0x7f070000;
     }
     public static final class string {
-        public static final int app_name=0x7f030000;
+        public static final int action_settings=0x7f050001;
+        public static final int app_name=0x7f050000;
+        public static final int btn_lbl_memo_patterns=0x7f05000d;
+        /**  UI labels 
+         */
+        public static final int btn_lbl_time_line=0x7f05000c;
+        public static final int generic_bt_cancel=0x7f050003;
+        /**  Generic items 
+         */
+        public static final int generic_bt_ok=0x7f050002;
+        public static final int generic_notice=0x7f05000b;
+        public static final int generic_tv_confirm=0x7f050004;
+        public static final int generic_tv_delete=0x7f050008;
+        public static final int generic_tv_edit=0x7f050007;
+        public static final int generic_tv_menu=0x7f050005;
+        public static final int generic_tv_quit_app=0x7f05000a;
+        public static final int generic_tv_register=0x7f050006;
+        public static final int generic_tv_upload=0x7f050009;
+        public static final int menu_main_admin=0x7f050013;
+        public static final int menu_main_horizontal_listview=0x7f050014;
+        /**  Menu: main 
+         */
+        public static final int menu_main_logout=0x7f05000e;
+        public static final int menu_main_query=0x7f05000f;
+        public static final int menu_main_refresh_screen=0x7f050012;
+        public static final int menu_main_timeline=0x7f050010;
+        public static final int menu_main_tweet=0x7f050011;
     }
     public static final class style {
         /** 
@@ -27,10 +99,10 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static final int AppBaseTheme=0x7f040000;
+        public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f040001;
+        public static final int AppTheme=0x7f060001;
     }
 }
