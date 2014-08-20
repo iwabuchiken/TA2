@@ -36,22 +36,25 @@ public final class R {
         public static final int yellow_dark=0x7f04000d;
     }
     public static final class drawable {
-        public static final int app_icon_93x93=0x7f020000;
-        public static final int app_icon_93x93_modified=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int menu_icon_admin_32x32=0x7f020003;
-        public static final int menu_icon_horizontal_listview_32x32=0x7f020004;
-        public static final int menu_icon_logout_32x32=0x7f020005;
+        public static final int actv_main_bt_list=0x7f020000;
+        public static final int actv_main_bt_memo=0x7f020001;
+        public static final int actv_main_bt_twittter_login_128x113=0x7f020002;
+        public static final int actv_main_bt_twittter_logout_128x113=0x7f020003;
+        public static final int app_icon_93x93=0x7f020004;
+        public static final int app_icon_93x93_modified=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int menu_icon_admin_32x32=0x7f020007;
+        public static final int menu_icon_horizontal_listview_32x32=0x7f020008;
+        public static final int menu_icon_logout_32x32=0x7f020009;
     }
     public static final class id {
-        public static final int btnLoginTwitter=0x7f080000;
-        public static final int btnLogoutTwitter=0x7f080003;
-        public static final int btnTimeLine=0x7f080002;
-        public static final int btnTweet=0x7f080001;
-        public static final int menu_main_admin=0x7f080006;
-        public static final int menu_main_horizontal_listview=0x7f080007;
-        public static final int menu_main_logout=0x7f080005;
-        public static final int menu_main_settings=0x7f080004;
+        public static final int actv_main_ib_list=0x7f080000;
+        public static final int actv_main_ib_memo=0x7f080001;
+        public static final int actv_main_ib_twitter_login=0x7f080002;
+        public static final int menu_main_admin=0x7f080005;
+        public static final int menu_main_horizontal_listview=0x7f080006;
+        public static final int menu_main_logout=0x7f080004;
+        public static final int menu_main_settings=0x7f080003;
     }
     public static final class layout {
         public static final int actv_main=0x7f030000;

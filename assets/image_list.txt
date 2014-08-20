@@ -1,0 +1,4 @@
+1	actv_main_bt_memo.png	1408539956_editor_pencil_pen_edit_write.png	https://www.iconfinder.com/icons/284086/edit_editor_pen_pencil_write_icon#size=128	modified: bg color
+2	actv_main_bt_list.png	1408540135_699077-icon-86-document-list.png	https://www.iconfinder.com/icons/314928/document_icon_list_icon#size=128
+3	actv_main_bt_twittter_login.png	1408540263_bird_blue.png	https://www.iconfinder.com/icons/211006/bird_blue_free_origami_icon#size=128
+4	actv_main_bt_twittter_logout.png	1408540263_bird_blue_logout.png	SAME AS No.4

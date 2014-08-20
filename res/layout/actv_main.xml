@@ -2,19 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/black"
     android:orientation="vertical" >
      
     <!-- Twitter Login Button -->
-
-    <Button
-        android:id="@+id/btnLoginTwitter"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="30dip"
-        android:text="Login with Twitter"
-        android:textSize="25sp" />
      
     <!-- user name label -->
  
@@ -23,48 +14,56 @@
     <!-- Tweet EditText -->
      
     <!-- Tweet Button -->
-
-    <Button
-        android:id="@+id/btnTweet"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="30dp"
-        android:background="@color/blue1"
-        android:text="Tweet"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:visibility="gone" />
      
     <!-- Timeline Button -->
-
-    <Button
-        android:id="@+id/btnTimeLine"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="30dp"
-        android:background="@color/green4"
-        android:text="@string/btn_lbl_time_line"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:visibility="gone" />
      
     <!-- Twitter Logout button -->
 
-    <Button
-        android:id="@+id/btnLogoutTwitter"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="50dip"
-        android:text="Logout from Twitter"
-        android:textSize="25sp"
-        android:visibility="gone" />
+        android:gravity="center_horizontal" >
+
+        <ImageButton
+            android:id="@+id/actv_main_ib_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/actv_main_bt_list" />
+
+        <ImageButton
+            android:id="@+id/actv_main_ib_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/actv_main_bt_memo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal" >
+
+        <ImageButton
+            android:id="@+id/actv_main_ib_twitter_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/actv_main_bt_twittter_login_128x113" />
+
+    </LinearLayout>
  
 </LinearLayout>
