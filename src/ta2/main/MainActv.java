@@ -8,7 +8,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ta2.listeners.button.BO_CL;
+import ta2.listeners.button.BO_TL;
 import ta2.utils.Methods;
+import ta2.utils.Tags;
 import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -37,6 +40,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,12 +60,76 @@ public class MainActv extends Activity {
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", log_msg);
 		
+		////////////////////////////////
+
+		// setup: listeners
+
+		////////////////////////////////
+		_Setup_Listeners();
+		
+		
 		
 //		do_test();
 		
 	}
 
     
+	private void 
+	_Setup_Listeners() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// IB: memo
+
+		////////////////////////////////
+		ImageButton bt_Up = (ImageButton) this.findViewById(R.id.actv_main_ib_memo);
+		
+		bt_Up.setTag(Tags.ButtonTags.MEMO);
+		
+		bt_Up.setOnTouchListener(new BO_TL(this));
+		
+		bt_Up.setOnClickListener(new BO_CL(this));
+		
+//		bt_Up.setOnClickListener(new BO_CL(this));
+		
+	}
+
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+	}
+
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
+
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub

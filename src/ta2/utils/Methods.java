@@ -1,6 +1,7 @@
 
 package ta2.utils;
 
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -68,6 +69,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ta2.listeners.dialog.DL;
+import ta2.main.MemoActv;
 import ta2.main.R;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
@@ -809,6 +811,20 @@ public static String
 	    return false;
 	    
 	}
-	
+
+	public static void 
+	start_Activity_PrefActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, MemoActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+
+	}//start_Activity_PrefActv
+
 }//public class Methods
 
