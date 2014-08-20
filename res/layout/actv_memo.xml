@@ -2,27 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/yellow_pale_bright"
     android:orientation="vertical" >
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="250dp"
         android:layout_margin="20dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
         android:gravity="top|left"
-        android:textSize="25sp"
-        android:ems="10" >
+        android:textSize="25sp" >
 
         <requestFocus />
     </EditText>
- 
+
     <GridView
         android:id="@+id/actv_twt_gv"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/blue1"
         android:gravity="center_vertical"
         android:horizontalSpacing="5dp"
@@ -33,12 +39,38 @@
     </GridView>
     
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:background="@color/darkgreen" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkgreen"
+        android:gravity="center_horizontal" >
 
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:src="@drawable/actv_memo_ib_back_49x37" />
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:src="@drawable/actv_memo_ib_save_64x64" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:src="@drawable/actv_memo_ib_clear_41x50" />
 
     </LinearLayout>
     

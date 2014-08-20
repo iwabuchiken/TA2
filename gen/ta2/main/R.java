@@ -34,6 +34,8 @@ public final class R {
          */
         public static final int yellow_bright=0x7f04000c;
         public static final int yellow_dark=0x7f04000d;
+        public static final int yellow_pale_bright=0x7f04000f;
+        public static final int yellow_pale_dark=0x7f04000e;
     }
     public static final class drawable {
         public static final int actv_main_bt_list=0x7f020000;
@@ -42,12 +44,18 @@ public final class R {
         public static final int actv_main_bt_memo_128x128_disabled=0x7f020003;
         public static final int actv_main_bt_twittter_login_128x113=0x7f020004;
         public static final int actv_main_bt_twittter_logout_128x113=0x7f020005;
-        public static final int app_icon_93x93=0x7f020006;
-        public static final int app_icon_93x93_modified=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int menu_icon_admin_32x32=0x7f020009;
-        public static final int menu_icon_horizontal_listview_32x32=0x7f02000a;
-        public static final int menu_icon_logout_32x32=0x7f02000b;
+        public static final int actv_memo_ib_back_49x37=0x7f020006;
+        public static final int actv_memo_ib_back_49x37_disabled=0x7f020007;
+        public static final int actv_memo_ib_clear_41x50=0x7f020008;
+        public static final int actv_memo_ib_clear_41x50_disabled=0x7f020009;
+        public static final int actv_memo_ib_save_64x64=0x7f02000a;
+        public static final int actv_memo_ib_save_64x64_disabled=0x7f02000b;
+        public static final int app_icon_93x93=0x7f02000c;
+        public static final int app_icon_93x93_modified=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int menu_icon_admin_32x32=0x7f02000f;
+        public static final int menu_icon_horizontal_listview_32x32=0x7f020010;
+        public static final int menu_icon_logout_32x32=0x7f020011;
     }
     public static final class id {
         public static final int actv_main_ib_list=0x7f080000;
@@ -55,10 +63,13 @@ public final class R {
         public static final int actv_main_ib_twitter_login=0x7f080002;
         public static final int actv_twt_gv=0x7f080004;
         public static final int editText1=0x7f080003;
-        public static final int menu_main_admin=0x7f080007;
-        public static final int menu_main_horizontal_listview=0x7f080008;
-        public static final int menu_main_logout=0x7f080006;
-        public static final int menu_main_settings=0x7f080005;
+        public static final int imageButton1=0x7f080006;
+        public static final int imageButton2=0x7f080005;
+        public static final int imageButton3=0x7f080007;
+        public static final int menu_main_admin=0x7f08000a;
+        public static final int menu_main_horizontal_listview=0x7f08000b;
+        public static final int menu_main_logout=0x7f080009;
+        public static final int menu_main_settings=0x7f080008;
     }
     public static final class layout {
         public static final int actv_main=0x7f030000;
