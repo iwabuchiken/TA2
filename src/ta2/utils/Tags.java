@@ -31,6 +31,8 @@ public class Tags {
 		GENERIC_DISMISS, GENERIC_DISMISS_SECOND_DIALOG,
 		GENERIC_DISMISS_THIRD_DIALOG,
 		
+		GENERIC_CLEAR_SECOND_DIALOG,
+		
 		dlg_generic_dismiss,
 		
 		dlg_generic_dismiss_second_dialog,

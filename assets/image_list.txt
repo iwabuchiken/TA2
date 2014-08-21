@@ -5,3 +5,5 @@
 5	actv_memo_ib_save.png	delivery30.png	http://www.flaticon.com/free-icon/delivery-packaging-box_45989
 6	actv_memo_ib_back.png	reply_49x37.png	http://www.flaticon.com/free-icon/reply_3885
 7	actv_memo_ib_clear.png	recycling10_41x50.png	http://www.flaticon.com/free-icon/recycling-bin_54324
+8	general_ib_ball_blue_48x48.png	ledlightblue.png	http://findicons.com/icon/226938/ledlightblue
+9	general_ib_ball_red_32x32.png	red_ball.png	http://findicons.com/icon/183293/red_ball?id=183293

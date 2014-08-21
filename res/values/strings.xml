@@ -64,4 +64,9 @@
    		<string name="dlg_actvmain_operations_create_table_patterns">
    		    							Create table: patterns</string>
     		
+   		<string name="dlg_actvmain_operations_drop_table_memos">
+   		    										Drop table: memos</string>
+   		<string name="dlg_actvmain_operations_create_table_memos">
+   		    							Create table: memos</string>
+    		
 </resources>

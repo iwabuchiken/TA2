@@ -151,11 +151,34 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case GENERIC_CLEAR_SECOND_DIALOG://------------------------------------------------
+			
+			case_GENERIC_CLEAR_SECOND_DIALOG();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_GENERIC_CLEAR_SECOND_DIALOG() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "clearing all dialogues...";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		d2.dismiss();
+		d1.dismiss();
+		
+		
+		
+	}
 
 	private void 
 	case_DLG_CONF_IMPORT_DB_OK() {

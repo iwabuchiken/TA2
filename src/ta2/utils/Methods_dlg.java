@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -720,10 +721,10 @@ public class Methods_dlg {
 		////////////////////////////////
 		Dialog d2 = Methods_dlg.dlg_Template_Cancel_SecondDialog(
 				actv, d1,
-				R.layout.dlg_tmpl_cancel_lv_2, 
+				R.layout.dlg_tmpl_cancel_lv_with_btn, 
 				R.string.dlg_actvmain_admin_item_operations, 
 				
-				R.id.dlg_tmpl_cancel_lv_2_bt_cancel, 
+				R.id.dlg_tmpl_cancel_lv_with_btn_bt_cancel, 
 				Tags.DialogTags.GENERIC_DISMISS_SECOND_DIALOG);
 
 		////////////////////////////////
@@ -772,6 +773,22 @@ public class Methods_dlg {
 		
 		lv.setOnItemClickListener(new DOI_CL(actv, d1, d2));
 
+		////////////////////////////////
+
+		// button: all dismiss
+
+		////////////////////////////////
+		ImageButton ib_AllClear = 
+				(ImageButton) d2.findViewById(R.id.dlg_tmpl_cancel_lv_with_btn_ib);
+//		ImageButton ib_AllClear = (ImageButton) findViewById(R.id.dlg_tmpl_cancel_lv_wi);
+		
+		ib_AllClear.setTag(Tags.DialogTags.GENERIC_CLEAR_SECOND_DIALOG);
+		
+		ib_AllClear.setOnTouchListener(new DB_OTL(actv, d1, d2));
+		
+		ib_AllClear.setOnClickListener(new DB_OCL(actv, d1, d2));
+		
+		
 	}//_dlg_Admin_Ops__Setup_Listener
 	
 
@@ -786,7 +803,7 @@ public class Methods_dlg {
 
 		////////////////////////////////
 		LinearLayout llButton =
-					(LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_ll_filepath);
+					(LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_with_btn_ll_filepath);
 //		(LinearLayout) dlg1.findViewById(R.id.actv_imp_ll_filepath);
 		
 		LinearLayout.LayoutParams params =
@@ -828,7 +845,7 @@ public class Methods_dlg {
 		// linear layot: main
 
 		////////////////////////////////
-		LinearLayout ll_Main = (LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_ll_main);
+		LinearLayout ll_Main = (LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_with_btn_ll_main);
 		
 		// Log
 		msg_Log = "ll_Main => created";
@@ -867,6 +884,20 @@ public class Methods_dlg {
 						.setTextColor_ID(R.color.black)
 						.build());
 		
+		list.add(new ListItem.Builder()
+		.setText(actv.getString(
+				R.string.dlg_actvmain_operations_create_table_memos))
+				.setIconID(R.drawable.menu_icon_admin_32x32_purple)
+				.setTextColor_ID(R.color.purple4)
+				.build());
+		
+		list.add(new ListItem.Builder()
+		.setText(actv.getString(
+				R.string.dlg_actvmain_operations_drop_table_memos))
+				.setIconID(R.drawable.menu_icon_admin_32x32_red)
+				.setTextColor_ID(R.color.red)
+				.build());
+		
 		////////////////////////////////
 
 		// Adapter
@@ -885,7 +916,7 @@ public class Methods_dlg {
 		// Set adapter
 
 		////////////////////////////////
-		ListView lv = (ListView) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_lv);
+		ListView lv = (ListView) d2.findViewById(R.id.dlg_tmpl_cancel_lv_with_btn_lv);
 		
 		lv.setAdapter(adapter);
 
