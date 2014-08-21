@@ -1,5 +1,8 @@
 package ta2.main;
 
+import ta2.listeners.button.BO_CL;
+import ta2.listeners.button.BO_TL;
+import ta2.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MemoActv extends Activity {
@@ -70,7 +74,7 @@ public class MemoActv extends Activity {
 		// Log
 		String log_msg = "onPause()";
 
-		Log.d("[" + "TwtActv.java : "
+		Log.d("[" + "MemoActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -85,7 +89,7 @@ public class MemoActv extends Activity {
 		// Log
 		String log_msg = "onRestart()";
 
-		Log.d("[" + "TwtActv.java : "
+		Log.d("[" + "MemoActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -101,7 +105,7 @@ public class MemoActv extends Activity {
 		// Log
 		String log_msg = "onResume()";
 
-		Log.d("[" + "TwtActv.java : "
+		Log.d("[" + "MemoActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -116,14 +120,42 @@ public class MemoActv extends Activity {
 		// Log
 		String log_msg = "onStart()";
 
-		Log.d("[" + "TwtActv.java : "
+		Log.d("[" + "MemoActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", log_msg);
 		
+		////////////////////////////////
+
+		// listener
+
+		////////////////////////////////
+		this._Setup_Listeners();
+		
 	}//protected void onStart()
 
+	private void 
+	_Setup_Listeners() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// IB: back
+
+		////////////////////////////////
+		ImageButton bt_Back = (ImageButton) this.findViewById(R.id.actv_memo_ib_back);
+		
+		bt_Back.setTag(Tags.ButtonTags.ACTV_MAIN_BACK);
+		
+		bt_Back.setOnTouchListener(new BO_TL(this));
+		
+		bt_Back.setOnClickListener(new BO_CL(this));
+		
+//		bt_Up.setOnClickListener(new BO_CL(this));
+		
+	}
+
+	
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub

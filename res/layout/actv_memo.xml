@@ -1,12 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actv_memo_ll_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/yellow_pale_bright"
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/actv_memo_ib_et"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_margin="20dp"
@@ -22,7 +23,7 @@
     </EditText>
 
     <GridView
-        android:id="@+id/actv_twt_gv"
+        android:id="@+id/actv_memo_gv"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
@@ -49,7 +50,7 @@
         android:gravity="center_horizontal" >
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/actv_memo_ib_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -57,7 +58,7 @@
             android:src="@drawable/actv_memo_ib_back_49x37" />
 
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/actv_memo_ib_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -65,7 +66,7 @@
             android:src="@drawable/actv_memo_ib_save_64x64" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/actv_memo_ib_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"

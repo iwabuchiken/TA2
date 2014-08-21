@@ -55,18 +55,34 @@ public class BO_CL implements OnClickListener {
 		//
 		switch (tag) {
 
-		case MEMO:
+		case ACTV_MAIN_MEMO:
 			
 			case_MEMO();
 			
 			break;
 
+		case ACTV_MAIN_BACK:
+			
+			case_ACTV_MAIN_BACK();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MAIN_BACK() {
+		// TODO Auto-generated method stub
+		
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+		
+	}
 
 	private void 
 	case_MEMO() {

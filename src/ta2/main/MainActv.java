@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.Methods;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import twitter4j.Paging;
 import twitter4j.Query;
@@ -82,13 +83,13 @@ public class MainActv extends Activity {
 		// IB: memo
 
 		////////////////////////////////
-		ImageButton bt_Up = (ImageButton) this.findViewById(R.id.actv_main_ib_memo);
+		ImageButton bt_Memo = (ImageButton) this.findViewById(R.id.actv_main_ib_memo);
 		
-		bt_Up.setTag(Tags.ButtonTags.MEMO);
+		bt_Memo.setTag(Tags.ButtonTags.ACTV_MAIN_MEMO);
 		
-		bt_Up.setOnTouchListener(new BO_TL(this));
+		bt_Memo.setOnTouchListener(new BO_TL(this));
 		
-		bt_Up.setOnClickListener(new BO_CL(this));
+		bt_Memo.setOnClickListener(new BO_CL(this));
 		
 //		bt_Up.setOnClickListener(new BO_CL(this));
 		
@@ -182,12 +183,12 @@ public class MainActv extends Activity {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		
-//		case R.id.menu_main_logout://--------------------
-//			
-//			case_Menu_Logout();
-////			this.logoutFromTwitter();
-//			
-//			break;
+		case R.id.menu_main_admin://--------------------
+			
+			case_OPT_Admin();
+//			this.logoutFromTwitter();
+			
+			break;
 			
 		default://-------------------------------------
 			break;
@@ -197,6 +198,15 @@ public class MainActv extends Activity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void 
+	case_OPT_Admin() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_ACTV_MAIN_Admin(this);
+		
+	}
+
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

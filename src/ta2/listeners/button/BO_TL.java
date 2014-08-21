@@ -40,12 +40,23 @@ public class BO_TL implements OnTouchListener {
 		switch (event.getActionMasked()) {
 		case MotionEvent.ACTION_DOWN:
 			
+			ImageButton ib;
+			
 			switch (tag) {
 			
-			case MEMO://----------------------------------------------------
+			case ACTV_MAIN_MEMO://----------------------------------------------------
 				
-				ImageButton ib = (ImageButton) v;
+				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_main_bt_memo_128x128_disabled);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
+			case ACTV_MAIN_BACK://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37_disabled);
 				
 //				v.setBackgroundColor(Color.GRAY);
 				
@@ -59,15 +70,23 @@ public class BO_TL implements OnTouchListener {
 			
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
-			case MEMO://----------------------------------------------------
+			case ACTV_MAIN_MEMO://----------------------------------------------------
 				
-				ImageButton ib = (ImageButton) v;
+				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_main_bt_memo);
 				
 //				v.setBackgroundColor(Color.GRAY);
 				
 				break;// case ib_up
 				
+			case ACTV_MAIN_BACK://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
 				
 			}//switch (tag)
 			

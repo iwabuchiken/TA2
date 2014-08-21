@@ -16,6 +16,10 @@
 	    <string name="generic_tv_quit_app">Quit app?</string>
     	<string name="generic_notice">Notice</string>
     
+    <!-- labels for templates -->
+	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">
+       									Delete file, too</string>
+    	
     
     <!-- UI labels -->
     	<string name="btn_lbl_time_line">Timeline</string>
@@ -30,5 +34,31 @@
     	<string name="menu_main_admin">Admin</string>
     	<string name="menu_main_horizontal_listview">Horizontal LV</string>
     	
+    <!-- dlg_actvmain_admin.xml -->
+   		<string name="dlg_actvmain_admin_title">Admin</string>
+   		<string name="dlg_actvmain_admin_item_backup_db">Backup DB</string>
+   		<string name="dlg_actvmain_admin_item_refresh_db">Refresh DB</string>
+   		<string name="dlg_actvmain_admin_item_restore_db">Restore DB</string>
+   		
+   		<string name="dlg_actvmain_admin_item_upload_db">Upload DB</string>
+   		
+   		<string name="dlg_actvmain_admin_item_operations">Operations</string>
+   		
+   		<string name="dlg_actvmain_admin_item_see_log">See log</string>
+   		
+
+	<!-- dlg_actvmain_operations.xml -->
+   		<string name="dlg_actvmain_operations_title">DB Admin</string>   				
+   		
+   		<string name="dlg_actvmain_operations_import_db">
+   		    										Import DB</string>
+   		    										
+   		<string name="dlg_actvmain_operations_import_patterns">
+   		    										Import patterns</string>
+   		    										
+   		<string name="dlg_actvmain_operations_drop_table_patterns">
+   		    										Drop table: patterns</string>
+   		<string name="dlg_actvmain_operations_create_table_patterns">
+   		    							Create table: patterns</string>
     		
 </resources>

@@ -4,10 +4,13 @@ public class Tags {
 
 	public static enum ButtonTags {
 		// actv_main
-		MEMO, LIST, LOGIN, LOGOUT,
+		ACTV_MAIN_MEMO, LIST, LOGIN, LOGOUT,
 		
 		// actv_twt
 		BACK, SEND_TWEET, PATTERN,
+		
+		// actv_memo
+		ACTV_MAIN_BACK,
 		
 	}
 	
@@ -22,8 +25,12 @@ public class Tags {
 		
 	}//public static enum ListTags
 
-	public static enum DialogTags {
+	public static enum 
+	DialogTags {
 		// Generics
+		GENERIC_DISMISS, GENERIC_DISMISS_SECOND_DIALOG,
+		GENERIC_DISMISS_THIRD_DIALOG,
+		
 		dlg_generic_dismiss,
 		
 		dlg_generic_dismiss_second_dialog,
