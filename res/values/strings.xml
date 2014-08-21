@@ -16,6 +16,9 @@
 	    <string name="generic_tv_quit_app">Quit app?</string>
     	<string name="generic_notice">Notice</string>
     
+    <!-- commmons　-->
+    	<string name="commons_import_db_name">ifm11.db</string>
+    
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">
        									Delete file, too</string>

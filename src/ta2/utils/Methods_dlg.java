@@ -1,6 +1,5 @@
 package ta2.utils;
 
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -607,7 +606,7 @@ public class Methods_dlg {
 		/****************************
 		* 5. Set listener to list
 		****************************/
-		lv.setTag(Tags.DialogItemTags.Admin_LV);
+		lv.setTag(Tags.DialogItemTags.ACTV_MAIN_ADMIN_LV);
 		
 		lv.setOnItemClickListener(new DOI_CL(actv, d1));
 		
@@ -709,5 +708,245 @@ public class Methods_dlg {
 		
 		
 	}//dlg_ACTV_MAIN_Admin
+
+	public static void 
+	dlg_Admin_Ops
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// prep: dialog
+
+		////////////////////////////////
+		Dialog d2 = Methods_dlg.dlg_Template_Cancel_SecondDialog(
+				actv, d1,
+				R.layout.dlg_tmpl_cancel_lv_2, 
+				R.string.dlg_actvmain_admin_item_operations, 
+				
+				R.id.dlg_tmpl_cancel_lv_2_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS_SECOND_DIALOG);
+
+		////////////////////////////////
+
+		// list
+
+		////////////////////////////////
+		ListView lv = _dlg_Admin_Ops__Setup_List(actv, d2);
+		
+		////////////////////////////////
+		
+		// setup: layout
+
+		////////////////////////////////
+		_dlg_Admin_Ops__Setup_Layout(actv, d2);
+
+		////////////////////////////////
+
+		// listener
+
+		////////////////////////////////
+		_dlg_Admin_Ops__Setup_Listener(actv, d1, d2, lv);
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d2.show();
+		
+		
+		
+	}//dlg_Admin_Ops
+
+	private static void 
+	_dlg_Admin_Ops__Setup_Listener
+	(Activity actv, Dialog d1, Dialog d2, ListView lv) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// Set listener to list
+
+		////////////////////////////////
+		lv.setTag(Tags.DialogItemTags.ACTV_MAIN_ADMIN_LV_OPS);
+		
+		lv.setOnItemClickListener(new DOI_CL(actv, d1, d2));
+
+	}//_dlg_Admin_Ops__Setup_Listener
+	
+
+	private static void 
+	_dlg_Admin_Ops__Setup_Layout
+	(Activity actv, Dialog d2) {
+		// TODO Auto-generated method stub
+	
+		////////////////////////////////
+
+		// layout: button
+
+		////////////////////////////////
+		LinearLayout llButton =
+					(LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_ll_filepath);
+//		(LinearLayout) dlg1.findViewById(R.id.actv_imp_ll_filepath);
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								LayoutParams.WRAP_CONTENT);
+		
+		params.gravity = Gravity.CENTER_HORIZONTAL;
+		
+		llButton.setLayoutParams(params);
+
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+		DisplayMetrics displayMetrics = actv.getResources()
+                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		// Log
+		String msg_Log = "w => " + w;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		int dialog_Width = w * CONS.Admin.ratio_Dialog_to_Screen_W / 100;
+		
+		// Log
+		msg_Log = "dialog_Width => " + dialog_Width;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// linear layot: main
+
+		////////////////////////////////
+		LinearLayout ll_Main = (LinearLayout) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_ll_main);
+		
+		// Log
+		msg_Log = "ll_Main => created";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		FrameLayout.LayoutParams params2 =
+				new FrameLayout.LayoutParams(
+						dialog_Width,
+						LayoutParams.WRAP_CONTENT);
+		
+		ll_Main.setLayoutParams(params2);
+		
+	}//_dlg_Admin_Ops__Setup_Layout
+	
+
+	private static ListView 
+	_dlg_Admin_Ops__Setup_List
+	(Activity actv, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		List<ListItem> list = new ArrayList<ListItem>();
+		
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+									R.string.dlg_actvmain_operations_import_db))
+						.setIconID(R.drawable.menu_icon_admin_32x32_blue)
+						.setTextColor_ID(R.color.blue1)
+						.build());
+		
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.dlg_actvmain_operations_import_patterns))
+						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
+						.setTextColor_ID(R.color.black)
+						.build());
+		
+		////////////////////////////////
+
+		// Adapter
+
+		////////////////////////////////
+		Adp_ListItems adapter = new Adp_ListItems(
+							actv,
+							//R.layout.dlg_db_admin,
+							R.layout.list_row_simple_iv_1,
+							//android.R.layout.simple_list_item_1,
+							list
+		);
+		
+		////////////////////////////////
+
+		// Set adapter
+
+		////////////////////////////////
+		ListView lv = (ListView) d2.findViewById(R.id.dlg_tmpl_cancel_lv_2_lv);
+		
+		lv.setAdapter(adapter);
+
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return lv;
+		
+	}//_dlg_Admin_Ops__Setup_List
+
+	public static void 
+	conf_Import_DB
+	(Activity actv, Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_IMPORT_DB_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+
+		// view: message
+
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+								R.string.dlg_actvmain_operations_import_db)
+								+ "?");
+		
+		////////////////////////////////
+
+		// view: item name
+
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_Import_DB
 	
 }//public class Methods_dialog

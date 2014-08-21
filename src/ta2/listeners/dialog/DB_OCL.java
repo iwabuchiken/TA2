@@ -1,6 +1,7 @@
 package ta2.listeners.dialog;
 
 import ta2.utils.CONS;
+import ta2.utils.Methods;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,9 +21,9 @@ public class DB_OCL implements OnClickListener {
 		----------------------------*/
 	//
 	Activity actv;
-	Dialog dlg1;
-	Dialog dlg2;		//=> Used in dlg_input_empty_btn_XXX
-	Dialog dlg3;
+	Dialog d1;
+	Dialog d2;		//=> Used in dlg_input_empty_btn_XXX
+	Dialog d3;
 
 	//
 	Vibrator vib;
@@ -34,7 +35,7 @@ public class DB_OCL implements OnClickListener {
 	public DB_OCL(Activity actv, Dialog dlg1) {
 		//
 		this.actv = actv;
-		this.dlg1 = dlg1;
+		this.d1 = dlg1;
 		
 		//
 //		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
@@ -45,8 +46,8 @@ public class DB_OCL implements OnClickListener {
 			Dialog dlg2) {
 		//
 		this.actv = actv;
-		this.dlg1 = dlg1;
-		this.dlg2 = dlg2;
+		this.d1 = dlg1;
+		this.d2 = dlg2;
 		
 		//
 //		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
@@ -58,9 +59,9 @@ public class DB_OCL implements OnClickListener {
 			Dialog dlg2, Dialog dlg3) {
 		//
 		this.actv = actv;
-		this.dlg1 = dlg1;
-		this.dlg2 = dlg2;
-		this.dlg3 = dlg3;
+		this.d1 = dlg1;
+		this.d2 = dlg2;
+		this.d3 = dlg3;
 		
 		//
 //		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
@@ -71,7 +72,7 @@ public class DB_OCL implements OnClickListener {
 	public DB_OCL(Activity actv, Dialog dlg1, long file_id, String tableName) {
 		// 
 		this.actv = actv;
-		this.dlg1 = dlg1;
+		this.d1 = dlg1;
 		
 		this.tableName = tableName;
 		
@@ -88,8 +89,8 @@ public class DB_OCL implements OnClickListener {
 		// TODO Auto-generated constructor stub
 		
 		this.actv = actv;
-		this.dlg1 = dlg1;
-		this.dlg2 = dlg2;
+		this.d1 = dlg1;
+		this.d2 = dlg2;
 
 		this.item_Name	= item_Name;
 		
@@ -104,7 +105,7 @@ public class DB_OCL implements OnClickListener {
 		// TODO Auto-generated constructor stub
 		
 		this.actv	= actv;
-		this.dlg1	= dlg1;
+		this.d1	= dlg1;
 		
 		this.db_Id	= db_id;
 		
@@ -128,26 +129,46 @@ public class DB_OCL implements OnClickListener {
 		
 		case GENERIC_DISMISS://------------------------------------------------
 			
-			dlg1.dismiss();
+			d1.dismiss();
 			
 			break;
 
 		case GENERIC_DISMISS_SECOND_DIALOG: // ----------------------------------------------------
 			
-			dlg2.dismiss();
+			d2.dismiss();
 			
 			break;// case dlg_generic_dismiss_second_dialog
 
 		case GENERIC_DISMISS_THIRD_DIALOG://------------------------------------------------
 			
-			dlg3.dismiss();
+			d3.dismiss();
 			
 			break;
 
+		case DLG_CONF_IMPORT_DB_OK://------------------------------------------------
+			
+			case_DLG_CONF_IMPORT_DB_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_IMPORT_DB_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.import_DB(actv, d1, d2, d3);
+		
+//		// Log
+//		String msg_Log = "Importing db file...";
+//		Log.d("DB_OCL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+	}
 
 }//DialogButtonOnClickListener

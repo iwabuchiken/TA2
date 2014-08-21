@@ -1,7 +1,6 @@
 
 package ta2.utils;
 
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -825,6 +824,322 @@ public static String
 		actv.startActivity(i);
 
 	}//start_Activity_PrefActv
+
+	/******************************
+		@return
+			-1	No db file<br>
+			-2	Copying db file => failed<br>
+			1	db file => copied<br>
+	 ******************************/
+	public static int 
+	import_DB
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// setup: src, dst
+
+		////////////////////////////////
+		// IFM10
+		String src_dir = CONS.DB.dPath_dbFile_backup_IFM11;
+//		String src_dir = CONS.DB.dPath_dbFile_backup;
+		
+		File f_dir = new File(src_dir);
+		
+		File[] src_dir_files = f_dir.listFiles();
+		
+		// If no files in the src dir, quit the method
+		if (src_dir_files.length < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread()
+						.getStackTrace()[2].getLineNumber()
+					+ "]", "No files in the dir: " + src_dir);
+			
+			return -1;
+			
+		}//if (src_dir_files.length == condition)
+		
+		// Latest file
+		File f_src_latest = src_dir_files[0];
+		
+		for (File file : src_dir_files) {
+			
+			if (f_src_latest.lastModified() < file.lastModified()) {
+						
+				f_src_latest = file;
+				
+			}//if (variable == condition)
+			
+		}//for (File file : src_dir_files)
+		
+		// Show the path of the latest file
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "f_src_latest=" + f_src_latest.getAbsolutePath());
+		
+		////////////////////////////////
+
+		// Restore file
+
+		////////////////////////////////
+		String src = f_src_latest.getAbsolutePath();
+		
+		String dst = StringUtils.join(
+				new String[]{
+						//REF http://stackoverflow.com/questions/9810430/get-database-path answered Jan 23 at 11:24
+						actv.getDatabasePath(CONS.DB.dbName).getPath()
+				},
+//						actv.getFilesDir().getPath() , 
+//						CONS.DB.dbName},
+				File.separator);
+		
+		// Log
+		String msg_Log = "db path => " 
+					+ actv.getDatabasePath(CONS.DB.dbName).getPath();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// build: db file path (dst)
+
+		////////////////////////////////
+		String tmp_str = Methods.get_Dirname(actv, dst);
+		
+		String dst_New = StringUtils.join(
+					new String[]{
+							
+							tmp_str,
+							CONS.DB.dbName_IFM11
+							
+					}, 
+					File.separator);
+		
+		// Log
+		msg_Log = String.format(
+							"src = %s // dst = %s", 
+							src, dst_New);
+		
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// import (using restoration-related method)
+
+		////////////////////////////////
+		boolean res = Methods.restore_DB(
+							actv, 
+							CONS.DB.dbName, 
+							src, dst_New);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "res=" + res);
+
+		
+//		//debug
+//		boolean res = true;
+		
+		/******************************
+			validate
+		 ******************************/
+		if (res == false) {		// copying db file => failed
+			
+			String msg = "Copying file => failed";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			d3.dismiss();
+			
+			return -2;
+			
+		}
+		
+		////////////////////////////////
+
+		// dismiss: dlg
+
+		////////////////////////////////
+		d3.dismiss();
+		d2.dismiss();
+		d1.dismiss();
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return 1;
+
+	}//import_DB
+
+	/*********************************
+	 * @return true => File copied(i.e. restored)<br>
+	 * 			false => Copying failed
+	 *********************************/
+	public static boolean
+	restore_DB
+	(Activity actv, String dbName, 
+			String src, String dst) {
+		/*********************************
+		 * 1. Setup db
+		 * 2. Setup: File paths
+		 * 3. Setup: File objects
+		 * 4. Copy file
+		 * 
+		 *********************************/
+		////////////////////////////////
+
+		// Setup db => This process is necessary if the database folder
+		//				is not yet created.
+
+		////////////////////////////////
+		
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+	
+		wdb.close();
+	
+		/*********************************
+		 * 2. Setup: File paths
+	
+		/*********************************
+		 * 3. Setup: File objects
+		 *********************************/
+	
+		/*********************************
+		 * 4. Copy file
+		 *********************************/
+		FileChannel iChannel = null;
+		FileChannel oChannel = null;
+		
+		try {
+			iChannel = new FileInputStream(src).getChannel();
+			oChannel = new FileOutputStream(dst).getChannel();
+			iChannel.transferTo(0, iChannel.size(), oChannel);
+			
+			iChannel.close();
+			oChannel.close();
+			
+			// Log
+			Log.d("ThumbnailActivity.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "File copied: " + src);
+			
+			// debug
+			Toast.makeText(actv, "DB restoration => Done", Toast.LENGTH_LONG).show();
+			
+			return true;
+	
+		} catch (FileNotFoundException e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Exception: " + e.toString());
+	
+				}
+				
+			}
+			
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+			
+			if (oChannel != null) {
+				
+				try {
+					oChannel.close();
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+	
+			return false;
+			
+		} catch (IOException e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+			
+			if (oChannel != null) {
+				
+				try {
+					oChannel.close();
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+	
+			
+			return false;
+			
+		}//try
+		
+	}//restore_DB
 
 }//public class Methods
 

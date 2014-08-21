@@ -19,7 +19,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
@@ -40,6 +42,7 @@ public class Adp_ListItems extends ArrayAdapter<ListItem> {
 	// Inflater
 	LayoutInflater inflater;
 
+	private TextView tv;
 	
 	/*--------------------------------------------------------
 	 * Constructor
@@ -167,17 +170,6 @@ public class Adp_ListItems extends ArrayAdapter<ListItem> {
 		iv.setImageDrawable(((Activity)con).getResources().getDrawable(li.getIconID()));
 //		iv.setBackgroundResource(li.getIconID());
 		
-		// Log
-		String msg_Log = String.format(
-						Locale.JAPAN,
-						"iconID (%s) => %d",
-						li.getText(),
-						li.getIconID());
-		
-		Log.d("Adp_ListItems.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
-		
 	}//_Setup_Views__IV
 
 	private void 
@@ -185,7 +177,8 @@ public class Adp_ListItems extends ArrayAdapter<ListItem> {
 	(View v, ListItem li) {
 		// TODO Auto-generated method stub
 		
-		TextView tv = (TextView) v.findViewById(R.id.list_row_slimple_iv_1_tv);
+		tv = (TextView) v.findViewById(R.id.list_row_slimple_iv_1_tv);
+//		TextView tv = (TextView) v.findViewById(R.id.list_row_slimple_iv_1_tv);
 		
 		tv.setText(li.getText());
 		
@@ -216,6 +209,37 @@ public class Adp_ListItems extends ArrayAdapter<ListItem> {
 		params.setMargins(5, 10, 10, 10);
 		
 		tv.setLayoutParams(params);
+		
+//		////////////////////////////////
+//
+//		// listener: onTouch
+//
+//		////////////////////////////////
+//		tv.setOnTouchListener(new OnTouchListener(){
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				switch (event.getActionMasked()) {
+//				
+//				case MotionEvent.ACTION_DOWN:
+//					
+//					tv.setBackgroundColor(
+//							((Activity)con).getResources().getColor(R.color.gray1));
+//					
+//					break;
+//					
+//				case MotionEvent.ACTION_UP:
+//
+//					tv.setBackgroundColor(
+//							((Activity)con).getResources().getColor(R.color.white));
+//					
+//					break;
+//					
+//				}
+//				
+//				return false;
+//			}});
 		
 	}//_Setup_Views__TV
 

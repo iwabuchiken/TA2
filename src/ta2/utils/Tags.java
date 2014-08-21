@@ -46,11 +46,14 @@ public class Tags {
 		// dlg_filter_timeline
 		dlg_Filter_Timeline_OK, dlg_Filter_Timeline_Reset,
 		
+		// dlg: import db => ok
+		DLG_CONF_IMPORT_DB_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {
 		// dlg_db_admin.xml
-		Admin_LV,
+		ACTV_MAIN_ADMIN_LV, ACTV_MAIN_ADMIN_LV_OPS,
 		
 		GV_Tweet,
 		

@@ -2,7 +2,9 @@ package ta2.listeners.dialog;
 
 
 import ta2.items.ListItem;
+import ta2.main.R;
 import ta2.utils.CONS;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,8 +25,8 @@ public class DOI_CL implements OnItemClickListener {
 
 	//
 	Activity actv;
-	Dialog dlg1;
-	Dialog dlg2;
+	Dialog d1;
+	Dialog d2;
 	
 	//
 	Vibrator vib;
@@ -37,7 +39,7 @@ public class DOI_CL implements OnItemClickListener {
 	public DOI_CL(Activity actv, Dialog dlg) {
 		// 
 		this.actv = actv;
-		this.dlg1 = dlg;
+		this.d1 = dlg;
 		
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 		
@@ -46,8 +48,8 @@ public class DOI_CL implements OnItemClickListener {
 	public DOI_CL(Activity actv, Dialog dlg, Dialog dlg2) {
 		// 
 		this.actv = actv;
-		this.dlg1 = dlg;
-		this.dlg2 = dlg2;
+		this.d1 = dlg;
+		this.d2 = dlg2;
 		
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 		
@@ -59,7 +61,7 @@ public class DOI_CL implements OnItemClickListener {
 		// TODO Auto-generated constructor stub
 		
 		this.actv = actv;
-		this.dlg1 = dlg1;
+		this.d1 = dlg1;
 		
 		this.file_Name	= file_Name;
 		
@@ -84,7 +86,7 @@ public class DOI_CL implements OnItemClickListener {
 		
 //		String item = (String) parent.getItemAtPosition(position);
 		
-		ListItem listItem;
+		ListItem li;
 		
 		/*----------------------------
 		 * 3. Switching
@@ -92,14 +94,22 @@ public class DOI_CL implements OnItemClickListener {
 		switch (tag) {
 		
 //		case dlg_db_admin_lv://----------------------------------------------
-		case Admin_LV://----------------------------------------------
+		case ACTV_MAIN_ADMIN_LV://----------------------------------------------
 			
-			listItem = (ListItem) parent.getItemAtPosition(position);
+			li = (ListItem) parent.getItemAtPosition(position);
 			
-			case_Admin_LV(listItem);
+			case_Admin_LV(li);
 			
 			break;// case dlg_add_memos_gv
 
+		case ACTV_MAIN_ADMIN_LV_OPS://----------------------------------------------
+			
+			li = (ListItem) parent.getItemAtPosition(position);
+			
+			case_ACTV_MAIN_ADMIN_LV_OPS(li);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
@@ -107,19 +117,56 @@ public class DOI_CL implements OnItemClickListener {
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
 
-	private void case_Admin_LV(ListItem item) {
+	private void 
+	case_ACTV_MAIN_ADMIN_LV_OPS
+	(ListItem li) {
 		// TODO Auto-generated method stub
+
+		if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_import_db))) {
+
+			Methods_dlg.conf_Import_DB(actv, d1, d2);
+			
+//		} else if (choice.equals(actv.getString(
+//					R.string.dlg_upload_image_item_email))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		
+//			String msg = actv.getString(
+//					R.string.dlg_upload_image_item_email)
+//					+ " => "
+//					+ "Sorry. Under construction";
+//			
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
 		
+		}
+
 		// Log
-		String msg_Log = "list item => " + item.getText();
+		String msg_Log = "item => " + li.getText();
 		Log.d("DOI_CL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
 	}
 
-	private void case_Admin_LV(String item) {
+	private void case_Admin_LV(ListItem item) {
 		// TODO Auto-generated method stub
+
+		if (item.getText().equals(actv.getString(
+				R.string.dlg_actvmain_admin_item_operations))) {
+
+			Methods_dlg.dlg_Admin_Ops(actv, d1);
+			
+//		} else if (choice.equals(actv.getString(
+//					R.string.dlg_upload_image_item_email))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		
+//			String msg = actv.getString(
+//					R.string.dlg_upload_image_item_email)
+//					+ " => "
+//					+ "Sorry. Under construction";
+//			
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+		
+		}
+
 		
 	}
 

@@ -65,6 +65,7 @@ public class DB_OTL implements OnTouchListener {
 				case GENERIC_DISMISS_THIRD_DIALOG:
 				case GENERIC_DISMISS_SECOND_DIALOG:
 					
+				case DLG_CONF_IMPORT_DB_OK:
 					
 					v.setBackgroundColor(Color.GRAY);
 					
@@ -80,6 +81,7 @@ public class DB_OTL implements OnTouchListener {
 			case GENERIC_DISMISS_SECOND_DIALOG:
 			case GENERIC_DISMISS_THIRD_DIALOG:
 
+			case DLG_CONF_IMPORT_DB_OK:
 				
 					v.setBackgroundColor(Color.WHITE);
 					
