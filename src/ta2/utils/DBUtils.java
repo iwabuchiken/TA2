@@ -1,10 +1,10 @@
 package ta2.utils;
 
-
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import ta2.main.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -281,6 +281,109 @@ public class DBUtils extends SQLiteOpenHelper{
 
 	}//public boolean createTable(SQLiteDatabase db, String tableName)
 
+	/******************************
+		createTable()
+		
+		@param columns, types => use non-full version
+		@return
+				-1	Table exists<br>
+				-2	Exception in executing the sql<br>
+				1	Table created<br>
+	 ******************************/
+	public static int 
+	createTable
+	(Activity actv, 
+		String dbName, String tableName, 
+		String[] columns, String[] types) {
+		/*----------------------------
+		 * Steps
+		 * 1. Table exists?
+		 * 2. Build sql
+		 * 3. Exec sql
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		////////////////////////////////
+
+		// validate: table exists
+
+		////////////////////////////////
+		if (DBUtils.tableExists(actv, dbName, tableName)) {
+			// Log
+			Log.i("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists => " + tableName);
+			
+			return -1;
+
+		}//if (!tableExists(SQLiteDatabase db, String tableName))
+		
+		////////////////////////////////
+
+		// Build sql
+
+		////////////////////////////////
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("CREATE TABLE " + tableName + " (");
+		sb.append(android.provider.BaseColumns._ID +
+				" INTEGER PRIMARY KEY AUTOINCREMENT, ");
+		
+		// created_at, modified_at
+		sb.append("created_at TEXT, modified_at TEXT, ");
+//		sb.append("created_at INTEGER, modified_at INTEGER, ");
+		
+		int i = 0;
+		for (i = 0; i < columns.length - 1; i++) {
+			sb.append(columns[i] + " " + types[i] + ", ");
+		}//for (int i = 0; i < columns.length - 1; i++)
+		
+		sb.append(columns[i] + " " + types[i]);
+		
+		sb.append(");");
+		
+		// Log
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "sql => " + sb.toString());
+		
+		////////////////////////////////
+
+		// Exec sql
+
+		////////////////////////////////
+		try {
+			//	db.execSQL(sql);
+			wdb.execSQL(sb.toString());
+			
+			// Log
+			Log.d(actv.getClass().getName() + 
+					"["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table created => " + tableName);
+			
+			wdb.close();
+			
+			return 1;
+			
+		} catch (SQLException e) {
+			
+			// Log
+			Log.e(actv.getClass().getName() + 
+					"[" + Thread.currentThread().getStackTrace()[2].getLineNumber() + "]", 
+					"Exception => " + e.toString());
+			
+			wdb.close();
+			
+			return -2;
+			
+		}//try
+		
+	}//createTable_static
+	
 	public boolean tableExists(SQLiteDatabase db, String tableName) {
 		// The table exists?
 		Cursor cursor = db.rawQuery(
@@ -1270,6 +1373,154 @@ public class DBUtils extends SQLiteOpenHelper{
 		return 1;
 		
 	}//exec_Sql
+
+	/******************************
+		@return -1 => Table doesn't exist<br>
+	 ******************************/
+	public static int 
+	insert_Data_Patterns
+	(Activity actv, List<String> patterns_List) {
+		// TODO Auto-generated method stub
+		
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		////////////////////////////////
+	
+		// validate: table exists
+	
+		////////////////////////////////
+		if (!DBUtils.tableExists(
+					actv, CONS.DB.dbName, CONS.DB.tname_Patterns)) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist => " + CONS.DB.tname_Patterns);
+			
+//			String msg = "Table doesn't exist => " + CONS.DB.tname_Patterns;
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return -1;
+			
+		}//if (!tableExists(SQLiteDatabase db, String tableName))
+		
+		////////////////////////////////
+	
+		// Iteration
+	
+		////////////////////////////////
+		int counter = 0;
+		
+		ContentValues val = null;
+	//	
+		for (String pattern : patterns_List) {
+			
+			////////////////////////////////
+			
+			// prep: content values
+			
+			////////////////////////////////
+			val = _insert_Data_Patterns__ContentValues(pattern);
+			
+			try {
+				// Start transaction
+				wdb.beginTransaction();
+				
+				// Insert data
+				long res = wdb.insert(CONS.DB.tname_Patterns, null, val);
+	//			long res = wdb.insert(CONS.DB.tname_RefreshLog, null, val);
+			
+				if (res == -1) {
+					
+					// Log
+					String msg_Log = "insertion => failed: " + pattern;
+					Log.e("DBUtils.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+	
+				} else {
+					
+	//				// Log
+	//				String msg_Log = "insertion => done";
+	//				Log.d("DBUtils.java"
+	//						+ "["
+	//						+ Thread.currentThread().getStackTrace()[2]
+	//								.getLineNumber() + "]", msg_Log);
+					
+					counter += 1;
+					
+					// Set as successful
+					wdb.setTransactionSuccessful();
+					
+				}
+				
+	//			// Set as successful
+	//			wdb.setTransactionSuccessful();
+				
+				// End transaction
+				wdb.endTransaction();
+				
+			} catch (Exception e) {
+				
+				// Log
+				// Log
+				String msg_Log = String.format(
+									"Exception(%s) => %s", 
+									pattern, e.toString());
+				Log.e("DBUtils.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			}//try
+			
+		}//for (String pattern : patterns_List)
+	
+		////////////////////////////////
+	
+		// close
+	
+		////////////////////////////////
+		wdb.close();
+	
+		////////////////////////////////
+	
+		// return
+	
+		////////////////////////////////
+		return counter;
+		
+	}//insert_Data_Patterns
+
+	private static ContentValues 
+	_insert_Data_Patterns__ContentValues
+	(String pattern) {
+		// TODO Auto-generated method stub
+		ContentValues val = new ContentValues();
+		
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"word",									// 3
+//		"table_name"							// 4
+		
+		val.put(
+				"created_at", 
+				Methods.conv_MillSec_to_TimeLabel(
+								Methods.getMillSeconds_now()));
+		
+		val.put(
+				"modified_at", 
+				Methods.conv_MillSec_to_TimeLabel(
+						Methods.getMillSeconds_now()));
+		
+		val.put("word", pattern);
+		
+//		val.put("table_name", CONS.DB.tname_IFM11);
+
+		return val;
+		
+	}//_insert_Data_Patterns__ContentValues
 
 }//public class DBUtils
 

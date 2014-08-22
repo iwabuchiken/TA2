@@ -145,15 +145,33 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 
+		case GENERIC_CLEAR_SECOND_DIALOG://------------------------------------------------
+			
+			case_GENERIC_CLEAR_SECOND_DIALOG();
+			
+			break;
+			
 		case DLG_CONF_IMPORT_DB_OK://------------------------------------------------
 			
 			case_DLG_CONF_IMPORT_DB_OK();
 			
 			break;
 			
-		case GENERIC_CLEAR_SECOND_DIALOG://------------------------------------------------
+		case DLG_CONF_IMPORT_PATTERNS_OK://------------------------------------------------
 			
-			case_GENERIC_CLEAR_SECOND_DIALOG();
+			case_DLG_CONF_IMPORT_PATTERNS_OK();
+			
+			break;
+			
+		case DLG_CONF_CREATE_TABLE_PATTERNS_OK://------------------------------------------------
+			
+			case_DLG_CONF_CREATE_TABLE_PATTERNS_OK();
+			
+			break;
+			
+		case DLG_CONF_DROP_TABLE_PATTERNS_OK://------------------------------------------------
+			
+			case_DLG_CONF_DROP_TABLE_PATTERNS_OK();
 			
 			break;
 			
@@ -162,6 +180,29 @@ public class DB_OCL implements OnClickListener {
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void case_DLG_CONF_DROP_TABLE_PATTERNS_OK() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void 
+	case_DLG_CONF_CREATE_TABLE_PATTERNS_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.createTable_Patterns(actv, d1, d2, d3);
+		
+		
+		
+	}//case_DLG_CONF_CREATE_TABLE_PATTERNS_OK
+
+	private void 
+	case_DLG_CONF_IMPORT_PATTERNS_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.import_Patterns(actv, d1, d2, d3);
+		
+	}//case_DLG_CONF_IMPORT_PATTERNS_OK
 
 	private void 
 	case_GENERIC_CLEAR_SECOND_DIALOG() {

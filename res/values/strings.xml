@@ -18,6 +18,8 @@
     
     <!-- commmons　-->
     	<string name="commons_import_db_name">ifm11.db</string>
+    	<string name="commons_lbl_create_table">Create table</string>
+    	<string name="commons_lbl_drop_table">Drop table</string>
     
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">

@@ -1141,5 +1141,340 @@ public static String
 		
 	}//restore_DB
 
+	public static void 
+	import_Patterns
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// get: patterns list
+
+		////////////////////////////////
+		List<String> patterns_List = _import_Patterns__Get_PatternsList(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		// Log
+		if (patterns_List == null) {
+			
+			// Log
+			String msg_Log = "patterns_List => null";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		String msg_Log = "patterns_List => " + patterns_List.size();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// insert patterns
+
+		////////////////////////////////
+		int res = Methods._import_Patterns__SavePatterns(actv, patterns_List);
+		
+		// Log
+		msg_Log = "save pattern: res => " + res;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		if (res == -1) {
+			
+			String msg = "Table 'patterns' => doesn't exist";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			d3.dismiss();
+			
+		} else if (res == 0) {
+			
+			String msg = "No patterns saved";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			d3.dismiss();
+			
+		} else if (res > 0) {
+			
+			String msg = "Patterns saved => " + res;
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.green4);
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+		} else {
+			
+			String msg = "Unknown result => " + res;
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.yello);
+			
+			d3.dismiss();
+			
+		}
+		
+	}//import_Patterns
+
+	private static int 
+	_import_Patterns__SavePatterns
+	(Activity actv, List<String> patterns_List) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// insert
+
+		////////////////////////////////
+		boolean res;
+		
+		int counter = DBUtils.insert_Data_Patterns(actv, patterns_List);
+			
+		return counter;
+		
+	}//_import_Patterns__SavePatterns
+
+	/******************************
+		@return null => 1. No such table<br>
+						2. Cursor => null<br>
+						3. Cursor < 1 <br>
+	 ******************************/
+	private static List<String> 
+	_import_Patterns__Get_PatternsList
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+	
+		// db
+	
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName_IFM11);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+	
+		////////////////////////////////
+	
+		// Table exists?
+	
+		////////////////////////////////
+		String tableName = CONS.DB.tname_MemoPatterns_IFM11;
+		
+		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+			
+		} else {//if (res == false)
+			////////////////////////////////
+	
+			// no table => return
+	
+			////////////////////////////////
+	//		// Log
+	//		Log.d("Methods.java" + "["
+	//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+	//				+ "]", "Table doesn't exist: " + tableName);
+			
+			String msg = "Table doesn't exist: " + tableName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (res == false)
+		
+		
+		////////////////////////////////
+	
+		// Get cursor
+	
+		////////////////////////////////
+		// "_id"
+		String orderBy = CONS.DB.col_names_MemoPatterns_IFM11[0] + " ASC"; 
+		
+		Cursor c = rdb.query(
+						CONS.DB.tname_MemoPatterns_IFM11,
+						CONS.DB.col_names_MemoPatterns_IFM11,
+		//				CONS.DB.col_types_refresh_log_full,
+						null, null,		// selection, args 
+						null, 			// group by
+						null, 		// having
+						orderBy);
+	
+		/******************************
+			validate: null
+		 ******************************/
+		if (c == null) {
+	
+			String msg = "query => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		/******************************
+			validate: any entry?
+		 ******************************/
+		if (c.getCount() < 1) {
+	
+			String msg = "entry => < 1";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+	
+		////////////////////////////////
+	
+		// cursor: move to first
+	
+		////////////////////////////////
+		c.moveToFirst();
+		
+		////////////////////////////////
+	
+		// Get list
+	
+		////////////////////////////////
+		List<String> patternList = new ArrayList<String>();
+		
+		if (c.getCount() > 0) {
+			
+			for (int i = 0; i < c.getCount(); i++) {
+				
+				patternList.add(c.getString(0));	// 0 => "word"
+				
+				c.moveToNext();
+				
+			}//for (int i = 0; i < patternList.size(); i++)
+			
+		} else {//if (c.getCount() > 0)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "!c.getCount() > 0");
+			
+		}//if (c.getCount() > 0)
+		
+		
+		Collections.sort(patternList);
+	
+		////////////////////////////////
+	
+		// return
+	
+		////////////////////////////////
+		return patternList;
+		
+	}//_import_Patterns__Get_PatternsList
+
+	public static String
+	conv_MillSec_to_TimeLabel(long millSec)
+	{
+		//REF http://stackoverflow.com/questions/7953725/how-to-convert-milliseconds-to-date-format-in-android answered Oct 31 '11 at 12:59
+		String dateFormat = CONS.Admin.format_Date;
+//		String dateFormat = "yyyy/MM/dd hh:mm:ss.SSS";
+		
+		DateFormat formatter = new SimpleDateFormat(dateFormat, Locale.JAPAN);
+//		DateFormat formatter = new SimpleDateFormat(dateFormat);
+
+		// Create a calendar object that will convert the date and time value in milliseconds to date. 
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.setTimeInMillis(millSec);
+		
+		return formatter.format(calendar.getTime());
+		
+	}//conv_MillSec_to_TimeLabel(long millSec)
+
+	public static void 
+	createTable_Patterns
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+		int res = DBUtils.createTable(
+						actv, 
+						CONS.DB.dbName, 
+						CONS.DB.tname_Patterns, 
+						CONS.DB.col_names_Patterns, 
+						CONS.DB.col_types_Patterns);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+
+//		-1	Table exists<br>
+//		-2	Exception in executing the sql<br>
+//		1	Table created<br>
+		
+		case -1: 
+			
+			msg = "Table alread exists => " + CONS.DB.tname_Patterns;
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Exception in executing the sql";
+			colorID = R.color.red;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case 1: 
+			
+			msg = "Table created => " + CONS.DB.tname_Patterns;
+			colorID = R.color.green4;
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID,
+				CONS.Admin.dflt_MessageDialog_Length);
+		
+	}//createTable_Patterns
+
+	
 }//public class Methods
 

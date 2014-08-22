@@ -51,6 +51,12 @@ public class Tags {
 		// dlg: import db => ok
 		DLG_CONF_IMPORT_DB_OK,
 		
+		// dlg: import patterns => ok
+		DLG_CONF_IMPORT_PATTERNS_OK,
+		
+		// dlg: create/drop table: patterns
+		DLG_CONF_CREATE_TABLE_PATTERNS_OK, DLG_CONF_DROP_TABLE_PATTERNS_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {

@@ -127,16 +127,21 @@ public class DOI_CL implements OnItemClickListener {
 
 			Methods_dlg.conf_Import_DB(actv, d1, d2);
 			
-//		} else if (choice.equals(actv.getString(
-//					R.string.dlg_upload_image_item_email))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-//		
-//			String msg = actv.getString(
-//					R.string.dlg_upload_image_item_email)
-//					+ " => "
-//					+ "Sorry. Under construction";
-//			
-//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 		
+			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
+		
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
+			
 		}
 
 		// Log

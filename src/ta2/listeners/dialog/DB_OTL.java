@@ -67,6 +67,12 @@ public class DB_OTL implements OnTouchListener {
 					
 				case DLG_CONF_IMPORT_DB_OK:
 					
+				case DLG_CONF_IMPORT_PATTERNS_OK:
+					
+				case DLG_CONF_CREATE_TABLE_PATTERNS_OK:
+					
+				case DLG_CONF_DROP_TABLE_PATTERNS_OK:
+					
 					v.setBackgroundColor(Color.GRAY);
 					
 					break;
@@ -82,6 +88,12 @@ public class DB_OTL implements OnTouchListener {
 			case GENERIC_DISMISS_THIRD_DIALOG:
 
 			case DLG_CONF_IMPORT_DB_OK:
+				
+			case DLG_CONF_IMPORT_PATTERNS_OK:
+				
+			case DLG_CONF_CREATE_TABLE_PATTERNS_OK:
+				
+			case DLG_CONF_DROP_TABLE_PATTERNS_OK:
 				
 					v.setBackgroundColor(Color.WHITE);
 					

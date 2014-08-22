@@ -197,6 +197,20 @@ public class CONS {
 		
 		////////////////////////////////
 
+		// table: memo_patterns (IFM11)
+
+		////////////////////////////////
+		public static String tname_MemoPatterns_IFM11 = "memo_patterns";
+		
+		public static String[] col_names_MemoPatterns_IFM11 = {
+			
+			"word",							// 0
+			"table_name"					// 1
+					
+		};
+
+		////////////////////////////////
+
 		// Others
 
 		////////////////////////////////
