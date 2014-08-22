@@ -48,41 +48,41 @@ public class MemoActv extends Activity {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		
-		////////////////////////////////
-
-		// bgm => stop
-
-		////////////////////////////////
-		if (CONS.Audio.task_Audio != null) {
-			
-			CONS.Audio.task_Audio.cancel(true);
-			
-			// Log
-			String msg_Log = "task audio => cancelled";
-			Log.d("MemoActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			// End the task
-			CONS.Audio.task_Audio = null;
-			
-			if (CONS.Audio.audioTrack != null) {
-				
-				CONS.Audio.audioTrack.release();
-				
-				// Log
-				msg_Log = "audio => released";
-				Log.d("MemoActv.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", msg_Log);
-				
-			}
-			
-			//test
-			CONS.Audio.audioTrack = null;
-			
-		}
+//		////////////////////////////////
+//
+//		// bgm => stop
+//
+//		////////////////////////////////
+//		if (CONS.Audio.task_Audio != null) {
+//			
+//			CONS.Audio.task_Audio.cancel(true);
+//			
+//			// Log
+//			String msg_Log = "task audio => cancelled";
+//			Log.d("MemoActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			// End the task
+//			CONS.Audio.task_Audio = null;
+//			
+//			if (CONS.Audio.audioTrack != null) {
+//				
+//				CONS.Audio.audioTrack.release();
+//				
+//				// Log
+//				msg_Log = "audio => released";
+//				Log.d("MemoActv.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+//				
+//			}
+//			
+//			//test
+//			CONS.Audio.audioTrack = null;
+//			
+//		}
 		
 		this.finish();
 		
@@ -195,7 +195,9 @@ public class MemoActv extends Activity {
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
+		
 		super.onStop();
+		
 	}
 
 	

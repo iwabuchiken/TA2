@@ -184,7 +184,19 @@ public class DOI_CL implements OnItemClickListener {
 		// bgm
 		
 		////////////////////////////////
-		Methods.start_SE(actv, CONS.Audio.Clip.dialog_Item);
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		// avoid starting the same task instance more than once
+		//		at a time
+		if (val == true) {
+			
+			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Item);
+			
+		}
 		
 		////////////////////////////////
 

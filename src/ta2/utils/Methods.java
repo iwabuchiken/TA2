@@ -1873,5 +1873,23 @@ public static String
 		
 	}
 	
+	public static void 
+	start_SE_new
+	(Activity actv, int audioID) {
+		// TODO Auto-generated method stub
+		
+		Task_AudioTrack task_Audio = new Task_AudioTrack(actv);
+		
+		// Log
+		String msg_Log = "starting task audio...";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		task_Audio.execute(audioID);
+				
+			
+	}//start_SE_new
+	
 }//public class Methods
 

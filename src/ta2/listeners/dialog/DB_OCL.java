@@ -150,6 +150,9 @@ public class DB_OCL implements OnClickListener {
 
 		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
 		
+		// Used for sound effect
+		boolean val;
+		
 		// Log
 		Log.d("DialogButtonOnClickListener.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -165,7 +168,19 @@ public class DB_OCL implements OnClickListener {
 			// bgm
 
 			////////////////////////////////
-			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+			val = Methods.get_Pref_Boolean(
+					actv, 
+					CONS.Pref.pname_MainActv, 
+					actv.getString(R.string.prefs_sound_effect_key), 
+					false);
+
+			if (val == true) {
+				
+				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+				
+			}
+
+//			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
 
 			
 			d1.dismiss();
@@ -175,11 +190,21 @@ public class DB_OCL implements OnClickListener {
 		case GENERIC_DISMISS_SECOND_DIALOG: // ----------------------------------------------------
 			
 			///////////////////////////////
-			
+
 			// bgm
-			
+
 			////////////////////////////////
-			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+			val = Methods.get_Pref_Boolean(
+					actv, 
+					CONS.Pref.pname_MainActv, 
+					actv.getString(R.string.prefs_sound_effect_key), 
+					false);
+
+			if (val == true) {
+				
+				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+				
+			}
 			
 			d2.dismiss();
 			
@@ -188,11 +213,21 @@ public class DB_OCL implements OnClickListener {
 		case GENERIC_DISMISS_THIRD_DIALOG://------------------------------------------------
 			
 			///////////////////////////////
-			
+
 			// bgm
-			
+
 			////////////////////////////////
-			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+			val = Methods.get_Pref_Boolean(
+					actv, 
+					CONS.Pref.pname_MainActv, 
+					actv.getString(R.string.prefs_sound_effect_key), 
+					false);
+
+			if (val == true) {
+				
+				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+				
+			}
 
 			d3.dismiss();
 			

@@ -102,40 +102,40 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_MEMO_BACK() {
 		// TODO Auto-generated method stub
 		
-		////////////////////////////////
-		
-		// bgm => stop
-		
-		////////////////////////////////
-		if (CONS.Audio.task_Audio != null) {
-		
-			CONS.Audio.task_Audio.cancel(true);
-			
-			// Log
-			String msg_Log = "task audio => cancelled";
-			Log.d("MemoActv.java" + "["
-			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-			+ "]", msg_Log);
-			
-			// End the task
-			CONS.Audio.task_Audio = null;
-			
-			if (CONS.Audio.audioTrack != null) {
-				
-				CONS.Audio.audioTrack.release();
-				
-				// Log
-				msg_Log = "audio => released";
-				Log.d("MemoActv.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", msg_Log);
-				
-			}
-			//test
-			CONS.Audio.audioTrack = null;
-		
-		}
+//		////////////////////////////////
+//		
+//		// bgm => stop
+//		
+//		////////////////////////////////
+//		if (CONS.Audio.task_Audio != null) {
+//		
+//			CONS.Audio.task_Audio.cancel(true);
+//			
+//			// Log
+//			String msg_Log = "task audio => cancelled";
+//			Log.d("MemoActv.java" + "["
+//			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//			+ "]", msg_Log);
+//			
+//			// End the task
+//			CONS.Audio.task_Audio = null;
+//			
+//			if (CONS.Audio.audioTrack != null) {
+//				
+//				CONS.Audio.audioTrack.release();
+//				
+//				// Log
+//				msg_Log = "audio => released";
+//				Log.d("MemoActv.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+//				
+//			}
+//			//test
+//			CONS.Audio.audioTrack = null;
+//		
+//		}
 
 		
 		actv.finish();
@@ -147,6 +147,25 @@ public class BO_CL implements OnClickListener {
 	private void 
 	case_MEMO() {
 		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// bgm
+
+		////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		// avoid starting the same task instance more than once
+		//		at a time
+		if (val == true) {
+			
+			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+			
+		}
 		
 //		////////////////////////////////
 //
@@ -226,7 +245,7 @@ public class BO_CL implements OnClickListener {
 //		task.execute(bgmResourceId);
 		
 		// se
-		Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+//		Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
 		
 		Methods.start_Activity_MemoActv(actv);
 		
