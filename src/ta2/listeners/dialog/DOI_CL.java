@@ -3,7 +3,9 @@ package ta2.listeners.dialog;
 
 import ta2.items.ListItem;
 import ta2.main.R;
+import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
+import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
@@ -42,6 +44,28 @@ public class DOI_CL implements OnItemClickListener {
 		this.d1 = dlg;
 		
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+		
+		////////////////////////////////
+
+		// se
+
+		////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		if (val == true) {
+			
+			if (CONS.Audio.task_Audio == null) {
+				
+				CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+				
+			}
+			
+		}
+
 		
 	}//public DialogOnItemClickListener(Activity actv, Dialog dlg)
 
@@ -155,9 +179,23 @@ public class DOI_CL implements OnItemClickListener {
 	private void case_Admin_LV(ListItem item) {
 		// TODO Auto-generated method stub
 
+		////////////////////////////////
+		
+		// bgm
+		
+		////////////////////////////////
+		Methods.start_SE(actv, CONS.Audio.Clip.dialog_Item);
+		
+		////////////////////////////////
+
+		// dispatch
+
+		////////////////////////////////
 		if (item.getText().equals(actv.getString(
 				R.string.dlg_actvmain_admin_item_operations))) {
 
+
+			
 			Methods_dlg.dlg_Admin_Ops(actv, d1);
 			
 //		} else if (choice.equals(actv.getString(
@@ -170,6 +208,16 @@ public class DOI_CL implements OnItemClickListener {
 //			
 //			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
 		
+		} else {
+			
+//			////////////////////////////////
+//			
+//			// bgm
+//			
+//			////////////////////////////////
+//			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Item_UnderConstruction);
+//		Methods.start_SE(actv, R.raw.tap_x0_094);
+			
 		}
 
 		

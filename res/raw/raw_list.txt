@@ -1,3 +1,6 @@
 1	audio_nature.wav	Nature Ambiance-SoundBible.com-1444637890.wav	http://soundbible.com/1263-Nature-Ambiance.html
 2	audio_water.wav	Water-Lisa_Redfern-1888623835.wav	http://soundbible.com/2032-Water.html
 3	tap_x0_094.wav	91681__zinzan-101__jd-hihat.wav	http://www.freesound.org/people/zinzan_101/sounds/91681/
+4	tap_hightlight_x0_362.wav	209058__senitiel__highlight.wav	http://www.freesound.org/people/senitiel/sounds/209058/
+5	tap_select04_x0_183.wav	211763__taira-komori__select04.wav	http://www.freesound.org/people/Taira%20Komori/sounds/211763/
+6	tap_cursor1.mp3	cursor1.mp3	http://soundeffect-lab.info/sound/button/

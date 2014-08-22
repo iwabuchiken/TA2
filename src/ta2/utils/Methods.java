@@ -75,6 +75,7 @@ import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
+import ta2.tasks.Task_AudioTrack;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
 //REF=> http://www.searchman.info/tips/2640.html
@@ -1546,7 +1547,14 @@ public static String
 		
 	}//createTable_Patterns
 
-	public static void 
+	/******************************
+		@return
+			-1	CONS.Audio.audioTrack => null<br>
+			-2	CONS.Audio.audioTrack.write => NullPointerException<br>
+			-3	CONS.Audio.audioTrack => Exception<br>
+			1	CONS.Audio.audioTrack => stopped<br>
+	 ******************************/
+	public static int 
 	playSound
 	(Activity actv, int bgmResourceId) {
 		// TODO Auto-generated method stub
@@ -1590,28 +1598,114 @@ public static String
 //		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
-		
+
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.Audio.audioTrack == null) {
+			
+			// Log
+			String msg_Log = "CONS.Audio.audioTrack => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+	
 		CONS.Audio.audioTrack.setStereoVolume(vol, vol);
-		
+
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.Audio.audioTrack == null) {
+			
+			// Log
+			String msg_Log = "CONS.Audio.audioTrack => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+
+		////////////////////////////////
+
+		// setup: stream
+
+		////////////////////////////////
+		InputStream inputStream = 
+				actv.getResources().openRawResource(bgmResourceId);
+
+		////////////////////////////////
+
+		// set: play
+
+		////////////////////////////////
 		CONS.Audio.audioTrack.play();
 		
 		//InputStream inputStream = actv.getResources().openRawResource(R.raw.bgm_1);
 		
-//		InputStream inputStream = actv.getResources().openRawResource(R.raw.bgm_2_koto_t150_1second);
-		InputStream inputStream = 
-						actv.getResources().openRawResource(bgmResourceId);
+//		InputStream inputStream = 
+//						actv.getResources().openRawResource(bgmResourceId);
 		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.Audio.audioTrack == null) {
+			
+			// Log
+			String msg_Log = "CONS.Audio.audioTrack => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+
+		////////////////////////////////
+
+		// write: audio
+
+		////////////////////////////////
 		try {
 			
 			while((i = inputStream.read(buffer)) != -1)
 				CONS.Audio.audioTrack.write(buffer, 0, i);
 			
+		} catch (NullPointerException e) {
+			
+			// Log
+			String msg_Log = "NullPointerException!";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e.printStackTrace();
+			
+			return -2;
+			
 		} catch (IOException e) {
+			
+			// Log
+			String msg_Log = "IOException!";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 		
+		////////////////////////////////
+
+		// close: stream
+
+		////////////////////////////////
 		try {
 			
 			inputStream.close();
@@ -1630,8 +1724,53 @@ public static String
 			
 		}
 
-		CONS.Audio.audioTrack.stop();
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.Audio.audioTrack == null) {
+			
+			// Log
+			String msg_Log = "CONS.Audio.audioTrack => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+
+		////////////////////////////////
+
+		// stop
+
+		////////////////////////////////
 		
+		CONS.Audio.audioTrack.flush();
+		
+		// Log
+		String msg_Log = "audio track => flushed";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		try {
+			
+			CONS.Audio.audioTrack.stop();
+			
+		} catch (Exception e) {
+			
+			// Log
+			msg_Log = "Exception!";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			e.printStackTrace();
+			
+			return -3;
+			
+		}
 		// Log
 		Log.d("Methods_sl.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -1639,7 +1778,100 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "Audio stopped");
 		
+		////////////////////////////////
+
+		// release
+
+		////////////////////////////////
+		CONS.Audio.audioTrack.release();
+		
+		// Log
+		msg_Log = "audio => released";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		return 1;
+		
 	}//playSound
+
+	public static void 
+	start_SE
+	(Activity actv, int audioID) {
+		// TODO Auto-generated method stub
+		
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		// avoid starting the same task instance more than once
+		//		at a time
+		if (val == true) {
+			
+			// Log
+			String msg_Log = "Memo => starting SE...";
+			Log.d("BO_CL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			if (CONS.Audio.task_Audio != null) {
+				
+				// Log
+				msg_Log = "CONS.Audio.task_Audio => not null";
+				Log.d("BO_CL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				if(CONS.Audio.audioTrack != null) {
+//				if (CONS.Audio.task_Audio != null
+//						&& CONS.Audio.audioTrack != null) {
+				
+					// Log
+					msg_Log = "cancelling task audio...";
+					Log.d("BO_CL.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					CONS.Audio.task_Audio.cancel(true);
+					
+					CONS.Audio.task_Audio = null;
+					
+					// Log
+					msg_Log = "audio task => re-initializing...";
+					Log.d("DOI_CL.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+					
+				}
+				
+			} else {
+
+				msg_Log = "NOT cancelling task audio...";
+				Log.d("BO_CL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+
+			}
+			
+			int bgmResourceId = audioID;
+//			int bgmResourceId = R.raw.tap_x0_094;
+			
+//			CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+//		Task_AudioTrack task = new Task_AudioTrack(actv);
+			
+//		task.execute("Start");
+			CONS.Audio.task_Audio.execute(bgmResourceId);
+			
+		}//if (val == true)
+		
+	}
 	
 }//public class Methods
 

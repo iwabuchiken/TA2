@@ -1,5 +1,7 @@
 package ta2.listeners.dialog;
 
+import ta2.main.R;
+import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Tags;
@@ -37,10 +39,39 @@ public class DB_OCL implements OnClickListener {
 		this.actv = actv;
 		this.d1 = dlg1;
 		
+		this._Init_SoundEffect(actv);
 		//
 //		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
 		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 	}
+
+	private void 
+	_Init_SoundEffect
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// se
+
+		////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		if (val == true) {
+			
+			if (CONS.Audio.task_Audio == null) {
+				
+				CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+				
+			}
+			
+		}
+		
+	}//_Init_SoundEffect
 
 	public DB_OCL(Activity actv, Dialog dlg1,
 			Dialog dlg2) {
@@ -129,11 +160,26 @@ public class DB_OCL implements OnClickListener {
 		
 		case GENERIC_DISMISS://------------------------------------------------
 			
+			///////////////////////////////
+
+			// bgm
+
+			////////////////////////////////
+			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+
+			
 			d1.dismiss();
 			
 			break;
 
 		case GENERIC_DISMISS_SECOND_DIALOG: // ----------------------------------------------------
+			
+			///////////////////////////////
+			
+			// bgm
+			
+			////////////////////////////////
+			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
 			
 			d2.dismiss();
 			
@@ -141,6 +187,13 @@ public class DB_OCL implements OnClickListener {
 
 		case GENERIC_DISMISS_THIRD_DIALOG://------------------------------------------------
 			
+			///////////////////////////////
+			
+			// bgm
+			
+			////////////////////////////////
+			Methods.start_SE(actv, CONS.Audio.Clip.dialog_Cancel);
+
 			d3.dismiss();
 			
 			break;

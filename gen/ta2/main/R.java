@@ -158,7 +158,10 @@ public final class R {
         public static final int audio_nature_mp3_=0x7f050002;
         public static final int audio_water=0x7f050003;
         public static final int raw_list=0x7f050004;
-        public static final int tap_x0_094=0x7f050005;
+        public static final int tap_cursor1=0x7f050005;
+        public static final int tap_hightlight_x0_362=0x7f050006;
+        public static final int tap_select04_x0_183=0x7f050007;
+        public static final int tap_x0_094=0x7f050008;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;

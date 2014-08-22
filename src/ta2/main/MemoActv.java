@@ -66,6 +66,19 @@ public class MemoActv extends Activity {
 			// End the task
 			CONS.Audio.task_Audio = null;
 			
+			if (CONS.Audio.audioTrack != null) {
+				
+				CONS.Audio.audioTrack.release();
+				
+				// Log
+				msg_Log = "audio => released";
+				Log.d("MemoActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
 			//test
 			CONS.Audio.audioTrack = null;
 			

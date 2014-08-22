@@ -1,13 +1,16 @@
 package ta2.tasks;
 
+import ta2.main.R;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
+import ta2.utils.Methods_dlg;
 import android.app.Activity;
 import android.media.AudioTrack;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class Task_AudioTrack extends AsyncTask<Integer, Integer, Integer> {
+public class Task_AudioTrack 
+					extends AsyncTask<Integer, Integer, Integer> {
 
 	@Override
 	protected void onPreExecute() {
@@ -45,9 +48,10 @@ public class Task_AudioTrack extends AsyncTask<Integer, Integer, Integer> {
 //			
 //		}
 		
-		Methods.playSound(actv, bgmResourceIds[0]);
+		int res = Methods.playSound(actv, bgmResourceIds[0]);
 		
-		return null;
+		return res;
+//		return null;
 		
 	}
 
@@ -97,9 +101,119 @@ public class Task_AudioTrack extends AsyncTask<Integer, Integer, Integer> {
 	}
 
 	@Override
-	protected void onPostExecute(Integer result) {
+	protected void 
+	onPostExecute
+	(Integer result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-	}
+		
+		int res = result.intValue();
+		
+		////////////////////////////////
 
-}
+		// dispatch
+
+		////////////////////////////////
+		if(res == -1) { 
+		
+			String msg = "audioTrack => null";
+			int colorID = R.color.red;
+			
+		
+			Methods_dlg.dlg_ShowMessage_Duration(
+						actv, 
+						msg,
+						colorID,
+						CONS.Admin.dflt_MessageDialog_Length);
+			
+			// Log
+			Log.d("Task_AudioTrack.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg);
+		
+		} else if(res == -2) {
+
+			String msg = "audioTrack => NullPointerException";
+			int colorID = R.color.red;
+			
+			////////////////////////////////
+
+			// countermeasure for: error
+
+			////////////////////////////////
+			if (CONS.Audio.task_Audio != null) {
+				
+				CONS.Audio.task_Audio.cancel(true);
+				
+				// Log
+				String msg_Log = "task audio => cancelled";
+				Log.d("MemoActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				// End the task
+				CONS.Audio.task_Audio = null;
+				
+				if (CONS.Audio.audioTrack != null) {
+					
+					CONS.Audio.audioTrack.release();
+					
+					// Log
+					msg_Log = "audio => released";
+					Log.d("MemoActv.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+				}
+				
+				//test
+				CONS.Audio.audioTrack = null;
+				
+			}
+			
+			////////////////////////////////
+
+			// message
+
+			////////////////////////////////
+			Methods_dlg.dlg_ShowMessage_Duration(
+						actv, 
+						msg,
+						colorID,
+						CONS.Admin.dflt_MessageDialog_Length);
+			
+			// Log
+			Log.d("Task_AudioTrack.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg);
+
+		} else if(res == -3) {
+			
+			String msg = "audioTrack => null";
+			int colorID = R.color.red;
+			
+			////////////////////////////////
+			
+			// message
+			
+			////////////////////////////////
+			Methods_dlg.dlg_ShowMessage_Duration(
+					actv, 
+					msg,
+					colorID,
+					CONS.Admin.dflt_MessageDialog_Length);
+			
+			// Log
+			Log.d("Task_AudioTrack.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg);
+			
+			
+		}
+
+		
+
+	}//onPostExecute
+
+}//Task_AudioTrack

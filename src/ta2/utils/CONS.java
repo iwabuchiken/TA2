@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.ListItem;
+import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 
 import android.content.SharedPreferences;
@@ -461,6 +462,18 @@ public class CONS {
 		public static Task_AudioTrack task_Audio;
 		
 		public static float dflt_Audio_Volume = 1.0f;
+		
+		public static class Clip {
+			
+			public static int dialog_Item		= R.raw.tap_select04_x0_183;
+			
+//			public static int dialog_Item_UnderConstruction	= 
+//													R.raw.tap_select04_x0_183;
+			
+			public static int dialog_Cancel		= R.raw.tap_hightlight_x0_362;
+//			public static int dialog_Cancel		= R.raw.tap_x0_094;
+			
+		}
 		
 	}
 	
