@@ -1,5 +1,6 @@
 package ta2.main;
 
+import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MemoActv extends Activity {
@@ -188,6 +190,18 @@ public class MemoActv extends Activity {
 		bt_Back.setOnClickListener(new BO_CL(this));
 		
 //		bt_Up.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+
+		// LL: base
+
+		////////////////////////////////
+		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_memo_ll_base);
+		
+		ll_Base.setTag(Tags.SwipeTags.ACTV_MEMO);
+		
+		ll_Base.setOnTouchListener(new STL(this));
+
 		
 	}
 

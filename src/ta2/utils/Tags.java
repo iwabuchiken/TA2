@@ -2,6 +2,12 @@ package ta2.utils;
 
 public class Tags {
 
+	public enum SwipeTags {
+		
+		ACTV_MAIN, ACTV_MEMO,
+
+	}
+
 	public static enum ButtonTags {
 		// actv_main
 		ACTV_MAIN_MEMO, LIST, LOGIN, LOGOUT,
