@@ -10,7 +10,7 @@ public class Tags {
 		BACK, SEND_TWEET, PATTERN,
 		
 		// actv_memo
-		ACTV_MAIN_BACK,
+		ACTV_MEMO_BACK,
 		
 	}
 	

@@ -2,6 +2,7 @@ package ta2.main;
 
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
+import ta2.utils.CONS;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
@@ -47,6 +48,28 @@ public class MemoActv extends Activity {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		
+		////////////////////////////////
+
+		// bgm => stop
+
+		////////////////////////////////
+		if (CONS.Audio.task_Audio != null) {
+			
+			CONS.Audio.task_Audio.cancel(true);
+			
+			// Log
+			String msg_Log = "task audio => cancelled";
+			Log.d("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			// End the task
+			CONS.Audio.task_Audio = null;
+			
+			//test
+			CONS.Audio.audioTrack = null;
+			
+		}
 		
 		this.finish();
 		
@@ -145,7 +168,7 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		ImageButton bt_Back = (ImageButton) this.findViewById(R.id.actv_memo_ib_back);
 		
-		bt_Back.setTag(Tags.ButtonTags.ACTV_MAIN_BACK);
+		bt_Back.setTag(Tags.ButtonTags.ACTV_MEMO_BACK);
 		
 		bt_Back.setOnTouchListener(new BO_TL(this));
 		

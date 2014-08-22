@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    
+    <CheckBoxPreference
+        android:title="@string/prefs_sound_effect_titile"
+        android:key="@string/prefs_sound_effect_key"
+        android:summary="@string/prefs_sound_effect_summary"
+        android:defaultValue="false"
+        
+        />
+
+</PreferenceScreen>

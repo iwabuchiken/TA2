@@ -70,5 +70,15 @@
    		    										Drop table: memos</string>
    		<string name="dlg_actvmain_operations_create_table_memos">
    		    							Create table: memos</string>
-    		
+
+   	<!-- pref: MainActv -->
+	   	<string name="prefs_sound_effect_titile">
+	   		    							Sound effect</string>
+	   	<string name="prefs_sound_effect_key">
+	   		    							prefs_sound_effect_key</string>
+	   	<string name="prefs_sound_effect_summary">
+	   		    							Use sound effect</string>
+	   		    							
+	   	
+	   	
 </resources>

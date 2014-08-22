@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.ListItem;
+import ta2.tasks.Task_AudioTrack;
 
 import android.content.SharedPreferences;
+import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.provider.MediaStore;
@@ -30,46 +32,12 @@ public class CONS {
 		
 		
 		////////////////////////////////
-		
-		// PlayActv
-		
-		////////////////////////////////
-		// Used in Service_ShowProgress
-		public static String iKey_PlayActv_TaskPeriod
-								= "iKey_PlayActv_TaskPeriod";
-		
-		
-		////////////////////////////////
 
 		// MainActv
 
 		////////////////////////////////
 		public static String iKey_CurrentPath_MainActv = "current_path";
 
-		
-		////////////////////////////////
-
-		// ALActv
-
-		////////////////////////////////
-		public static String iKey_AI_FilePath_Full = "iKey_AI_FilePath_Full";
-		
-		public static String iKey_AI_Db_Id = "iKey_AI_Db_Id";
-		
-		public static String iKey_AI_TableName = "iKey_AI_TableName";
-		
-		////////////////////////////////
-
-		// BMActv
-
-		////////////////////////////////
-		public static String iKey_BMActv_AI_Id = "bmactv_key_ai_id";
-//		public static String bmactv_key_ai_id = "bmactv_key_ai_id";
-		
-		public static String iKey_BMActv_TableName = "bmactv_key_table_name";
-		
-		public static String iKey_BMActv_Position = "bmactv_key_position";
-//		public static String bmactv_key_position = "bmactv_key_position";
 		
 		/***************************************
 		 * Request codes
@@ -486,6 +454,15 @@ public class CONS {
 		
 	}
 
+	public static class Audio {
+		
+		public static AudioTrack audioTrack;
+		
+		public static Task_AudioTrack task_Audio;
+		
+		public static float dflt_Audio_Volume = 1.0f;
+		
+	}
 	
 	public static class 
 	Enums {

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
+import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -48,7 +49,8 @@ import android.widget.Toast;
 public class MainActv extends Activity {
 
     @Override
-	protected void onStart() {
+	protected void 
+	onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
 		
@@ -70,11 +72,40 @@ public class MainActv extends Activity {
 		
 		
 		
-//		do_test();
+		do_test();
+		
+	}//onStart
+
+    
+	private void 
+	do_test() {
+		// TODO Auto-generated method stub
+	
+//		_test_PrefVal_SoundEffect();
 		
 	}
 
-    
+
+	private void 
+	_test_PrefVal_SoundEffect() {
+		// TODO Auto-generated method stub
+	
+		boolean val = Methods.get_Pref_Boolean(
+						this, 
+						CONS.Pref.pname_MainActv, 
+						this.getString(R.string.prefs_sound_effect_key), 
+						false);
+		
+		// Log
+		String msg_Log = "pref sound effect => " + val;
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}
+	
+
+
 	private void 
 	_Setup_Listeners() {
 		// TODO Auto-generated method stub
@@ -190,6 +221,13 @@ public class MainActv extends Activity {
 			
 			break;
 			
+		case R.id.menu_main_settings://--------------------
+			
+			case_OPT_Settings();
+//			this.logoutFromTwitter();
+			
+			break;
+			
 		default://-------------------------------------
 			break;
 	
@@ -198,6 +236,14 @@ public class MainActv extends Activity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_OPT_Settings() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_PrefActv(this);
+		
+	}
+
 
 	private void 
 	case_OPT_Admin() {

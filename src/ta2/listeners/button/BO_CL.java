@@ -1,5 +1,8 @@
 package ta2.listeners.button;
 
+import ta2.main.R;
+import ta2.tasks.Task_AudioTrack;
+import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Tags;
 import android.app.Activity;
@@ -40,6 +43,27 @@ public class BO_CL implements OnClickListener {
 		
 		this.actv = actv;
 		
+		////////////////////////////////
+
+		// se
+
+		////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		if (val == true) {
+			
+			if (CONS.Audio.task_Audio == null) {
+				
+				CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+				
+			}
+			
+		}
+		
 		//
 //		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -61,9 +85,9 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 
-		case ACTV_MAIN_BACK:
+		case ACTV_MEMO_BACK:
 			
-			case_ACTV_MAIN_BACK();
+			case_ACTV_MEMO_BACK();
 			
 			break;
 			
@@ -75,8 +99,32 @@ public class BO_CL implements OnClickListener {
 	}//public void onClick(View v)
 
 	private void 
-	case_ACTV_MAIN_BACK() {
+	case_ACTV_MEMO_BACK() {
 		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// bgm => stop
+		
+		////////////////////////////////
+		if (CONS.Audio.task_Audio != null) {
+		
+			CONS.Audio.task_Audio.cancel(true);
+			
+			// Log
+			String msg_Log = "task audio => cancelled";
+			Log.d("MemoActv.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", msg_Log);
+			
+			// End the task
+			CONS.Audio.task_Audio = null;
+			
+			//test
+			CONS.Audio.audioTrack = null;
+		
+		}
+
 		
 		actv.finish();
 		
@@ -88,7 +136,74 @@ public class BO_CL implements OnClickListener {
 	case_MEMO() {
 		// TODO Auto-generated method stub
 		
-		Methods.start_Activity_PrefActv(actv);
+		////////////////////////////////
+
+		// bgm
+
+		////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_sound_effect_key), 
+				false);
+		
+		// avoid starting the same task instance more than once
+		//		at a time
+		if (val == true) {
+			
+			// Log
+			String msg_Log = "Memo => starting SE...";
+			Log.d("BO_CL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			if (CONS.Audio.task_Audio != null) {
+				
+				// Log
+				msg_Log = "CONS.Audio.task_Audio => not null";
+				Log.d("BO_CL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				if(CONS.Audio.audioTrack != null) {
+//				if (CONS.Audio.task_Audio != null
+//						&& CONS.Audio.audioTrack != null) {
+				
+					// Log
+					msg_Log = "cancelling task audio...";
+					Log.d("BO_CL.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					CONS.Audio.task_Audio.cancel(true);
+					
+				}
+				
+			} else {
+
+				msg_Log = "NOT cancelling task audio...";
+				Log.d("BO_CL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+
+			}
+			
+			int bgmResourceId = R.raw.audio_nature_mp3;
+			
+//			CONS.Audio.task_Audio = new Task_AudioTrack(actv);
+//		Task_AudioTrack task = new Task_AudioTrack(actv);
+			
+//		task.execute("Start");
+			CONS.Audio.task_Audio.execute(bgmResourceId);
+			
+		}
+		
+//		task.execute(bgmResourceId);
+		
+		Methods.start_Activity_MemoActv(actv);
 		
 	}
 

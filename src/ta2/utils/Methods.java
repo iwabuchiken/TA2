@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
@@ -36,6 +37,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -69,6 +73,7 @@ import org.json.JSONObject;
 
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
+import ta2.main.PrefActv;
 import ta2.main.R;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
@@ -295,6 +300,43 @@ public class Methods {
 		
 	}//public static boolean setPref_long(Activity actv, String pref_name, String pref_key, long value)
 
+	public static boolean
+	set_Pref_String
+	(Activity actv, String pName, String pKey, boolean value) {
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pName, Context.MODE_PRIVATE);
+		
+		/****************************
+		 * 2. Get editor
+		 ****************************/
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		/****************************
+		 * 3. Set value
+		 ****************************/
+		editor.putBoolean(pKey, value);
+		
+		try {
+			
+			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+			
+		}
+		
+	}//public static boolean setPref_long(Activity actv, String pref_name, String pref_key, long value)
+	
+	
 	public static int 
 	get_Pref_Int
 	(Activity actv, String pref_name, String pref_key, int defValue) {
@@ -309,6 +351,21 @@ public class Methods {
 
 	}//public static boolean set_pref(String pref_name, String value)
 
+	public static boolean 
+	get_Pref_Boolean
+	(Activity actv, 
+		String pref_name, String pref_key, boolean defValue) {
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
+		
+		/****************************
+		 * Return
+		 ****************************/
+		return prefs.getBoolean(pref_key, defValue);
+		
+	}//public static boolean set_pref(String pref_name, String value)
+	
 	/******************************
 		@return true => pref set
 	 ******************************/
@@ -817,7 +874,7 @@ public static String
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
 		
-		i.setClass(actv, MemoActv.class);
+		i.setClass(actv, PrefActv.class);
 		
 		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		
@@ -825,6 +882,20 @@ public static String
 
 	}//start_Activity_PrefActv
 
+	public static void 
+	start_Activity_MemoActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, MemoActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_PrefActv
+	
 	/******************************
 		@return
 			-1	No db file<br>
@@ -1475,6 +1546,100 @@ public static String
 		
 	}//createTable_Patterns
 
+	public static void 
+	playSound
+	(Activity actv, int bgmResourceId) {
+		// TODO Auto-generated method stub
+		int minBufferSize = AudioTrack.getMinBufferSize(
+				44100,
+				AudioFormat.CHANNEL_CONFIGURATION_MONO, 
+				AudioFormat.ENCODING_PCM_16BIT);
+
+		CONS.Audio.audioTrack = new AudioTrack(
+//				AudioTrack audioTrack = new AudioTrack(
+			AudioManager.STREAM_MUSIC, 44100,
+			AudioFormat.CHANNEL_CONFIGURATION_MONO, 
+			AudioFormat.ENCODING_PCM_16BIT,
+			minBufferSize,
+			AudioTrack.MODE_STREAM); 
+		
+//		CONS.Audio.audioTrack.get
+		
+		float vol = CONS.Audio.dflt_Audio_Volume;
+//		float vol = 0.3f;
+		
+//		CONS.Audio.audioTrack.setStereoVolume(vol, vol);
+//		
+//		CONS.Audio.audioTrack.play();
+		
+		int i = 0;
+		int bufferSize = 512;
+		byte [] buffer = new byte[bufferSize];
+		
+//		//test
+//		CONS.Audio.audioTrack.setLoopPoints(0, buffer.length / 4, -1);
+//		
+//		// Log
+//		String msg_Log = "loop points => set";
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		// Log
+//		msg_Log = "buffer.length => " + buffer.length;
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		CONS.Audio.audioTrack.setStereoVolume(vol, vol);
+		
+		CONS.Audio.audioTrack.play();
+		
+		//InputStream inputStream = actv.getResources().openRawResource(R.raw.bgm_1);
+		
+//		InputStream inputStream = actv.getResources().openRawResource(R.raw.bgm_2_koto_t150_1second);
+		InputStream inputStream = 
+						actv.getResources().openRawResource(bgmResourceId);
+		
+		try {
+			
+			while((i = inputStream.read(buffer)) != -1)
+				CONS.Audio.audioTrack.write(buffer, 0, i);
+			
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			
+			inputStream.close();
+			
+			// Log
+			Log.d("Methods_sl.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Stream closed");
+			
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+
+		CONS.Audio.audioTrack.stop();
+		
+		// Log
+		Log.d("Methods_sl.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Audio stopped");
+		
+	}//playSound
 	
 }//public class Methods
 
