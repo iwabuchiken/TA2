@@ -316,6 +316,12 @@ public class CONS {
 		
 		public static ArrayAdapter<WordPattern> adp_WPList_3 = null;
 		
+		////////////////////////////////
+
+		// layout-related
+
+		////////////////////////////////
+		public final static int layout_MemoActv_LV_Height = 60;
 		
 		
 	}

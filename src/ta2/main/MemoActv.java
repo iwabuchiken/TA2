@@ -206,6 +206,22 @@ public class MemoActv extends Activity {
 		//	=> go no further in settingup
 		if (res == false) {
 			
+			String msg = "_Setup_List_1 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		res = _Setup_List_2();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_2 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
 			return;
 			
 		}
@@ -301,6 +317,95 @@ public class MemoActv extends Activity {
 		
 	}//_Setup_List
 
+	private boolean 
+	_Setup_List_2() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_2 = DBUtils.find_All_WP_tags(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_2 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_2.size() => " 
+				+ CONS.MemoActv.list_WP_2.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_2 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_2 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_2
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_2 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_2 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_memo_lv_2);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_2.setAdapter(CONS.MemoActv.adp_WPList_2);
+		
+		return true;
+		
+	}//_Setup_List_2
+	
+	
 	private void 
 	_Setup_Layout() {
 		// TODO Auto-generated method stub
@@ -309,7 +414,7 @@ public class MemoActv extends Activity {
 		// vars
 
 		////////////////////////////////
-		final int layout_Height_LVs = 50;	// X out of 100
+//		final int layout_MemoActv_LV_Height = 50;	// X out of 100
 		
 		////////////////////////////////
 
@@ -335,7 +440,8 @@ public class MemoActv extends Activity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
-		int layout_Width = w * layout_Height_LVs / 100;
+		int layout_Width = w * CONS.MemoActv.layout_MemoActv_LV_Height / 100;
+//		int layout_Width = w * layout_MemoActv_LV_Height / 100;
 
 		
 		LinearLayout.LayoutParams params =

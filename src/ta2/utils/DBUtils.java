@@ -1755,5 +1755,74 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//find_All_WP_symbols
 	
+	/******************************
+		@return
+		
+	 ******************************/
+	public static List<WordPattern> 
+	find_All_WP_tags
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// get all WP
+		
+		////////////////////////////////
+		List<WordPattern> list_WP = DBUtils.find_All_WP(actv);
+		
+		////////////////////////////////
+		
+		// prep: filter
+		
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/1047342/how-to-run-a-query-with-regexp-in-android answered Jun 26 '09 at 5:25
+		//REF http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/ "2.4. Extracting/Capturing"
+//		String regex = "^[:#]";
+//		String regex = "^(:|\\#)";
+//		String regex = "^(:|#)";
+//		String regex = "^(:|#)[a-zA-Z]";
+		String regex = "^[:#][a-zA-Z]";
+		
+		Pattern p = Pattern.compile(regex);
+		
+		Matcher m = null;
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		List<WordPattern> list_WP_filtered = 
+				new ArrayList<WordPattern>();
+		
+		// If the word DOES NOT contain [a-zA-Z]
+		//		=> then, put it into the new list
+		for (WordPattern wp : list_WP) {
+			
+			m = p.matcher(wp.getWord());
+			
+			if (m.find()) {
+				
+				list_WP_filtered.add(wp);
+//				continue;
+				
+			}
+			
+//			// Log
+//			String msg_Log = String.format("match => %s", wp.getWord());
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+			
+//			list_WP_filtered.add(wp);
+			
+		}
+		
+		
+		return list_WP_filtered;
+		
+	}//find_All_WP_tags
+	
 }//public class DBUtils
 

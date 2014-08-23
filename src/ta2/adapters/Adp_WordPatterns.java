@@ -90,12 +90,12 @@ public class Adp_WordPatterns extends ArrayAdapter<WordPattern> {
 
 		}//if (convertView != null)
 		
-    	// Log
-		msg_Log = "view => initialized";
-		Log.d("Adp_WordPatterns.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
-    	
+//    	// Log
+//		msg_Log = "view => initialized";
+//		Log.d("Adp_WordPatterns.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//    	
     	////////////////////////////////
 
 		// get: item
@@ -108,19 +108,19 @@ public class Adp_WordPatterns extends ArrayAdapter<WordPattern> {
 		// view
 
 		////////////////////////////////
-    	// Log
-		msg_Log = "getting a TextView...";
-		Log.d("Adp_WordPatterns.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//    	// Log
+//		msg_Log = "getting a TextView...";
+//		Log.d("Adp_WordPatterns.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
     	
     	TextView tv = (TextView) v.findViewById(R.id.list_row_gv_tv);
     	
-    	// Log
-		msg_Log = "setting text...";
-		Log.d("Adp_WordPatterns.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//    	// Log
+//		msg_Log = "setting text...";
+//		Log.d("Adp_WordPatterns.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
     	
     	tv.setText(wp.getWord());
 		
