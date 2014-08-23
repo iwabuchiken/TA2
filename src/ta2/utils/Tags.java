@@ -16,7 +16,7 @@ public class Tags {
 		BACK, SEND_TWEET, PATTERN,
 		
 		// actv_memo
-		ACTV_MEMO_BACK, ACTV_MEMO_CLEAR,
+		ACTV_MEMO_BACK, ACTV_MEMO_CLEAR, ACTV_MEMO_SAVE,
 		
 	}
 	

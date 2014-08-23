@@ -689,6 +689,19 @@ public class MemoActv extends Activity {
 		
 		bt_Clear.setOnClickListener(new BO_CL(this));
 		
+		////////////////////////////////
+		
+		// button: save
+		
+		////////////////////////////////
+		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_memo_ib_save);
+		
+		bt_Save.setTag(Tags.ButtonTags.ACTV_MEMO_SAVE);
+		
+		bt_Save.setOnTouchListener(new BO_TL(this));
+		
+		bt_Save.setOnClickListener(new BO_CL(this));
+		
 		
 		
 	}//_Setup_Listeners

@@ -98,12 +98,26 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MEMO_SAVE:
+			
+			case_ACTV_MEMO_SAVE();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MEMO_SAVE() {
+		// TODO Auto-generated method stub
+		
+		Methods.save_Memo(actv);
+		
+	}
 
 	private void 
 	case_ACTV_MEMO_CLEAR() {

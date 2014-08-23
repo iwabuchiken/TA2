@@ -2280,5 +2280,12 @@ public static String
 			
 	}//drop_Table
 
+	public static void 
+	save_Memo
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+	}//save_Memo
+
 }//public class Methods
 
