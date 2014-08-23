@@ -65,6 +65,9 @@ public class CONS {
 		////////////////////////////////
 		public static String dbName = "ta2.db";
 		public static String dbName_IFM11 = "ifm11.db";
+		public static String dbName_TWT = "TWT.db";
+		
+		public static String dbName_Importing = dbName_TWT;
 		
 		public static String dPath_dbFile;
 		
@@ -81,6 +84,9 @@ public class CONS {
 		
 		public static String dPath_dbFile_backup_IFM11 = 
 				"/mnt/sdcard-ext/ifm11_backup";
+		
+		public static String dPath_dbFile_backup_TWT = 
+				"/mnt/sdcard-ext/TWT_backup";
 		
 //		public static String dPath_dbFile = 
 //							Methods.get_DirPath(new MainActv().getFilesDir().getPath());
@@ -179,6 +185,31 @@ public class CONS {
 					
 		};
 
+		////////////////////////////////
+		
+		// table: patterns (app.twitter)
+		
+		////////////////////////////////
+		public static final String tname_Patterns_TWT	= "patterns";
+		
+		public static final String[] col_names_Patterns_full_TWT	= {
+			
+				android.provider.BaseColumns._ID,	// 0
+				"created_at",						// 1
+				"modified_at",						// 2
+
+				"word",						// 3
+				"uploaded_at"						// 4
+				
+		};
+
+		public static final String[] col_names_Patterns_TWT	= {
+			
+			"word",						// 3
+			"uploaded_at"						// 4
+			
+		};
+		
 		////////////////////////////////
 
 		// Others

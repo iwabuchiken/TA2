@@ -379,11 +379,11 @@ public class DB_OCL implements OnClickListener {
 			
 		}
 		
-		Methods_dlg.dlg_ShowMessage_Duration(
+		Methods_dlg.dlg_ShowMessage(
+//				Methods_dlg.dlg_ShowMessage_Duration(
 				actv, 
 				msg,
-				colorID,
-				CONS.Admin.dflt_MessageDialog_Length);
+				colorID);
 
 		
 		

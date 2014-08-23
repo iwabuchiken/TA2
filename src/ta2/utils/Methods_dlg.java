@@ -1002,7 +1002,8 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
 //		dlg_tmpl_confirm_simple_tv_message
 		
-		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		tv_ItemName.setText(CONS.DB.dbName_Importing);
+//		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
 		
 		////////////////////////////////
 
@@ -1053,7 +1054,8 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
 //		dlg_tmpl_confirm_simple_tv_message
 		
-		tv_ItemName.setText("From: " + actv.getString(R.string.commons_import_db_name));
+		tv_ItemName.setText("From: " + CONS.DB.dbName_Importing);
+//		tv_ItemName.setText("From: " + actv.getString(R.string.commons_import_db_name));
 		
 		////////////////////////////////
 

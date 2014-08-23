@@ -915,7 +915,8 @@ public static String
 
 		////////////////////////////////
 		// IFM10
-		String src_dir = CONS.DB.dPath_dbFile_backup_IFM11;
+		String src_dir = CONS.DB.dPath_dbFile_backup_TWT;
+//		String src_dir = CONS.DB.dPath_dbFile_backup_IFM11;
 //		String src_dir = CONS.DB.dPath_dbFile_backup;
 		
 		File f_dir = new File(src_dir);
@@ -988,7 +989,8 @@ public static String
 					new String[]{
 							
 							tmp_str,
-							CONS.DB.dbName_IFM11
+							CONS.DB.dbName_TWT
+//							CONS.DB.dbName_IFM11
 							
 					}, 
 					File.separator);
@@ -1013,7 +1015,7 @@ public static String
 							src, dst_New);
 		
 		// Log
-		Log.d("MainActv.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "res=" + res);
 
@@ -1043,6 +1045,15 @@ public static String
 		d3.dismiss();
 		d2.dismiss();
 		d1.dismiss();
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = "DB => Imported\n" + CONS.DB.dbName_Importing;
+		Methods_dlg.dlg_ShowMessage(actv, msg);
+		
 		
 		////////////////////////////////
 
@@ -1103,7 +1114,7 @@ public static String
 			oChannel.close();
 			
 			// Log
-			Log.d("ThumbnailActivity.java" + "["
+			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "File copied: " + src);
 			
@@ -1352,7 +1363,8 @@ public static String
 		// db
 	
 		////////////////////////////////
-		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName_IFM11);
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName_TWT);
+//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName_IFM11);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 	
@@ -1361,8 +1373,9 @@ public static String
 		// Table exists?
 	
 		////////////////////////////////
-		String tableName = CONS.DB.tname_MemoPatterns_IFM11;
-		
+		String tableName = CONS.DB.tname_Patterns_TWT;
+//		String tableName = CONS.DB.tname_MemoPatterns_IFM11;
+
 		boolean res = dbu.tableExists(rdb, tableName);
 		
 		if (res == true) {
@@ -1398,12 +1411,15 @@ public static String
 		// Get cursor
 	
 		////////////////////////////////
-		// "_id"
-		String orderBy = CONS.DB.col_names_MemoPatterns_IFM11[0] + " ASC"; 
+		// "word"
+		String orderBy = CONS.DB.col_names_Patterns_TWT[0] + " ASC"; 
+//		String orderBy = CONS.DB.col_names_MemoPatterns_IFM11[0] + " ASC"; 
 		
 		Cursor c = rdb.query(
-						CONS.DB.tname_MemoPatterns_IFM11,
-						CONS.DB.col_names_MemoPatterns_IFM11,
+						CONS.DB.tname_Patterns_TWT,
+						CONS.DB.col_names_Patterns_TWT,
+//						CONS.DB.tname_MemoPatterns_IFM11,
+//						CONS.DB.col_names_MemoPatterns_IFM11,
 		//				CONS.DB.col_types_refresh_log_full,
 						null, null,		// selection, args 
 						null, 			// group by
@@ -2082,7 +2098,7 @@ public static String
 	restore_DB(Activity actv) {
     	
     	// Log
-		Log.d("MainActv.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Starting: restore_DB()");
 
@@ -2149,7 +2165,7 @@ public static String
 							src, dst);
 		
 		// Log
-		Log.d("MainActv.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "res=" + res);
 		
