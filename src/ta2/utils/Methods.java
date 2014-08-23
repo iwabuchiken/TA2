@@ -1107,8 +1107,8 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "File copied: " + src);
 			
-			// debug
-			Toast.makeText(actv, "DB restoration => Done", Toast.LENGTH_LONG).show();
+//			// debug
+//			Toast.makeText(actv, "DB restoration => Done", Toast.LENGTH_LONG).show();
 			
 			return true;
 	
@@ -1890,6 +1890,358 @@ public static String
 				
 			
 	}//start_SE_new
-	
+
+	public static boolean 
+	backup_DB
+	(Activity actv) {
+		/****************************
+		 * 1. Prep => File names
+		 * 2. Prep => Files
+		 * 2-2. Folder exists?
+		 * 
+		 * 2-3. Dst folder => Files within the limit?
+		 * 3. Copy
+			****************************/
+		String time_label = Methods.get_TimeLabel(Methods.getMillSeconds_now());
+		
+		String db_Src = StringUtils.join(
+					new String[]{
+							actv.getDatabasePath(CONS.DB.dbName).getPath()},
+//							CONS.fname_db},
+					File.separator);
+		
+		String db_Dst_Folder = StringUtils.join(
+					new String[]{
+							CONS.DB.dPath_dbFile_Backup,
+							CONS.DB.fname_DB_Backup_Trunk},
+//							CONS.dpath_db_backup,
+//							CONS.fname_db_backup_trunk},
+					File.separator);
+		
+		String db_Dst = db_Dst_Folder + "_"
+				+ time_label
+//				+ MainActv.fileName_db_backup_ext;
+				+ CONS.DB.fname_DB_Backup_ext;
+//		+ CONS.fname_db_backup_ext;
+//				+ MainActv.fname_db_backup_trunk;
+
+		// Log
+		String msg_log = "db_Src = " + db_Src
+						+ " / "
+						+ "db_Dst = " + db_Dst;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_log);
+		
+		/****************************
+		 * 2. Prep => Files
+			****************************/
+		File src = new File(db_Src);
+		File dst = new File(db_Dst);
+		
+		/****************************
+		 * 2-2. Folder exists?
+			****************************/
+		File db_Backup = new File(CONS.DB.dPath_dbFile_Backup);
+//		File db_backup = new File(CONS.dpath_db_backup);
+		
+		if (!db_Backup.exists()) {
+			
+			try {
+				
+				db_Backup.mkdirs();
+//				db_Backup.mkdir();
+				
+				/******************************
+					validate
+				 ******************************/
+				if (db_Backup.isDirectory()) {
+					
+					// Log
+					Log.d("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Folder created: " + db_Backup.getAbsolutePath());
+					
+				} else {
+					
+					// Log
+					String msg_Log = "Create folder => not successful";
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					return false;
+					
+				}
+				
+			} catch (Exception e) {
+				
+				// Log
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Create folder => Failed");
+				
+				return false;
+				
+			}
+			
+		} else {//if (!db_backup.exists())
+			
+			// Log
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Folder exists: ");
+			
+		}//if (!db_backup.exists())
+		
+		////////////////////////////////
+
+		// Dst folder => Files within the limit?
+
+		////////////////////////////////
+		File[] files_dst_folder = new File(CONS.DB.dPath_dbFile_Backup).listFiles();
+//		File[] files_dst_folder = new File(CONS.dpath_db_backup).listFiles();
+
+		if (files_dst_folder != null) {
+			
+			int num_of_files = files_dst_folder.length;
+			
+			// Log
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "num of backup files = " + num_of_files);
+		}
+		
+		
+		/****************************
+		 * 3. Copy
+			****************************/
+		try {
+			FileChannel iChannel = new FileInputStream(src).getChannel();
+			FileChannel oChannel = new FileOutputStream(dst).getChannel();
+			iChannel.transferTo(0, iChannel.size(), oChannel);
+			iChannel.close();
+			oChannel.close();
+			
+			
+			
+//			// Log
+//			Log.i("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "DB file copied");
+//			
+//			// debug
+//			Toast.makeText(actv, "DB backup => Done", Toast.LENGTH_LONG).show();
+
+		} catch (FileNotFoundException e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			return false;
+			
+		} catch (IOException e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			return false;
+			
+		}//try
+
+		return true;
+		
+	}//public static boolean db_backup(Activity actv)
+
+	public static boolean
+	restore_DB(Activity actv) {
+    	
+    	// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Starting: restore_DB()");
+
+		/*********************************
+		 * Get the absolute path of the latest backup file
+		 *********************************/
+		// Get the most recently-created db file
+		String src_dir = CONS.DB.dPath_dbFile_Backup;
+//		String src_dir = "/mnt/sdcard-ext/IFM9_backup";
+		
+		File f_dir = new File(src_dir);
+		
+		File[] src_dir_files = f_dir.listFiles();
+		
+		// If no files in the src dir, quit the method
+		if (src_dir_files.length < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread()
+						.getStackTrace()[2].getLineNumber()
+					+ "]", "No files in the dir: " + src_dir);
+			
+			return false;
+			
+		}//if (src_dir_files.length == condition)
+		
+		// Latest file
+		File f_src_latest = src_dir_files[0];
+		
+		
+		for (File file : src_dir_files) {
+			
+			if (f_src_latest.lastModified() < file.lastModified()) {
+						
+				f_src_latest = file;
+				
+			}//if (variable == condition)
+			
+		}//for (File file : src_dir_files)
+		
+		// Show the path of the latest file
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "f_src_latest=" + f_src_latest.getAbsolutePath());
+		
+		/*********************************
+		 * Restore file
+		 *********************************/
+		String src = f_src_latest.getAbsolutePath();
+		String dst = StringUtils.join(
+				new String[]{
+						//REF http://stackoverflow.com/questions/9810430/get-database-path answered Jan 23 at 11:24
+						actv.getDatabasePath(CONS.DB.dbName).getPath()
+				},
+//						actv.getFilesDir().getPath() , 
+//						CONS.DB.dbName},
+				File.separator);
+		
+		boolean res = Methods.restore_DB(
+							actv, 
+							CONS.DB.dbName, 
+							src, dst);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "res=" + res);
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return res;
+		
+	}//private void restore_DB()
+
+	public static void 
+	restore_DB
+	(Activity actv, Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// restore
+
+		////////////////////////////////
+		boolean res = Methods.restore_DB(actv);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		if (res == true) {
+			
+			d2.dismiss();
+			d1.dismiss();
+			
+			String msg = "Restore db => Done";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return;
+			
+		} else {
+
+			d2.dismiss();
+			
+			String msg = "Restore db => Failed";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+		}
+		
+	}//restore_DB
+
+	public static int drop_Table
+	(Activity actv, String tname) {
+		// TODO Auto-generated method stub
+
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		return dbu.dropTable(actv, tname);
+		
+	}
+
+	public static void 
+	drop_Table
+	(Activity actv, String tableName,
+			Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+		int res = Methods.drop_Table(actv, tableName);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = CONS.Admin.dflt_Background_Color;
+		
+		switch(res) {
+
+		case 1:
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			msg = "Table => dropped: " + tableName;
+			
+			colorID = R.color.green4;
+			
+			break;
+		
+		case -1:
+			
+			d3.dismiss();
+			
+			msg = "Table => doesn't exist: " + tableName;
+			colorID = R.color.gold2;
+			
+			break;
+			
+		case -2:
+			
+			d3.dismiss();
+			
+			msg = "SQLException!";
+			colorID = R.color.red;
+			
+			break;
+			
+		}
+
+		Methods_dlg.dlg_ShowMessage(actv, msg, colorID);
+			
+	}//drop_Table
+
 }//public class Methods
 

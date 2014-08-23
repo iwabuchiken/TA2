@@ -63,6 +63,9 @@ public class Tags {
 		// dlg: create/drop table: patterns
 		DLG_CONF_CREATE_TABLE_PATTERNS_OK, DLG_CONF_DROP_TABLE_PATTERNS_OK,
 		
+		// dlg: conf: restore db
+		DLG_CONF_RESTORE_DB_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {

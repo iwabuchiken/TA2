@@ -156,15 +156,30 @@ public class DOI_CL implements OnItemClickListener {
 		
 			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
 		
+			////////////////////////////////
+
+			// tables
+
+			////////////////////////////////
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_operations_create_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_operations_drop_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
 			
 		}
 
@@ -210,16 +225,20 @@ public class DOI_CL implements OnItemClickListener {
 			
 			Methods_dlg.dlg_Admin_Ops(actv, d1);
 			
-//		} else if (choice.equals(actv.getString(
-//					R.string.dlg_upload_image_item_email))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-//		
-//			String msg = actv.getString(
-//					R.string.dlg_upload_image_item_email)
-//					+ " => "
-//					+ "Sorry. Under construction";
-//			
-//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+		} else if (item.getText().equals(actv.getString(
+				R.string.dlg_actvmain_admin_item_backup_db))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 		
+			boolean res = _case_Admin_LV__Backup();
+			
+			return;
+			
+		} else if (item.getText().equals(actv.getString(
+				R.string.dlg_actvmain_admin_item_restore_db))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+			Methods_dlg.conf_Restore_DB(actv, d1);
+			
+			return;
+			
 		} else {
 			
 //			////////////////////////////////
@@ -234,5 +253,29 @@ public class DOI_CL implements OnItemClickListener {
 
 		
 	}
+
+	private boolean
+	_case_Admin_LV__Backup() {
+		// TODO Auto-generated method stub
+	
+		boolean res = Methods.backup_DB(actv);
+		
+		if (res == true) {
+			
+			String msg = "DB backup => done";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			d1.dismiss();
+			
+		} else {
+			
+			String msg = "DB backup => failed";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+		}
+		
+		return res;
+
+	}//_case_Admin_LV__Backup
 
 }//public class DialogOnItemClickListener implements OnItemClickListener

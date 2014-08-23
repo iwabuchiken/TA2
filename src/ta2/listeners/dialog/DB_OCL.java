@@ -263,16 +263,34 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_RESTORE_DB_OK://------------------------------------------------
+			
+			case_DLG_CONF_RESTORE_DB_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
 
-	private void case_DLG_CONF_DROP_TABLE_PATTERNS_OK() {
+	private void 
+	case_DLG_CONF_RESTORE_DB_OK() {
 		// TODO Auto-generated method stub
 		
+		Methods.restore_DB(actv, d1, d2);
+		
 	}
+
+	private void 
+	case_DLG_CONF_DROP_TABLE_PATTERNS_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.drop_Table(actv, CONS.DB.tname_Patterns, d1, d2, d3);
+		
+		
+	}//case_DLG_CONF_DROP_TABLE_PATTERNS_OK
 
 	private void 
 	case_DLG_CONF_CREATE_TABLE_PATTERNS_OK() {

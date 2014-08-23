@@ -317,6 +317,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table exists => " + tableName);
 			
+			wdb.close();
+			
 			return -1;
 
 		}//if (!tableExists(SQLiteDatabase db, String tableName))
@@ -636,9 +638,11 @@ public class DBUtils extends SQLiteOpenHelper{
 		public boolean dropTable
 		
 		@return
-			false	=> Table can't be dropped or doesn't exist
+			-1	Table doesnt exist<br>
+			-2	SQLException<br>
+			1	Table dropped<br>
 	 ******************************/
-	public boolean dropTable
+	public int dropTable
 	(Activity actv, String tableName) {
 		/***************************************
 		 * Setup: DB
@@ -670,7 +674,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			String msg_Toast = "Table doesn't exist: " + tableName;
 			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
 
-			return false;
+			return -1;
+			
 		}//if (tempBool == true)
 
 		/*------------------------------
@@ -692,15 +697,14 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "The table dropped => " + tableName);
 			
-			// debug
-			String msg_Toast = "The table dropped => " + tableName;
-			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
-			
+//			// debug
+//			String msg_Toast = "The table dropped => " + tableName;
+//			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
 			
 			wdb.close();
 			
 			// Return
-			return true;
+			return 1;
 			
 		} catch (SQLException e) {
 			// TODO ?��?��?��?��?��?��?��?��?��?��?��ꂽ catch ?��u?��?��?��b?��N
@@ -709,15 +713,15 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "DROP TABLE => failed (table=" + tableName + "): " + e.toString());
 			
-			// debug
-			Toast.makeText(actv, 
-						"DROP TABLE => failed(table=" + tableName, 
-						Toast.LENGTH_LONG).show();
+//			// debug
+//			Toast.makeText(actv, 
+//						"DROP TABLE => failed(table=" + tableName, 
+//						Toast.LENGTH_LONG).show();
 			
 			wdb.close();
 			
 			// Return
-			return false;
+			return -2;
 		}//try
 
 	}//public boolean dropTable(String tableName) 

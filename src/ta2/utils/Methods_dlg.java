@@ -534,6 +534,19 @@ public class Methods_dlg {
 	(Activity actv) {
 		// TODO Auto-generated method stub
 		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		
+		////////////////////////////////
+
+		// dlg
+
+		////////////////////////////////
 		Dialog d1 = Methods_dlg.dlg_Template_Cancel(
 						actv,
 						R.layout.dlg_tmpl_cancel_lv,
@@ -647,19 +660,20 @@ public class Methods_dlg {
 		
 		int w = displayMetrics.widthPixels;
 		
-		// Log
-		String msg_Log = "w => " + w;
-		Log.d("Methods_dlg.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		String msg_Log = "w => " + w;
+//		Log.d("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		int dialog_Width = w * CONS.Admin.ratio_Dialog_to_Screen_W / 100;
 		
-		// Log
-		msg_Log = "dialog_Width => " + dialog_Width;
-		Log.d("Methods_dlg.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		msg_Log = "dialog_Width => " + dialog_Width;
+//		Log.d("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
 		////////////////////////////////
 
 		// linear layot: main
@@ -883,6 +897,25 @@ public class Methods_dlg {
 						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
 						.setTextColor_ID(R.color.black)
 						.build());
+		
+		////////////////////////////////
+
+		// tables
+
+		////////////////////////////////
+		list.add(new ListItem.Builder()
+		.setText(actv.getString(
+				R.string.dlg_actvmain_operations_create_table_patterns))
+				.setIconID(R.drawable.menu_icon_admin_32x32_purple)
+				.setTextColor_ID(R.color.purple4)
+				.build());
+		
+		list.add(new ListItem.Builder()
+		.setText(actv.getString(
+				R.string.dlg_actvmain_operations_drop_table_patterns))
+				.setIconID(R.drawable.menu_icon_admin_32x32_red)
+				.setTextColor_ID(R.color.red)
+				.build());
 		
 		list.add(new ListItem.Builder()
 		.setText(actv.getString(
@@ -1134,5 +1167,55 @@ public class Methods_dlg {
 		dlg3.show();
 		
 	}//conf_DropTable_Patterns
+
+	public static void 
+	conf_Restore_DB
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		
+		Dialog d2 = 
+				Methods_dlg.dlg_Template_OkCancel_SecondDialog(
+						actv, d1,
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						Tags.DialogTags.DLG_CONF_RESTORE_DB_OK, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						Tags.DialogTags.GENERIC_DISMISS_SECOND_DIALOG
+				);
+		
+		////////////////////////////////
+
+		// view: message
+
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) d2.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+								R.string.commons_lbl_restore_db)
+								+ "?");
+		
+		////////////////////////////////
+
+		// view: item name
+
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) d2.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(CONS.DB.dbName);
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d2.show();		
+		
+	}//conf_Restore_DB
 	
 }//public class Methods_dialog
