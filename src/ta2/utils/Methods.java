@@ -1213,10 +1213,17 @@ public static String
 		
 	}//restore_DB
 
-	public static void 
+	/******************************
+		@return
+			>1	Number of patterns saved<br>
+			0	No patterns saved<br>
+			-1	Table 'patterns' => not exist<br>
+			-2	Can't build list<br>
+			-3	Unknown result<br>
+	 ******************************/
+	public static int 
 	import_Patterns
-	(Activity actv, 
-		Dialog d1, Dialog d2, Dialog d3) {
+	(Activity actv) {
 		// TODO Auto-generated method stub
 
 		////////////////////////////////
@@ -1238,7 +1245,7 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			return;
+			return -2;
 			
 		}
 		
@@ -1267,33 +1274,47 @@ public static String
 		////////////////////////////////
 		if (res == -1) {
 			
-			String msg = "Table 'patterns' => doesn't exist";
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+//			String msg = "Table 'patterns' => doesn't exist";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
 			
-			d3.dismiss();
+//			d3.dismiss();
+
+			return -1;
 			
 		} else if (res == 0) {
 			
-			String msg = "No patterns saved";
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			return 0;
 			
-			d3.dismiss();
+//			String msg = "No patterns saved";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+//			
+//			d3.dismiss();
 			
 		} else if (res > 0) {
 			
-			String msg = "Patterns saved => " + res;
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.green4);
+			return res;
 			
-			d3.dismiss();
-			d2.dismiss();
-			d1.dismiss();
+//			String msg = "Patterns saved => " + res;
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.green4);
+			
+//			d3.dismiss();
+//			d2.dismiss();
+//			d1.dismiss();
 			
 		} else {
 			
-			String msg = "Unknown result => " + res;
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.yello);
+			// Log
+			msg_Log = "Unknown result => " + res;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 			
-			d3.dismiss();
+			return -3;
+			
+//			String msg = "Unknown result => " + res;
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.yello);
+//			
+//			d3.dismiss();
 			
 		}
 		

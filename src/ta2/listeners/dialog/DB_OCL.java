@@ -4,6 +4,7 @@ import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -306,7 +307,85 @@ public class DB_OCL implements OnClickListener {
 	case_DLG_CONF_IMPORT_PATTERNS_OK() {
 		// TODO Auto-generated method stub
 		
-		Methods.import_Patterns(actv, d1, d2, d3);
+		int res = Methods.import_Patterns(actv);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+//		>1 Number of patterns saved
+//		0 No patterns saved
+//		-1 Table 'patterns' => not exist
+//		-2 Can't build list
+//		-3 Unknown result
+
+		
+		switch(res) {
+
+//		-1	Table exists<br>
+//		-2	Exception in executing the sql<br>
+//		1	Table created<br>
+		
+		case -1: 
+			
+			msg = "Table 'patterns' => not exist";
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Can't build patterns list";
+			colorID = R.color.red;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case -3: 
+			
+			msg = "Unknown result";
+			colorID = R.color.red;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case 0: 
+			
+			msg = "No patterns saved";
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+			
+		default:
+			
+			msg = "patterns saved: " + res;
+			colorID = R.color.green4;
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID,
+				CONS.Admin.dflt_MessageDialog_Length);
+
+		
 		
 	}//case_DLG_CONF_IMPORT_PATTERNS_OK
 
