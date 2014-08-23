@@ -1,9 +1,13 @@
 package ta2.utils;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import ta2.items.WordPattern;
 import ta2.main.R;
 
 import android.app.Activity;
@@ -1526,5 +1530,230 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//_insert_Data_Patterns__ContentValues
 
+	/******************************
+		@return
+		
+	 ******************************/
+	public static List<WordPattern> 
+	find_All_WP
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// validate: DB file exists?
+
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+
+		// DB
+
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		boolean res = dbu.tableExists(rdb, CONS.DB.tname_Patterns);
+//		boolean res = dbu.tableExists(rdb, tableName);
+
+		if (res == false) {
+			
+			String msg = "No such table: " + CONS.DB.tname_Patterns;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+//		String where = CONS.DB.col_names_IFM11[8] + " = ?";
+//		String[] args = new String[]{
+//				
+//							tableName
+//						};
+		
+		try {
+			
+			c = rdb.query(
+					
+					CONS.DB.tname_Patterns,			// 1
+					CONS.DB.col_names_Patterns_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"word",									// 3
+		
+		List<WordPattern> list_WP = new ArrayList<WordPattern>();
+		
+		while(c.moveToNext()) {
+			
+			WordPattern wp = new WordPattern.Builder()
+
+					.setDb_Id(c.getLong(0))
+					.setCreated_at(c.getString(1))
+					.setModified_at(c.getString(2))
+					
+					.setWord(c.getString(3))
+					
+					.build();
+			
+			list_WP.add(wp);
+			
+		}
+
+		rdb.close();
+		
+		return list_WP;
+		
+	}//find_All_WP
+
+	/******************************
+		@return
+		
+	 ******************************/
+	public static List<WordPattern> 
+	find_All_WP_symbols
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get all WP
+
+		////////////////////////////////
+		List<WordPattern> list_WP = DBUtils.find_All_WP(actv);
+
+		////////////////////////////////
+		
+		// prep: filter
+		
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/1047342/how-to-run-a-query-with-regexp-in-android answered Jun 26 '09 at 5:25
+		//REF http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/ "2.4. Extracting/Capturing"
+		String regex = "[a-zA-Z]";
+		
+		Pattern p = Pattern.compile(regex);
+		
+		Matcher m = null;
+		
+		////////////////////////////////
+
+		// filter
+
+		////////////////////////////////
+		List<WordPattern> list_WP_filtered = 
+								new ArrayList<WordPattern>();
+		
+		// If the word DOES NOT contain [a-zA-Z]
+		//		=> then, put it into the new list
+		for (WordPattern wp : list_WP) {
+			
+			m = p.matcher(wp.getWord());
+			
+			if (m.find()) {
+				
+				continue;
+				
+			}
+			
+			list_WP_filtered.add(wp);
+			
+		}
+		
+		
+		return list_WP_filtered;
+		
+	}//find_All_WP_symbols
+	
 }//public class DBUtils
 

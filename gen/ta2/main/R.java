@@ -124,14 +124,15 @@ public final class R {
         public static final int list_row_checked_box_iv_thumbnail=0x7f0a0032;
         public static final int list_row_checked_box_textView1=0x7f0a0033;
         public static final int list_row_checked_box_textView2=0x7f0a0034;
-        public static final int list_row_slimple_1_tv=0x7f0a0036;
-        public static final int list_row_slimple_iv_1_iv=0x7f0a0038;
-        public static final int list_row_slimple_iv_1_ll=0x7f0a0037;
-        public static final int list_row_slimple_iv_1_tv=0x7f0a0039;
-        public static final int menu_main_admin=0x7f0a003c;
-        public static final int menu_main_horizontal_listview=0x7f0a003d;
-        public static final int menu_main_logout=0x7f0a003b;
-        public static final int menu_main_settings=0x7f0a003a;
+        public static final int list_row_gv_tv=0x7f0a0036;
+        public static final int list_row_slimple_1_tv=0x7f0a0037;
+        public static final int list_row_slimple_iv_1_iv=0x7f0a0039;
+        public static final int list_row_slimple_iv_1_ll=0x7f0a0038;
+        public static final int list_row_slimple_iv_1_tv=0x7f0a003a;
+        public static final int menu_main_admin=0x7f0a003d;
+        public static final int menu_main_horizontal_listview=0x7f0a003e;
+        public static final int menu_main_logout=0x7f0a003c;
+        public static final int menu_main_settings=0x7f0a003b;
         public static final int textView1=0x7f0a0030;
         public static final int textView2=0x7f0a0031;
     }
@@ -150,9 +151,10 @@ public final class R {
         public static final int dlg_tmpl_toast_ok=0x7f03000b;
         public static final int list_row=0x7f03000c;
         public static final int list_row_checked_box=0x7f03000d;
-        public static final int list_row_simple_1=0x7f03000e;
-        public static final int list_row_simple_iv_1=0x7f03000f;
-        public static final int main_pref=0x7f030010;
+        public static final int list_row_gv=0x7f03000e;
+        public static final int list_row_simple_1=0x7f03000f;
+        public static final int list_row_simple_iv_1=0x7f030010;
+        public static final int main_pref=0x7f030011;
     }
     public static final class menu {
         public static final int main_actv=0x7f090000;

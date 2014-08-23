@@ -1,9 +1,15 @@
 package ta2.main;
 
+import java.util.List;
+
+import ta2.adapters.Adp_WordPatterns;
+import ta2.items.WordPattern;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +20,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MemoActv extends Activity {
@@ -157,6 +165,13 @@ public class MemoActv extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		boolean res;
+		
 		// Log
 		String log_msg = "onStart()";
 
@@ -185,21 +200,104 @@ public class MemoActv extends Activity {
 		// build list
 
 		////////////////////////////////
-		_Setup_List_1();
+		res = _Setup_List_1();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			return;
+			
+		}
 		
 		
 	}//protected void onStart()
 
-	private void 
+	private boolean 
 	_Setup_List_1() {
 		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
 		////////////////////////////////
 
 		// build list
 
 		////////////////////////////////
+		CONS.MemoActv.list_WP_1 = DBUtils.find_All_WP_symbols(this);
 		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_1 == null) {
+			
+			return false;
+			
+		}
 		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_1.size() => " 
+						+ CONS.MemoActv.list_WP_1.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// adapter
+
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_1 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_1
+				);
+
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_1 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_1 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// set adapter
+
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_memo_lv_1);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_1.setAdapter(CONS.MemoActv.adp_WPList_1);
+		
+		return true;
 		
 	}//_Setup_List
 

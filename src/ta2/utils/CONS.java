@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.ListItem;
+import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 
@@ -270,6 +271,24 @@ public class CONS {
 
 	}
 
+	public static class MemoActv {
+		
+		public static List<WordPattern> list_WP_1;
+		
+		public static List<WordPattern> list_WP_2;
+		
+		public static List<WordPattern> list_WP_3;
+		
+		public static ArrayAdapter<WordPattern> adp_WPList_1 = null;
+		
+		public static ArrayAdapter<WordPattern> adp_WPList_2 = null;
+		
+		public static ArrayAdapter<WordPattern> adp_WPList_3 = null;
+		
+		
+		
+	}
+	
 	public static class TNActv {
 		
 //		public static List<TI> list_TNActv_Main = null;
