@@ -258,9 +258,21 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_CREATE_TABLE_MEMOS_OK://------------------------------------------------
+			
+			case_DLG_CONF_CREATE_TABLE_MEMOS_OK();
+			
+			break;
+			
 		case DLG_CONF_DROP_TABLE_PATTERNS_OK://------------------------------------------------
 			
 			case_DLG_CONF_DROP_TABLE_PATTERNS_OK();
+			
+			break;
+			
+		case DLG_CONF_DROP_TABLE_MEMOS_OK://------------------------------------------------
+			
+			case_DLG_CONF_DROP_TABLE_MEMOS_OK();
 			
 			break;
 			
@@ -281,6 +293,33 @@ public class DB_OCL implements OnClickListener {
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_DROP_TABLE_MEMOS_OK() {
+		// TODO Auto-generated method stub
+		
+		int res = Methods.drop_Table(actv, CONS.DB.tname_TA2);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+//		-1 Table doesnt exist
+//		-2 SQLException
+//		1 Table dropped
+		
+		Methods.report_DropTable_Memos(actv, res, d1, d2, d3);
+		
+	}
+
+	private void 
+	case_DLG_CONF_CREATE_TABLE_MEMOS_OK() {
+		// TODO Auto-generated method stub
+
+		Methods.createTable_Memos(actv, d1, d2, d3);
+		
+	}
 
 	private void 
 	case_DLG_CONF_CLEAR_VIEW_OK() {

@@ -73,6 +73,10 @@ public class DB_OTL implements OnTouchListener {
 					
 				case DLG_CONF_DROP_TABLE_PATTERNS_OK:
 					
+				case DLG_CONF_CREATE_TABLE_MEMOS_OK:
+					
+				case DLG_CONF_DROP_TABLE_MEMOS_OK:
+					
 				case DLG_CONF_RESTORE_DB_OK:
 					
 				case DLG_CONF_CLEAR_VIEW_OK:
@@ -98,6 +102,10 @@ public class DB_OTL implements OnTouchListener {
 			case DLG_CONF_CREATE_TABLE_PATTERNS_OK:
 				
 			case DLG_CONF_DROP_TABLE_PATTERNS_OK:
+				
+			case DLG_CONF_CREATE_TABLE_MEMOS_OK:
+				
+			case DLG_CONF_DROP_TABLE_MEMOS_OK:
 				
 			case DLG_CONF_RESTORE_DB_OK:
 				

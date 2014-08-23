@@ -1584,6 +1584,74 @@ public static String
 		
 	}//createTable_Patterns
 
+	public static void 
+	createTable_Memos
+	(Activity actv, 
+			Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+		String tname = CONS.DB.tname_TA2;
+		
+		int res = DBUtils.createTable(
+				actv, 
+				CONS.DB.dbName, 
+				tname, 
+				CONS.DB.col_names_TA2, 
+				CONS.DB.col_types_TA2);
+		
+		////////////////////////////////
+		
+		// report
+		
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+		
+//		-1	Table exists<br>
+//		-2	Exception in executing the sql<br>
+//		1	Table created<br>
+		
+		case -1: 
+			
+			msg = "Table alread exists => " + tname;
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case -2: 
+			
+			msg = "Exception in executing the sql";
+			colorID = R.color.red;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case 1: 
+			
+			msg = "Table created => " + tname;
+			colorID = R.color.green4;
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID,
+				CONS.Admin.dflt_MessageDialog_Length);
+		
+	}//createTable_Patterns
+	
 	/******************************
 		@return
 			-1	CONS.Audio.audioTrack => null<br>
@@ -2216,6 +2284,13 @@ public static String
 		
 	}//restore_DB
 
+	/******************************
+		@return
+			-1 Table doesnt exist<br>
+			-2 SQLException<br>
+			1 Table dropped<br>
+	 ******************************/
+	
 	public static int drop_Table
 	(Activity actv, String tname) {
 		// TODO Auto-generated method stub
@@ -2286,6 +2361,68 @@ public static String
 		// TODO Auto-generated method stub
 		
 	}//save_Memo
+
+	public static void 
+	report_DropTable_Memos
+	(Activity actv, 
+		int res, Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		String msg = null;
+		int colorID = 0;
+
+//		-1 Table doesnt exist
+//		-2 SQLException
+//		1 Table dropped
+
+		switch(res) {
+
+		case -1: 
+			
+			msg = "Table doesnt exist";
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+		
+		case -2: 
+			
+			msg = "SQLException";
+			colorID = R.color.red;
+			
+			d3.dismiss();
+			
+			break;
+			
+		case 1: 
+			
+			msg = "Table dropped";
+			colorID = R.color.green4;
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+			
+			d3.dismiss();
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage(
+//				Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID);
+
+	}
 
 }//public class Methods
 

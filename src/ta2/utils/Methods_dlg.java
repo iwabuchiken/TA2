@@ -1119,6 +1119,58 @@ public class Methods_dlg {
 	}//conf_CreateTable_Patterns
 	
 	public static void 
+	conf_CreateTable_Memos
+	(Activity actv, 
+			Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_CREATE_TABLE_MEMOS_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.commons_lbl_create_table)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(CONS.DB.tname_TA2);
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_CreateTable_Patterns
+	
+	public static void 
 	conf_DropTable_Patterns
 	(Activity actv, 
 			Dialog d1, Dialog d2) {
@@ -1170,6 +1222,58 @@ public class Methods_dlg {
 		
 	}//conf_DropTable_Patterns
 
+	public static void 
+	conf_DropTable_Memos
+	(Activity actv, 
+			Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_DROP_TABLE_MEMOS_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.commons_lbl_drop_table)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(CONS.DB.tname_TA2);
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_DropTable_Patterns
+	
 	public static void 
 	conf_Restore_DB
 	(Activity actv, Dialog d1) {

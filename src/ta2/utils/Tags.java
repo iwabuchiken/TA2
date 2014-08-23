@@ -71,6 +71,9 @@ public class Tags {
 		
 		DLG_CONF_CLEAR_VIEW_OK,
 		
+		DLG_CONF_CREATE_TABLE_MEMOS_OK,
+		DLG_CONF_DROP_TABLE_MEMOS_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {

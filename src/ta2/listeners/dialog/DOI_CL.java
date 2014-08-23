@@ -174,12 +174,12 @@ public class DOI_CL implements OnItemClickListener {
 		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_operations_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
-//			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
+			Methods_dlg.conf_CreateTable_Memos(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_operations_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
-//			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
+			Methods_dlg.conf_DropTable_Memos(actv, d1, d2);
 			
 		}
 
