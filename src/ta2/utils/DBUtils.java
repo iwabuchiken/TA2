@@ -1824,5 +1824,80 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//find_All_WP_tags
 	
+	/******************************
+		@return
+		
+	 ******************************/
+	public static List<WordPattern> 
+	find_All_WP_literals
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// get all WP
+		
+		////////////////////////////////
+		List<WordPattern> list_WP = DBUtils.find_All_WP(actv);
+		
+		////////////////////////////////
+		
+		// prep: filter
+		
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/1047342/how-to-run-a-query-with-regexp-in-android answered Jun 26 '09 at 5:25
+		//REF http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/ "2.4. Extracting/Capturing"
+//		String regex = "^[:#]";
+//		String regex = "^(:|\\#)";
+//		String regex = "^(:|#)";
+//		String regex = "^(:|#)[a-zA-Z]";
+//		String regex = "^[:#][a-zA-Z]";
+		String reg1 = "^[:#][a-zA-Z]";
+		String reg2 = "^[^\\w]+$";
+		
+		Pattern p1_tags = Pattern.compile(reg1);
+		Pattern p2_symbols = Pattern.compile(reg2);
+		
+		Matcher m1_tags = null;
+		Matcher m2_symbols = null;
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		List<WordPattern> list_WP_filtered = 
+				new ArrayList<WordPattern>();
+		
+		// If the word DOES NOT contain [a-zA-Z]
+		//		=> then, put it into the new list
+		for (WordPattern wp : list_WP) {
+			
+			m1_tags = p1_tags.matcher(wp.getWord());
+			m2_symbols = p2_symbols.matcher(wp.getWord());
+			
+			// Neither tag, nor symbol
+			if (!m1_tags.find() && !m2_symbols.find()) {
+				
+				list_WP_filtered.add(wp);
+//				continue;
+				
+			}
+			
+//			// Log
+//			String msg_Log = String.format("match => %s", wp.getWord());
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+			
+//			list_WP_filtered.add(wp);
+			
+		}
+		
+		
+		return list_WP_filtered;
+		
+	}//find_All_WP_literals
+	
 }//public class DBUtils
 

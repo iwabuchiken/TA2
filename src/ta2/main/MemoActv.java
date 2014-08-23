@@ -213,6 +213,7 @@ public class MemoActv extends Activity {
 			
 		}
 		
+		// List 2
 		res = _Setup_List_2();
 		
 		// If the list can't be built
@@ -220,6 +221,20 @@ public class MemoActv extends Activity {
 		if (res == false) {
 			
 			String msg = "_Setup_List_2 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		// List 3
+		res = _Setup_List_3();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_3 => false";
 			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
 			
 			return;
@@ -404,6 +419,95 @@ public class MemoActv extends Activity {
 		return true;
 		
 	}//_Setup_List_2
+	
+	private boolean 
+	_Setup_List_3() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_3 = DBUtils.find_All_WP_literals(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_3 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_3.size() => " 
+				+ CONS.MemoActv.list_WP_3.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_3 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_3 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_3
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_3 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_3 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_memo_lv_3);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_3.setAdapter(CONS.MemoActv.adp_WPList_3);
+		
+		return true;
+		
+	}//_Setup_List_3
+	
 	
 	
 	private void 
