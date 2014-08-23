@@ -2514,5 +2514,49 @@ public static String
 		
 	}
 
+	public static void 
+	save_Memo_Temporary
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get value
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		String text = et.getText().toString();
+		
+		////////////////////////////////
+
+		// save
+
+		////////////////////////////////
+		boolean res = Methods.set_Pref_String(
+							actv, 
+							CONS.Pref.pname_MainActv, 
+							CONS.Pref.pkey_Saved_Memo, text);
+
+		if (res == true) {
+			
+			// Log
+			String msg_Log = "text => saved to pref";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "text => not saved to pref";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		}
+		
+		
+	}//save_Memo_Temporary
+
 }//public class Methods
 

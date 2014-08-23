@@ -10,6 +10,7 @@ import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
+import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
@@ -60,7 +61,24 @@ public class MemoActv extends Activity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
+
+		////////////////////////////////
+
+		// save text
+
+		////////////////////////////////
+		Methods.save_Memo_Temporary(this);
 		
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
+		this.finish();
+		
+		overridePendingTransition(0, 0);
+		
+
 //		////////////////////////////////
 //
 //		// bgm => stop
@@ -96,10 +114,6 @@ public class MemoActv extends Activity {
 //			CONS.Audio.audioTrack = null;
 //			
 //		}
-		
-		this.finish();
-		
-		overridePendingTransition(0, 0);
 		
 	}//public void onBackPressed()
 
@@ -216,8 +230,51 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		res = _Setup_Listeners_LVs();
 		
+		////////////////////////////////
+
+		// set text (if pref set)
+
+		////////////////////////////////
+		_Setup_Set_PrefText();
 		
 	}//protected void onStart()
+
+	private void 
+	_Setup_Set_PrefText() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get pref
+
+		////////////////////////////////
+		String saved_Text = Methods.get_Pref_String(
+								this, 
+								CONS.Pref.pname_MainActv, 
+								CONS.Pref.pkey_Saved_Memo,
+								null);
+		
+		////////////////////////////////
+
+		// set
+
+		////////////////////////////////
+		if (saved_Text != null) {
+			
+			EditText et = (EditText) this.findViewById(R.id.actv_memo_et);		
+			
+			et.setText(saved_Text);
+			
+			if (saved_Text.length() > 0) {
+				
+				et.setSelection(saved_Text.length());
+				
+			}
+
+		}
+		
+		
+	}//pkey_Saved_Memo
 
 	/******************************
 		Use this method AFTER executing "_Setup_Lists()"
@@ -644,6 +701,21 @@ public class MemoActv extends Activity {
 		params.setMargins(20, 10, 20, 30);
 
 		ll_LV.setLayoutParams(params);
+		
+		////////////////////////////////
+
+		// EditText
+
+		////////////////////////////////
+		EditText et = (EditText) this.findViewById(R.id.actv_memo_et);
+
+		String text = et.getText().toString();
+		
+		if (text != null && text.length() > 0) {
+			
+			et.setSelection(text.length());
+			
+		}
 		
 	}//_Setup_Layout
 

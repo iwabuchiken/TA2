@@ -173,7 +173,18 @@ public class BO_CL implements OnClickListener {
 //		
 //		}
 
-		
+		////////////////////////////////
+
+		// save text
+
+		////////////////////////////////
+		Methods.save_Memo_Temporary(actv);
+
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
 		actv.finish();
 		
 		actv.overridePendingTransition(0, 0);

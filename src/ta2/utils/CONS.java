@@ -276,23 +276,13 @@ public class CONS {
 		public static String pkey_CurrentPath = "pkey_CurrentPath";
 		
 		public static String pkey_CurrentPosition_MainActv = "pkey_CurrentPosition";
-		
-		////////////////////////////////
-
-		// TNActv
 
 		////////////////////////////////
-		public static SharedPreferences prefs_TNActv;
-		
-		public static String pkey_CurrentPosition_TNActv
-									= "pkey_CurrentPosition_TNActv";
-		
-		public static String pkey_TNActv__CurPath_Move
-									= "pkey_TNActv__CurPath_Move";
-		
-		// standard, search, history, a.o.
-		public static final String pkey_TNActv__ListType
-									= "pkey_TNActv__ListType";
+
+		// MemoActv
+
+		////////////////////////////////
+		public static final String pkey_Saved_Memo = "pkey_Saved_Memo";
 
 	}
 
