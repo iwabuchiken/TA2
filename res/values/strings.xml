@@ -21,6 +21,7 @@
     	<string name="commons_lbl_create_table">Create table</string>
     	<string name="commons_lbl_drop_table">Drop table</string>
     	<string name="commons_lbl_restore_db">Restore DB</string>
+    	<string name="commons_lbl_clear_view">Clear view</string>
     
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">

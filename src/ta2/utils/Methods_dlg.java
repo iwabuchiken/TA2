@@ -1219,5 +1219,54 @@ public class Methods_dlg {
 		d2.show();		
 		
 	}//conf_Restore_DB
+
+	public static void 
+	conf_Clear_View
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		Dialog d1 = 
+				Methods_dlg.dlg_Tmpl_OkCancel(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_CLEAR_VIEW_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG);
+		
+		////////////////////////////////
+
+		// view: message
+
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) d1.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+								R.string.commons_lbl_clear_view) + "?");
+		
+		////////////////////////////////
+
+		// view: item name
+
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) d1.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText("EditText");
+//		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d1.show();
+		
+	}//conf_Clear_View
 	
 }//public class Methods_dialog

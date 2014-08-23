@@ -16,7 +16,7 @@ public class Tags {
 		BACK, SEND_TWEET, PATTERN,
 		
 		// actv_memo
-		ACTV_MEMO_BACK,
+		ACTV_MEMO_BACK, ACTV_MEMO_CLEAR,
 		
 	}
 	
@@ -68,6 +68,8 @@ public class Tags {
 		
 		// dlg: conf: restore db
 		DLG_CONF_RESTORE_DB_OK,
+		
+		DLG_CONF_CLEAR_VIEW_OK,
 		
 	}//public static enum DialogTags
 

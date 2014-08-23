@@ -4,6 +4,7 @@ import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -91,12 +92,27 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MEMO_CLEAR:
+			
+			case_ACTV_MEMO_CLEAR();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MEMO_CLEAR() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.conf_Clear_View(actv);
+		
+		
+	}//case_ACTV_MEMO_CLEAR
 
 	private void 
 	case_ACTV_MEMO_BACK() {
