@@ -2355,10 +2355,43 @@ public static String
 			
 	}//drop_Table
 
-	public static void 
+	/******************************
+		@return
+			-1	insertion => failed<br>
+			-2	Exception<br>
+			1	text => inserted<br>
+	 ******************************/
+	public static int 
 	save_Memo
 	(Activity actv) {
 		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// view
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		////////////////////////////////
+
+		// get text
+
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+		////////////////////////////////
+
+		// save
+
+		////////////////////////////////
+		int res = DBUtils.save_Memo(actv, text);
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return res;
 		
 	}//save_Memo
 
@@ -2422,6 +2455,63 @@ public static String
 				msg,
 				colorID);
 
+	}
+
+	public static void 
+	report_Save_Memos
+	(Activity actv, int res) {
+		// TODO Auto-generated method stub
+//		-1	insertion => failed<br>
+//		-2	Exception<br>
+//		1	text => inserted<br>
+		
+		String msg = null;
+		int colorID = 0;
+
+//		-1 Table doesnt exist
+//		-2 SQLException
+//		1 Table dropped
+
+		switch(res) {
+
+		case -1: 
+			
+			msg = "insertion => failed";
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Exception";
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "text => inserted";
+			colorID = R.color.green4;
+			
+			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage(
+//				Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID);
+		
+		
+		
 	}
 
 }//public class Methods

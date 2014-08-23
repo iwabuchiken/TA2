@@ -1898,6 +1898,108 @@ public class DBUtils extends SQLiteOpenHelper{
 		return list_WP_filtered;
 		
 	}//find_All_WP_literals
+
+	/******************************
+		@return
+			-1	insertion => failed<br>
+			-2	Exception<br>
+			1	text => inserted<br>
+	 ******************************/
+	public static int 
+	save_Memo
+	(Activity actv, String text) {
+		// TODO Auto-generated method stub
+		
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		////////////////////////////////
+		
+		// prep: content values
+		
+		////////////////////////////////
+		ContentValues val = _build_Values__Memo(actv, text);
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// Insert data
+			long res = wdb.insert(CONS.DB.tname_TA2, null, val);
+//			long res = wdb.insert(CONS.DB.tname_RefreshLog, null, val);
+			
+			if (res == -1) {
+				
+				// Log
+				String msg_Log = "insertion => failed";
+				Log.e("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				wdb.endTransaction();
+				wdb.close();
+				
+				return -1;
+				
+			} else {
+				
+				// Log
+				String msg_Log = "insertion => done";
+				Log.d("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+//			// Log
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Data inserted => " + "(" + columnNames[0] + " => " + values[0] + "), and others");
+			
+			wdb.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
+			
+			return -2;
+			
+		}//try
+		
+	}//save_Memo
+
+	private static ContentValues 
+	_build_Values__Memo
+	(Activity actv, String text) {
+		// TODO Auto-generated method stub
+		ContentValues val = new ContentValues();
+		
+		
+		val.put("created_at",
+				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+		val.put("modified_at",
+				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+		
+		val.put("text", text);
+		
+		return val;
+		
+	}//_build_Values__TI
 	
 }//public class DBUtils
 

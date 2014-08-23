@@ -115,7 +115,13 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_MEMO_SAVE() {
 		// TODO Auto-generated method stub
 		
-		Methods.save_Memo(actv);
+		int res = Methods.save_Memo(actv);
+		
+//			-1	insertion => failed<br>
+//			-2	Exception<br>
+//			1	text => inserted<br>
+
+		Methods.report_Save_Memos(actv, res);
 		
 	}
 
