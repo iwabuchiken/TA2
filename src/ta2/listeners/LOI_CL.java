@@ -63,6 +63,8 @@ public class LOI_CL implements OnItemClickListener {
 		switch (tag) {
 			
 		case ACTV_MEMO_LV_1://----------------------------------------------------
+		case ACTV_MEMO_LV_2://----------------------------------------------------
+		case ACTV_MEMO_LV_3://----------------------------------------------------
 
 			WordPattern item = (WordPattern) parent.getItemAtPosition(position);
 			

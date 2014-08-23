@@ -244,7 +244,7 @@ public class MemoActv extends Activity {
 		// TODO Auto-generated method stub
 		////////////////////////////////
 
-		// view
+		// view: list 1
 
 		////////////////////////////////
 		ListView lv_1 = (ListView) findViewById(R.id.actv_memo_lv_1);
@@ -252,6 +252,28 @@ public class MemoActv extends Activity {
 		lv_1.setTag(Tags.ListTags.ACTV_MEMO_LV_1);
 		
 		lv_1.setOnItemClickListener(new LOI_CL(this));
+		
+		////////////////////////////////
+		
+		// view: list 2
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_memo_lv_2);
+		
+		lv_2.setTag(Tags.ListTags.ACTV_MEMO_LV_2);
+		
+		lv_2.setOnItemClickListener(new LOI_CL(this));
+		
+		////////////////////////////////
+		
+		// view: list 3
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_memo_lv_3);
+		
+		lv_3.setTag(Tags.ListTags.ACTV_MEMO_LV_3);
+		
+		lv_3.setOnItemClickListener(new LOI_CL(this));
 		
 		
 		return false;

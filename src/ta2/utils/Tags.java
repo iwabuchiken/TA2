@@ -30,7 +30,7 @@ public class Tags {
 		actv_main_lv_locs,
 		
 		// MemoActv
-		ACTV_MEMO_LV_1,
+		ACTV_MEMO_LV_1, ACTV_MEMO_LV_2, ACTV_MEMO_LV_3,
 		
 	}//public static enum ListTags
 
