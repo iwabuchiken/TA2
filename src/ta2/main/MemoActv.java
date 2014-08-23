@@ -9,9 +9,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -171,7 +173,85 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		this._Setup_Listeners();
 		
+		////////////////////////////////
+
+		// layout
+
+		////////////////////////////////
+		_Setup_Layout();
+		
+		////////////////////////////////
+
+		// build list
+
+		////////////////////////////////
+		_Setup_List_1();
+		
+		
 	}//protected void onStart()
+
+	private void 
+	_Setup_List_1() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// build list
+
+		////////////////////////////////
+		
+		
+		
+	}//_Setup_List
+
+	private void 
+	_Setup_Layout() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		final int layout_Height_LVs = 50;	// X out of 100
+		
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_memo_ll_listview);
+		
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+		DisplayMetrics displayMetrics = this.getResources()
+                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		// Log
+		String msg_Log = "w => " + w;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		int layout_Width = w * layout_Height_LVs / 100;
+
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								layout_Width
+				);
+//		LayoutParams.WRAP_CONTENT);
+		
+		params.setMargins(20, 10, 20, 30);
+
+		ll_LV.setLayoutParams(params);
+		
+	}//_Setup_Layout
 
 	private void 
 	_Setup_Listeners() {

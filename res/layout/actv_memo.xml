@@ -17,27 +17,51 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:gravity="top|left"
+        android:inputType="textLongMessage"
         android:textSize="25sp" >
 
         <requestFocus />
     </EditText>
 
-    <GridView
-        android:id="@+id/actv_memo_gv"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    <LinearLayout
+        android:id="@+id/actv_memo_ll_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:background="@color/blue1"
-        android:gravity="center_vertical"
-        android:horizontalSpacing="5dp"
-        android:numColumns="4"
-        android:padding="5dp"
-        android:verticalSpacing="5dp" >
+        android:baselineAligned="false" >
 
-    </GridView>
+        <ListView
+            android:id="@+id/actv_memo_lv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1" >
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/actv_memo_lv_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1" >
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/actv_memo_lv_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1" >
+
+        </ListView>
+
+    </LinearLayout>
     
     <LinearLayout
         android:layout_width="fill_parent"
