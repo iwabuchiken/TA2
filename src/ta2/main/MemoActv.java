@@ -4,6 +4,7 @@ import java.util.List;
 
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.WordPattern;
+import ta2.listeners.LOI_CL;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -200,6 +201,68 @@ public class MemoActv extends Activity {
 		// build list
 
 		////////////////////////////////
+		res = _Setup_Lists();
+
+		if (res == false) {
+			
+			return;
+			
+		}
+
+		////////////////////////////////
+
+		// listeners
+
+		////////////////////////////////
+		res = _Setup_Listeners_LVs();
+		
+		
+	}//protected void onStart()
+
+	/******************************
+		Use this method AFTER executing "_Setup_Lists()"
+	 ******************************/
+	private boolean 
+	_Setup_Listeners_LVs() {
+		// TODO Auto-generated method stub
+		boolean res;
+		
+		////////////////////////////////
+
+		// list 1
+
+		////////////////////////////////
+		res = _Setup_Listeners_LVs_1();
+		
+		
+		return false;
+	}
+	
+
+	private boolean 
+	_Setup_Listeners_LVs_1() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// view
+
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_memo_lv_1);
+		
+		lv_1.setTag(Tags.ListTags.ACTV_MEMO_LV_1);
+		
+		lv_1.setOnItemClickListener(new LOI_CL(this));
+		
+		
+		return false;
+	}
+	
+
+	private boolean 
+	_Setup_Lists() {
+		// TODO Auto-generated method stub
+		boolean res;
+		
 		res = _Setup_List_1();
 		
 		// If the list can't be built
@@ -209,7 +272,7 @@ public class MemoActv extends Activity {
 			String msg = "_Setup_List_1 => false";
 			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
 			
-			return;
+			return false;
 			
 		}
 		
@@ -223,7 +286,7 @@ public class MemoActv extends Activity {
 			String msg = "_Setup_List_2 => false";
 			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
 			
-			return;
+			return false;
 			
 		}
 		
@@ -237,12 +300,13 @@ public class MemoActv extends Activity {
 			String msg = "_Setup_List_3 => false";
 			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
 			
-			return;
+			return false;
 			
 		}
 		
+		return true;
 		
-	}//protected void onStart()
+	}//_Setup_Lists
 
 	private boolean 
 	_Setup_List_1() {

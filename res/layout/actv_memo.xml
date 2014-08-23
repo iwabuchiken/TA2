@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/actv_memo_ib_et"
+        android:id="@+id/actv_memo_et"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="top|left"

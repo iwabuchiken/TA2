@@ -77,9 +77,9 @@ public final class R {
         public static final int actv_main_ib_twitter_login=0x7f0a0003;
         public static final int actv_main_ll_base=0x7f0a0000;
         public static final int actv_main_ll_main=0x7f0a0001;
+        public static final int actv_memo_et=0x7f0a0005;
         public static final int actv_memo_ib_back=0x7f0a000a;
         public static final int actv_memo_ib_clear=0x7f0a000c;
-        public static final int actv_memo_ib_et=0x7f0a0005;
         public static final int actv_memo_ib_save=0x7f0a000b;
         public static final int actv_memo_ll_base=0x7f0a0004;
         public static final int actv_memo_ll_listview=0x7f0a0006;

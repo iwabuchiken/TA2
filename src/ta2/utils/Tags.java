@@ -29,6 +29,9 @@ public class Tags {
 		
 		actv_main_lv_locs,
 		
+		// MemoActv
+		ACTV_MEMO_LV_1,
+		
 	}//public static enum ListTags
 
 	public static enum 
