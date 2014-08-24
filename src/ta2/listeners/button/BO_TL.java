@@ -80,6 +80,24 @@ public class BO_TL implements OnTouchListener {
 				
 				break;// case ib_up
 				
+			case ACTV_MAIN_SHOWLIST://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_main_bt_list_128x128_disabled);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
+			case ACTV_SHOWLIST_BACK://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37_disabled);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
 				
 			}//switch (tag)
 			
@@ -124,6 +142,23 @@ public class BO_TL implements OnTouchListener {
 				
 				break;// case ib_up
 				
+			case ACTV_MAIN_SHOWLIST://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_main_bt_list);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+			
+			case ACTV_SHOWLIST_BACK://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
 			
 			}//switch (tag)
 			

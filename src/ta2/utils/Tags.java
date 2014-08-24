@@ -11,12 +11,16 @@ public class Tags {
 	public static enum ButtonTags {
 		// actv_main
 		ACTV_MAIN_MEMO, LIST, LOGIN, LOGOUT,
+		ACTV_MAIN_SHOWLIST,
 		
 		// actv_twt
 		BACK, SEND_TWEET, PATTERN,
 		
 		// actv_memo
 		ACTV_MEMO_BACK, ACTV_MEMO_CLEAR, ACTV_MEMO_SAVE,
+		
+		// actv: ShowList
+		ACTV_SHOWLIST_BACK,
 		
 	}
 	

@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class BO_CL implements OnClickListener {
@@ -82,7 +83,7 @@ public class BO_CL implements OnClickListener {
 
 		case ACTV_MAIN_MEMO:
 			
-			case_MEMO();
+			case_ACTV_MAIN_MEMO();
 			
 			break;
 
@@ -104,6 +105,18 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MAIN_SHOWLIST:
+			
+			case_ACTV_MAIN_SHOWLIST();
+			
+			break;
+			
+		case ACTV_SHOWLIST_BACK:
+			
+			case_ACTV_SHOWLIST_BACK();
+			
+			break;
+			
 			
 		default:
 			break;
@@ -112,9 +125,64 @@ public class BO_CL implements OnClickListener {
 	}//public void onClick(View v)
 
 	private void 
+	case_ACTV_SHOWLIST_BACK() {
+		// TODO Auto-generated method stub
+	
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+
+		
+	}
+
+	private void 
+	case_ACTV_MAIN_SHOWLIST() {
+		// TODO Auto-generated method stub
+
+		Methods.start_Activity_ShowListActv(actv);
+		
+	}
+
+	private void 
 	case_ACTV_MEMO_SAVE() {
 		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// validate: any text?
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
 		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// save memo
+
+		////////////////////////////////
 		int res = Methods.save_Memo(actv);
 		
 //			-1	insertion => failed<br>
@@ -192,7 +260,7 @@ public class BO_CL implements OnClickListener {
 	}
 
 	private void 
-	case_MEMO() {
+	case_ACTV_MAIN_MEMO() {
 		// TODO Auto-generated method stub
 		
 		////////////////////////////////

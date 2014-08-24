@@ -1339,7 +1339,7 @@ public class Methods_dlg {
 						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
 						
 						Tags.DialogTags.DLG_CONF_CLEAR_VIEW_OK, 
-						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG);
+						Tags.DialogTags.GENERIC_DISMISS);
 		
 		////////////////////////////////
 

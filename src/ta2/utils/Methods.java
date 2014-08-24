@@ -75,6 +75,7 @@ import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
+import ta2.main.ShowListActv;
 import ta2.tasks.Task_AudioTrack;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
@@ -896,6 +897,20 @@ public static String
 		actv.startActivity(i);
 		
 	}//start_Activity_PrefActv
+	
+	public static void 
+	start_Activity_ShowListActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, ShowListActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_ShowListActv
 	
 	/******************************
 		@return

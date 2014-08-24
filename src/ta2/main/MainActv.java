@@ -127,6 +127,20 @@ public class MainActv extends Activity {
 //		bt_Up.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
+		
+		// IB: showlist
+		
+		////////////////////////////////
+		ImageButton bt_ShowList = 
+				(ImageButton) this.findViewById(R.id.actv_main_ib_showlist);
+		
+		bt_ShowList.setTag(Tags.ButtonTags.ACTV_MAIN_SHOWLIST);
+		
+		bt_ShowList.setOnTouchListener(new BO_TL(this));
+		
+		bt_ShowList.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
 
 		// LL: base
 
