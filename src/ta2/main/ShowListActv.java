@@ -66,6 +66,18 @@ public class ShowListActv extends ListActivity {
 		
 //		bt_Up.setOnClickListener(new BO_CL(this));
 		
+		////////////////////////////////
+
+		// LL: base
+
+		////////////////////////////////
+		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_showlist_ll_base);
+		
+		ll_Base.setTag(Tags.SwipeTags.ACTV_SHOWLIST_BASE);
+		
+		ll_Base.setOnTouchListener(new STL(this));
+
+		
 	}//_Setup_Listeners
 
 

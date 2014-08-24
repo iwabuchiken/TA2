@@ -114,6 +114,12 @@ public class STL implements OnTouchListener {
 			
 			break;
 			
+		case ACTV_MAIN:
+			
+			case_Right_case_ACTV_MAIN();
+			
+			break;
+			
 		default:
 			
 			// Log
@@ -127,6 +133,14 @@ public class STL implements OnTouchListener {
 		}//switch(this.tag)
 
 	}//onSwipeRight()
+
+	private void 
+	case_Right_case_ACTV_MAIN() {
+		// TODO Auto-generated method stub
+	
+		Methods.start_Activity_ShowListActv(actv);
+		
+	}
 
 	private void 
 	case_Right_ACTV_MEMO() {
@@ -155,6 +169,12 @@ public class STL implements OnTouchListener {
 			
 			break;
 			
+		case ACTV_SHOWLIST_BASE:
+			
+			case_Left_ACTV_SHOWLIST_BASE();
+			
+			break;
+			
 		default:
 			
 			// Log
@@ -169,6 +189,20 @@ public class STL implements OnTouchListener {
 		
 		
 	}//onSwipeLeft()
+
+	private void 
+	case_Left_ACTV_SHOWLIST_BASE() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+		
+	}
 
 	public void 
 	onSwipeTop() {

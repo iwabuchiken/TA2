@@ -4,7 +4,7 @@ public class Tags {
 
 	public enum SwipeTags {
 		
-		ACTV_MAIN, ACTV_MEMO,
+		ACTV_MAIN, ACTV_MEMO, ACTV_SHOWLIST_BASE,
 
 	}
 
