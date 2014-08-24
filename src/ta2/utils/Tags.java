@@ -59,7 +59,7 @@ public class Tags {
 		dlg_Delete_PatternsItem_OK,
 		
 		// dlg_filter_timeline
-		dlg_Filter_Timeline_OK, dlg_Filter_Timeline_Reset,
+		DLG_FILTER_SHOWLIST_OK, DLG_FILTER_SHOWLIST_CLEAR,
 		
 		// dlg: import db => ok
 		DLG_CONF_IMPORT_DB_OK,

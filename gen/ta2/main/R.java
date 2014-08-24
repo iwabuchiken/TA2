@@ -90,8 +90,8 @@ public final class R {
         public static final int actv_showlist_ib_back=0x7f0a000e;
         public static final int actv_showlist_ll_base=0x7f0a000d;
         public static final int dlg_filter_showlist_bt_cancel=0x7f0a0012;
+        public static final int dlg_filter_showlist_bt_clear=0x7f0a0013;
         public static final int dlg_filter_showlist_bt_ok=0x7f0a0011;
-        public static final int dlg_filter_showlist_bt_reset=0x7f0a0013;
         public static final int dlg_filter_showlist_et_content=0x7f0a000f;
         public static final int dlg_filter_showlist_gv=0x7f0a0010;
         public static final int dlg_tmpl_cancel_lv_2_bt_cancel=0x7f0a001b;

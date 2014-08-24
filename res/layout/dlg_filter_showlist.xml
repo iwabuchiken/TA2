@@ -59,7 +59,7 @@
             android:textSize="25sp" />
 
         <Button
-            android:id="@+id/dlg_filter_showlist_bt_reset"
+            android:id="@+id/dlg_filter_showlist_bt_clear"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

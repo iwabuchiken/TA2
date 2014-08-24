@@ -288,11 +288,50 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_FILTER_SHOWLIST_CLEAR://------------------------------------------------
+			
+			case_DLG_FILTER_SHOWLIST_CLEAR();
+			
+			break;
+			
+		case DLG_FILTER_SHOWLIST_OK://------------------------------------------------
+			
+			case_DLG_FILTER_SHOWLIST_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_FILTER_SHOWLIST_OK() {
+		// TODO Auto-generated method stub
+		
+		
+		
+	}
+
+	private void 
+	case_DLG_FILTER_SHOWLIST_CLEAR() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+	
+		// view
+	
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		////////////////////////////////
+
+		// clear
+
+		////////////////////////////////
+		et.setText("");
+		
+	}
 
 	private void 
 	case_DLG_CONF_DROP_TABLE_MEMOS_OK() {

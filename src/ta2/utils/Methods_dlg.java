@@ -1384,8 +1384,13 @@ public class Methods_dlg {
 		////////////////////////////////
 		Dialog d = _filter_ShowList__GetDialog(actv);
 		
-		
-		
+
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d.show();
 		
 	}//filter_ShowList
 
@@ -1393,7 +1398,12 @@ public class Methods_dlg {
 	_filter_ShowList__GetDialog
 	(Activity actv) {
 		// TODO Auto-generated method stub
-		
+
+		////////////////////////////////
+
+		// setup dialog
+
+		////////////////////////////////
 		Dialog dlg = new Dialog(actv);
 		
 		//
@@ -1402,31 +1412,26 @@ public class Methods_dlg {
 		// Title
 		dlg.setTitle(actv.getString(R.string.menu_showlist_filter));
 		
-		/*********************************
-		 * Set: GridView
-		 *********************************/
-//		GridView gv_Patterns =
-//				(GridView) dlg.findViewById(R.id.dlg_filter_timeline_gv);
-		
-		Methods_twt.setup_GridView_Filter_Timeline(actv, dlg);
-//		Methods_twt.setup_GridView_Filter_Timeline(actv, gv_Patterns);
+		////////////////////////////////
 
-		/*********************************
-		 * Get: Buttons
-		 *********************************/
-		Button bt_OK	= (Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_ok);
+		// Buttons
+
+		////////////////////////////////
+		Button bt_OK	= (Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_ok);
 		Button bt_Cancel =
-				(Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_cancel);
+				(Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_cancel);
 		Button bt_Reset	=
-				(Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_reset);
+				(Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_clear);
 		
-		/*********************************
-		 * Listeners: Buttons
-		 *********************************/
-		// Set: tag
-		bt_OK.setTag(Tags.DialogTags.dlg_Filter_Timeline_OK);
-		bt_Cancel.setTag(Tags.DialogTags.dlg_generic_dismiss);
-		bt_Reset.setTag(Tags.DialogTags.dlg_Filter_Timeline_Reset);
+		////////////////////////////////
+
+		// Listeners
+
+		////////////////////////////////
+//		bt_OK.setTag(Tags.DialogTags.dlg_Filter_Timeline_OK);
+		bt_OK.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_OK);
+		bt_Cancel.setTag(Tags.DialogTags.GENERIC_DISMISS);
+		bt_Reset.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_CLEAR);
 		
 		// On touch
 		bt_OK.setOnTouchListener(new DB_OTL(actv));
@@ -1439,12 +1444,6 @@ public class Methods_dlg {
 		bt_Reset.setOnClickListener(new DB_OCL(actv, dlg));
 		
 		return dlg;
-
-		
-		
-		
-		
-		return null;
 		
 	}//_filter_ShowList__GetDialog
 	
