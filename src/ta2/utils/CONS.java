@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ta2.adapters.Adp_MemoList;
 import ta2.items.ListItem;
+import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
@@ -58,6 +60,16 @@ public class CONS {
 	}//public static class Intent
 	
 	public static class DB {
+		
+		////////////////////////////////
+
+		// commons
+
+		////////////////////////////////
+		public static final String sortOrder_ASC = "ASC";
+		
+		public static final String sortOrder_DESC = "DESC";
+		
 		////////////////////////////////
 
 		// Paths and names
@@ -316,6 +328,14 @@ public class CONS {
 		
 	}
 	
+	public static class ShowListActv {
+		
+		public static List<Memo> list_Memos;
+		
+		public static Adp_MemoList adp_List_Memos = null;
+		
+	}
+	
 	public static class TNActv {
 		
 //		public static List<TI> list_TNActv_Main = null;
@@ -538,7 +558,7 @@ public class CONS {
 		// Sort order
 		public static enum SortOrder {
 			
-				ASC, DEC,
+				ASC, DESC,
 				
 		};
 

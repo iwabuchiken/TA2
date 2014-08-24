@@ -1,9 +1,11 @@
 package ta2.main;
 
+import ta2.adapters.Adp_MemoList;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -24,6 +26,28 @@ public class ShowListActv extends ListActivity {
 	onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+
+		boolean res;
+		
+		////////////////////////////////
+
+		// build list
+
+		////////////////////////////////
+		res = _Setup_List();
+
+		if (res == false) {
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// adapter
+
+		////////////////////////////////
+		res = _Setup_Adapter();
 		
 		////////////////////////////////
 
@@ -38,6 +62,97 @@ public class ShowListActv extends ListActivity {
 	}//onStart
 
     
+	private boolean 
+	_Setup_Adapter() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get adapter
+
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
+				
+						this,
+						R.layout.list_row_showlist,
+						CONS.ShowListActv.list_Memos
+				
+		);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.ShowListActv.adp_List_Memos == null) {
+			
+			// Log
+			String msg_Log = "CONS.ShowListActv.adp_List_Memos => null";
+			Log.e("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// set
+
+		////////////////////////////////
+		this.getListView().setAdapter(CONS.ShowListActv.adp_List_Memos);
+		
+		return true;
+		
+	}
+	
+
+
+	private boolean 
+	_Setup_List() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// list
+
+		////////////////////////////////
+		CONS.ShowListActv.list_Memos = 
+							DBUtils.find_All_Memos(this, CONS.Enums.SortOrder.DESC);
+//		CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(this);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+			// Log
+			String msg_Log = "CONS.ShowListActv.list_Memos => null";
+			Log.e("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "Can't get memo list";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		} else {
+
+			// Log
+			String msg_Log = "memo size => " + CONS.ShowListActv.list_Memos.size();
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			return true;
+			
+		}
+		
+	}//_Setup_List
+
+
 	private void 
 	do_test() {
 		// TODO Auto-generated method stub

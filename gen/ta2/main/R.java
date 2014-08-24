@@ -257,6 +257,7 @@ public final class R {
          */
         public static final int PrefTheme=0x7f080002;
         public static final int tv_basic_1=0x7f080003;
+        public static final int tv_basic_2=0x7f080004;
     }
     public static final class xml {
         public static final int pref_main=0x7f040000;
