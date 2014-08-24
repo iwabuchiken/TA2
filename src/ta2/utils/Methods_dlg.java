@@ -16,7 +16,9 @@ import java.util.TimerTask;
 import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_ListItems;
+import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
+import ta2.items.WordPattern;
 import ta2.listeners.dialog.DB_OCL;
 import ta2.listeners.dialog.DB_OTL;
 import ta2.listeners.dialog.DOI_CL;
@@ -1377,13 +1379,21 @@ public class Methods_dlg {
 	filter_ShowList
 	(Activity actv) {
 		// TODO Auto-generated method stub
+		boolean res;
+		
 		////////////////////////////////
 
 		// get dialog
 
 		////////////////////////////////
 		Dialog d = _filter_ShowList__GetDialog(actv);
-		
+
+		////////////////////////////////
+
+		// gridview
+
+		////////////////////////////////
+		res = _filter_ShowList__GridView(actv, d);
 
 		////////////////////////////////
 
@@ -1393,6 +1403,83 @@ public class Methods_dlg {
 		d.show();
 		
 	}//filter_ShowList
+
+	private static boolean 
+	_filter_ShowList__GridView
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// Get: GV
+
+		////////////////////////////////
+		GridView gv_Patterns =
+				(GridView) d.findViewById(R.id.dlg_filter_showlist_gv);
+
+		////////////////////////////////
+
+		// get list
+
+		////////////////////////////////
+		List<WordPattern> list_WPs = DBUtils.find_All_WP(actv);
+		
+		if (list_WPs == null) {
+			
+			String msg = "Can't get list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// Adapter
+
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_WPs = new Adp_WordPatterns(
+				actv,
+				R.layout.list_row_gv,
+				list_WPs
+				);
+
+		if (CONS.ShowListActv.adp_List_WPs == null) {
+			
+			String msg = "Can't build adapter";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return false;
+			
+		}
+
+		////////////////////////////////
+
+		// set: adapter
+
+		////////////////////////////////
+		gv_Patterns.setAdapter(CONS.ShowListActv.adp_List_WPs);
+//		gv.setAdapter(adapter);
+		
+		////////////////////////////////
+
+		// Listener
+
+		////////////////////////////////
+		gv_Patterns.setTag(Tags.DialogItemTags.GV_Filter_Timeline);
+		
+		// OnClick
+		gv_Patterns.setOnItemClickListener(new DOI_CL(actv, d));
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return true;
+		
+	}//_filter_ShowList__GridView
+	
 
 	private static Dialog 
 	_filter_ShowList__GetDialog
@@ -1446,5 +1533,5 @@ public class Methods_dlg {
 		return dlg;
 		
 	}//_filter_ShowList__GetDialog
-	
+
 }//public class Methods_dialog

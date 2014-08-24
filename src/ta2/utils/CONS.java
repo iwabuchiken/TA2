@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_MemoList;
+import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -333,6 +334,8 @@ public class CONS {
 		public static List<Memo> list_Memos;
 		
 		public static Adp_MemoList adp_List_Memos = null;
+		
+		public static Adp_WordPatterns adp_List_WPs = null;
 		
 	}
 	
