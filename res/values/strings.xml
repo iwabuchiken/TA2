@@ -40,7 +40,10 @@
     	<string name="menu_main_refresh_screen">Refresh screen</string>
     	<string name="menu_main_admin">Admin</string>
     	<string name="menu_main_horizontal_listview">Horizontal LV</string>
-    	
+
+    <!-- Menu: showlist -->
+    	<string name="menu_showlist_filter">Filter</string>
+    			
     <!-- dlg_actvmain_admin.xml -->
    		<string name="dlg_actvmain_admin_title">Admin</string>
    		<string name="dlg_actvmain_admin_item_backup_db">Backup DB</string>

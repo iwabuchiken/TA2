@@ -1372,5 +1372,80 @@ public class Methods_dlg {
 		d1.show();
 		
 	}//conf_Clear_View
+
+	public static void 
+	filter_ShowList
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get dialog
+
+		////////////////////////////////
+		Dialog d = _filter_ShowList__GetDialog(actv);
+		
+		
+		
+		
+	}//filter_ShowList
+
+	private static Dialog 
+	_filter_ShowList__GetDialog
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_filter_showlist);
+		
+		// Title
+		dlg.setTitle(actv.getString(R.string.menu_showlist_filter));
+		
+		/*********************************
+		 * Set: GridView
+		 *********************************/
+//		GridView gv_Patterns =
+//				(GridView) dlg.findViewById(R.id.dlg_filter_timeline_gv);
+		
+		Methods_twt.setup_GridView_Filter_Timeline(actv, dlg);
+//		Methods_twt.setup_GridView_Filter_Timeline(actv, gv_Patterns);
+
+		/*********************************
+		 * Get: Buttons
+		 *********************************/
+		Button bt_OK	= (Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_ok);
+		Button bt_Cancel =
+				(Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_cancel);
+		Button bt_Reset	=
+				(Button) dlg.findViewById(R.id.dlg_filter_timeline_bt_reset);
+		
+		/*********************************
+		 * Listeners: Buttons
+		 *********************************/
+		// Set: tag
+		bt_OK.setTag(Tags.DialogTags.dlg_Filter_Timeline_OK);
+		bt_Cancel.setTag(Tags.DialogTags.dlg_generic_dismiss);
+		bt_Reset.setTag(Tags.DialogTags.dlg_Filter_Timeline_Reset);
+		
+		// On touch
+		bt_OK.setOnTouchListener(new DB_OTL(actv));
+		bt_Cancel.setOnTouchListener(new DB_OTL(actv));
+		bt_Reset.setOnTouchListener(new DB_OTL(actv));
+		
+		// On click
+		bt_OK.setOnClickListener(new DB_OCL(actv, dlg));
+		bt_Cancel.setOnClickListener(new DB_OCL(actv, dlg));
+		bt_Reset.setOnClickListener(new DB_OCL(actv, dlg));
+		
+		return dlg;
+
+		
+		
+		
+		
+		return null;
+		
+	}//_filter_ShowList__GetDialog
 	
 }//public class Methods_dialog

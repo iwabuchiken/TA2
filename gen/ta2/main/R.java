@@ -70,9 +70,10 @@ public final class R {
         public static final int menu_icon_admin_32x32_yellow=0x7f02001d;
         public static final int menu_icon_horizontal_listview_32x32=0x7f02001e;
         public static final int menu_icon_logout_32x32=0x7f02001f;
+        public static final int menu_timeline_filter=0x7f020020;
     }
     public static final class id {
-        public static final int LL_main=0x7f0a0030;
+        public static final int LL_main=0x7f0a0035;
         public static final int actv_main_ib_memo=0x7f0a0002;
         public static final int actv_main_ib_showlist=0x7f0a0001;
         public static final int actv_main_ib_twitter_login=0x7f0a0003;
@@ -88,81 +89,89 @@ public final class R {
         public static final int actv_memo_lv_3=0x7f0a0009;
         public static final int actv_showlist_ib_back=0x7f0a000e;
         public static final int actv_showlist_ll_base=0x7f0a000d;
-        public static final int dlg_tmpl_cancel_lv_2_bt_cancel=0x7f0a0016;
-        public static final int dlg_tmpl_cancel_lv_2_ll_filepath=0x7f0a0015;
-        public static final int dlg_tmpl_cancel_lv_2_ll_main=0x7f0a0013;
-        public static final int dlg_tmpl_cancel_lv_2_lv=0x7f0a0014;
-        public static final int dlg_tmpl_cancel_lv_bt_cancel=0x7f0a0012;
-        public static final int dlg_tmpl_cancel_lv_ll_filepath=0x7f0a0011;
-        public static final int dlg_tmpl_cancel_lv_ll_main=0x7f0a000f;
-        public static final int dlg_tmpl_cancel_lv_lv=0x7f0a0010;
-        public static final int dlg_tmpl_cancel_lv_with_btn_bt_cancel=0x7f0a001a;
-        public static final int dlg_tmpl_cancel_lv_with_btn_ib=0x7f0a001b;
-        public static final int dlg_tmpl_cancel_lv_with_btn_ll_filepath=0x7f0a0019;
-        public static final int dlg_tmpl_cancel_lv_with_btn_ll_main=0x7f0a0017;
-        public static final int dlg_tmpl_cancel_lv_with_btn_lv=0x7f0a0018;
-        public static final int dlg_tmpl_confirm_simple_btn_cancel=0x7f0a001f;
-        public static final int dlg_tmpl_confirm_simple_btn_ok=0x7f0a001e;
-        public static final int dlg_tmpl_confirm_simple_cb_btn_cancel=0x7f0a0024;
-        public static final int dlg_tmpl_confirm_simple_cb_btn_ok=0x7f0a0023;
-        public static final int dlg_tmpl_confirm_simple_cb_delete_file=0x7f0a0022;
-        public static final int dlg_tmpl_confirm_simple_cb_tv_item_name=0x7f0a0021;
-        public static final int dlg_tmpl_confirm_simple_cb_tv_message=0x7f0a0020;
-        public static final int dlg_tmpl_confirm_simple_tv_item_name=0x7f0a001d;
-        public static final int dlg_tmpl_confirm_simple_tv_message=0x7f0a001c;
-        public static final int dlg_tmpl_edittext_simple_btn_cancel=0x7f0a0028;
-        public static final int dlg_tmpl_edittext_simple_btn_ok=0x7f0a0027;
-        public static final int dlg_tmpl_edittext_simple_et=0x7f0a0026;
-        public static final int dlg_tmpl_edittext_simple_tv_message=0x7f0a0025;
-        public static final int dlg_tmpl_list_cancel_2_bt_cancel=0x7f0a002c;
-        public static final int dlg_tmpl_list_cancel_2_lv=0x7f0a002b;
-        public static final int dlg_tmpl_list_cancel_bt_cancel=0x7f0a002a;
-        public static final int dlg_tmpl_list_cancel_lv=0x7f0a0029;
-        public static final int dlg_tmpl_toast_duration_tv_message=0x7f0a002d;
-        public static final int dlg_tmpl_toast_ok_bt_cancel=0x7f0a002f;
-        public static final int dlg_tmpl_toast_ok_tv_message=0x7f0a002e;
-        public static final int iv_thumbnail=0x7f0a0031;
-        public static final int list_row_checked_box_checkBox1=0x7f0a0037;
-        public static final int list_row_checked_box_iv_thumbnail=0x7f0a0034;
-        public static final int list_row_checked_box_textView1=0x7f0a0035;
-        public static final int list_row_checked_box_textView2=0x7f0a0036;
-        public static final int list_row_gv_tv=0x7f0a0038;
-        public static final int list_row_showlist_tv_created_at=0x7f0a0032;
-        public static final int list_row_showlist_tv_modified_at=0x7f0a0033;
-        public static final int list_row_showlist_tv_text=0x7f0a0039;
-        public static final int list_row_slimple_1_tv=0x7f0a003a;
-        public static final int list_row_slimple_iv_1_iv=0x7f0a003c;
-        public static final int list_row_slimple_iv_1_ll=0x7f0a003b;
-        public static final int list_row_slimple_iv_1_tv=0x7f0a003d;
-        public static final int menu_main_admin=0x7f0a0040;
-        public static final int menu_main_horizontal_listview=0x7f0a0041;
-        public static final int menu_main_logout=0x7f0a003f;
-        public static final int menu_main_settings=0x7f0a003e;
+        public static final int dlg_filter_showlist_bt_cancel=0x7f0a0012;
+        public static final int dlg_filter_showlist_bt_ok=0x7f0a0011;
+        public static final int dlg_filter_showlist_bt_reset=0x7f0a0013;
+        public static final int dlg_filter_showlist_et_content=0x7f0a000f;
+        public static final int dlg_filter_showlist_gv=0x7f0a0010;
+        public static final int dlg_tmpl_cancel_lv_2_bt_cancel=0x7f0a001b;
+        public static final int dlg_tmpl_cancel_lv_2_ll_filepath=0x7f0a001a;
+        public static final int dlg_tmpl_cancel_lv_2_ll_main=0x7f0a0018;
+        public static final int dlg_tmpl_cancel_lv_2_lv=0x7f0a0019;
+        public static final int dlg_tmpl_cancel_lv_bt_cancel=0x7f0a0017;
+        public static final int dlg_tmpl_cancel_lv_ll_filepath=0x7f0a0016;
+        public static final int dlg_tmpl_cancel_lv_ll_main=0x7f0a0014;
+        public static final int dlg_tmpl_cancel_lv_lv=0x7f0a0015;
+        public static final int dlg_tmpl_cancel_lv_with_btn_bt_cancel=0x7f0a001f;
+        public static final int dlg_tmpl_cancel_lv_with_btn_ib=0x7f0a0020;
+        public static final int dlg_tmpl_cancel_lv_with_btn_ll_filepath=0x7f0a001e;
+        public static final int dlg_tmpl_cancel_lv_with_btn_ll_main=0x7f0a001c;
+        public static final int dlg_tmpl_cancel_lv_with_btn_lv=0x7f0a001d;
+        public static final int dlg_tmpl_confirm_simple_btn_cancel=0x7f0a0024;
+        public static final int dlg_tmpl_confirm_simple_btn_ok=0x7f0a0023;
+        public static final int dlg_tmpl_confirm_simple_cb_btn_cancel=0x7f0a0029;
+        public static final int dlg_tmpl_confirm_simple_cb_btn_ok=0x7f0a0028;
+        public static final int dlg_tmpl_confirm_simple_cb_delete_file=0x7f0a0027;
+        public static final int dlg_tmpl_confirm_simple_cb_tv_item_name=0x7f0a0026;
+        public static final int dlg_tmpl_confirm_simple_cb_tv_message=0x7f0a0025;
+        public static final int dlg_tmpl_confirm_simple_tv_item_name=0x7f0a0022;
+        public static final int dlg_tmpl_confirm_simple_tv_message=0x7f0a0021;
+        public static final int dlg_tmpl_edittext_simple_btn_cancel=0x7f0a002d;
+        public static final int dlg_tmpl_edittext_simple_btn_ok=0x7f0a002c;
+        public static final int dlg_tmpl_edittext_simple_et=0x7f0a002b;
+        public static final int dlg_tmpl_edittext_simple_tv_message=0x7f0a002a;
+        public static final int dlg_tmpl_list_cancel_2_bt_cancel=0x7f0a0031;
+        public static final int dlg_tmpl_list_cancel_2_lv=0x7f0a0030;
+        public static final int dlg_tmpl_list_cancel_bt_cancel=0x7f0a002f;
+        public static final int dlg_tmpl_list_cancel_lv=0x7f0a002e;
+        public static final int dlg_tmpl_toast_duration_tv_message=0x7f0a0032;
+        public static final int dlg_tmpl_toast_ok_bt_cancel=0x7f0a0034;
+        public static final int dlg_tmpl_toast_ok_tv_message=0x7f0a0033;
+        public static final int iv_thumbnail=0x7f0a0036;
+        public static final int list_row_checked_box_checkBox1=0x7f0a003c;
+        public static final int list_row_checked_box_iv_thumbnail=0x7f0a0039;
+        public static final int list_row_checked_box_textView1=0x7f0a003a;
+        public static final int list_row_checked_box_textView2=0x7f0a003b;
+        public static final int list_row_gv_tv=0x7f0a003d;
+        public static final int list_row_showlist_tv_created_at=0x7f0a0037;
+        public static final int list_row_showlist_tv_modified_at=0x7f0a0038;
+        public static final int list_row_showlist_tv_text=0x7f0a003e;
+        public static final int list_row_slimple_1_tv=0x7f0a003f;
+        public static final int list_row_slimple_iv_1_iv=0x7f0a0041;
+        public static final int list_row_slimple_iv_1_ll=0x7f0a0040;
+        public static final int list_row_slimple_iv_1_tv=0x7f0a0042;
+        public static final int menu_main_admin=0x7f0a0045;
+        public static final int menu_main_horizontal_listview=0x7f0a0046;
+        public static final int menu_main_logout=0x7f0a0044;
+        public static final int menu_main_settings=0x7f0a0043;
+        public static final int menu_showlist_filter=0x7f0a0047;
     }
     public static final class layout {
         public static final int actv_main=0x7f030000;
         public static final int actv_memo=0x7f030001;
         public static final int actv_showlist=0x7f030002;
-        public static final int dlg_tmpl_cancel_lv=0x7f030003;
-        public static final int dlg_tmpl_cancel_lv_2=0x7f030004;
-        public static final int dlg_tmpl_cancel_lv_with_btn=0x7f030005;
-        public static final int dlg_tmpl_confirm_simple=0x7f030006;
-        public static final int dlg_tmpl_confirm_simple_cb=0x7f030007;
-        public static final int dlg_tmpl_edittext_simple=0x7f030008;
-        public static final int dlg_tmpl_list_cancel=0x7f030009;
-        public static final int dlg_tmpl_list_cancel_2=0x7f03000a;
-        public static final int dlg_tmpl_toast_duration=0x7f03000b;
-        public static final int dlg_tmpl_toast_ok=0x7f03000c;
-        public static final int list_row=0x7f03000d;
-        public static final int list_row_checked_box=0x7f03000e;
-        public static final int list_row_gv=0x7f03000f;
-        public static final int list_row_showlist=0x7f030010;
-        public static final int list_row_simple_1=0x7f030011;
-        public static final int list_row_simple_iv_1=0x7f030012;
-        public static final int main_pref=0x7f030013;
+        public static final int dlg_filter_showlist=0x7f030003;
+        public static final int dlg_tmpl_cancel_lv=0x7f030004;
+        public static final int dlg_tmpl_cancel_lv_2=0x7f030005;
+        public static final int dlg_tmpl_cancel_lv_with_btn=0x7f030006;
+        public static final int dlg_tmpl_confirm_simple=0x7f030007;
+        public static final int dlg_tmpl_confirm_simple_cb=0x7f030008;
+        public static final int dlg_tmpl_edittext_simple=0x7f030009;
+        public static final int dlg_tmpl_list_cancel=0x7f03000a;
+        public static final int dlg_tmpl_list_cancel_2=0x7f03000b;
+        public static final int dlg_tmpl_toast_duration=0x7f03000c;
+        public static final int dlg_tmpl_toast_ok=0x7f03000d;
+        public static final int list_row=0x7f03000e;
+        public static final int list_row_checked_box=0x7f03000f;
+        public static final int list_row_gv=0x7f030010;
+        public static final int list_row_showlist=0x7f030011;
+        public static final int list_row_simple_1=0x7f030012;
+        public static final int list_row_simple_iv_1=0x7f030013;
+        public static final int main_pref=0x7f030014;
     }
     public static final class menu {
-        public static final int main_actv=0x7f090000;
+        public static final int actv_main=0x7f090000;
+        public static final int actv_showlist=0x7f090001;
     }
     public static final class raw {
         public static final int audio_nature=0x7f050000;
@@ -189,24 +198,24 @@ public final class R {
         public static final int commons_lbl_create_table=0x7f07000d;
         public static final int commons_lbl_drop_table=0x7f07000e;
         public static final int commons_lbl_restore_db=0x7f07000f;
-        public static final int dlg_actvmain_admin_item_backup_db=0x7f07001c;
-        public static final int dlg_actvmain_admin_item_operations=0x7f070020;
-        public static final int dlg_actvmain_admin_item_refresh_db=0x7f07001d;
-        public static final int dlg_actvmain_admin_item_restore_db=0x7f07001e;
-        public static final int dlg_actvmain_admin_item_see_log=0x7f070021;
-        public static final int dlg_actvmain_admin_item_upload_db=0x7f07001f;
+        public static final int dlg_actvmain_admin_item_backup_db=0x7f07001d;
+        public static final int dlg_actvmain_admin_item_operations=0x7f070021;
+        public static final int dlg_actvmain_admin_item_refresh_db=0x7f07001e;
+        public static final int dlg_actvmain_admin_item_restore_db=0x7f07001f;
+        public static final int dlg_actvmain_admin_item_see_log=0x7f070022;
+        public static final int dlg_actvmain_admin_item_upload_db=0x7f070020;
         /**  dlg_actvmain_admin.xml 
          */
-        public static final int dlg_actvmain_admin_title=0x7f07001b;
-        public static final int dlg_actvmain_operations_create_table_memos=0x7f070028;
-        public static final int dlg_actvmain_operations_create_table_patterns=0x7f070026;
-        public static final int dlg_actvmain_operations_drop_table_memos=0x7f070027;
-        public static final int dlg_actvmain_operations_drop_table_patterns=0x7f070025;
-        public static final int dlg_actvmain_operations_import_db=0x7f070023;
-        public static final int dlg_actvmain_operations_import_patterns=0x7f070024;
+        public static final int dlg_actvmain_admin_title=0x7f07001c;
+        public static final int dlg_actvmain_operations_create_table_memos=0x7f070029;
+        public static final int dlg_actvmain_operations_create_table_patterns=0x7f070027;
+        public static final int dlg_actvmain_operations_drop_table_memos=0x7f070028;
+        public static final int dlg_actvmain_operations_drop_table_patterns=0x7f070026;
+        public static final int dlg_actvmain_operations_import_db=0x7f070024;
+        public static final int dlg_actvmain_operations_import_patterns=0x7f070025;
         /**  dlg_actvmain_operations.xml 
          */
-        public static final int dlg_actvmain_operations_title=0x7f070022;
+        public static final int dlg_actvmain_operations_title=0x7f070023;
         /**  labels for templates 
          */
         public static final int dlg_tmpl_confirm_simple_msg_delete_file=0x7f070011;
@@ -231,11 +240,14 @@ public final class R {
         public static final int menu_main_refresh_screen=0x7f070018;
         public static final int menu_main_timeline=0x7f070016;
         public static final int menu_main_tweet=0x7f070017;
-        public static final int prefs_sound_effect_key=0x7f07002a;
-        public static final int prefs_sound_effect_summary=0x7f07002b;
+        /**  Menu: showlist 
+         */
+        public static final int menu_showlist_filter=0x7f07001b;
+        public static final int prefs_sound_effect_key=0x7f07002b;
+        public static final int prefs_sound_effect_summary=0x7f07002c;
         /**  pref: MainActv 
          */
-        public static final int prefs_sound_effect_titile=0x7f070029;
+        public static final int prefs_sound_effect_titile=0x7f07002a;
     }
     public static final class style {
         /** 

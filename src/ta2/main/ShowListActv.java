@@ -282,7 +282,7 @@ public class ShowListActv extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_actv, menu);
+		getMenuInflater().inflate(R.menu.actv_showlist, menu);
 		return true;
 		
 	}
@@ -293,13 +293,13 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		
-//		case R.id.menu_main_admin://--------------------
-//			
-//			case_OPT_Admin();
-////			this.logoutFromTwitter();
-//			
-//			break;
-//			
+		case R.id.menu_showlist_filter://--------------------
+			
+			case_OPT_Filter();
+//			this.logoutFromTwitter();
+			
+			break;
+			
 //		case R.id.menu_main_settings://--------------------
 //			
 //			case_OPT_Settings();
@@ -316,17 +316,26 @@ public class ShowListActv extends ListActivity {
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
 
+	private void 
+	case_OPT_Filter() {
+		// TODO Auto-generated method stub
+	
+		Methods_dlg.filter_ShowList(this);
+		
+	}
+
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
-		////////////////////////////////
-
-		// finish
-
-		////////////////////////////////
-		this.finish();
-		
-		overridePendingTransition(0, 0);
+//		////////////////////////////////
+//
+//		// finish
+//
+//		////////////////////////////////
+//		this.finish();
+//		
+//		overridePendingTransition(0, 0);
 		
 		return super.onKeyDown(keyCode, event);
 	}
