@@ -2,6 +2,7 @@ package ta2.listeners.dialog;
 
 
 import ta2.items.ListItem;
+import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
@@ -111,6 +112,7 @@ public class DOI_CL implements OnItemClickListener {
 //		String item = (String) parent.getItemAtPosition(position);
 		
 		ListItem li;
+		WordPattern	wp;
 		
 		/*----------------------------
 		 * 3. Switching
@@ -134,12 +136,77 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case GV_FILTER_SHOWLIST://----------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_GV_FILTER_SHOWLIST(wp);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_GV_FILTER_SHOWLIST
+	(WordPattern wp) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get view
+
+		////////////////////////////////
+		EditText et = 
+				(EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		////////////////////////////////
+
+		// get pattern
+
+		////////////////////////////////
+		String pattern = wp.getWord();
+		
+		////////////////////////////////
+
+		// add pattern
+
+		////////////////////////////////
+		String tmp = et.getText().toString();
+
+		if (tmp == null) {
+			
+			String msg = "Input => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() > 0) {
+			
+			tmp = tmp + " " + pattern;
+			
+		} else {
+			
+			tmp = pattern;
+			
+		}
+		
+		et.setText(tmp);
+		
+		////////////////////////////////
+
+		// set: selection
+
+		////////////////////////////////
+		et.setSelection(tmp.length());
+		
+	}//case_GV_FILTER_SHOWLIST
 
 	private void 
 	case_ACTV_MAIN_ADMIN_LV_OPS

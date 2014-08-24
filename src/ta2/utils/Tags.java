@@ -86,7 +86,7 @@ public class Tags {
 		
 		GV_Tweet,
 		
-		GV_Filter_Timeline,
+		GV_FILTER_SHOWLIST,
 		
 		AdminPatterns_LV,
 		

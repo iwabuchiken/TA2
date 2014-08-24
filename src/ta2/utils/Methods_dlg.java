@@ -1466,7 +1466,7 @@ public class Methods_dlg {
 		// Listener
 
 		////////////////////////////////
-		gv_Patterns.setTag(Tags.DialogItemTags.GV_Filter_Timeline);
+		gv_Patterns.setTag(Tags.DialogItemTags.GV_FILTER_SHOWLIST);
 		
 		// OnClick
 		gv_Patterns.setOnItemClickListener(new DOI_CL(actv, d));
