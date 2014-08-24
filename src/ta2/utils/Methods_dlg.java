@@ -1504,11 +1504,17 @@ public class Methods_dlg {
 		// Buttons
 
 		////////////////////////////////
-		Button bt_OK	= (Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_ok);
-		Button bt_Cancel =
-				(Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_cancel);
-		Button bt_Reset	=
-				(Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_clear);
+		ImageButton bt_OK	= (ImageButton) dlg.findViewById(R.id.dlg_filter_showlist_bt_ok);
+//		Button bt_OK	= (Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_ok);
+		ImageButton bt_Cancel =
+				(ImageButton) dlg.findViewById(R.id.dlg_filter_showlist_bt_cancel);
+//		Button bt_Cancel =
+//				(Button) dlg.findViewById(R.id.dlg_filter_showlist_bt_cancel);
+		ImageButton bt_Clear	=
+				(ImageButton) dlg.findViewById(R.id.dlg_filter_showlist_bt_clear);
+		ImageButton bt_Reset =
+				(ImageButton) dlg.findViewById(R.id.dlg_filter_showlist_bt_reset);
+		
 		
 		////////////////////////////////
 
@@ -1517,18 +1523,24 @@ public class Methods_dlg {
 		////////////////////////////////
 //		bt_OK.setTag(Tags.DialogTags.dlg_Filter_Timeline_OK);
 		bt_OK.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_OK);
+		bt_Clear.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_CLEAR);
+		bt_Reset.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_RESET);
+		
 		bt_Cancel.setTag(Tags.DialogTags.GENERIC_DISMISS);
-		bt_Reset.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_CLEAR);
 		
 		// On touch
 		bt_OK.setOnTouchListener(new DB_OTL(actv));
-		bt_Cancel.setOnTouchListener(new DB_OTL(actv));
+		bt_Clear.setOnTouchListener(new DB_OTL(actv));
 		bt_Reset.setOnTouchListener(new DB_OTL(actv));
+		
+		bt_Cancel.setOnTouchListener(new DB_OTL(actv));
 		
 		// On click
 		bt_OK.setOnClickListener(new DB_OCL(actv, dlg));
-		bt_Cancel.setOnClickListener(new DB_OCL(actv, dlg));
+		bt_Clear.setOnClickListener(new DB_OCL(actv, dlg));
 		bt_Reset.setOnClickListener(new DB_OCL(actv, dlg));
+		
+		bt_Cancel.setOnClickListener(new DB_OCL(actv, dlg));
 		
 		return dlg;
 		

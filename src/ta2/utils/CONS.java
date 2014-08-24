@@ -69,6 +69,7 @@ public class CONS {
 		////////////////////////////////
 		public static final String sortOrder_ASC = "ASC";
 		
+		//REF spelling http://stackoverflow.com/questions/8948435/how-do-i-order-my-sqlite-database-in-descending-order-for-an-android-app answered Jan 20 '12 at 22:06
 		public static final String sortOrder_DESC = "DESC";
 		
 		////////////////////////////////

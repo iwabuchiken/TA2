@@ -36,37 +36,44 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:background="@color/darkgreen" >
+        android:background="@color/darkgreen"
+        android:gravity="center_vertical|center_horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/dlg_filter_showlist_bt_ok"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
             android:layout_weight="1"
-            android:text="@string/generic_bt_ok"
-            android:textColor="@color/red"
-            android:textSize="25sp" />
+	            
+	        style="@style/ib_basic_1"
+            
+            android:background="@color/green4"
+            android:src="@drawable/general_ib_ok_green_64x64" />
 
-        <Button
+        <ImageButton
             android:id="@+id/dlg_filter_showlist_bt_cancel"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:text="@string/generic_bt_cancel"
-            android:textColor="@color/blue1"
-            android:textSize="25sp" />
+            android:src="@drawable/general_ib_ball_red_48x48" />
 
-        <Button
-            android:id="@+id/dlg_filter_showlist_bt_clear"
-            android:layout_width="100dp"
+        <ImageButton
+            android:id="@+id/dlg_filter_showlist_bt_reset"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
             android:layout_weight="1"
-            android:text="@string/commons_lbl_clear_view"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:background="@color/green4"
+            android:src="@drawable/general_ib_cancel_red_64x64" />
+
+        <ImageButton
+            android:id="@+id/dlg_filter_showlist_bt_clear"
+            style="@style/ib_basic_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green4"
+            android:src="@drawable/general_ib_clear_yellow_64x64" />
 
     </LinearLayout>
 

@@ -38,5 +38,10 @@
 	    <item name="android:background">#424242</item>
 	    <item name="android:padding">3dp</item>
     </style>
+
+    <style name="ib_basic_1">
+	    <item name="android:layout_margin">2dp</item>
+	    
+    </style>
     
 </resources>

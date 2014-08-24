@@ -1,8 +1,12 @@
 package ta2.listeners.dialog;
 
+import java.util.List;
+
+import ta2.items.Memo;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -300,6 +304,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_FILTER_SHOWLIST_RESET://------------------------------------------------
+			
+			case_DLG_FILTER_SHOWLIST_RESET();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
@@ -307,12 +317,131 @@ public class DB_OCL implements OnClickListener {
 	}//public void onClick(View v)
 
 	private void 
-	case_DLG_FILTER_SHOWLIST_OK() {
+	case_DLG_FILTER_SHOWLIST_RESET() {
 		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// get: list
+
+		////////////////////////////////
+		List<Memo> list_Memos = DBUtils.find_All_Memos(
+						actv, 
+						CONS.Enums.SortOrder.DESC);
 		
+		////////////////////////////////
+
+		// update: list
+
+		////////////////////////////////
+		if (list_Memos == null) {
+			
+			String msg = "Can't build list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
 		
+		// Log
+		String msg_Log = "list_Memos.size() => " + list_Memos.size();
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+
+		CONS.ShowListActv.list_Memos.clear();
+		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
 		
 	}
+
+	@SuppressWarnings("unused")
+	private void 
+	case_DLG_FILTER_SHOWLIST_OK() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get view
+
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		////////////////////////////////
+
+		// get: list
+
+		////////////////////////////////
+		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+		String where = CONS.DB.col_names_TA2[0] + " like ?";
+//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
+		
+		String[] args = new String[]{
+				
+						"%" + et.getText().toString() + "%"
+				
+				};
+
+		
+		List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
+						actv, 
+						CONS.Enums.SortOrder.DESC, 
+						where, 
+						args);
+		
+		////////////////////////////////
+
+		// update: list
+
+		////////////////////////////////
+		if (list_Memos == null) {
+			
+			String msg = "Can't build list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "list_Memos.size() => " + list_Memos.size();
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+
+		CONS.ShowListActv.list_Memos.clear();
+		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//case_DLG_FILTER_SHOWLIST_OK
+	
 
 	private void 
 	case_DLG_FILTER_SHOWLIST_CLEAR() {

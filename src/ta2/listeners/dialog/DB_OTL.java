@@ -1,5 +1,6 @@
 package ta2.listeners.dialog;
 
+import ta2.main.R;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageButton;
 
 public class DB_OTL implements OnTouchListener {
 
@@ -57,6 +59,8 @@ public class DB_OTL implements OnTouchListener {
 		
 		Tags.DialogTags tag_name = (Tags.DialogTags) v.getTag();
 		
+		ImageButton ib;
+		
 		switch (event.getActionMasked()) {
 		case MotionEvent.ACTION_DOWN:
 				switch (tag_name) {
@@ -81,10 +85,29 @@ public class DB_OTL implements OnTouchListener {
 					
 				case DLG_CONF_CLEAR_VIEW_OK:
 					
-				case DLG_FILTER_SHOWLIST_OK:
-				case DLG_FILTER_SHOWLIST_CLEAR:
 					
 					v.setBackgroundColor(Color.GRAY);
+					
+					break;
+					
+				case DLG_FILTER_SHOWLIST_CLEAR:
+					
+					ib = (ImageButton) v;
+					ib.setImageResource(R.drawable.general_ib_clear_yellow_64x64_disabled);
+					
+					break;
+					
+				case DLG_FILTER_SHOWLIST_OK:
+					
+					ib = (ImageButton) v;
+					ib.setImageResource(R.drawable.general_ib_ok_green_48x48_disabled);
+					
+					break;
+					
+				case DLG_FILTER_SHOWLIST_RESET:
+					
+					ib = (ImageButton) v;
+					ib.setImageResource(R.drawable.general_ib_cancel_red_64x64_disdabled);
 					
 					break;
 				}//switch (tag_name)
@@ -114,13 +137,32 @@ public class DB_OTL implements OnTouchListener {
 				
 			case DLG_CONF_CLEAR_VIEW_OK:
 				
-			case DLG_FILTER_SHOWLIST_OK:
-			case DLG_FILTER_SHOWLIST_CLEAR:
-				
 					v.setBackgroundColor(Color.WHITE);
 					
 					break;
-				}//switch (tag_name)
+					
+			case DLG_FILTER_SHOWLIST_CLEAR:
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.general_ib_clear_yellow_64x64);
+				
+				break;
+				
+			case DLG_FILTER_SHOWLIST_OK:
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.general_ib_ok_green_64x64);
+				
+				break;
+				
+			case DLG_FILTER_SHOWLIST_RESET:
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.general_ib_cancel_red_64x64);
+				
+				break;
+				
+			}//switch (tag_name)
 		
 			break;//case MotionEvent.ACTION_UP:
 		

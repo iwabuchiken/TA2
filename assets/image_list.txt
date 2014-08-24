@@ -7,3 +7,7 @@
 7	actv_memo_ib_clear.png	recycling10_41x50.png	http://www.flaticon.com/free-icon/recycling-bin_54324
 8	general_ib_ball_blue_48x48.png	ledlightblue.png	http://findicons.com/icon/226938/ledlightblue
 9	general_ib_ball_red_32x32.png	red_ball.png	http://findicons.com/icon/183293/red_ball?id=183293
+10	general_ib_ok_green_48x48.png	good_or_tick.png	http://findicons.com/icon/89636/good_or_tick
+11	general_ib_clear_yellow_64x64.png	edit_clear (1).png	http://findicons.com/icon/94106/edit_clear
+12	general_ib_cancel_red_64x64.png	edit_undo.png	http://findicons.com/icon/203546/edit_undo
+13	
