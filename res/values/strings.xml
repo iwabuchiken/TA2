@@ -22,6 +22,9 @@
     	<string name="commons_lbl_drop_table">Drop table</string>
     	<string name="commons_lbl_restore_db">Restore DB</string>
     	<string name="commons_lbl_clear_view">Clear view</string>
+    	
+    	<string name="commons_lbl_rb_and">AND</string>
+    	<string name="commons_lbl_rb_or">OR</string>
     
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">

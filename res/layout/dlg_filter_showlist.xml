@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
+        android:layout_margin="5dp"
         android:gravity="top|left"
         android:textSize="20sp" />
 
@@ -28,8 +28,43 @@
         android:numColumns="4"
         android:padding="5dp"
         android:verticalSpacing="5dp" >
-
     </GridView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal" >
+
+        <RadioGroup
+            android:id="@+id/dlg_filter_showlist_rg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" >
+
+            <!-- REF textcolor http://stackoverflow.com/questions/6819700/android-radio-button-not-showing-its-text answered Jul 25 '11 at 17:10 -->
+            <RadioButton
+                android:id="@+id/dlg_filter_showlist_rb_and"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/commons_lbl_rb_and"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/dlg_filter_showlist_rb_or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="@string/commons_lbl_rb_or"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,12 +76,10 @@
 
         <ImageButton
             android:id="@+id/dlg_filter_showlist_bt_ok"
+            style="@style/ib_basic_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-	            
-	        style="@style/ib_basic_1"
-            
             android:background="@color/green4"
             android:src="@drawable/general_ib_ok_green_64x64" />
 
@@ -74,7 +107,6 @@
             android:layout_weight="1"
             android:background="@color/green4"
             android:src="@drawable/general_ib_clear_yellow_64x64" />
-
     </LinearLayout>
 
 </LinearLayout>

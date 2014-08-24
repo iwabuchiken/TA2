@@ -1,5 +1,6 @@
 package ta2.listeners.dialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.Memo;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -373,6 +376,9 @@ public class DB_OCL implements OnClickListener {
 	private void 
 	case_DLG_FILTER_SHOWLIST_OK() {
 		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
 		////////////////////////////////
 
 		// get view
@@ -382,18 +388,202 @@ public class DB_OCL implements OnClickListener {
 		
 		////////////////////////////////
 
+		// validate: multiple keywords
+
+		////////////////////////////////
+		String input = et.getText().toString();
+		
+		input = input.trim();
+		
+		input = input.replaceAll("　", " ");
+		
+		input = input.replaceAll(" +", " ");
+		
+		// Log
+		msg_Log = "input is now => " + input;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		String[] tokens = input.split(" +");
+		String[] tokens = input.split(" ");
+		
+		if (tokens == null) {
+			
+			String msg = "Split the input => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+
+		// Log
+		msg_Log = "tokens.length => " + tokens.length;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// setup: where, args
+
+		////////////////////////////////
+		String where = null;
+		
+		String[] args = null;
+
+		////////////////////////////////
+
+		// dispatch
+
+		////////////////////////////////
+		if (tokens.length <= 1) {
+			
+			//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+			where = CONS.DB.col_names_TA2[0] + " like ?";
+//			String where = CONS.DB.col_names_IFM11[11] + " = ?";
+			
+			args = new String[]{
+					
+							"%" + et.getText().toString() + "%"
+					
+					};
+			
+		} else {
+			
+			//test
+			where = this._Filter_ShowList_Build_Conditions_where(actv, d1);
+			
+//			this._Filter_ShowList_Build_Conditions(actv, d1, where, args);
+//			Object[] objects = this._Filter_ShowList_Build_Conditions(actv, d1);
+			
+			// Log
+			msg_Log = "where => " + where;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			args = this._Filter_ShowList_Build_Conditions_args(actv, d1);
+			args = tokens;
+			
+			for (int i = 0; i < args.length; i++) {
+				
+				args[i] = "%" + args[i] + "%";
+				
+				// Log
+				msg_Log = "args => " + args[i];
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+			}
+			
+			
+//			// Log
+//			msg_Log = "objects[0] => " + ((String) objects[0]);
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			if (objects[1] != null) {
+//				
+//				String[] tmp = (String[]) objects[1];
+//				
+//				for (Object object : objects[1]) {
+////				for (String object : tmp) {
+////					for (String object : (String[])objects[1]) {
+////					for (Object object : (String[])objects[1]) {
+//					
+//					// Log
+//					msg_Log = "object => " + object;
+////					msg_Log = "object => " + (String) object;
+//					Log.d("DB_OCL.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
+//				}
+//				
+//			} else {
+//				
+//				// Log
+//				msg_Log = "objects[1] => null";
+//				Log.d("DB_OCL.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+//				
+//			}
+			
+//			where = (String) objects[0];
+//			
+//			args = (String[]) objects[1];
+			
+//			//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+//			where = CONS.DB.col_names_TA2[0] + " like ?";
+////			String where = CONS.DB.col_names_IFM11[11] + " = ?";
+//			
+//			args = new String[]{
+//					
+//					"%" + et.getText().toString() + "%"
+//					
+//			};
+			
+		}//if (tokens.length <= 1)
+		
+//		////////////////////////////////
+//
+//		// and/or
+//
+//		////////////////////////////////
+////		Object[] objects = _Filter_ShowList_Build_Conditions(actv, d1);
+////		
+////		String where = (String) objects[0];
+////		String[] args = (String[]) objects[1];
+//		
+//		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
+//		
+//		int RB_id_Checked = rg.getCheckedRadioButtonId();
+//		
+//		if (RB_id_Checked == R.id.dlg_filter_showlist_rb_and) {
+//			
+//			// Log
+//			msg_Log = "AND is checked";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		} else if (RB_id_Checked == R.id.dlg_filter_showlist_rb_or) {
+//			
+//			// Log
+//			msg_Log = "OR is checked";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		} else {
+//			
+//			// Log
+//			msg_Log = "unknown radio button id => " + RB_id_Checked;
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
+		
+		////////////////////////////////
+
 		// get: list
 
 		////////////////////////////////
-		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
-		String where = CONS.DB.col_names_TA2[0] + " like ?";
-//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
-		
-		String[] args = new String[]{
-				
-						"%" + et.getText().toString() + "%"
-				
-				};
+//		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+//		where = CONS.DB.col_names_TA2[0] + " like ?";
+////		String where = CONS.DB.col_names_IFM11[11] + " = ?";
+//		
+//		args = new String[]{
+//				
+//						"%" + et.getText().toString() + "%"
+//				
+//				};
 
 		
 		List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
@@ -417,7 +607,7 @@ public class DB_OCL implements OnClickListener {
 		}
 		
 		// Log
-		String msg_Log = "list_Memos.size() => " + list_Memos.size();
+		msg_Log = "list_Memos.size() => " + list_Memos.size();
 		Log.d("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
@@ -443,6 +633,316 @@ public class DB_OCL implements OnClickListener {
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
 
+	private void 
+//			private Object[] 
+	_Filter_ShowList_Build_Conditions
+	(Activity actv, 
+		Dialog d1, String where, String[] args) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// EditText
+
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+
+		String[] tokens = et.getText().toString().trim().split(" ");
+		
+		////////////////////////////////
+
+		// RagioGroup
+
+		////////////////////////////////
+		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
+		
+//		String where = "";
+//		String[] args = null;
+		List<String> list_args = new ArrayList<String>();
+		
+		////////////////////////////////
+
+		// validate: multiple
+
+		////////////////////////////////
+		//REF http://www.adakoda.com/android/000067.html
+		int RB_id_Checked = rg.getCheckedRadioButtonId();
+		
+		if (RB_id_Checked == R.id.dlg_filter_showlist_rb_and) {
+			
+			// Log
+			String msg_Log = "AND is checked";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			////////////////////////////////
+
+			// where
+
+			////////////////////////////////
+			int i;
+			
+			for (i = 0; i < tokens.length - 1; i++) {
+				
+				where += CONS.DB.col_names_TA2[0] + " like ?"
+						+ " " + "AND" + " ";
+				
+				list_args.add(tokens[i]);
+				
+			}
+			
+			where += CONS.DB.col_names_TA2[0] + " like ?";
+			
+			list_args.add(tokens[i]);
+			
+		} else if (RB_id_Checked == R.id.dlg_filter_showlist_rb_or) {
+			
+			// Log
+			String msg_Log = "OR is checked";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			////////////////////////////////
+
+			// where
+
+			////////////////////////////////
+			int i;
+			
+			for (i = 0; i < tokens.length - 1; i++) {
+				
+				where += CONS.DB.col_names_TA2[0] + " like ?"
+						+ " " + "OR" + " ";
+				
+				list_args.add(tokens[i]);
+				
+			}
+			
+			where += CONS.DB.col_names_TA2[0] + " like ?";
+			
+			list_args.add(tokens[i]);
+
+		} else {
+			
+			// Log
+			String msg_Log = "unknown radio button id => " + RB_id_Checked;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			where = null;
+			
+		}
+
+		////////////////////////////////
+
+		// set: args
+
+		////////////////////////////////
+//		args = (String[]) list_args.toArray();
+		
+		args = new String[list_args.size()];
+		
+		for (int i = 0; i < list_args.size(); i++) {
+			
+			args[i] = list_args.get(i);
+			
+		}
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+//		return new Object[]{where, args.toArray()};
+		
+		////////////////////////////////
+
+		// get: list
+
+		////////////////////////////////
+		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+//		String where = CONS.DB.col_names_TA2[0] + " like ?";
+////		String where = CONS.DB.col_names_IFM11[11] + " = ?";
+//		
+//		String[] args = new String[]{
+//				
+//						"%" + et.getText().toString() + "%"
+//				
+//				};
+
+		
+		
+//		return null;
+	}
+
+	private String[]
+	_Filter_ShowList_Build_Conditions_args
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// EditText
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		String[] tokens = et.getText().toString().trim().split(" ");
+		
+//		String where = "";
+		String[] args = new String[tokens.length];
+//		List<String> list_args = new ArrayList<String>();
+		
+		
+		
+		////////////////////////////////
+		
+		// where
+		
+		////////////////////////////////
+		int i;
+		
+		for (i = 0; i < tokens.length; i++) {
+			
+//			list_args.add(tokens[i]);
+//			args[i] = tokens[i]
+			
+		}
+			
+//		////////////////////////////////
+//		
+//		// set: args
+//		
+//		////////////////////////////////
+////		args = (String[]) list_args.toArray();
+//		
+//		String[] args = new String[list_args.size()];
+//		
+//		for (i = 0; i < list_args.size(); i++) {
+//			
+//			args[i] = list_args.get(i);
+//			
+//		}
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return args;
+		
+	}//_Filter_ShowList_Build_Conditions_args
+	
+	
+	private String
+	_Filter_ShowList_Build_Conditions_where
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// EditText
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		String input = et.getText().toString();
+		
+		input = input.trim();
+		
+		input = input.replaceAll("　", " ");
+		
+		input = input.replaceAll(" +", " ");
+		
+		String[] tokens = input.split(" ");
+//		String[] tokens = et.getText().toString().trim().split(" ");
+		
+		////////////////////////////////
+		
+		// RagioGroup
+		
+		////////////////////////////////
+		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
+		
+		String where = "";
+		
+		////////////////////////////////
+		
+		// validate: multiple
+		
+		////////////////////////////////
+		//REF http://www.adakoda.com/android/000067.html
+		int RB_id_Checked = rg.getCheckedRadioButtonId();
+		
+		if (RB_id_Checked == R.id.dlg_filter_showlist_rb_and) {
+			
+			// Log
+			String msg_Log = "AND is checked";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			////////////////////////////////
+			
+			// where
+			
+			////////////////////////////////
+			int i;
+			
+			for (i = 0; i < tokens.length - 1; i++) {
+				
+				where += CONS.DB.col_names_TA2[0] + " like ?"
+						+ " " + "AND" + " ";
+				
+			}
+			
+			where += CONS.DB.col_names_TA2[0] + " like ?";
+			
+		} else if (RB_id_Checked == R.id.dlg_filter_showlist_rb_or) {
+			
+			// Log
+			String msg_Log = "OR is checked";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			////////////////////////////////
+			
+			// where
+			
+			////////////////////////////////
+			int i;
+			
+			for (i = 0; i < tokens.length - 1; i++) {
+				
+				where += CONS.DB.col_names_TA2[0] + " like ?"
+						+ " " + "OR" + " ";
+				
+			}
+			
+			where += CONS.DB.col_names_TA2[0] + " like ?";
+			
+		} else {
+			
+			// Log
+			String msg_Log = "unknown radio button id => " + RB_id_Checked;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			where = null;
+			
+		}
+
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return where;
+		
+	}//_Filter_ShowList_Build_Conditions_where
+	
 	private void 
 	case_DLG_FILTER_SHOWLIST_CLEAR() {
 		// TODO Auto-generated method stub
