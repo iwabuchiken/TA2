@@ -10,4 +10,5 @@
 10	general_ib_ok_green_48x48.png	good_or_tick.png	http://findicons.com/icon/89636/good_or_tick
 11	general_ib_clear_yellow_64x64.png	edit_clear (1).png	http://findicons.com/icon/94106/edit_clear
 12	general_ib_cancel_red_64x64.png	edit_undo.png	http://findicons.com/icon/203546/edit_undo
-13	
+13	menu_memo_patterns_32x32.png	kwikdisk.png	http://findicons.com/icon/226916/kwikdisk
+14	

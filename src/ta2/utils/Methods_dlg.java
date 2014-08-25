@@ -139,6 +139,52 @@ public class Methods_dlg {
 	}//public static Dialog dlg_template_okCancel()
 
 	public static Dialog 
+	dlg_Template_Cancel_ThirdDialog
+	(Activity actv, Dialog dlg1, Dialog dlg2,
+			int layoutId, int titleStringId,
+			int cancelButtonId, Tags.DialogTags cancelTag) {
+		/****************************
+		 * Steps
+		 * 1. Set up
+		 * 2. Add listeners => OnTouch
+		 * 3. Add listeners => OnClick
+		 ****************************/
+		
+		// 
+		Dialog dlg3 = new Dialog(actv);
+		
+		//
+		dlg3.setContentView(layoutId);
+		
+		// Title
+		dlg3.setTitle(titleStringId);
+		
+		/****************************
+		 * 2. Add listeners => OnTouch
+		 ****************************/
+		//
+		Button btn_cancel = (Button) dlg3.findViewById(cancelButtonId);
+		
+		//
+		btn_cancel.setTag(cancelTag);
+		
+		//
+		btn_cancel.setOnTouchListener(new DB_OTL(actv, dlg1, dlg2, dlg3));
+		
+		/****************************
+		 * 3. Add listeners => OnClick
+		 ****************************/
+		//
+		btn_cancel.setOnClickListener(new DB_OCL(actv, dlg1, dlg2, dlg3));
+		
+		//
+		//dlg.show();
+		
+		return dlg3;
+		
+	}//public static Dialog dlg_template_okCancel()
+	
+	public static Dialog 
 	dlg_Template_OkCancel_SecondDialog
 	(Activity actv, Dialog dlg1,
 			int layoutId, int titleStringId,
@@ -307,6 +353,28 @@ public class Methods_dlg {
 		
 	}
 
+	public static void
+	dlg_ShowMessage_ThirdDialog
+	(Activity actv, 
+		String message, Dialog dlg1, Dialog dlg2) {
+		
+		Dialog dlg3 = Methods_dlg.dlg_Template_Cancel_ThirdDialog(
+				actv, dlg1, dlg2,
+				R.layout.dlg_tmpl_toast_ok, 
+				R.string.generic_tv_confirm, 
+				
+				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG);
+		
+		TextView tv_Message = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+		
+		tv_Message.setText(message);
+		
+		dlg3.show();
+		
+	}
+	
 	public static Dialog 
 	dlg_Template_Cancel
 	(Activity actv,
@@ -1545,5 +1613,165 @@ public class Methods_dlg {
 		return dlg;
 		
 	}//_filter_ShowList__GetDialog
+
+	public static void 
+	dlg_Admin_Patterns
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		
+		////////////////////////////////
+
+		// dlg
+
+		////////////////////////////////
+		Dialog d1 = Methods_dlg.dlg_Template_Cancel(
+						actv,
+						R.layout.dlg_tmpl_cancel_lv,
+						R.string.dlg_actvmain_admin_title,
+						
+						R.id.dlg_tmpl_cancel_lv_bt_cancel,
+						Tags.DialogTags.GENERIC_DISMISS);
+		
+		/****************************
+		* 2. Prep => List
+		****************************/
+//		String[] choices = {
+//					actv.getString(R.string.dlg_actvmain_lv_delete),
+//					};
+		
+		List<ListItem> list = new ArrayList<ListItem>();
+//		List<String> list = new ArrayList<String>();
+		
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+									R.string.generic_tv_register))
+						.setIconID(R.drawable.menu_icon_admin_32x32)
+						.setTextColor_ID(R.color.blue1)
+						.build());
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.generic_tv_edit))
+						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
+						.setTextColor_ID(R.color.black)
+						.build());
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.generic_tv_delete))
+								.setIconID(R.drawable.menu_icon_admin_32x32_purple)
+								.setTextColor_ID(R.color.purple4)
+								.build());
+		
+		/****************************
+		* 3. Adapter
+		****************************/
+		Adp_ListItems adapter = new Adp_ListItems(
+							actv,
+							R.layout.list_row_simple_iv_1,
+							list
+		);
+		
+		/****************************
+		* 4. Set adapter
+		****************************/
+		ListView lv = (ListView) d1.findViewById(R.id.dlg_tmpl_cancel_lv_lv);
+		
+		lv.setAdapter(adapter);
+		
+		/****************************
+		* 5. Set listener to list
+		****************************/
+		lv.setTag(Tags.DialogItemTags.ACTV_MEMO_ADMIN_PATTERNS);
+		
+		lv.setOnItemClickListener(new DOI_CL(actv, d1));
+		
+		/***************************************
+		* Modify: Button layout
+		***************************************/
+		LinearLayout llButton =
+					(LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_filepath);
+//		(LinearLayout) dlg1.findViewById(R.id.actv_imp_ll_filepath);
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								LayoutParams.WRAP_CONTENT);
+		
+		params.gravity = Gravity.CENTER_HORIZONTAL;
+		
+		llButton.setLayoutParams(params);
+
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+		DisplayMetrics displayMetrics = actv.getResources()
+                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		int dialog_Width = w * CONS.Admin.ratio_Dialog_to_Screen_W / 100;
+		
+		////////////////////////////////
+
+		// linear layot: main
+
+		////////////////////////////////
+		LinearLayout ll_Main = (LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_main);
+		
+		//REF parent layout http://stackoverflow.com/questions/4631966/set-relativelayout-layout-params-programmatically-throws-classcastexception answered Jan 8 '11 at 5:42
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): java.lang.ClassCastException: android.widget.LinearLayout$LayoutParams
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.widget.FrameLayout.onLayout(FrameLayout.java:293)
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.view.View.layout(View.java:7184)
+
+		FrameLayout.LayoutParams params2 =
+				new FrameLayout.LayoutParams(
+						dialog_Width,
+						LayoutParams.WRAP_CONTENT);
+		
+		ll_Main.setLayoutParams(params2);
+		
+		/****************************
+		* 6. Show dialog
+		****************************/
+		d1.show();
+		
+	}//dlg_Admin_Patterns
+
+	public static void 
+	register_Patterns
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		Dialog d2 = 
+				Methods_dlg.dlg_Template_OkCancel_SecondDialog(
+						actv, d1,
+						R.layout.dlg_tmpl_ok_cancel, 
+						R.string.generic_tv_register, 
+						
+						R.id.dlg_tmpl_ok_cancel_bt_ok, 
+						Tags.DialogTags.DLG_REGISTER_PATTERNS_OK, 
+						
+						R.id.dlg_tmpl_ok_cancel_bt_cancel, 
+						Tags.DialogTags.GENERIC_DISMISS_SECOND_DIALOG
+				);
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d2.show();
+		
+		
+	}//register_Patterns
 
 }//public class Methods_dialog

@@ -556,6 +556,7 @@ public class CONS {
 		public static enum SortType {
 			
 			FileName, POSITION, CREATED_AT,
+			WORD,
 			
 		}
 

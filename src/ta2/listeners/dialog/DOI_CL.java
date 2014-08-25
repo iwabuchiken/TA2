@@ -144,12 +144,57 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case ACTV_MEMO_ADMIN_PATTERNS://----------------------------------------------
+			
+			li = (ListItem) parent.getItemAtPosition(position);
+			
+			case_ACTV_MEMO_ADMIN_PATTERNS(li);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_MEMO_ADMIN_PATTERNS
+	(ListItem li) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// dispatch
+
+		////////////////////////////////
+		if (li.getText().equals(actv.getString(
+				R.string.generic_tv_register))) {
+
+			Methods_dlg.register_Patterns(actv, d1);
+			
+//			Methods_dlg.dlg_Admin_Ops(actv, d1);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_edit))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+		
+//			boolean res = _case_Admin_LV__Backup();
+			
+			return;
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_delete))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+//			Methods_dlg.conf_Restore_DB(actv, d1);
+			
+			return;
+			
+		} else {
+			
+		}
+
+		
+	}//case_ACTV_MEMO_ADMIN_PATTERNS
 
 	private void 
 	case_GV_FILTER_SHOWLIST

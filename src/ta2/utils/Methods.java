@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -71,6 +73,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ta2.comps.Comp_WP;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.PrefActv;
@@ -2572,6 +2575,164 @@ public static String
 		
 		
 	}//save_Memo_Temporary
+
+	public static long
+	conv_TimeLabel_to_MillSec(String timeLabel)
+//	conv_MillSec_to_TimeLabel(long millSec)
+	{
+//		String input = "Sat Feb 17 2012";
+		Date date;
+		try {
+			date = new SimpleDateFormat(
+						CONS.Admin.format_Date, Locale.JAPAN).parse(timeLabel);
+			
+			return date.getTime();
+//			long milliseconds = date.getTime();
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			// Log
+			String msg_Log = "Exception: " + e.toString();
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+		
+//		Locale.ENGLISH).parse(input);
+		
+//		Date date = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH).parse(input);
+//		long milliseconds = date.getTime();
+		
+	}//conv_TimeLabel_to_MillSec(String timeLabel)
+
+	public static void 
+	update_MemoActv_ListViews
+	(Activity actv, String new_Word) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// which word type
+
+		////////////////////////////////
+		String reg_Tags = "^[:#][a-zA-Z]";
+		String reg_Literals = "[a-zA-Z]";
+		
+		Pattern p_Tags = Pattern.compile(reg_Tags);
+		Pattern p_Literals = Pattern.compile(reg_Literals);
+		
+		Matcher m_Tags = null;
+		Matcher m_Literals = null;
+		
+		m_Tags = p_Tags.matcher(new_Word);
+		m_Literals = p_Literals.matcher(new_Word);
+		
+		int type = 0;//	1. tags 2. literals 3. symbols
+		
+		if (m_Tags.find()) {
+			
+			type = 1;
+			
+		}
+		
+		if (!m_Literals.find()) {
+			
+			type = 3;
+			
+		}
+		
+		if(type == 0) {
+			
+			type = 2;
+			
+		}
+		
+		// Log
+		String msg_Log = "type => " + type;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// update lists
+
+		////////////////////////////////
+		switch(type) {
+		
+		case 1:// tags
+			
+			CONS.MemoActv.list_WP_2.clear();
+			CONS.MemoActv.list_WP_2.addAll(DBUtils.find_All_WP_tags(actv));
+			
+			////////////////////////////////
+
+			// sort
+
+			////////////////////////////////
+			Collections.sort(
+							CONS.MemoActv.list_WP_2, 
+							new Comp_WP(
+									
+									CONS.Enums.SortType.WORD,
+									CONS.Enums.SortOrder.ASC
+							));
+
+			
+			CONS.MemoActv.adp_WPList_2.notifyDataSetChanged();
+			
+			break;
+		
+		case 2:// literals
+			
+			CONS.MemoActv.list_WP_3.clear();
+			CONS.MemoActv.list_WP_3.addAll(DBUtils.find_All_WP_literals(actv));
+			
+			////////////////////////////////
+
+			// sort
+
+			////////////////////////////////
+			Collections.sort(
+							CONS.MemoActv.list_WP_3, 
+							new Comp_WP(
+									
+									CONS.Enums.SortType.WORD,
+									CONS.Enums.SortOrder.ASC
+							));
+
+			CONS.MemoActv.adp_WPList_3.notifyDataSetChanged();
+			
+			break;
+			
+		case 3:// symbols
+			
+			CONS.MemoActv.list_WP_1.clear();
+			CONS.MemoActv.list_WP_1.addAll(DBUtils.find_All_WP_symbols(actv));
+			
+			////////////////////////////////
+
+			// sort
+
+			////////////////////////////////
+			Collections.sort(
+							CONS.MemoActv.list_WP_1, 
+							new Comp_WP(
+									
+									CONS.Enums.SortType.WORD,
+									CONS.Enums.SortOrder.ASC
+							));
+
+			CONS.MemoActv.adp_WPList_1.notifyDataSetChanged();
+			
+			break;
+			
+		}
+		
+	}//update_MemoActv_ListViews
 
 }//public class Methods
 

@@ -5,13 +5,13 @@
     
     <!-- Generic items -->
 	    <string name="generic_bt_ok">OK</string>
-	    <string name="generic_bt_cancel">キャンセル</string>
+	    <string name="generic_bt_cancel">Cancel</string>
 	    
-	    <string name="generic_tv_confirm">確認</string>
+	    <string name="generic_tv_confirm">Confirm</string>
 	    <string name="generic_tv_menu">メニュー</string>
-	    <string name="generic_tv_register">登録</string>
-	    <string name="generic_tv_edit">編集</string>
-	    <string name="generic_tv_delete">削除</string>
+	    <string name="generic_tv_register">Register</string>
+	    <string name="generic_tv_edit">Edit</string>
+	    <string name="generic_tv_delete">Delete</string>
 	    <string name="generic_tv_upload">Upload</string>
 	    <string name="generic_tv_quit_app">Quit app?</string>
     	<string name="generic_notice">Notice</string>
@@ -22,6 +22,7 @@
     	<string name="commons_lbl_drop_table">Drop table</string>
     	<string name="commons_lbl_restore_db">Restore DB</string>
     	<string name="commons_lbl_clear_view">Clear view</string>
+    	<string name="commons_lbl_word">Word</string>
     	
     	<string name="commons_lbl_rb_and">AND</string>
     	<string name="commons_lbl_rb_or">OR</string>
@@ -33,7 +34,7 @@
     
     <!-- UI labels -->
     	<string name="btn_lbl_time_line">Timeline</string>
-    	<string name="btn_lbl_memo_patterns">Pattern</string>
+    	<string name="btn_lbl_memo_patterns">Patterns</string>
 
     <!-- Menu: main -->
     	<string name="menu_main_logout">Logout</string>

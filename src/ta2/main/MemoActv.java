@@ -1,8 +1,10 @@
 package ta2.main;
 
+import java.util.Collections;
 import java.util.List;
 
 import ta2.adapters.Adp_WordPatterns;
+import ta2.comps.Comp_WP;
 import ta2.items.WordPattern;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.STL;
@@ -120,13 +122,39 @@ public class MemoActv extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		return super.onCreateOptionsMenu(menu);
+		
+		getMenuInflater().inflate(R.menu.menu_actv_memo, menu);
+		return true;
+		
+//		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		
+		case R.id.menu_memo_admin_patterns://--------------------
+			
+			case_OPT_Admin_Patterns();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		default://-------------------------------------
+			break;
+	
+		}
+
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void 
+	case_OPT_Admin_Patterns() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_Admin_Patterns(this);
+		
 	}
 
 	@Override
@@ -387,6 +415,9 @@ public class MemoActv extends Activity {
 		
 	}//_Setup_Lists
 
+	/******************************
+		List: Symbols
+	 ******************************/
 	private boolean 
 	_Setup_List_1() {
 		// TODO Auto-generated method stub
@@ -419,6 +450,19 @@ public class MemoActv extends Activity {
 		Log.d("MemoActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// sort
+
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_1, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
 		
 		////////////////////////////////
 
@@ -475,6 +519,9 @@ public class MemoActv extends Activity {
 		
 	}//_Setup_List
 
+	/******************************
+		List: Tags
+	 ******************************/
 	private boolean 
 	_Setup_List_2() {
 		// TODO Auto-generated method stub
@@ -507,6 +554,21 @@ public class MemoActv extends Activity {
 		Log.d("MemoActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// sort
+
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_2, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+		
+
 		
 		////////////////////////////////
 		
@@ -563,6 +625,9 @@ public class MemoActv extends Activity {
 		
 	}//_Setup_List_2
 	
+	/******************************
+		List: Literals
+	 ******************************/
 	private boolean 
 	_Setup_List_3() {
 		// TODO Auto-generated method stub
@@ -595,6 +660,19 @@ public class MemoActv extends Activity {
 		Log.d("MemoActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// sort
+
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_3, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
 		
 		////////////////////////////////
 		

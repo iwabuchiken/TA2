@@ -80,6 +80,9 @@ public class Tags {
 		
 		DLG_FILTER_SHOWLIST_RESET,
 		
+		// register patterns
+		DLG_REGISTER_PATTERNS_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {
@@ -95,6 +98,9 @@ public class Tags {
 		AdminPatterns_Item_LV,
 		
 		HoriLV_TwtActv,
+		
+		// MemoActv
+		ACTV_MEMO_ADMIN_PATTERNS,
 		
 	}//public static enum DialogItemTags
 
