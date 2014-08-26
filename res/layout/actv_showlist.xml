@@ -21,15 +21,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:orientation="vertical" >
+        android:background="@color/green4"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/actv_showlist_ib_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green4"
+            android:src="@drawable/actv_showlist_bt_top_45x45" />
+
+        <ImageButton
+            android:id="@+id/actv_showlist_ib_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green4"
+            android:src="@drawable/actv_showlist_bt_up_50x50" />
     
         <ImageButton
             android:id="@+id/actv_showlist_ib_back"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/green4"
             android:src="@drawable/actv_memo_ib_back_49x37" />
+
+        <ImageButton
+            android:id="@+id/actv_showlist_ib_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green4"
+            android:src="@drawable/actv_showlist_bt_down_50x50" />
+
+        <ImageButton
+            android:id="@+id/actv_showlist_ib_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green4"
+            android:src="@drawable/actv_showlist_bt_bottom_45x45" />
             
     </LinearLayout>
     

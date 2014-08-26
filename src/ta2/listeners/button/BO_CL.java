@@ -3,6 +3,7 @@ package ta2.listeners.button;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -117,12 +118,144 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_SHOWLIST_TOP:
+			
+			case_ACTV_SHOWLIST_TOP();
+			
+			break;
+			
+		case ACTV_SHOWLIST_UP:
+			
+			case_ACTV_SHOWLIST_UP();
+			
+			break;
+			
+		case ACTV_SHOWLIST_DOWN:
+			
+			case_ACTV_SHOWLIST_DOWN();
+			
+			break;
+			
+		case ACTV_SHOWLIST_BOTTOM:
+			
+			case_ACTV_SHOWLIST_BOTTOM();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void case_ACTV_SHOWLIST_BOTTOM() {
+		// TODO Auto-generated method stub
+
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+	//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(actv);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int numOfGroups = CONS.ShowListActv.list_Memos.size() / lv.getChildCount();
+		
+		int indexOfLastChild = lv.getChildCount() * numOfGroups;
+		
+		lv.setSelection(indexOfLastChild);
+
+	}
+
+	private void case_ACTV_SHOWLIST_DOWN() {
+		// TODO Auto-generated method stub
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+	//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(actv);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int new_Position = lv.getLastVisiblePosition();
+		
+		if((new_Position + lv.getChildCount()) 
+				> CONS.ShowListActv.list_Memos.size()) {
+			
+			new_Position = CONS.ShowListActv.list_Memos.size() - lv.getChildCount();
+			
+		}
+		
+		lv.setSelection(new_Position);
+		
+	}
+
+	private void case_ACTV_SHOWLIST_UP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+	//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(actv);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int lastPos = lv.getLastVisiblePosition();
+		
+		int childCount = lv.getChildCount();
+		
+		int new_Position;
+		
+		if (lastPos - (childCount * 2) + 2 > 0) {
+			
+			new_Position = lastPos - (childCount * 2) + 2;
+			
+		} else {
+			
+			new_Position = 0;
+	
+		}
+		
+		lv.setSelection(new_Position);		
+		
+	}
+
+	private void case_ACTV_SHOWLIST_TOP() {
+		// TODO Auto-generated method stub
+	
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+	//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(actv);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		lv.setSelection(0);
+
+	}
 
 	private void 
 	case_ACTV_SHOWLIST_BACK() {
