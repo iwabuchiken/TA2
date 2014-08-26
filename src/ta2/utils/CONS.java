@@ -337,6 +337,8 @@ public class CONS {
 		public static Adp_MemoList adp_List_Memos = null;
 		
 		public static Adp_WordPatterns adp_List_WPs = null;
+
+		public static final int length_Conf_Message		= 20;
 		
 	}
 	

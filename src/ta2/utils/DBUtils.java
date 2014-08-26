@@ -2831,6 +2831,95 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 		
 	}//save_Pattern
+
+	/******************************
+		@return
+			-1	Table doesn't exist<br>
+			-2	Deletion => failed<br>
+			> 1	Deletion => done<br>
+	 ******************************/
+	public static int 
+	delete_Memo
+	(Activity actv, Memo memo) {
+		// TODO Auto-generated method stub
+		
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		////////////////////////////////
+
+		// validate: table exists
+
+		////////////////////////////////
+		if (!DBUtils.tableExists(actv, CONS.DB.dbName, CONS.DB.tname_TA2)) {
+			// Log
+			Log.i("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist => " + CONS.DB.tname_TA2);
+			
+			wdb.close();
+			
+			return -1;
+
+		}//if (!tableExists(SQLiteDatabase db, String tableName))
+
+		////////////////////////////////
+
+		// delete
+
+		////////////////////////////////
+		////////////////////////////////
+
+		// Query
+
+		////////////////////////////////
+		String where = CONS.DB.col_names_TA2_full[0] + " = ?";
+//		String where = CONS.DB.col_names_IFM11[1] + " = ?";
+		
+		String[] args = new String[]{
+				
+							String.valueOf(memo.getDb_Id())
+							
+						};
+ 
+		int res_int = wdb.delete(CONS.DB.tname_TA2, where, args);
+		
+		// Log
+		String msg_Log = "res_int => " + res_int;
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		switch(res_int) {
+		
+		case 0:
+			
+			// Log
+			msg_Log = "deletion => failed";
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			wdb.close();
+			
+			return -2;
+			
+		default:
+			
+			wdb.close();
+			
+			return res_int;
+				
+		}
+		
+	}//delete_Memo
 	
 }//public class DBUtils
 

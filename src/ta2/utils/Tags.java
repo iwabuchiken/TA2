@@ -36,6 +36,9 @@ public class Tags {
 		// MemoActv
 		ACTV_MEMO_LV_1, ACTV_MEMO_LV_2, ACTV_MEMO_LV_3,
 		
+		// ShowListActv
+		ACTV_SHOWLIST_LV,
+		
 	}//public static enum ListTags
 
 	public static enum 
@@ -83,6 +86,9 @@ public class Tags {
 		// register patterns
 		DLG_REGISTER_PATTERNS_OK,
 		
+		//
+		DLG_CONF_DELETE_MEMO_OK,
+		
 	}//public static enum DialogTags
 
 	public static enum DialogItemTags {
@@ -101,6 +107,9 @@ public class Tags {
 		
 		// MemoActv
 		ACTV_MEMO_ADMIN_PATTERNS,
+		
+		//
+		ACTV_SHOWLIST_LV,
 		
 	}//public static enum DialogItemTags
 

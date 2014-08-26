@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import ta2.adapters.Adp_ListItems;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
+import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.listeners.dialog.DB_OCL;
 import ta2.listeners.dialog.DB_OTL;
@@ -224,6 +225,62 @@ public class Methods_dlg {
 
 		// button: cancel
 
+		////////////////////////////////
+		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
+		
+		btn_cancel.setTag(cancelTag);
+		
+		btn_cancel.setOnTouchListener(new DB_OTL(actv, dlg1, dlg2));
+		
+		btn_cancel.setOnClickListener(new DB_OCL(actv, dlg1, dlg2));
+		
+		//
+		//dlg.show();
+		
+		return dlg2;
+		
+	}//public static Dialog dlg_template_okCancel()
+	
+	public static Dialog 
+	dlg_Template_OkCancel_SecondDialog
+	(Activity actv, Dialog dlg1, Memo memo,
+			int layoutId, int titleStringId,
+			
+			int okButtonId, Tags.DialogTags okTag,
+			int cancelButtonId, Tags.DialogTags cancelTag) {
+		/****************************
+		 * Steps
+		 * 1. Set up
+		 * 2. Add listeners => OnTouch
+		 * 3. Add listeners => OnClick
+		 ****************************/
+		
+		// 
+		Dialog dlg2 = new Dialog(actv);
+		
+		//
+		dlg2.setContentView(layoutId);
+		
+		// Title
+		dlg2.setTitle(titleStringId);
+		
+		////////////////////////////////
+		
+		// button: cancel
+		
+		////////////////////////////////
+		Button btn_Ok = (Button) dlg2.findViewById(okButtonId);
+		
+		btn_Ok.setTag(okTag);
+		
+		btn_Ok.setOnTouchListener(new DB_OTL(actv, dlg1, dlg2));
+		
+		btn_Ok.setOnClickListener(new DB_OCL(actv, dlg1, dlg2, memo));
+		
+		////////////////////////////////
+		
+		// button: cancel
+		
 		////////////////////////////////
 		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
 		
@@ -1773,5 +1830,193 @@ public class Methods_dlg {
 		
 		
 	}//register_Patterns
+
+	public static void 
+	dlg_ShowListActv_LongClick
+	(Activity actv, Memo memo) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+
+		// dlg
+
+		////////////////////////////////
+		Dialog d1 = Methods_dlg.dlg_Template_Cancel(
+						actv,
+						R.layout.dlg_tmpl_cancel_lv,
+						R.string.dlg_actvmain_admin_title,
+						
+						R.id.dlg_tmpl_cancel_lv_bt_cancel,
+						Tags.DialogTags.GENERIC_DISMISS);
+		
+		/****************************
+		* 2. Prep => List
+		****************************/
+		List<ListItem> list = new ArrayList<ListItem>();
+		
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+									R.string.generic_tv_edit))
+						.setIconID(R.drawable.menu_icon_admin_32x32)
+						.setTextColor_ID(R.color.blue1)
+						.build());
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.generic_tv_delete))
+						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
+						.setTextColor_ID(R.color.black)
+						.build());
+		
+		/****************************
+		* 3. Adapter
+		****************************/
+		Adp_ListItems adapter = new Adp_ListItems(
+							actv,
+							R.layout.list_row_simple_iv_1,
+							list
+		);
+		
+		/****************************
+		* 4. Set adapter
+		****************************/
+		ListView lv = (ListView) d1.findViewById(R.id.dlg_tmpl_cancel_lv_lv);
+		
+		lv.setAdapter(adapter);
+		
+		/****************************
+		* 5. Set listener to list
+		****************************/
+		lv.setTag(Tags.DialogItemTags.ACTV_SHOWLIST_LV);
+		
+		lv.setOnItemClickListener(new DOI_CL(actv, d1, memo));
+		
+		/***************************************
+		* Modify: Button layout
+		***************************************/
+		LinearLayout llButton =
+					(LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_filepath);
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								LayoutParams.WRAP_CONTENT);
+		
+		params.gravity = Gravity.CENTER_HORIZONTAL;
+		
+		llButton.setLayoutParams(params);
+
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+		DisplayMetrics displayMetrics = actv.getResources()
+                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		int dialog_Width = w * CONS.Admin.ratio_Dialog_to_Screen_W / 100;
+		
+		////////////////////////////////
+
+		// linear layot: main
+
+		////////////////////////////////
+		LinearLayout ll_Main = (LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_main);
+		
+		// Log
+		msg_Log = "ll_Main => created";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		//REF parent layout http://stackoverflow.com/questions/4631966/set-relativelayout-layout-params-programmatically-throws-classcastexception answered Jan 8 '11 at 5:42
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): java.lang.ClassCastException: android.widget.LinearLayout$LayoutParams
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.widget.FrameLayout.onLayout(FrameLayout.java:293)
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.view.View.layout(View.java:7184)
+
+		FrameLayout.LayoutParams params2 =
+				new FrameLayout.LayoutParams(
+						dialog_Width,
+						LayoutParams.WRAP_CONTENT);
+		
+		ll_Main.setLayoutParams(params2);
+		
+		/****************************
+		* 6. Show dialog
+		****************************/
+		d1.show();		
+		
+	}//dlg_ShowListActv_LongClick
+
+	public static void 
+	conf_Delete_Memo
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated method stub
+		
+		Dialog d2 = 
+				Methods_dlg.dlg_Template_OkCancel_SecondDialog(
+						actv, d1, memo,
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						Tags.DialogTags.DLG_CONF_DELETE_MEMO_OK, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						Tags.DialogTags.GENERIC_DISMISS_SECOND_DIALOG
+				);
+		
+		////////////////////////////////
+
+		// view: message
+
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) d2.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+								R.string.generic_tv_delete)
+								+ "?");
+		
+		////////////////////////////////
+
+		// view: item name
+
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) d2.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		String msg = null;
+		
+		if (memo.getText().length() > CONS.ShowListActv.length_Conf_Message) {
+			
+			msg = memo.getText().substring(0, CONS.ShowListActv.length_Conf_Message);
+			
+		} else {
+			
+			msg = memo.getText();
+
+		}
+		
+		tv_ItemName.setText(msg);
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d2.show();		
+				
+	}//conf_Delete_Memo
 
 }//public class Methods_dialog

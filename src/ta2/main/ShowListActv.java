@@ -1,6 +1,8 @@
 package ta2.main;
 
 import ta2.adapters.Adp_MemoList;
+import ta2.listeners.LOI_CL;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -18,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 public class ShowListActv extends ListActivity {
 
@@ -192,6 +195,16 @@ public class ShowListActv extends ListActivity {
 		
 		ll_Base.setOnTouchListener(new STL(this));
 
+		////////////////////////////////
+
+		// long click
+
+		////////////////////////////////
+		ListView lv = (ListView) this.getListView();
+		
+		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
+		
+		lv.setOnItemLongClickListener(new LOI_LCL(this));
 		
 	}//_Setup_Listeners
 

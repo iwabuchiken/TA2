@@ -2,6 +2,7 @@ package ta2.listeners.dialog;
 
 
 import ta2.items.ListItem;
+import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
@@ -34,6 +35,7 @@ public class DOI_CL implements OnItemClickListener {
 	//
 	Vibrator vib;
 	private String file_Name;
+	private Memo memo;
 	
 	
 	//
@@ -89,6 +91,20 @@ public class DOI_CL implements OnItemClickListener {
 		this.d1 = dlg1;
 		
 		this.file_Name	= file_Name;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
+	}
+
+	public 
+	DOI_CL
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv = actv;
+		this.d1 = d1;
+		
+		this.memo	= memo;
 		
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -152,12 +168,48 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case ACTV_SHOWLIST_LV://----------------------------------------------
+			
+			li = (ListItem) parent.getItemAtPosition(position);
+			
+			case_ACTV_SHOWLIST_LV(li);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_SHOWLIST_LV
+	(ListItem li) {
+		// TODO Auto-generated method stub
+	
+		////////////////////////////////
+
+		// dispatch
+
+		////////////////////////////////
+		if (li.getText().equals(actv.getString(
+				R.string.generic_tv_edit))) {
+
+//			Methods_dlg.register_Patterns(actv, d1);
+			
+//			Methods_dlg.dlg_Admin_Ops(actv, d1);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_delete))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
+			
+		} else {
+			
+		}
+
+	}//case_ACTV_SHOWLIST_LV
 
 	private void 
 	case_ACTV_MEMO_ADMIN_PATTERNS
