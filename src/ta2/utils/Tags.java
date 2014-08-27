@@ -89,7 +89,7 @@ public class Tags {
 		DLG_REGISTER_PATTERNS_OK,
 		
 		//
-		DLG_CONF_DELETE_MEMO_OK,
+		DLG_CONF_DELETE_MEMO_OK, DLG_CONF_DELETE_PATTERN_OK,
 		
 	}//public static enum DialogTags
 
@@ -111,7 +111,7 @@ public class Tags {
 		ACTV_MEMO_ADMIN_PATTERNS,
 		
 		//
-		ACTV_SHOWLIST_LV,
+		ACTV_SHOWLIST_LV, ACTV_MEMO_ADMIN_PATTERNS_GV,
 		
 	}//public static enum DialogItemTags
 

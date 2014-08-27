@@ -75,6 +75,7 @@ import org.json.JSONObject;
 
 import ta2.comps.Comp_WP;
 import ta2.items.Memo;
+import ta2.items.WordPattern;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.PrefActv;
@@ -2828,6 +2829,105 @@ public static String
 //				colorID);
 		
 	}//delete_Memo
+
+	public static void 
+	delete_Pattern
+	(Activity actv, 
+		Dialog d1, Dialog d2, WordPattern wp) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// delete: db
+
+		////////////////////////////////
+		int res = DBUtils.delete_Pattern(actv, wp);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		String tname = CONS.DB.tname_Patterns;
+		
+		switch(res) {
+
+//		-1 Table doesn't exist
+//		-2 Deletion => failed
+//		> 1 Deletion => done		
+		
+		case -1: 
+			
+			msg = "Table doesn't exist => " + tname;
+			colorID = R.color.gold2;
+			
+			Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID);
+
+			d2.dismiss();
+
+			return;
+		
+		case -2: 
+			
+			msg = "Deletion => failed: " + wp.getWord();
+			colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID);
+
+			d2.dismiss();
+			
+			return;
+			
+		}
+
+		////////////////////////////////
+
+		// delete from: list view
+
+		////////////////////////////////
+		
+		Methods.update_MemoActv_ListViews(actv, wp.getWord());
+		
+//		CONS.MemoActv.li.remove(memo);
+//		
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		msg = "Deletion => done";
+		colorID = R.color.green4;
+		
+		Methods_dlg.dlg_ShowMessage(
+				actv, 
+				msg,
+				colorID);
+
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d2.dismiss();
+		d1.dismiss();
+		
+//		Methods_dlg.dlg_ShowMessage(
+//				actv, 
+//				msg,
+//				colorID);
+		
+	}//delete_Pattern
 
 }//public class Methods
 

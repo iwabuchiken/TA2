@@ -7,6 +7,7 @@ import ta2.adapters.Adp_WordPatterns;
 import ta2.comps.Comp_WP;
 import ta2.items.WordPattern;
 import ta2.listeners.LOI_CL;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -360,6 +361,8 @@ public class MemoActv extends Activity {
 		
 		lv_3.setOnItemClickListener(new LOI_CL(this));
 		
+		lv_3.setOnItemLongClickListener(new LOI_LCL(this));
+
 		
 		return false;
 	}

@@ -36,6 +36,7 @@ public class DOI_CL implements OnItemClickListener {
 	Vibrator vib;
 	private String file_Name;
 	private Memo memo;
+	private WordPattern wp;
 	
 	
 	//
@@ -110,6 +111,19 @@ public class DOI_CL implements OnItemClickListener {
 
 	}
 
+	public DOI_CL
+	(Activity actv, Dialog d1, WordPattern wp) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv = actv;
+		this.d1 = d1;
+		
+		this.wp	= wp;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
+	}
+
 	//	@Override
 	public void 
 	onItemClick
@@ -129,6 +143,7 @@ public class DOI_CL implements OnItemClickListener {
 		
 		ListItem li;
 		WordPattern	wp;
+		String item;
 		
 		/*----------------------------
 		 * 3. Switching
@@ -176,12 +191,46 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case ACTV_MEMO_ADMIN_PATTERNS_GV://----------------------------------------------
+			
+			li = (ListItem) parent.getItemAtPosition(position);
+			
+			case_ACTV_MEMO_ADMIN_PATTERNS_GV(li);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_MEMO_ADMIN_PATTERNS_GV
+	(ListItem li) {
+		// TODO Auto-generated method stub
+	
+		if (li.getText().equals(actv.getString(
+				R.string.generic_tv_edit))) {
+
+//			Methods_dlg.register_Patterns(actv, d1);
+			
+//			Methods_dlg.dlg_Admin_Ops(actv, d1);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_delete))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+			Methods_dlg.conf_Delete_Pattern(actv, d1, wp);
+			
+		} else {
+			
+			String msg = "Unknown choice => " + li.getText();
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+		}
+		
+	}//case_ACTV_MEMO_ADMIN_PATTERNS_GV
 
 	private void 
 	case_ACTV_SHOWLIST_LV

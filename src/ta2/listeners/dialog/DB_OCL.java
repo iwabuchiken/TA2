@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.Memo;
+import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
@@ -43,6 +44,7 @@ public class DB_OCL implements OnClickListener {
 	String tableName;
 	private String item_Name;	// Methods_dlg.conf_DropTable
 	private Memo memo;
+	private WordPattern wp;
 	public DB_OCL(Activity actv, Dialog dlg1) {
 		//
 		this.actv = actv;
@@ -165,6 +167,20 @@ public class DB_OCL implements OnClickListener {
 		
 		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 		
+	}
+
+	public DB_OCL
+	(Activity actv, Dialog d1, Dialog d2, WordPattern wp) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv	= actv;
+		this.d1	= d1;
+		this.d2	= d2;
+
+		this.wp	= wp;
+		
+		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
 	}
 
 	public void onClick(View v) {
@@ -340,11 +356,26 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_DELETE_PATTERN_OK://------------------------------------------------
+			
+			case_DLG_CONF_DELETE_PATTERN_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_DELETE_PATTERN_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.delete_Pattern(actv, d1, d2, wp);
+		
+		
+	}//case_DLG_CONF_DELETE_PATTERN_OK
 
 	private void 
 	case_DLG_CONF_DELETE_MEMO_OK() {

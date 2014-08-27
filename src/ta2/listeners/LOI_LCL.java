@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.items.Memo;
+import ta2.items.WordPattern;
 import ta2.utils.CONS;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -67,15 +68,24 @@ LOI_LCL implements OnItemLongClickListener {
 		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
 //		vib.vibrate(CONS.Admin.vibLength_click);
 		
-
+		Memo item;
+		WordPattern wp;
 		
 		switch (tag) {
 			
 		case ACTV_SHOWLIST_LV://----------------------------------------------------
 
-			Memo item = (Memo) parent.getItemAtPosition(position);
+			item = (Memo) parent.getItemAtPosition(position);
 			
 			case_ACTV_SHOWLIST_LV(item);
+			
+			break;// case actv_bm_lv
+			
+		case ACTV_MEMO_LV_3://----------------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_ACTV_MEMO_LV_3(wp);
 			
 			break;// case actv_bm_lv
 			
@@ -87,6 +97,15 @@ LOI_LCL implements OnItemLongClickListener {
 		return true;
 		
 	}//onItemLongClick (AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_MEMO_LV_3
+	(WordPattern wp) {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_Admin_Patterns_GV(actv, wp);
+		
+	}
 
 	private void 
 	case_ACTV_SHOWLIST_LV
