@@ -89,6 +89,22 @@ LOI_LCL implements OnItemLongClickListener {
 			
 			break;// case actv_bm_lv
 			
+		case ACTV_MEMO_LV_2://----------------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_ACTV_MEMO_LV_3(wp);
+			
+			break;// case actv_bm_lv
+			
+		case ACTV_MEMO_LV_1://----------------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_ACTV_MEMO_LV_3(wp);
+			
+			break;// case actv_bm_lv
+			
 		default:
 			break;
 		

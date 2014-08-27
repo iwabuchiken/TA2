@@ -339,6 +339,8 @@ public class MemoActv extends Activity {
 		
 		lv_1.setOnItemClickListener(new LOI_CL(this));
 		
+		lv_1.setOnItemLongClickListener(new LOI_LCL(this));
+		
 		////////////////////////////////
 		
 		// view: list 2
@@ -349,6 +351,8 @@ public class MemoActv extends Activity {
 		lv_2.setTag(Tags.ListTags.ACTV_MEMO_LV_2);
 		
 		lv_2.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_2.setOnItemLongClickListener(new LOI_LCL(this));
 		
 		////////////////////////////////
 		
