@@ -1,6 +1,13 @@
 package ta2.main;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import org.apache.commons.lang.StringUtils;
+
 import ta2.adapters.Adp_MemoList;
+import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
 import ta2.listeners.STL;
@@ -61,7 +68,7 @@ public class ShowListActv extends ListActivity {
 		
 		this._Setup_Listeners_IBs();
 		
-		do_test();
+//		do_test();
 		
 	}//onStart
 
@@ -150,6 +157,9 @@ public class ShowListActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 
+			//test
+			do_test();
+			
 			return true;
 			
 		}
@@ -161,10 +171,214 @@ public class ShowListActv extends ListActivity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+//		_test_Color_Date_v2();
+//		_test_Color_Date();
 //		_test_PrefVal_SoundEffect();
 		
 	}
 
+
+	private void _test_Color_Date_v2() {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// target
+
+		////////////////////////////////
+		Memo m = CONS.ShowListActv.list_Memos.get(10);
+		
+		String[] tokens = m.getCreated_at().split(" ");
+		
+		String[] tokens_Date = tokens[0].split("/");
+		
+		////////////////////////////////
+
+		// today
+
+		////////////////////////////////
+		Calendar c_Today = Calendar.getInstance();
+		
+		c_Today.setTimeInMillis(Methods.getMillSeconds_now());
+		
+		Date d = c_Today.getTime();
+		
+		// Log
+		String msg_Log = String.format(
+					Locale.JAPAN,
+					"Date d => %d/%d/%d",
+					d.getYear(), d.getMonth(), d.getDate()
+				);
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// Log
+		msg_Log = "Calendar.DATE => " + c_Today.get(Calendar.DATE);
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// compare
+
+		////////////////////////////////
+		String comp_Target = String.format(
+					"target => %s/%s/%s", 
+					tokens_Date[0], 
+					tokens_Date[1], 
+					tokens_Date[2]);
+		
+		String comp_Today = String.format(
+				"today => %d/%d/%d", 
+				c_Today.get(Calendar.YEAR), 
+				c_Today.get(Calendar.MONTH) + 1, 
+				c_Today.get(Calendar.DATE)
+				);
+		
+		// Log
+		msg_Log = String.format(
+						"target => %s // today => %s",
+						comp_Target, comp_Today
+				);
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		int res = comp_Today.compareTo(comp_Target);
+				
+		// Log
+		msg_Log = "comp_Today.compareTo(comp_Target) => " + res;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		res = comp_Target.compareTo(comp_Today);
+		
+		// Log
+		msg_Log = "comp_Target.compareTo(comp_Today) => " + res;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}
+
+	private void _test_Color_Date() {
+		// TODO Auto-generated method stub
+		
+		Memo m = CONS.ShowListActv.list_Memos.get(10);
+		
+		// Log
+		String msg_Log = "m.getCreated_at() => " + m.getCreated_at();
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		String[] tokens = m.getCreated_at().split(" ");
+		
+		String[] tokens_Date = tokens[0].split("/");
+		
+		String new_DateLabel = StringUtils.join(
+				new String[]{
+						
+						tokens_Date[1],
+						tokens_Date[2]
+								
+				}, 
+				"/");
+		
+		// Log
+		msg_Log = "new_DateLabel => " + new_DateLabel;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// today
+		String today = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+		String[] tokens_Today = today.split(" ");
+		
+		String[] tokens_Today_Date = tokens_Today[0].split("/");
+		
+		String new_DateLabel_today = StringUtils.join(
+				new String[]{
+						
+						tokens_Today_Date[1],
+						tokens_Today_Date[2]
+								
+				}, 
+				"/");
+		
+		// Log
+		msg_Log = "new_DateLabel_today => " + new_DateLabel_today;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// compare
+		
+		////////////////////////////////
+		int res = new_DateLabel_today.compareTo(new_DateLabel);
+		
+		// Log
+		msg_Log = "Comp: new_DateLabel_today.compareTo(new_DateLabel) => " + res;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// 
+		
+		////////////////////////////////
+		String[] nums = new_DateLabel.split("/");
+		String year		= tokens[0].split("/")[0];
+		
+		String[] nums_Today = new_DateLabel_today.split("/");
+		String year_Today		= tokens_Today[0].split("/")[0];
+		
+		// Log
+		msg_Log = "month => " + Integer.parseInt(nums[0]);
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		Calendar c = Calendar.getInstance();
+		
+		////////////////////////////////
+		
+		// Date instances
+		
+		////////////////////////////////
+		Date d_Today = new Date(
+				Integer.parseInt(year_Today), 
+				Integer.parseInt(nums_Today[0]), 
+				Integer.parseInt(nums_Today[1]));
+		
+		// Log
+		msg_Log = String.format(
+				"d_Today => %d/%d/%d",
+				Integer.parseInt(year_Today), 
+				Integer.parseInt(nums_Today[0]), 
+				Integer.parseInt(nums_Today[1])
+				);
+		
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		String d_Today_s = Methods.conv_MillSec_to_TimeLabel(d_Today.getTime());
+		
+		// Log
+		msg_Log = "d_Today_s => " + d_Today_s;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}
+	
 
 	private void 
 	_Setup_Listeners() {
