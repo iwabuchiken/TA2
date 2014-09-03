@@ -11,4 +11,13 @@
         
         />
 
+	<EditTextPreference
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:key="@string/prefs_MemoList_Size_key"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        
+    	>
+        
+    </EditTextPreference>
+    
 </PreferenceScreen>

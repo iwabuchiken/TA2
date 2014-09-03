@@ -101,6 +101,28 @@ public class PrefActv extends PreferenceActivity
 
 	private void _Setup_FontSize() {
 		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// Input type
+
+		////////////////////////////////
+		EditTextPreference prefEditText = 
+				(EditTextPreference) findPreference(
+						this.getString(R.string.prefs_MemoList_Size_key));
+//		this.getString(R.string.prefs_history_size_key));
+		
+		prefEditText.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+
+		////////////////////////////////
+
+		// show: current
+
+		////////////////////////////////
+		String current = prefEditText.getText();
+
+		prefEditText.setSummary("Current = " + current);
+
 		
 	}
 

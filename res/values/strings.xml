@@ -88,6 +88,13 @@
 	   	<string name="prefs_sound_effect_summary">
 	   		    							Use sound effect</string>
 	   		    							
+	   	<string name="prefs_MemoList_Size_titile">
+	   		    							Memo list size</string>
+	   	<string name="prefs_MemoList_Size_key">
+	   		    							prefs_MemoList_Size_key</string>
+	   	<string name="prefs_MemoList_Size_summary">
+	   		    							Current = </string>
+	   		    							
 	   	
 	   	
 </resources>

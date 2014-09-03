@@ -167,12 +167,12 @@ public final class R {
         public static final int list_row_slimple_iv_1_iv=0x7f0a004d;
         public static final int list_row_slimple_iv_1_ll=0x7f0a004c;
         public static final int list_row_slimple_iv_1_tv=0x7f0a004e;
-        public static final int menu_main_admin=0x7f0a0052;
-        public static final int menu_main_horizontal_listview=0x7f0a0053;
-        public static final int menu_main_logout=0x7f0a0051;
-        public static final int menu_main_settings=0x7f0a0050;
-        public static final int menu_memo_admin_patterns=0x7f0a0054;
-        public static final int menu_showlist_filter=0x7f0a004f;
+        public static final int menu_main_admin=0x7f0a0051;
+        public static final int menu_main_horizontal_listview=0x7f0a0052;
+        public static final int menu_main_logout=0x7f0a0050;
+        public static final int menu_main_settings=0x7f0a004f;
+        public static final int menu_memo_admin_patterns=0x7f0a0053;
+        public static final int menu_showlist_filter=0x7f0a0054;
     }
     public static final class layout {
         public static final int actv_main=0x7f030000;
@@ -199,9 +199,9 @@ public final class R {
         public static final int main_pref=0x7f030015;
     }
     public static final class menu {
-        public static final int actv_showlist=0x7f090000;
-        public static final int menu_actv_main=0x7f090001;
-        public static final int menu_actv_memo=0x7f090002;
+        public static final int menu_actv_main=0x7f090000;
+        public static final int menu_actv_memo=0x7f090001;
+        public static final int menu_actv_showlist=0x7f090002;
     }
     public static final class raw {
         public static final int audio_nature=0x7f050000;
@@ -276,6 +276,9 @@ public final class R {
         /**  Menu: showlist 
          */
         public static final int menu_showlist_filter=0x7f07001e;
+        public static final int prefs_MemoList_Size_key=0x7f070031;
+        public static final int prefs_MemoList_Size_summary=0x7f070032;
+        public static final int prefs_MemoList_Size_titile=0x7f070030;
         public static final int prefs_sound_effect_key=0x7f07002e;
         public static final int prefs_sound_effect_summary=0x7f07002f;
         /**  pref: MainActv 

@@ -90,11 +90,11 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 						c_Today.get(Calendar.DATE)
 				);
 		
-		// Log
-		String msg_Log = "today => " + this.today;
-		Log.d("Adp_MemoList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		String msg_Log = "today => " + this.today;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		////////////////////////////////
 
@@ -109,11 +109,11 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 				c_Today.get(Calendar.DATE)
 		);
 		
-		// Log
-		msg_Log = "before_1 => " + this.before_1;
-		Log.d("Adp_MemoList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		msg_Log = "before_1 => " + this.before_1;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		////////////////////////////////
 		
@@ -128,11 +128,11 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 				c_Today.get(Calendar.DATE)
 				);
 		
-		// Log
-		msg_Log = "before_2 => " + this.before_2;
-		Log.d("Adp_MemoList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		msg_Log = "before_2 => " + this.before_2;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		////////////////////////////////
 		
@@ -147,11 +147,11 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 				c_Today.get(Calendar.DATE)
 				);
 		
-		// Log
-		msg_Log = "before_1w => " + this.before_1w;
-		Log.d("Adp_MemoList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		msg_Log = "before_1w => " + this.before_1w;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 	}
 

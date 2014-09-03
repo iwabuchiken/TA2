@@ -2035,6 +2035,207 @@ public class DBUtils extends SQLiteOpenHelper{
 				5. No entry in the table<br>
 	 ******************************/
 	public static List<Memo> 
+	find_All_Memos
+	(Activity actv, 
+		CONS.Enums.SortOrder order, int limit) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_TA2;
+		boolean res = dbu.tableExists(rdb, tname);
+//		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String orderBy = null;
+		
+		if (order == CONS.Enums.SortOrder.ASC) {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_ASC;
+			
+		} else if (order == CONS.Enums.SortOrder.DESC) {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_DESC;
+			
+		} else {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_ASC;
+			
+		}
+		
+		String limit_Memos = String.valueOf(limit);
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_TA2_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					orderBy,
+					limit_Memos);		// 7
+//			orderBy);		// 7
+//			orderBy,			// 7
+//			null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7		
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+		while(c.moveToNext()) {
+			
+			Memo wp = new Memo.Builder()
+			
+			.setDb_Id(c.getLong(0))
+			.setCreated_at(c.getString(1))
+			.setModified_at(c.getString(2))
+			
+			.setText(c.getString(3))
+			
+			.setUploaded_at(c.getString(4))
+			
+			.setTwted_at(c.getString(5))
+			.setTwt_Id(c.getLong(6))
+			.setTwt_created_at(c.getString(7))
+			
+			.build();
+			
+			list_Memos.add(wp);
+			
+		}
+		
+		rdb.close();
+		
+		return list_Memos;
+		
+	}//find_All_WP
+	
+	/******************************
+		@return
+			null => 
+				1. No DB file<br>
+				2. No such file<br>
+				3. Query exception<br>
+				4. Query failed<br>
+				5. No entry in the table<br>
+	 ******************************/
+	public static List<Memo> 
 	find_All_Memos_conditions
 	(Activity actv, 
 		CONS.Enums.SortOrder order, String where, String[] args) {

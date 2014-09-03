@@ -124,14 +124,46 @@ public class ShowListActv extends ListActivity {
 	private boolean 
 	_Setup_List() {
 		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
+		////////////////////////////////
+
+		// list size
+
+		////////////////////////////////
+		String pref_MemoList_Size = Methods.get_Pref_String(
+							this, 
+							CONS.Pref.pname_MainActv, 
+							this.getString(R.string.prefs_MemoList_Size_key), 
+							null);
+
+//		// Log
+//		msg_Log = "pref_MemoList_Size => " + pref_MemoList_Size;
+//		Log.d("ShowListActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
 		////////////////////////////////
 
 		// list
 
 		////////////////////////////////
-		CONS.ShowListActv.list_Memos = 
-							DBUtils.find_All_Memos(this, CONS.Enums.SortOrder.DESC);
-//		CONS.ShowListActv.list_Memos = DBUtils.find_All_Memos(this);
+		if (pref_MemoList_Size != null) {
+			
+			CONS.ShowListActv.list_Memos = 
+					DBUtils.find_All_Memos(
+								this, 
+								CONS.Enums.SortOrder.DESC, 
+								Integer.parseInt(pref_MemoList_Size));
+			
+		} else {
+
+			CONS.ShowListActv.list_Memos = 
+					DBUtils.find_All_Memos(this, CONS.Enums.SortOrder.DESC);
+			
+		}
+		
 		
 		/******************************
 			validate
@@ -139,7 +171,7 @@ public class ShowListActv extends ListActivity {
 		if (CONS.ShowListActv.list_Memos == null) {
 			
 			// Log
-			String msg_Log = "CONS.ShowListActv.list_Memos => null";
+			msg_Log = "CONS.ShowListActv.list_Memos => null";
 			Log.e("ShowListActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -152,7 +184,7 @@ public class ShowListActv extends ListActivity {
 		} else {
 
 			// Log
-			String msg_Log = "memo size => " + CONS.ShowListActv.list_Memos.size();
+			msg_Log = "memo size => " + CONS.ShowListActv.list_Memos.size();
 			Log.d("ShowListActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -570,20 +602,29 @@ public class ShowListActv extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.actv_showlist, menu);
+		getMenuInflater().inflate(R.menu.menu_actv_showlist, menu);
 		return true;
 		
 	}
 
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean 
+	onOptionsItemSelected
+	(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		
 		case R.id.menu_showlist_filter://--------------------
 			
 			case_OPT_Filter();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		case R.id.menu_main_settings://--------------------
+			
+			case_OPT_Settings();
 //			this.logoutFromTwitter();
 			
 			break;
@@ -603,6 +644,13 @@ public class ShowListActv extends ListActivity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_OPT_Settings() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_PrefActv(this);
+		
+	}
 
 	private void 
 	case_OPT_Filter() {
