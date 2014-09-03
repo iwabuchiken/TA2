@@ -205,6 +205,7 @@ public final class R {
         public static final int main_pref=0x7f030015;
         public static final int pref_dropdown=0x7f030016;
         public static final int preference_widget_seekbar=0x7f030017;
+        public static final int spinner_item_simple_1=0x7f030018;
     }
     public static final class menu {
         public static final int menu_actv_main=0x7f0a0000;

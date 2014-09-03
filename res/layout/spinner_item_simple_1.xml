@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- REF https://code.google.com/p/pdn-slatedroid/source/browse/trunk/eclair/frameworks/base/core/res/res/layout/simple_spinner_dropdown_item.xml?r=44 -->
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@color/black"
+    android:ellipsize="marquee"
+    android:singleLine="true"
+    android:textColor="@color/white" />
+
