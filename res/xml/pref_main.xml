@@ -27,6 +27,13 @@
         android:defaultValue="50"
         />
 	
+	<ta2.items.Pref_Dropdown
+	    android:key="calligraphy_diameter"
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        android:defaultValue="50"
+        />
+	
 	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
 <!-- <ListPreference
 	    android:title="Size of memo list"
