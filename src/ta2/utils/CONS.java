@@ -312,6 +312,10 @@ public class CONS {
 
 		public static final int MAX_PROGRESS = 100;
 		
+		public static final String 
+		pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection = 
+							"pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection";
+		
 	}//Pref
 
 	public static class MainActv {

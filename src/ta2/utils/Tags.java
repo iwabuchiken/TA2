@@ -93,6 +93,12 @@ public class Tags {
 		
 	}//public static enum DialogTags
 
+	public static enum SpinnerTag {
+		
+		SP_MEMOLIST_SIZE,
+		
+	}
+	
 	public static enum DialogItemTags {
 		// dlg_db_admin.xml
 		ACTV_MAIN_ADMIN_LV, ACTV_MAIN_ADMIN_LV_OPS,
