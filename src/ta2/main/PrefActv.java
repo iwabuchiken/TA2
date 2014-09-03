@@ -155,16 +155,16 @@ public class PrefActv extends PreferenceActivity
 	_test() {
 		// TODO Auto-generated method stub
 	
-		ListPreference pref_ListPref = 
-				(ListPreference) findPreference(
-						this.getString(R.string.prefs_MemoList_Size_ListPref_key));
-		
-		// Log
-		String msg_Log = "pref_ListPref.getContext() => "
-					+ pref_ListPref.getContext().getClass().getName();
-		Log.d("PrefActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		ListPreference pref_ListPref = 
+//				(ListPreference) findPreference(
+//						this.getString(R.string.prefs_MemoList_Size_ListPref_key));
+//		
+//		// Log
+//		String msg_Log = "pref_ListPref.getContext() => "
+//					+ pref_ListPref.getContext().getClass().getName();
+//		Log.d("PrefActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		////////////////////////////////
 

@@ -266,7 +266,8 @@ public class CONS {
 		
 	}//public static class DB
 
-	public static class Pref {
+	public static class 
+	Pref {
 		////////////////////////////////
 
 		// Commons
@@ -298,7 +299,20 @@ public class CONS {
 		////////////////////////////////
 		public static final String pkey_Saved_Memo = "pkey_Saved_Memo";
 
-	}
+		////////////////////////////////
+
+		// PrefActv
+
+		////////////////////////////////
+		public static final int DEFAULT_PROGRESS = 50;
+		
+		public static int currentProgress;
+		
+		public static int oldProgress;
+
+		public static final int MAX_PROGRESS = 100;
+		
+	}//Pref
 
 	public static class MainActv {
 		

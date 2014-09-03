@@ -92,6 +92,7 @@ public final class R {
     }
     public static final class id {
         public static final int LL_main=0x7f0b0041;
+        public static final int LinearLayout01=0x7f0b004f;
         public static final int actv_main_ib_memo=0x7f0b0002;
         public static final int actv_main_ib_showlist=0x7f0b0001;
         public static final int actv_main_ib_twitter_login=0x7f0b0003;
@@ -170,12 +171,13 @@ public final class R {
         public static final int list_row_slimple_iv_1_iv=0x7f0b004d;
         public static final int list_row_slimple_iv_1_ll=0x7f0b004c;
         public static final int list_row_slimple_iv_1_tv=0x7f0b004e;
-        public static final int menu_main_admin=0x7f0b0051;
-        public static final int menu_main_horizontal_listview=0x7f0b0052;
-        public static final int menu_main_logout=0x7f0b0050;
-        public static final int menu_main_settings=0x7f0b004f;
-        public static final int menu_memo_admin_patterns=0x7f0b0053;
-        public static final int menu_showlist_filter=0x7f0b0054;
+        public static final int menu_main_admin=0x7f0b0053;
+        public static final int menu_main_horizontal_listview=0x7f0b0054;
+        public static final int menu_main_logout=0x7f0b0052;
+        public static final int menu_main_settings=0x7f0b0051;
+        public static final int menu_memo_admin_patterns=0x7f0b0055;
+        public static final int menu_showlist_filter=0x7f0b0056;
+        public static final int pref_seekbar=0x7f0b0050;
     }
     public static final class layout {
         public static final int actv_main=0x7f030000;
@@ -200,6 +202,7 @@ public final class R {
         public static final int list_row_simple_1=0x7f030013;
         public static final int list_row_simple_iv_1=0x7f030014;
         public static final int main_pref=0x7f030015;
+        public static final int preference_widget_seekbar=0x7f030016;
     }
     public static final class menu {
         public static final int menu_actv_main=0x7f0a0000;

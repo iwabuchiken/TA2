@@ -20,6 +20,13 @@
         
     </EditTextPreference>
     
+	<ta2.items.SeekBarPreference
+	    android:key="calligraphy_diameter"
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        android:defaultValue="50"
+        />
+	
 	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
 <!-- <ListPreference
 	    android:title="Size of memo list"
@@ -29,5 +36,6 @@
 		android:layout="@layout/dlg_tmpl_cancel_lv"
 		android:dialogTitle="Choose an option please">
 	</ListPreference>
-     -->
+	 -->
+	 
 </PreferenceScreen>
