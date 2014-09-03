@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- REF http://web-dou.com/android/xml_array.html -->
+<resources>
+
+    <string-array name="memo_list_size">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+    
+</resources>

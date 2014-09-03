@@ -95,6 +95,8 @@
 	   	<string name="prefs_MemoList_Size_summary">
 	   		    							Current = </string>
 	   		    							
+	   	<string name="prefs_MemoList_Size_ListPref_key">
+	   		    							prefs_MemoList_Size_ListPref_key</string>
 	   	
 	   	
 </resources>

@@ -28,7 +28,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MemoActv" android:screenOrientation="portrait"></activity>
-        <activity android:name=".PrefActv" android:screenOrientation="portrait" android:theme="@style/PrefTheme"></activity>
+        
+        <activity android:name=".PrefActv" 
+            	android:screenOrientation="portrait" 
+            	android:theme="@style/PrefTheme"></activity>
+        
         <activity android:name=".ShowListActv" android:screenOrientation="portrait"></activity>
         
         
