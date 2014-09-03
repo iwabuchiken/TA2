@@ -157,19 +157,37 @@ public class Pref_Dropdown extends Preference {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
+		// Log
+		msg_Log = "sp.getCount() => " + sp.getCount();
+		Log.d("Pref_Dropdown.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		if (selection == CONS.PrefActv.sp_NoSelection_value) {
+			
+			// Log
+			msg_Log = "selection == CONS.PrefActv.sp_NoSelection_value";
+			Log.d("Pref_Dropdown.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 			
 			sp.setSelection(0);
 			
 			this.setSummary("Current = ");
 			
-		} else if (selection != CONS.Pref.dflt_IntExtra_value) {
+		} else if (selection == CONS.Pref.dflt_IntExtra_value) {
 			
-			sp.setSelection(selection);
+			// Log
+			msg_Log = "selection == CONS.Pref.dflt_IntExtra_value";
+			Log.d("Pref_Dropdown.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			sp.setSelection(0);
 			
 		} else {
 
-			sp.setSelection(0);
+			sp.setSelection(selection);
 			
 		}
 		

@@ -86,31 +86,21 @@ public class ISL implements OnItemSelectedListener {
 		String selected_Value = (String) parent.getItemAtPosition(position);
 		
 		// Log
-		msg_Log = String.format(
-					Locale.JAPAN,
-					"position => %d / value => %s", 
-					position, selected_Value);
-		
+		msg_Log = "selected_Value => " + selected_Value;
 		Log.d("ISL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
-		////////////////////////////////
-
-		// get: pref value
-
-		////////////////////////////////
-		int selection = Methods.get_Pref_Int(
-				(Activity)con, 
-				CONS.Pref.pname_MainActv, 
-				CONS.Pref.pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection, 
-				CONS.Pref.dflt_IntExtra_value);
-		
-		// Log
-		msg_Log = "selection => " + selection;
-		Log.d("ISL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		////////////////////////////////
+//
+//		// get: pref value
+//
+//		////////////////////////////////
+//		int selection = Methods.get_Pref_Int(
+//				(Activity)con, 
+//				CONS.Pref.pname_MainActv, 
+//				CONS.Pref.pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection, 
+//				CONS.Pref.dflt_IntExtra_value);
 		
 		////////////////////////////////
 
@@ -120,28 +110,14 @@ public class ISL implements OnItemSelectedListener {
 //		String summary_Text = null;
 		int pref_Value_New = CONS.Pref.dflt_IntExtra_value;
 		
-		// Log
-		msg_Log = "selected_Value.equals(CONS.PrefActv.sp_NoSelection_label) => "
-					+ selected_Value.equals(CONS.PrefActv.sp_NoSelection_label);
-		Log.d("ISL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
-		
 		if (selected_Value.equals(CONS.PrefActv.sp_NoSelection_label)
 				) {
 //			|| selection == CONS.PrefActv.sp_NoSelection_value) {
 			
 			selected_Value = "";
 			
-			pref_Value_New = CONS.PrefActv.sp_NoSelection_value;
-			
-			// spinner => set selection
-			// Log
-			msg_Log = "((Spinner)parent).getChildCount() => " 
-							+ ((Spinner)parent).getChildCount();
-			Log.d("ISL.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+			pref_Value_New = position;
+//			pref_Value_New = CONS.PrefActv.sp_NoSelection_value;
 			
 		} else {
 
@@ -156,11 +132,6 @@ public class ISL implements OnItemSelectedListener {
 		// update: pref
 
 		////////////////////////////////
-		// Log
-		msg_Log = "Setting pref_Value_New... => " + pref_Value_New;
-		Log.d("ISL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
 		Methods.set_Pref_Int(
 					(Activity)con, 
 					CONS.Pref.pname_MainActv, 
@@ -168,16 +139,6 @@ public class ISL implements OnItemSelectedListener {
 					pref_Value_New);
 //		position);
 		
-		
-		msg_Log = String.format(
-					Locale.JAPAN,
-					"parent.getItemAtPosition(%d) => %s",
-				
-					position, parent.getItemAtPosition(position));
-		
-		Log.d("ISL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
 		
 	}//case_SP_MEMOLIST_SIZE
 
