@@ -600,5 +600,14 @@ public class CONS {
 		}
 		
 	}//Enums
+
+	public static class 
+	PrefActv {
+		
+		public static final String sp_NoSelection_label = "No selection";
+		
+		public static final int sp_NoSelection_value = -10;
+		
+	}
 	
 }//public class CONS

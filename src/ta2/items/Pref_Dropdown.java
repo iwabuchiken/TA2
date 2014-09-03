@@ -132,6 +132,9 @@ public class Pref_Dropdown extends Preference {
 		adapter.add(String.valueOf(30));
 		adapter.add(String.valueOf(40));
 		
+		adapter.add(CONS.PrefActv.sp_NoSelection_label);
+		
+		
 		adapter.setDropDownViewResource(
 				R.layout.spinner_item_simple_1);
 		
@@ -154,7 +157,13 @@ public class Pref_Dropdown extends Preference {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
-		if (selection != CONS.Pref.dflt_IntExtra_value) {
+		if (selection == CONS.PrefActv.sp_NoSelection_value) {
+			
+			sp.setSelection(0);
+			
+			this.setSummary("Current = ");
+			
+		} else if (selection != CONS.Pref.dflt_IntExtra_value) {
 			
 			sp.setSelection(selection);
 			

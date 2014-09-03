@@ -1,3 +1,4 @@
+
 package ta2.listeners;
 
 import java.util.Locale;
@@ -96,9 +97,58 @@ public class ISL implements OnItemSelectedListener {
 		
 		////////////////////////////////
 
+		// get: pref value
+
+		////////////////////////////////
+		int selection = Methods.get_Pref_Int(
+				(Activity)con, 
+				CONS.Pref.pname_MainActv, 
+				CONS.Pref.pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection, 
+				CONS.Pref.dflt_IntExtra_value);
+		
+		// Log
+		msg_Log = "selection => " + selection;
+		Log.d("ISL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
 		// change: summary
 
 		////////////////////////////////
+//		String summary_Text = null;
+		int pref_Value_New = CONS.Pref.dflt_IntExtra_value;
+		
+		// Log
+		msg_Log = "selected_Value.equals(CONS.PrefActv.sp_NoSelection_label) => "
+					+ selected_Value.equals(CONS.PrefActv.sp_NoSelection_label);
+		Log.d("ISL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (selected_Value.equals(CONS.PrefActv.sp_NoSelection_label)
+				) {
+//			|| selection == CONS.PrefActv.sp_NoSelection_value) {
+			
+			selected_Value = "";
+			
+			pref_Value_New = CONS.PrefActv.sp_NoSelection_value;
+			
+			// spinner => set selection
+			// Log
+			msg_Log = "((Spinner)parent).getChildCount() => " 
+							+ ((Spinner)parent).getChildCount();
+			Log.d("ISL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+
+			pref_Value_New = position;
+			
+		}
+		
 		this.pref_Dropdown.setSummary("Current = " + selected_Value);
 		
 		////////////////////////////////
@@ -106,42 +156,28 @@ public class ISL implements OnItemSelectedListener {
 		// update: pref
 
 		////////////////////////////////
+		// Log
+		msg_Log = "Setting pref_Value_New... => " + pref_Value_New;
+		Log.d("ISL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		Methods.set_Pref_Int(
 					(Activity)con, 
 					CONS.Pref.pname_MainActv, 
 					CONS.Pref.pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection, 
-					position);
+					pref_Value_New);
+//		position);
 		
 		
-//		// Log
-//		String msg_Log = "v.getClass().getName() => " + v.getClass().getName();
-//		Log.d("ISL.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-//		
-//		// Log
-//		msg_Log = "parent.getClass().getName() => " + parent.getClass().getName();
-//		Log.d("ISL.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-//		
-//		msg_Log = "parent.getItemAtPosition(0) => " 
-//					+ parent.getItemAtPosition(0).getClass().getName();
-//		Log.d("ISL.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-//		
 		msg_Log = String.format(
 					Locale.JAPAN,
 					"parent.getItemAtPosition(%d) => %s",
 				
 					position, parent.getItemAtPosition(position));
-//					
-//		Log.d("ISL.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
 		
-		
+		Log.d("ISL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 	}//case_SP_MEMOLIST_SIZE
 
