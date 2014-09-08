@@ -1402,36 +1402,6 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public int getNumOfEntries_BM(Activity actv, String table_name, long aiDbId)
 
-	
-	
-	
-	
-	
-	
-//	private static ContentValues 
-//	_insert_Data_Patterns__ContentValues
-//	(String pattern) {
-//		// TODO Auto-generated method stub
-//		ContentValues val = new ContentValues();
-//		
-////		android.provider.BaseColumns._ID,		// 0
-////		"created_at", "modified_at",			// 1,2
-////		"word",									// 3
-////		"table_name"							// 4		
-//		
-//		val.put(
-//				CONS.DB.col_names_MemoPatterns_full[2],		// modified_at 
-//				Methods.conv_MillSec_to_TimeLabel(
-//						Methods.getMillSeconds_now()));
-//		
-//		val.put(
-//				CONS.DB.col_names_MemoPatterns_full[3],		// word
-//				pattern);
-//		
-//		return val;
-//		
-//	}//_insert_Data_Patterns__ContentValues
-
 	/******************************
 		@return
 			-1 => Unknown sql type<br>
@@ -3415,6 +3385,62 @@ public class DBUtils extends SQLiteOpenHelper{
 		}
 		
 	}//delete_Memo
-	
+
+	public static boolean
+	updateData_generic_With_TimeLable
+	(Activity actv, 
+		String tableName, long dbId, String colName, String colValue) {
+
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/***************************************
+		 * Build SQL
+		 ***************************************/
+		String sql = "UPDATE " + tableName + " SET "
+//				+ colName + "='" + colValue + "', "
+				+ colName + "='" + colValue + "'"
+				+ ", "
+				+ CONS.DB.col_names_TA2_full[2] + "='"
+				+ Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now())
+				+ "'"
+				+ " WHERE " + android.provider.BaseColumns._ID + " = '" + dbId + "'";
+				
+		/***************************************
+		 * Exec: Query
+		 ***************************************/
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql => Done: " + sql);
+			
+		//	Methods.toastAndLog(actv, "Data updated", 2000);
+
+			wdb.close();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+			
+			wdb.close();
+			
+			return false;
+		}
+
+	}//updateData_generic()
+
 }//public class DBUtils
 

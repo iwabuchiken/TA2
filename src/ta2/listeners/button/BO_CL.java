@@ -148,12 +148,66 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MEMO_EDIT_SAVE:
+			
+			case_ACTV_MEMO_EDIT_SAVE();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MEMO_EDIT_SAVE() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate: any text?
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// update memo
+
+		////////////////////////////////
+		boolean res = Methods.update_Memo(actv);
+		
+//			-1	insertion => failed<br>
+//			-2	Exception<br>
+//			1	text => inserted<br>
+
+		int res_i = res == true ? 1 : 0;
+		
+		Methods.report_Update_Memos(actv, res_i);
+		
+	}//case_ACTV_MEMO_EDIT_SAVE
 
 	private void 
 	case_ACTV_MEMO_EDIT_BACK() {

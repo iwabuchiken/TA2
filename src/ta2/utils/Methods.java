@@ -2536,6 +2536,49 @@ public static String
 	}
 
 	public static void 
+	report_Update_Memos
+	(Activity actv, int res) {
+		// TODO Auto-generated method stub
+//		1	update => done
+//		0	update => failed
+		
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+		
+		case 1: 
+			
+			msg = "update => done";
+			colorID = R.color.green4;
+			
+			break;
+			
+		case 0: 
+			
+			msg = "update => failed";
+			colorID = R.color.red;
+			
+			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage(
+//				Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID);
+		
+	}//report_Update_Memos
+	
+	public static void 
 	save_Memo_Temporary
 	(Activity actv) {
 		// TODO Auto-generated method stub
@@ -2957,6 +3000,63 @@ public static String
 		d1.dismiss();
 		
 	}//start_Activity_MemoEditActv
+
+	public static boolean 
+	update_Memo
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// view
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		////////////////////////////////
+
+		// get text
+
+		////////////////////////////////
+		String text = et.getText().toString();
+
+//		////////////////////////////////
+//
+//		// update: memo
+//
+//		////////////////////////////////
+//		CONS.MemoEditActv.memo.setText(text);
+		
+		////////////////////////////////
+
+		// save
+
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7
+
+		boolean res = DBUtils.updateData_generic_With_TimeLable(
+						actv, 
+						CONS.DB.tname_TA2, 
+						CONS.MemoEditActv.memo.getDb_Id(), 
+						CONS.DB.col_names_TA2_full[3], 
+						text);
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return res;
+		
+	}//update_Memo
 
 }//public class Methods
 
