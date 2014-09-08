@@ -142,12 +142,33 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MEMO_EDIT_BACK:
+			
+			case_ACTV_MEMO_EDIT_BACK();
+			
+			break;
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MEMO_EDIT_BACK() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+
+	}
 
 	private void case_ACTV_SHOWLIST_BOTTOM() {
 		// TODO Auto-generated method stub

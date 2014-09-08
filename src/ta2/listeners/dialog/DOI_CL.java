@@ -245,6 +245,8 @@ public class DOI_CL implements OnItemClickListener {
 		if (li.getText().equals(actv.getString(
 				R.string.generic_tv_edit))) {
 
+			Methods.start_Activity_MemoEditActv(actv, d1, memo);
+			
 //			Methods_dlg.register_Patterns(actv, d1);
 			
 //			Methods_dlg.dlg_Admin_Ops(actv, d1);

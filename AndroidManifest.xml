@@ -34,6 +34,7 @@
             	android:theme="@style/PrefTheme"></activity>
         
         <activity android:name=".ShowListActv" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MemoEditActv" android:screenOrientation="portrait"></activity>
         
         
     </application>

@@ -43,6 +43,13 @@ public class CONS {
 		////////////////////////////////
 		public static String iKey_CurrentPath_MainActv = "current_path";
 
+		////////////////////////////////
+		
+		// MemoEditActv
+		
+		////////////////////////////////
+		public static String iKey_Memo_Id = "iKey_Memo_Id";
+		
 		
 		/***************************************
 		 * Request codes
@@ -345,6 +352,12 @@ public class CONS {
 		////////////////////////////////
 		public final static int layout_MemoActv_LV_Height = 60;
 		
+		
+	}
+	
+	public static class MemoEditActv {
+		
+		public static Memo memo;
 		
 	}
 	

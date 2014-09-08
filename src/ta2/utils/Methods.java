@@ -78,6 +78,7 @@ import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
+import ta2.main.MemoEditActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
 import ta2.main.ShowListActv;
@@ -2928,6 +2929,34 @@ public static String
 //				colorID);
 		
 	}//delete_Pattern
+
+	public static void 
+	start_Activity_MemoEditActv
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// setup: intent
+
+		////////////////////////////////
+		Intent i = new Intent();
+		
+		i.setClass(actv, MemoEditActv.class);
+
+		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//start_Activity_MemoEditActv
 
 }//public class Methods
 
