@@ -186,6 +186,53 @@ public class Methods_dlg {
 	}//public static Dialog dlg_template_okCancel()
 	
 	public static Dialog 
+	dlg_Template_Cancel_4thDialog
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3,
+		int layoutId, int titleStringId,
+		int cancelButtonId, Tags.DialogTags cancelTag) {
+		/****************************
+		 * Steps
+		 * 1. Set up
+		 * 2. Add listeners => OnTouch
+		 * 3. Add listeners => OnClick
+		 ****************************/
+		
+		// 
+		Dialog d4 = new Dialog(actv);
+		
+		//
+		d4.setContentView(layoutId);
+		
+		// Title
+		d4.setTitle(titleStringId);
+		
+		/****************************
+		 * 2. Add listeners => OnTouch
+		 ****************************/
+		//
+		Button btn_cancel = (Button) d4.findViewById(cancelButtonId);
+		
+		//
+		btn_cancel.setTag(cancelTag);
+		
+		//
+		btn_cancel.setOnTouchListener(new DB_OTL(actv, d1, d2, d3, d4));
+		
+		/****************************
+		 * 3. Add listeners => OnClick
+		 ****************************/
+		//
+		btn_cancel.setOnClickListener(new DB_OCL(actv, d1, d2, d3, d4));
+		
+		//
+		//dlg.show();
+		
+		return d4;
+		
+	}//public static Dialog dlg_template_okCancel()
+	
+	public static Dialog 
 	dlg_Template_OkCancel_SecondDialog
 	(Activity actv, Dialog dlg1,
 			int layoutId, int titleStringId,
@@ -488,6 +535,28 @@ public class Methods_dlg {
 		
 	}
 	
+	public static void
+	dlg_ShowMessage_4thDialog
+	(Activity actv, Dialog d1, Dialog d2, Dialog d3,
+			String message, int colorID) {
+		
+		Dialog dlg3 = Methods_dlg.dlg_Template_Cancel_4thDialog(
+				actv, d1, d2, d3,
+				R.layout.dlg_tmpl_toast_ok, 
+				R.string.generic_tv_confirm, 
+				
+				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS_4TH_DIALOG);
+		
+		TextView tv_Message = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+		
+		tv_Message.setText(message);
+		
+		dlg3.show();
+		
+	}
+	
 	public static Dialog 
 	dlg_Template_Cancel
 	(Activity actv,
@@ -712,6 +781,98 @@ public class Methods_dlg {
 		
 	}
 
+	/******************************
+		@param duration => millseconds
+	 ******************************/
+	public static void
+	dlg_ShowMessage_2_Duration
+	(Activity actv, String message, int colorID, int duration) {
+		
+		final Dialog dlg = Methods_dlg.dlg_Template_Cancel(
+				actv, R.layout.dlg_tmpl_toast_ok_scrollview, 
+				R.string.generic_tv_confirm, 
+				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+//				R.id.dlg_db_admin_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS);
+		
+		TextView tv_Message = 
+				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+		
+		tv_Message.setText(message);
+		
+		////////////////////////////////
+		
+		// background
+		
+		////////////////////////////////
+//		tv_Message.setBackgroundColor(colorID);
+		tv_Message.setBackgroundColor(actv.getResources().getColor(colorID));
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg.show();
+		
+		//REF http://xjaphx.wordpress.com/2011/07/13/auto-close-dialog-after-a-specific-time/
+		final Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			public void run() {
+				dlg.dismiss(); // when the task active then close the dialog
+				t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+			}
+		}, duration); // after 2 second (or 2000 miliseconds), the task will be active.
+		
+	}
+	
+	/******************************
+		@param duration => millseconds
+	 ******************************/
+	public static void
+	dlg_ShowMessage_4thDialog_2_Duration
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3,
+		String message, int colorID, int duration) {
+		aa
+		final Dialog dlg = Methods_dlg.dlg_Template_Cancel(
+				actv, R.layout.dlg_tmpl_toast_ok_scrollview, 
+				R.string.generic_tv_confirm, 
+				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+//				R.id.dlg_db_admin_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS);
+		
+		TextView tv_Message = 
+				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+		
+		tv_Message.setText(message);
+		
+		////////////////////////////////
+		
+		// background
+		
+		////////////////////////////////
+//		tv_Message.setBackgroundColor(colorID);
+		tv_Message.setBackgroundColor(actv.getResources().getColor(colorID));
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg.show();
+		
+		//REF http://xjaphx.wordpress.com/2011/07/13/auto-close-dialog-after-a-specific-time/
+		final Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			public void run() {
+				dlg.dismiss(); // when the task active then close the dialog
+				t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+			}
+		}, duration); // after 2 second (or 2000 miliseconds), the task will be active.
+		
+	}
+	
 	public static void 
 	dlg_ACTV_MAIN_Admin
 	(Activity actv) {
@@ -1057,6 +1218,25 @@ public class Methods_dlg {
 		
 		ll_Main.setLayoutParams(params2);
 		
+		////////////////////////////////
+
+		// ListView: height
+
+		////////////////////////////////
+//		// Log
+//		msg_Log = "ll_Main.getHeight() => " + ll_Main.getHeight();
+//		Log.d("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		ListView lv = (ListView) d2.findViewById(R.id.dlg_tmpl_cancel_lv_with_btn_lv);
+//		
+//		// Log
+//		msg_Log = "lv.getHeight() => " + lv.getHeight();
+//		Log.d("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
 	}//_dlg_Admin_Ops__Setup_Layout
 	
 
@@ -1066,6 +1246,13 @@ public class Methods_dlg {
 		// TODO Auto-generated method stub
 		
 		List<ListItem> list = new ArrayList<ListItem>();
+		
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.dlg_actvmain_admin_item_upload_db))
+								.setIconID(R.drawable.menu_icon_admin_32x32_green)
+								.setTextColor_ID(R.color.green4)
+								.build());
 		
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
@@ -1197,6 +1384,58 @@ public class Methods_dlg {
 		
 	}//conf_Import_DB
 
+	public static void 
+	conf_Upload_DB
+	(Activity actv, Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_UPLOAD_DB_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.dlg_actvmain_operations_upload_db)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(CONS.DB.dbName);
+//		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_Import_DB
+	
 	public static void 
 	conf_Import_Patterns
 	(Activity actv, Dialog d1, Dialog d2) {

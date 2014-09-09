@@ -534,7 +534,7 @@ public class CONS {
 		
 		public static String remote_Root_Image = "./cake_apps/images/ta2";
 
-		public static String remote_Root_DBFile = "./android_app_data/TA2";
+		public static String remote_Root_DBFile = "./android_app_data/TA2/db";
 		
 		// initialize res:int in Task_FTP.doInBackground()
 		public static int initial_IntValue = -100;

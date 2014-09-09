@@ -17,14 +17,15 @@ public class DB_OTL implements OnTouchListener {
 		----------------------------*/
 	//
 	Activity actv;
-	Dialog dlg1;
-	private Dialog dlg2;
-	private Dialog dlg3;
+	Dialog d1;
+	private Dialog d2;
+	private Dialog d3;
+	private Dialog d4;
 	
 	public DB_OTL(Activity actv, Dialog dlg) {
 		//
 		this.actv = actv;
-		this.dlg1 = dlg;
+		this.d1 = dlg;
 	}
 	
 	public DB_OTL(Activity actv) {
@@ -38,8 +39,8 @@ public class DB_OTL implements OnTouchListener {
 		// TODO Auto-generated constructor stub
 		
 		this.actv = actv;
-		this.dlg1 = dlg1;
-		this.dlg2 = dlg2;
+		this.d1 = dlg1;
+		this.d2 = dlg2;
 
 	}
 
@@ -48,9 +49,21 @@ public class DB_OTL implements OnTouchListener {
 		
 		this.actv = actv;
 		
-		this.dlg1 = dlg1;
-		this.dlg2 = dlg2;
-		this.dlg3 = dlg3;
+		this.d1 = dlg1;
+		this.d2 = dlg2;
+		this.d3 = dlg3;
+		
+	}
+
+	public DB_OTL(Activity actv, Dialog d1, Dialog d2, Dialog d3, Dialog d4) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv = actv;
+		
+		this.d1 = d1;
+		this.d2 = d2;
+		this.d3 = d3;
+		this.d4 = d4;
 		
 	}
 
@@ -68,6 +81,7 @@ public class DB_OTL implements OnTouchListener {
 				case GENERIC_DISMISS:
 				case GENERIC_DISMISS_THIRD_DIALOG:
 				case GENERIC_DISMISS_SECOND_DIALOG:
+				case GENERIC_DISMISS_4TH_DIALOG:
 					
 				case DLG_CONF_IMPORT_DB_OK:
 					
@@ -89,6 +103,7 @@ public class DB_OTL implements OnTouchListener {
 					
 				case DLG_CONF_DELETE_MEMO_OK:
 				case DLG_CONF_DELETE_PATTERN_OK:
+				case DLG_CONF_UPLOAD_DB_OK:
 					
 					
 					v.setBackgroundColor(Color.GRAY);
@@ -125,6 +140,7 @@ public class DB_OTL implements OnTouchListener {
 			case GENERIC_DISMISS:
 			case GENERIC_DISMISS_SECOND_DIALOG:
 			case GENERIC_DISMISS_THIRD_DIALOG:
+			case GENERIC_DISMISS_4TH_DIALOG:
 
 			case DLG_CONF_IMPORT_DB_OK:
 				
@@ -146,6 +162,7 @@ public class DB_OTL implements OnTouchListener {
 				
 			case DLG_CONF_DELETE_MEMO_OK:
 			case DLG_CONF_DELETE_PATTERN_OK:
+			case DLG_CONF_UPLOAD_DB_OK:
 				
 					v.setBackgroundColor(Color.WHITE);
 					

@@ -3401,6 +3401,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		/***************************************
 		 * Build SQL
 		 ***************************************/
+		//REF sql http://stackoverflow.com/questions/16071087/update-multiple-columns-on-a-row-with-a-single-select-in-sqlite answered Jul 7 '13 at 7:44
 		String sql = "UPDATE " + tableName + " SET "
 //				+ colName + "='" + colValue + "', "
 				+ colName + "='" + colValue + "'"

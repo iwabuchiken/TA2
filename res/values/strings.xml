@@ -79,6 +79,9 @@
    		    										Drop table: memos</string>
    		<string name="dlg_actvmain_operations_create_table_memos">
    		    							Create table: memos</string>
+   		    							
+   		<string name="dlg_actvmain_operations_upload_db">
+   		    							Upload DB</string>
 
    	<!-- pref: MainActv -->
 	   	<string name="prefs_sound_effect_titile">
