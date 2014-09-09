@@ -232,6 +232,54 @@ public class Methods_dlg {
 		
 	}//public static Dialog dlg_template_okCancel()
 	
+//	public static Dialog 
+//	dlg_Template_Cancel_4thDialog_Duration
+//	(Activity actv, 
+//		Dialog d1, Dialog d2, Dialog d3,
+//		int layoutId, int titleStringId,
+//		int cancelButtonId, Tags.DialogTags cancelTag,
+//		int duration) {
+//		/****************************
+//		 * Steps
+//		 * 1. Set up
+//		 * 2. Add listeners => OnTouch
+//		 * 3. Add listeners => OnClick
+//		 ****************************/
+//		aa
+//		// 
+//		Dialog d4 = new Dialog(actv);
+//		
+//		//
+//		d4.setContentView(layoutId);
+//		
+//		// Title
+//		d4.setTitle(titleStringId);
+//		
+//		/****************************
+//		 * 2. Add listeners => OnTouch
+//		 ****************************/
+//		//
+//		Button btn_cancel = (Button) d4.findViewById(cancelButtonId);
+//		
+//		//
+//		btn_cancel.setTag(cancelTag);
+//		
+//		//
+//		btn_cancel.setOnTouchListener(new DB_OTL(actv, d1, d2, d3, d4));
+//		
+//		/****************************
+//		 * 3. Add listeners => OnClick
+//		 ****************************/
+//		//
+//		btn_cancel.setOnClickListener(new DB_OCL(actv, d1, d2, d3, d4));
+//		
+//		//
+//		//dlg.show();
+//		
+//		return d4;
+//		
+//	}//public static Dialog dlg_template_okCancel()
+	
 	public static Dialog 
 	dlg_Template_OkCancel_SecondDialog
 	(Activity actv, Dialog dlg1,
@@ -470,14 +518,15 @@ public class Methods_dlg {
 	(Activity actv, String message, int colorId) {
 		
 		Dialog dlg = Methods_dlg.dlg_Template_Cancel(
-				actv, R.layout.dlg_tmpl_toast_ok, 
+				actv, R.layout.dlg_tmpl_toast_ok_scrollview, 
+//				actv, R.layout.dlg_tmpl_toast_ok, 
 				R.string.generic_tv_confirm, 
-				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+				R.id.dlg_tmpl_toast_ok_scrollview_bt_cancel, 
 //				R.id.dlg_db_admin_bt_cancel, 
 				Tags.DialogTags.GENERIC_DISMISS);
 		
 		TextView tv_Message = 
-				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_scrollview_tv_message);
 		
 		tv_Message.setText(message);
 		
@@ -540,7 +589,7 @@ public class Methods_dlg {
 	(Activity actv, Dialog d1, Dialog d2, Dialog d3,
 			String message, int colorID) {
 		
-		Dialog dlg3 = Methods_dlg.dlg_Template_Cancel_4thDialog(
+		Dialog d4 = Methods_dlg.dlg_Template_Cancel_4thDialog(
 				actv, d1, d2, d3,
 				R.layout.dlg_tmpl_toast_ok, 
 				R.string.generic_tv_confirm, 
@@ -549,11 +598,11 @@ public class Methods_dlg {
 				Tags.DialogTags.GENERIC_DISMISS_4TH_DIALOG);
 		
 		TextView tv_Message = 
-				(TextView) dlg3.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+				(TextView) d4.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
 		
 		tv_Message.setText(message);
 		
-		dlg3.show();
+		d4.show();
 		
 	}
 	
@@ -744,14 +793,15 @@ public class Methods_dlg {
 	(Activity actv, String message, int colorID, int duration) {
 		
 		final Dialog dlg = Methods_dlg.dlg_Template_Cancel(
-				actv, R.layout.dlg_tmpl_toast_ok, 
+				actv, R.layout.dlg_tmpl_toast_ok_scrollview, 
+//				actv, R.layout.dlg_tmpl_toast_ok, 
 				R.string.generic_tv_confirm, 
-				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+				R.id.dlg_tmpl_toast_ok_scrollview_bt_cancel, 
 //				R.id.dlg_db_admin_bt_cancel, 
 				Tags.DialogTags.GENERIC_DISMISS);
 		
 		TextView tv_Message = 
-				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_scrollview_tv_message);
 		
 		tv_Message.setText(message);
 		
@@ -834,16 +884,17 @@ public class Methods_dlg {
 	(Activity actv, 
 		Dialog d1, Dialog d2, Dialog d3,
 		String message, int colorID, int duration) {
-		aa
-		final Dialog dlg = Methods_dlg.dlg_Template_Cancel(
-				actv, R.layout.dlg_tmpl_toast_ok_scrollview, 
+		
+		final Dialog d4 = Methods_dlg.dlg_Template_Cancel_4thDialog(
+				actv, d1, d2, d3,
+				R.layout.dlg_tmpl_toast_ok_scrollview, 
 				R.string.generic_tv_confirm, 
 				R.id.dlg_tmpl_toast_ok_bt_cancel, 
 //				R.id.dlg_db_admin_bt_cancel, 
-				Tags.DialogTags.GENERIC_DISMISS);
+				Tags.DialogTags.GENERIC_DISMISS_4TH_DIALOG);
 		
 		TextView tv_Message = 
-				(TextView) dlg.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+				(TextView) d4.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
 		
 		tv_Message.setText(message);
 		
@@ -860,13 +911,13 @@ public class Methods_dlg {
 		// show
 		
 		////////////////////////////////
-		dlg.show();
+		d4.show();
 		
 		//REF http://xjaphx.wordpress.com/2011/07/13/auto-close-dialog-after-a-specific-time/
 		final Timer t = new Timer();
 		t.schedule(new TimerTask() {
 			public void run() {
-				dlg.dismiss(); // when the task active then close the dialog
+				d4.dismiss(); // when the task active then close the dialog
 				t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
 			}
 		}, duration); // after 2 second (or 2000 miliseconds), the task will be active.

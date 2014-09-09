@@ -3384,5 +3384,122 @@ public static String
 		
 	}//ftp_DB_to_Remote
 
+	public static void 
+	write_Log
+	(Activity actv, String message,
+			String fileName, int lineNumber) {
+		
+		////////////////////////////////
+
+		// validate: dir exists
+
+		////////////////////////////////
+		File dpath_Log = new File(CONS.DB.dPath_Log);
+		
+		if (!dpath_Log.exists()) {
+			
+			dpath_Log.mkdirs();
+			
+			// Log
+			String msg_Log = "log dir => created: " + dpath_Log.getAbsolutePath();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "log dir => exists: " + dpath_Log.getAbsolutePath();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// file
+
+		////////////////////////////////
+		File fpath_Log = new File(CONS.DB.dPath_Log, CONS.DB.fname_Log);
+		
+		////////////////////////////////
+
+		// file exists?
+
+		////////////////////////////////
+		if (!fpath_Log.exists()) {
+			
+			try {
+				
+				fpath_Log.createNewFile();
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				
+				String msg = "Can't create a log file";
+				Methods_dlg.dlg_ShowMessage_Duration(actv, msg, R.color.gold2);
+				
+				return;
+				
+			}
+			
+		} else {
+			
+			// Log
+			String msg_Log = "log file => exists";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// write
+
+		////////////////////////////////
+		try {
+			
+			//REF append http://stackoverflow.com/questions/8544771/how-to-write-data-with-fileoutputstream-without-losing-old-data answered Dec 17 '11 at 12:37
+			FileOutputStream fos = new FileOutputStream(fpath_Log, true);
+//			FileOutputStream fos = new FileOutputStream(fpath_Log);
+			
+			String text = String.format(Locale.JAPAN,
+							"[%s] [%s : %d] %s\n", 
+							Methods.conv_MillSec_to_TimeLabel(
+											Methods.getMillSeconds_now()),
+							fileName, lineNumber,
+							message
+						);
+			
+			//REF getBytes() http://www.adakoda.com/android/000240.html
+			fos.write(text.getBytes());
+//			fos.write(message.getBytes());
+			
+//			fos.write("\n".getBytes());
+			
+			fos.close();
+			
+			// Log
+			String msg_Log = "log => written";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+//			FileChannel oChannel = new FileOutputStream(fpath_Log).getChannel();
+//			
+//			oChannel.wri
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}//write_Log
+
 }//public class Methods
 

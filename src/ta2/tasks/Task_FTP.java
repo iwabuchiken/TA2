@@ -102,6 +102,21 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		
 	}
 
+	public Task_FTP
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3, String ftp_Type) {
+		// TODO Auto-generated constructor stub
+
+		this.actv	= actv;
+		
+		this.d1	= d1;
+		this.d2	= d2;
+		this.d3	= d3;
+
+		this.ftp_Type	= ftp_Type;
+		
+	}
+
 	/******************************
 		Used when: Uploading DB file
 	 ******************************/
@@ -257,6 +272,16 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		// TODO Auto-generated method stub
 		////////////////////////////////
 
+		// log
+
+		////////////////////////////////
+		String log_msg = "Upload result => " + res.intValue();
+		Methods.write_Log(actv, log_msg,
+				Thread.currentThread().getStackTrace()[2].getFileName(), Thread
+						.currentThread().getStackTrace()[2].getLineNumber());
+		
+		////////////////////////////////
+
 		// setup
 
 		////////////////////////////////
@@ -312,7 +337,15 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 			msg = "Sorry. Uploading DB is not ready yet";
 			colorID = R.color.gold2;
 			
+//			if(d2 != null) d2.dismiss();
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
 			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
 
 			break;
 			
@@ -320,7 +353,16 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 			
 			msg = "Upload result => " + res_i;
 			colorID = R.color.red;
+
+			////////////////////////////////
 			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+
 			break;
 			
 		}
@@ -330,17 +372,20 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		Log.d("Task_FTP.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-		Methods_dlg.dlg_ShowMessage_Duration(
+		Methods_dlg.dlg_ShowMessage(
 						actv, 
 						msg,
-						colorID,
-						CONS.Admin.dflt_MessageDialog_Length);
+						colorID);
+//		Methods_dlg.dlg_ShowMessage_Duration(
+//				actv, 
+//				msg,
+//				colorID,
+//				CONS.Admin.dflt_MessageDialog_Length);
 		
 		// Log
 		Log.d("Task_FTP.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg);
-
 
 	}//_onPostExecute__Upload_DB
 

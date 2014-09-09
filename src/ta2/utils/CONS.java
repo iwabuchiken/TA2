@@ -240,6 +240,8 @@ public class CONS {
 		
 		public static int pastXDays		= -10;
 
+		public final static String fname_Log = "log.txt";
+
 		////////////////////////////////
 
 		// FileFilter

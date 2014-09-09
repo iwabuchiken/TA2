@@ -441,7 +441,7 @@ public class DB_OCL implements OnClickListener {
 
 		////////////////////////////////
 		Task_FTP task = new Task_FTP(
-							actv, d1, d2,
+							actv, d1, d2, d3,
 							CONS.Remote.FtpType.DB_FILE.toString()
 							);
 //		cb.isChecked());
