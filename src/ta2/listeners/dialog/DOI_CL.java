@@ -378,6 +378,16 @@ public class DOI_CL implements OnItemClickListener {
 		
 			////////////////////////////////
 
+			// columns
+
+			////////////////////////////////
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_AddColumn_Used(actv, d1, d2);
+			
+			////////////////////////////////
+
 			// tables
 
 			////////////////////////////////

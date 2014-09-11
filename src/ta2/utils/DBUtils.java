@@ -3443,5 +3443,137 @@ public class DBUtils extends SQLiteOpenHelper{
 
 	}//updateData_generic()
 
+	/******************************
+		@return
+			-1 column already exists<br>
+			1 sql => executed<br>
+	 ******************************/
+	public static int 
+	add_Column
+	(Activity actv, 
+		String tname, String colName, String colType) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (DBUtils.column_Exists(actv, tname, colName)) {
+			
+			// Log
+			String msg_Log = "column exists => " + colName;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		} else {
+			
+			// Log
+			String msg_Log = "column => doesn't exist: " + colName;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+	
+		////////////////////////////////
+
+		// create col
+
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		//REF http://stackoverflow.com/questions/7622122/sqlite-add-column-keep-data answered Oct 1 '11 at 18:32
+		String sql = "ALTER TABLE " +
+				tname +
+				" " +
+				"ADD COLUMN" +
+				" " +
+				colName + 
+				" " +
+				colType;
+		
+		// Log
+		String msg_Log = "Exec sql => " + sql;
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		wdb.execSQL(sql);
+		
+		wdb.close();
+		
+		// Log
+		msg_Log = "sql => executed";
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		return false;
+		return 1;
+		
+	}//add_Column
+
+	public static boolean
+	column_Exists
+	(Activity actv, String tname, String colName) {
+	
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		Cursor cursor = rdb.rawQuery(
+				"pragma table_info(" + 
+						tname + ")", null);
+		
+		actv.startManagingCursor(cursor);
+//		actv.startManagingCursor(cursor);
+		
+		// Judge
+		if (cursor.getCount() < 1) {
+		
+			rdb.close();
+			
+			// Log
+			String msg_Log = "No columns in the table: " + tname;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		}
+
+		////////////////////////////////
+
+		// get list
+
+		////////////////////////////////
+		List<String> col_List = new ArrayList<String>();
+		
+		while(cursor.moveToNext()) {
+			
+			col_List.add(cursor.getString(1));
+			
+		}
+		
+		////////////////////////////////
+
+		// is in
+
+		////////////////////////////////
+		return col_List.contains(colName);
+		
+//		return true;
+		
+	}
+	
 }//public class DBUtils
 

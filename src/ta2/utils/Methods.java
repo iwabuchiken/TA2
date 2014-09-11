@@ -3501,5 +3501,50 @@ public static String
 		
 	}//write_Log
 
+	public static void 
+	addCol_PatternsUsed
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+//		String colName = "word";
+		String colName = "used";
+		String colType = "TEXT";
+		
+		
+		int res = DBUtils.add_Column(actv, CONS.DB.tname_Patterns, colName, colType);
+//		int res = DBUtils.add_Column(actv, CONS.DB.tname_Patterns, "used", "TEXT");
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		if (res == 1) {
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			String msg = "Column 'used' => created";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return;
+			
+		} else if (res == -1) {
+
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+
+			String msg = "Column exists";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+	}//addCol_PatternsUsed
+
 }//public class Methods
 

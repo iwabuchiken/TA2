@@ -1321,6 +1321,18 @@ public class Methods_dlg {
 		
 		////////////////////////////////
 
+		// columns
+
+		////////////////////////////////
+		list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.dlg_actvmain_operations_sql_add_col_used))
+								.setIconID(R.drawable.menu_icon_admin_32x32_yellow)
+								.setTextColor_ID(R.color.black)
+								.build());
+		
+		////////////////////////////////
+
 		// tables
 
 		////////////////////////////////
@@ -1590,6 +1602,58 @@ public class Methods_dlg {
 		dlg3.show();
 		
 	}//conf_CreateTable_Patterns
+	
+	public static void 
+	conf_AddColumn_Used
+	(Activity actv, 
+			Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_ADD_COLUMN_USED_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.commons_lbl_add_column)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText("used");
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_AddColumn_Used
 	
 	public static void 
 	conf_CreateTable_Memos

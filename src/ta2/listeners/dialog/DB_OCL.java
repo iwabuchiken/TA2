@@ -391,11 +391,25 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_ADD_COLUMN_USED_OK://------------------------------------------------
+			
+			case_DLG_CONF_ADD_COLUMN_USED_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_ADD_COLUMN_USED_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.addCol_PatternsUsed(actv, d1, d2, d3);
+		
+	}//case_DLG_CONF_ADD_COLUMN_USED_OK
 
 	private void 
 	case_DLG_CONF_UPLOAD_DB_OK() {
