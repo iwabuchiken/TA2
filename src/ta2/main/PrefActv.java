@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.InputType;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class PrefActv extends PreferenceActivity 
 					implements OnSharedPreferenceChangeListener{
@@ -101,6 +103,76 @@ public class PrefActv extends PreferenceActivity
 
 	private void _Setup_FontSize() {
 		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// Input type
+
+		////////////////////////////////
+		EditTextPreference prefEditText = 
+				(EditTextPreference) findPreference(
+						this.getString(R.string.prefs_MemoList_Size_key));
+//		this.getString(R.string.prefs_history_size_key));
+		
+		prefEditText.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+
+		////////////////////////////////
+
+		// show: current
+
+		////////////////////////////////
+		String current = prefEditText.getText();
+
+		prefEditText.setSummary("Current = " + current);
+
+		////////////////////////////////
+
+		// list pref
+
+		////////////////////////////////
+		_test();
+		
+//		ListPreference pref_ListPref = 
+//				(ListPreference) findPreference(
+//						this.getString(R.string.prefs_MemoList_Size_ListPref_key));
+//		
+//		// Log
+//		String msg_Log = "pref_ListPref.getContext() => "
+//					+ pref_ListPref.getContext().getClass().getName();
+//		Log.d("PrefActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		
+		
+//		(pref_ListPref.getContext())
+//					.setBackgroundColor(this.getResources().getColor(R.color.gold2));
+		
+	}
+
+
+	private void 
+	_test() {
+		// TODO Auto-generated method stub
+	
+//		ListPreference pref_ListPref = 
+//				(ListPreference) findPreference(
+//						this.getString(R.string.prefs_MemoList_Size_ListPref_key));
+//		
+//		// Log
+//		String msg_Log = "pref_ListPref.getContext() => "
+//					+ pref_ListPref.getContext().getClass().getName();
+//		Log.d("PrefActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// message
+
+		////////////////////////////////
+//		pref_ListPref.get
+		
 		
 	}
 

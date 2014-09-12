@@ -11,4 +11,38 @@
         
         />
 
+	<EditTextPreference
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:key="@string/prefs_MemoList_Size_key"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        
+    	>
+        
+    </EditTextPreference>
+    
+	<ta2.items.SeekBarPreference
+	    android:key="calligraphy_diameter"
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        android:defaultValue="50"
+        />
+	
+	<ta2.items.Pref_Dropdown
+	    android:key="calligraphy_diameter"
+        android:title="@string/prefs_MemoList_Size_titile"
+        android:summary="@string/prefs_MemoList_Size_summary"
+        android:defaultValue="50"
+        />
+	
+	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
+<!-- <ListPreference
+	    android:title="Size of memo list"
+	    android:key="@string/prefs_MemoList_Size_ListPref_key"
+		android:entries="@array/memo_list_size"
+		android:entryValues="@array/memo_list_size"
+		android:layout="@layout/dlg_tmpl_cancel_lv"
+		android:dialogTitle="Choose an option please">
+	</ListPreference>
+	 -->
+	 
 </PreferenceScreen>

@@ -11,6 +11,8 @@ public class WordPattern {
 
 	String word;
 	
+	int used;
+	
 	public WordPattern
 	(Builder builder) {
 		// TODO Auto-generated constructor stub
@@ -23,6 +25,18 @@ public class WordPattern {
 
 		this.word	= builder.word;
 		
+		this.used	= builder.used;
+		
+	}
+
+	public int getUsed() {
+		return used;
+	}
+
+
+
+	public void setUsed(int used) {
+		this.used = used;
 	}
 
 
@@ -85,11 +99,17 @@ public class WordPattern {
 		String modified_at;
 
 		String word;
+
+		int used;
 		
 		public WordPattern build() {
 			
 			return new WordPattern(this);
 			
+		}
+
+		public Builder setUsed(int used) {
+			this.used = used; return this;
 		}
 
 		public Builder setDb_Id(long db_Id) {

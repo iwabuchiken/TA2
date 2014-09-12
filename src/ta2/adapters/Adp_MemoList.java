@@ -1,6 +1,7 @@
 package ta2.adapters;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
+import ta2.utils.Methods;
 
 
 import android.app.Activity;
@@ -40,6 +42,17 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 	// Inflater
 	LayoutInflater inflater;
 
+	String today;
+	String before_1;
+	String before_2;
+	String before_1w;	// one week before
+	
+	int comp;	// compareTo() value
+	int comp_1;	// compareTo() value, before today
+	int comp_2;	// compareTo() value, 2 days before
+	int comp_1w;	// compareTo() value, one week before
+	
+	String msg_Log;
 	
 	/*--------------------------------------------------------
 	 * Constructor
@@ -54,8 +67,93 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 		// Inflater
 		inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
+		// Calendars
+		_Init_Calendars();
 
 	}//public TIListAdapter(Context con, int resourceId, List<TI> items)
+
+	private void _Init_Calendars() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// Today
+
+		////////////////////////////////
+		Calendar c_Today = Calendar.getInstance();
+		
+		c_Today.setTimeInMillis(Methods.getMillSeconds_now());
+
+		this.today = String.format("%d/%02d/%02d", 
+						c_Today.get(Calendar.YEAR),
+						c_Today.get(Calendar.MONTH) + 1,
+						c_Today.get(Calendar.DATE)
+				);
+		
+//		// Log
+//		String msg_Log = "today => " + this.today;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// before_1
+
+		////////////////////////////////
+		c_Today.add(Calendar.DATE, -1);
+		
+		this.before_1 = String.format("%d/%02d/%02d", 
+				c_Today.get(Calendar.YEAR),
+				c_Today.get(Calendar.MONTH) + 1,
+				c_Today.get(Calendar.DATE)
+		);
+		
+//		// Log
+//		msg_Log = "before_1 => " + this.before_1;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// before_2
+		
+		////////////////////////////////
+		c_Today.add(Calendar.DATE, -1);
+		
+		this.before_2 = String.format("%d/%02d/%02d", 
+				c_Today.get(Calendar.YEAR),
+				c_Today.get(Calendar.MONTH) + 1,
+				c_Today.get(Calendar.DATE)
+				);
+		
+//		// Log
+//		msg_Log = "before_2 => " + this.before_2;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// before_1w
+		
+		////////////////////////////////
+		c_Today.add(Calendar.DATE, -5);
+		
+		this.before_1w = String.format("%d/%02d/%02d", 
+				c_Today.get(Calendar.YEAR),
+				c_Today.get(Calendar.MONTH) + 1,
+				c_Today.get(Calendar.DATE)
+				);
+		
+//		// Log
+//		msg_Log = "before_1w => " + this.before_1w;
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+	}
 
 	/*--------------------------------------------------------
 	 * Methods
@@ -153,6 +251,87 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 		
 		tv_CreatedAt.setText(new_DateLabel);
 //		tv_CreatedAt.setText(memo.getCreated_at());
+		
+		////////////////////////////////
+
+		// compare
+
+		////////////////////////////////
+//		int tmp = this.today.compareTo(tokens[0]);
+//		
+//		// Log
+//		String msg_Log = String.format(
+//					"today = %s // tokens[0] = %s: compare => %d",
+//					this.today, tokens[0], tmp);
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		String tokens_Date_s = String.format(
+					"%s/%s/%s", 
+					tokens_Date[0], tokens_Date[1], tokens_Date[2]);
+		
+		comp = tokens_Date_s.compareTo(this.today);
+		comp_1 = tokens_Date_s.compareTo(this.before_1);
+		comp_2 = tokens_Date_s.compareTo(this.before_2);
+		comp_1w = tokens_Date_s.compareTo(this.before_1w);
+//		comp = tokens[0].compareTo(this.today);
+//		comp_1 = tokens[0].compareTo(this.before_1);
+//		comp_2 = tokens[0].compareTo(this.before_2);
+//		comp = this.today.compareTo(tokens[0]);
+//		comp_1 = this.before_1.compareTo(tokens[0]);
+//		comp_2 = this.before_2.compareTo(tokens[0]);
+
+//		// Log
+//		msg_Log = String.format(
+//					"today = %s // tokens_Date = %s: " +
+//					"comp => %d, comp_1 => %d, comp_2 => %d",
+//					this.today, tokens_Date_s, 
+//					comp, comp_1, comp_2);
+//		
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+
+		if (comp >= 0) {
+//			if (!(comp < 0)) {
+//			if ((this.today.compareTo(tokens[0])) == 0) {
+			
+			tv_CreatedAt.setBackgroundColor(
+							((Activity)con).getResources().getColor(R.color.blue1));
+			tv_CreatedAt.setTextColor(
+					((Activity)con).getResources().getColor(R.color.white));
+			
+		} else if (comp_1 >= 0) {
+			
+			tv_CreatedAt.setBackgroundColor(
+					((Activity)con).getResources().getColor(R.color.green4));
+			tv_CreatedAt.setTextColor(
+					((Activity)con).getResources().getColor(R.color.white));
+			
+		} else if (comp_2 >= 0) {
+			
+			tv_CreatedAt.setBackgroundColor(
+					((Activity)con).getResources().getColor(R.color.gold2));
+			
+			tv_CreatedAt.setTextColor(
+					((Activity)con).getResources().getColor(R.color.black));
+			
+		} else if (comp_1w >= 0) {
+			
+			tv_CreatedAt.setBackgroundColor(
+					((Activity)con).getResources().getColor(R.color.purple4));
+			tv_CreatedAt.setTextColor(
+					((Activity)con).getResources().getColor(R.color.white));
+			
+		} else {
+			
+			tv_CreatedAt.setBackgroundColor(
+					((Activity)con).getResources().getColor(R.color.gray1));
+			tv_CreatedAt.setTextColor(
+					((Activity)con).getResources().getColor(R.color.white));
+			
+		}
 		
 		////////////////////////////////
 		

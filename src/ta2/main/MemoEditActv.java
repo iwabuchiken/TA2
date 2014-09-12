@@ -18,6 +18,7 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -33,7 +34,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MemoActv extends Activity {
+public class MemoEditActv extends Activity {
 
 	@Override
 	protected void onDestroy() {
@@ -65,12 +66,12 @@ public class MemoActv extends Activity {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 
-		////////////////////////////////
-
-		// save text
-
-		////////////////////////////////
-		Methods.save_Memo_Temporary(this);
+//		////////////////////////////////
+//
+//		// save text
+//
+//		////////////////////////////////
+//		Methods.save_Memo_Temporary(this);
 		
 		////////////////////////////////
 
@@ -227,6 +228,13 @@ public class MemoActv extends Activity {
 		
 		////////////////////////////////
 
+		// get: memo
+
+		////////////////////////////////
+		_Setup_GetMemo();
+		
+		////////////////////////////////
+
 		// listener
 
 		////////////////////////////////
@@ -259,14 +267,102 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		res = _Setup_Listeners_LVs();
 		
+//		////////////////////////////////
+//
+//		// set text (if pref set)
+//
+//		////////////////////////////////
+//		_Setup_Set_PrefText();
+
 		////////////////////////////////
 
-		// set text (if pref set)
+		// set text
 
 		////////////////////////////////
-		_Setup_Set_PrefText();
+		_Setup_SetText();
 		
 	}//protected void onStart()
+
+	private void 
+	_Setup_SetText() {
+		// TODO Auto-generated method stub
+		
+		EditText et = (EditText) this.findViewById(R.id.actv_memo_et);		
+		
+		String text = CONS.MemoEditActv.memo.getText();
+		
+		et.setText(text);
+		
+		if (text.length() > 0) {
+			
+			et.setSelection(text.length());
+			
+		}
+		
+	}//_Setup_SetText
+
+	private boolean 
+	_Setup_GetMemo() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get: id
+
+		////////////////////////////////
+		Intent i = this.getIntent();
+		
+		long memo_Id = i.getLongExtra(
+							CONS.Intent.iKey_Memo_Id, 
+							CONS.Intent.dflt_LongExtra_value);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (memo_Id == CONS.Intent.dflt_LongExtra_value) {
+			
+			// Log
+			String msg_Log = "memo_Id => defalut value";
+			Log.e("MemoEditActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// memo
+
+		////////////////////////////////
+		CONS.MemoEditActv.memo = DBUtils.find_Memo_From_Id(this, memo_Id);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoEditActv.memo == null) {
+			
+			// Log
+			String msg_Log = "memo => null";
+			Log.e("MemoEditActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		} else {
+			
+			// Log
+			String msg_Log = "memo obtained => " + CONS.MemoEditActv.memo.getText();
+			Log.d("MemoEditActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		}
+		
+	}//public static 
 
 	private void 
 	_Setup_Set_PrefText() {
@@ -470,14 +566,7 @@ public class MemoActv extends Activity {
 								CONS.Enums.SortType.WORD,
 								CONS.Enums.SortOrder.ASC
 						));
-
-		Collections.sort(
-				CONS.MemoActv.list_WP_1, 
-				new Comp_WP(
-						CONS.Enums.SortType.USED,
-						CONS.Enums.SortOrder.DESC
-						));
-
+		
 		////////////////////////////////
 
 		// adapter
@@ -577,16 +666,12 @@ public class MemoActv extends Activity {
 		Collections.sort(
 						CONS.MemoActv.list_WP_2, 
 						new Comp_WP(
+								
 								CONS.Enums.SortType.WORD,
 								CONS.Enums.SortOrder.ASC
 						));
 		
-		Collections.sort(
-				CONS.MemoActv.list_WP_2, 
-				new Comp_WP(
-						CONS.Enums.SortType.USED,
-						CONS.Enums.SortOrder.DESC
-						));
+
 		
 		////////////////////////////////
 		
@@ -692,14 +777,6 @@ public class MemoActv extends Activity {
 								CONS.Enums.SortOrder.ASC
 						));
 		
-		Collections.sort(
-				CONS.MemoActv.list_WP_3, 
-				new Comp_WP(
-						CONS.Enums.SortType.USED,
-						CONS.Enums.SortOrder.DESC
-//						CONS.Enums.SortOrder.ASC
-						));
-
 		////////////////////////////////
 		
 		// adapter
@@ -833,7 +910,7 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		ImageButton bt_Back = (ImageButton) this.findViewById(R.id.actv_memo_ib_back);
 		
-		bt_Back.setTag(Tags.ButtonTags.ACTV_MEMO_BACK);
+		bt_Back.setTag(Tags.ButtonTags.ACTV_MEMO_EDIT_BACK);
 		
 		bt_Back.setOnTouchListener(new BO_TL(this));
 		
@@ -872,13 +949,11 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_memo_ib_save);
 		
-		bt_Save.setTag(Tags.ButtonTags.ACTV_MEMO_SAVE);
+		bt_Save.setTag(Tags.ButtonTags.ACTV_MEMO_EDIT_SAVE);
 		
 		bt_Save.setOnTouchListener(new BO_TL(this));
 		
 		bt_Save.setOnClickListener(new BO_CL(this));
-		
-		
 		
 	}//_Setup_Listeners
 

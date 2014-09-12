@@ -1402,36 +1402,6 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public int getNumOfEntries_BM(Activity actv, String table_name, long aiDbId)
 
-	
-	
-	
-	
-	
-	
-//	private static ContentValues 
-//	_insert_Data_Patterns__ContentValues
-//	(String pattern) {
-//		// TODO Auto-generated method stub
-//		ContentValues val = new ContentValues();
-//		
-////		android.provider.BaseColumns._ID,		// 0
-////		"created_at", "modified_at",			// 1,2
-////		"word",									// 3
-////		"table_name"							// 4		
-//		
-//		val.put(
-//				CONS.DB.col_names_MemoPatterns_full[2],		// modified_at 
-//				Methods.conv_MillSec_to_TimeLabel(
-//						Methods.getMillSeconds_now()));
-//		
-//		val.put(
-//				CONS.DB.col_names_MemoPatterns_full[3],		// word
-//				pattern);
-//		
-//		return val;
-//		
-//	}//_insert_Data_Patterns__ContentValues
-
 	/******************************
 		@return
 			-1 => Unknown sql type<br>
@@ -1816,6 +1786,7 @@ public class DBUtils extends SQLiteOpenHelper{
 					.setModified_at(c.getString(2))
 					
 					.setWord(c.getString(3))
+					.setUsed(c.getInt(4))
 					
 					.build();
 			
@@ -2005,6 +1976,207 @@ public class DBUtils extends SQLiteOpenHelper{
 			.setCreated_at(c.getString(1))
 			.setModified_at(c.getString(2))
 
+			.setText(c.getString(3))
+			
+			.setUploaded_at(c.getString(4))
+			
+			.setTwted_at(c.getString(5))
+			.setTwt_Id(c.getLong(6))
+			.setTwt_created_at(c.getString(7))
+			
+			.build();
+			
+			list_Memos.add(wp);
+			
+		}
+		
+		rdb.close();
+		
+		return list_Memos;
+		
+	}//find_All_WP
+	
+	/******************************
+		@return
+			null => 
+				1. No DB file<br>
+				2. No such file<br>
+				3. Query exception<br>
+				4. Query failed<br>
+				5. No entry in the table<br>
+	 ******************************/
+	public static List<Memo> 
+	find_All_Memos
+	(Activity actv, 
+		CONS.Enums.SortOrder order, int limit) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_TA2;
+		boolean res = dbu.tableExists(rdb, tname);
+//		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String orderBy = null;
+		
+		if (order == CONS.Enums.SortOrder.ASC) {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_ASC;
+			
+		} else if (order == CONS.Enums.SortOrder.DESC) {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_DESC;
+			
+		} else {
+			
+			orderBy = CONS.DB.col_names_TA2_full[0] + " " + CONS.DB.sortOrder_ASC;
+			
+		}
+		
+		String limit_Memos = String.valueOf(limit);
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_TA2_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					orderBy,
+					limit_Memos);		// 7
+//			orderBy);		// 7
+//			orderBy,			// 7
+//			null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7		
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+		while(c.moveToNext()) {
+			
+			Memo wp = new Memo.Builder()
+			
+			.setDb_Id(c.getLong(0))
+			.setCreated_at(c.getString(1))
+			.setModified_at(c.getString(2))
+			
 			.setText(c.getString(3))
 			
 			.setUploaded_at(c.getString(4))
@@ -2402,6 +2574,380 @@ public class DBUtils extends SQLiteOpenHelper{
 		return list_Memos;
 		
 	}//find_All_WP
+	
+	/******************************
+		@return
+			null => 
+				1. No DB file<br>
+				2. No such file<br>
+				3. Query exception<br>
+				4. Query failed<br>
+				5. No entry in the table<br>
+	 ******************************/
+	public static Memo 
+	find_Memo_From_Id
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_TA2;
+		boolean res = dbu.tableExists(rdb, tname);
+//		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String where = CONS.DB.col_names_TA2_full[0] + " = ?";
+//		String where = CONS.DB.col_names_Patterns_full[0] + " = ?";
+		String[] args = new String[]{
+				
+				String.valueOf(db_Id)
+							
+						};
+		
+//		try {
+//			
+//			c = db.query(
+//					
+//					CONS.DB.tname_Patterns,			// 1
+//					CONS.DB.col_names_Patterns,	// 2
+////					null, null,		// 3,4
+//					where, args,		// 3,4
+//					null, null,		// 5,6
+//					null,			// 7
+//					null);
+
+//		String orderBy = CONS.DB.col_names_TA2_full[0] + " ASC";
+//		db_Id
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_TA2_full,	// 2
+//					null, null,		// 3,4
+					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7		
+		
+//		List<Memo> list_Memos = new ArrayList<Memo>();
+//		
+//		while(c.moveToNext()) {
+		
+		c.moveToFirst();
+			
+			Memo memo = new Memo.Builder()
+			
+			.setDb_Id(c.getLong(0))
+			.setCreated_at(c.getString(1))
+			.setModified_at(c.getString(2))
+			
+			.setText(c.getString(3))
+			
+			.setUploaded_at(c.getString(4))
+			
+			.setTwted_at(c.getString(5))
+			.setTwt_Id(c.getLong(6))
+			.setTwt_created_at(c.getString(7))
+			
+			.build();
+			
+//			list_Memos.add(wp);
+//			
+//		}
+		
+		rdb.close();
+		
+		return memo;
+		
+	}//find_Memo_From_Id
+	
+	/******************************
+		@return
+			null => 
+				1. No DB file<br>
+				2. No such file<br>
+				3. Query exception<br>
+				4. Query failed<br>
+				5. No entry in the table<br>
+	 ******************************/
+	public static WordPattern 
+	find_Pattern_From_Id
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_Patterns;
+		boolean res = dbu.tableExists(rdb, tname);
+//		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String where = CONS.DB.col_names_Patterns_full[0] + " = ?";
+		String[] args = new String[]{
+				
+				String.valueOf(db_Id)
+				
+		};
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_Patterns_full,	// 2
+//					null, null,		// 3,4
+					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"word",									// 3		
+		c.moveToFirst();
+		
+		WordPattern wp = new WordPattern.Builder()
+					.setDb_Id(c.getLong(0))
+					.setCreated_at(c.getString(1))
+					.setModified_at(c.getString(2))
+					
+					.setWord(c.getString(3))
+					.setUsed(c.getInt(4))
+					.build();
+		
+//			list_Memos.add(wp);
+//			
+//		}
+		
+		rdb.close();
+		
+		return wp;
+		
+	}//find_Memo_From_Id
 	
 	/******************************
 		@return
@@ -3011,6 +3557,284 @@ public class DBUtils extends SQLiteOpenHelper{
 		}
 		
 	}//delete_Memo
+
+	public static boolean
+	updateData_generic_With_TimeLable
+	(Activity actv, 
+		String tableName, long dbId, String colName, String colValue) {
+
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/***************************************
+		 * Build SQL
+		 ***************************************/
+		//REF sql http://stackoverflow.com/questions/16071087/update-multiple-columns-on-a-row-with-a-single-select-in-sqlite answered Jul 7 '13 at 7:44
+		String sql = "UPDATE " + tableName + " SET "
+//				+ colName + "='" + colValue + "', "
+				+ colName + "='" + colValue + "'"
+				+ ", "
+				+ CONS.DB.col_names_TA2_full[2] + "='"
+				+ Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now())
+				+ "'"
+				+ " WHERE " + android.provider.BaseColumns._ID + " = '" + dbId + "'";
+				
+		/***************************************
+		 * Exec: Query
+		 ***************************************/
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql => Done: " + sql);
+			
+		//	Methods.toastAndLog(actv, "Data updated", 2000);
+
+			wdb.close();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+			
+			wdb.close();
+			
+			return false;
+		}
+
+	}//updateData_generic()
+
+	/******************************
+		@return
+			-1 column already exists<br>
+			1 sql => executed<br>
+	 ******************************/
+	public static int 
+	add_Column
+	(Activity actv, 
+		String tname, String colName, String colType) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (DBUtils.column_Exists(actv, tname, colName)) {
+			
+			// Log
+			String msg_Log = "column exists => " + colName;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		} else {
+			
+			// Log
+			String msg_Log = "column => doesn't exist: " + colName;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+	
+		////////////////////////////////
+
+		// create col
+
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		//REF http://stackoverflow.com/questions/7622122/sqlite-add-column-keep-data answered Oct 1 '11 at 18:32
+		String sql = "ALTER TABLE " +
+				tname +
+				" " +
+				"ADD COLUMN" +
+				" " +
+				colName + 
+				" " +
+				colType;
+		
+		// Log
+		String msg_Log = "Exec sql => " + sql;
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		wdb.execSQL(sql);
+		
+		wdb.close();
+		
+		// Log
+		msg_Log = "sql => executed";
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		return false;
+		return 1;
+		
+	}//add_Column
+
+	public static boolean
+	column_Exists
+	(Activity actv, String tname, String colName) {
+	
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		Cursor cursor = rdb.rawQuery(
+				"pragma table_info(" + 
+						tname + ")", null);
+		
+		actv.startManagingCursor(cursor);
+//		actv.startManagingCursor(cursor);
+		
+		// Judge
+		if (cursor.getCount() < 1) {
+		
+			rdb.close();
+			
+			// Log
+			String msg_Log = "No columns in the table: " + tname;
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		}
+
+		////////////////////////////////
+
+		// get list
+
+		////////////////////////////////
+		List<String> col_List = new ArrayList<String>();
+		
+		while(cursor.moveToNext()) {
+			
+			col_List.add(cursor.getString(1));
+			
+		}
+		
+		////////////////////////////////
+
+		// is in
+
+		////////////////////////////////
+		return col_List.contains(colName);
+		
+//		return true;
+		
+	}
+
+	/******************************
+		@return
+			-1 find pattern => failed<br>
+			-2 SQLException<br>
+			1 update => executed<br>
+	 ******************************/
+	public static int 
+	update_Pattern_Used
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// prep: vars
+
+		////////////////////////////////
+		WordPattern wp = DBUtils.find_Pattern_From_Id(actv, db_Id);
+
+		/******************************
+			validate
+		 ******************************/
+		if (wp == null) {
+			
+			// Log
+			String msg_Log = "find pattern => failed: " + db_Id;
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+		
+		int used_Current = wp.getUsed();
+		int used_Updated = used_Current + 1;
+		
+		////////////////////////////////
+
+		// setup: db
+
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"word",									// 3
+		
+		String sql = "UPDATE " + CONS.DB.tname_Patterns + " SET " + 
+				CONS.DB.col_names_Patterns_full[4] + 
+				" = '" + used_Updated + "' " +
+				", " +
+				CONS.DB.col_names_Patterns_full[2] +
+				" = '" + 
+				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()) + 
+				"' " + 
+				" WHERE " + android.provider.BaseColumns._ID + " = '" + 
+				db_Id + "'";
+		
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql => Done: " + sql);
+			
+			//Methods.toastAndLog(actv, "Data updated", 2000);
+			
+			wdb.close();
+			
+			return 1;
+			
+			
+		} catch (SQLException e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+			
+			wdb.close();
+			
+			return -2;
+		}
+		
+	}//update_Pattern_Used
 	
 }//public class DBUtils
 

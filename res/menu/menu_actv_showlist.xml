@@ -8,5 +8,10 @@
         android:icon="@drawable/menu_timeline_filter"
         
         />
+
+    <item
+        android:id="@+id/menu_main_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"/>
     
 </menu>

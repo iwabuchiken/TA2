@@ -7,6 +7,7 @@ import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
+import ta2.tasks.Task_FTP;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
 import ta2.utils.Methods;
@@ -35,6 +36,7 @@ public class DB_OCL implements OnClickListener {
 	Dialog d1;
 	Dialog d2;		//=> Used in dlg_input_empty_btn_XXX
 	Dialog d3;
+	private Dialog d4;
 
 	//
 	Vibrator vib;
@@ -183,6 +185,21 @@ public class DB_OCL implements OnClickListener {
 
 	}
 
+	public DB_OCL
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3, Dialog d4) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv	= actv;
+		this.d1	= d1;
+		this.d2	= d2;
+		this.d3	= d3;
+		this.d4	= d4;
+
+		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
+	}
+
 	public void onClick(View v) {
 		//
 		Tags.DialogTags tag_name = (Tags.DialogTags) v.getTag();
@@ -272,6 +289,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 
+		case GENERIC_DISMISS_4TH_DIALOG://------------------------------------------------
+			
+			d4.dismiss();
+			
+			break;
+			
 		case GENERIC_CLEAR_SECOND_DIALOG://------------------------------------------------
 			
 			case_GENERIC_CLEAR_SECOND_DIALOG();
@@ -362,11 +385,84 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_UPLOAD_DB_OK://------------------------------------------------
+			
+			case_DLG_CONF_UPLOAD_DB_OK();
+			
+			break;
+			
+		case DLG_CONF_ADD_COLUMN_USED_OK://------------------------------------------------
+			
+			case_DLG_CONF_ADD_COLUMN_USED_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_ADD_COLUMN_USED_OK() {
+		// TODO Auto-generated method stub
+		
+		Methods.addCol_PatternsUsed(actv, d1, d2, d3);
+		
+	}//case_DLG_CONF_ADD_COLUMN_USED_OK
+
+	private void 
+	case_DLG_CONF_UPLOAD_DB_OK() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate: network status
+
+		////////////////////////////////
+		boolean res = Methods.isOnline(actv);
+		
+		if (res == false) {
+			
+			String msg = "Sorry. Network is not ready";
+			Methods_dlg.dlg_ShowMessage_4thDialog(
+							actv, d1, d2, d3,
+							msg, R.color.gold2);
+			
+			return;
+			
+		} else {
+			
+			// Log
+			String msg_Log = "Network is ready";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+//		////////////////////////////////
+//
+//		// get view: checkbox
+//
+//		////////////////////////////////
+//		CheckBox cb = (CheckBox) dlg2.findViewById(
+//							R.id.dlg_tmpl_confirm_simple_cb_delete_file);
+
+		////////////////////////////////
+
+		// task
+
+		////////////////////////////////
+		Task_FTP task = new Task_FTP(
+							actv, d1, d2, d3,
+							CONS.Remote.FtpType.DB_FILE.toString()
+							);
+//		cb.isChecked());
+		
+		task.execute(CONS.Remote.FtpType.DB_FILE.toString());
+
+	}//case_DLG_CONF_UPLOAD_DB_OK
 
 	private void 
 	case_DLG_CONF_DELETE_PATTERN_OK() {

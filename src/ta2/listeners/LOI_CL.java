@@ -6,6 +6,7 @@ import java.util.List;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.utils.CONS;
+import ta2.utils.Methods;
 import ta2.utils.Tags;
 
 import android.app.Activity;
@@ -97,9 +98,17 @@ public class LOI_CL implements OnItemClickListener {
 		// build: text
 
 		////////////////////////////////
+		int pos_Current = et.getSelectionStart();
+		
 		String tmp = et.getText().toString();
 		
-		tmp = tmp + item.getWord() + " ";
+		tmp = tmp.substring(0, pos_Current) +
+				" " + 
+				item.getWord() + 
+				" "
+				+ tmp.substring(pos_Current);
+//		+ tmp.substring(pos_Current + item.getWord().length());
+//		tmp = tmp + item.getWord() + " ";
 		
 		////////////////////////////////
 
@@ -108,7 +117,16 @@ public class LOI_CL implements OnItemClickListener {
 		////////////////////////////////
 		et.setText(tmp);
 		
-		et.setSelection(tmp.length());
+		// + 1 => space length
+		et.setSelection(pos_Current + item.getWord().length() + 2);
+//		et.setSelection(tmp.length());
+		
+		////////////////////////////////
+
+		// update: used
+
+		////////////////////////////////
+		Methods.update_Pattern_Used(actv, item.getDb_Id());
 		
 	}//case_ACTV_MEMO_LV_1
 

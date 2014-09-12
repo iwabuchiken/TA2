@@ -43,6 +43,13 @@ public class CONS {
 		////////////////////////////////
 		public static String iKey_CurrentPath_MainActv = "current_path";
 
+		////////////////////////////////
+		
+		// MemoEditActv
+		
+		////////////////////////////////
+		public static String iKey_Memo_Id = "iKey_Memo_Id";
+		
 		
 		/***************************************
 		 * Request codes
@@ -161,6 +168,7 @@ public class CONS {
 		public static String[] col_names_Patterns = {
 			
 			"word",							// 0
+			"used",							// 0
 					
 		};
 		
@@ -169,12 +177,13 @@ public class CONS {
 			android.provider.BaseColumns._ID,		// 0
 			"created_at", "modified_at",			// 1,2
 			"word",									// 3
-			
+			"used",									// 4
 		};
 		
 		public static String[] col_types_Patterns = {
 			
 			"TEXT", 			// 0
+			"TEXT", 			// 1
 					
 		};
 		
@@ -182,6 +191,7 @@ public class CONS {
 			
 			"INTEGER", "TEXT", "TEXT",	// 0,1,2
 			"TEXT", 					// 3
+			"TEXT", 					// 4
 			
 		};
 		
@@ -233,6 +243,8 @@ public class CONS {
 		
 		public static int pastXDays		= -10;
 
+		public final static String fname_Log = "log.txt";
+
 		////////////////////////////////
 
 		// FileFilter
@@ -266,7 +278,8 @@ public class CONS {
 		
 	}//public static class DB
 
-	public static class Pref {
+	public static class 
+	Pref {
 		////////////////////////////////
 
 		// Commons
@@ -298,7 +311,24 @@ public class CONS {
 		////////////////////////////////
 		public static final String pkey_Saved_Memo = "pkey_Saved_Memo";
 
-	}
+		////////////////////////////////
+
+		// PrefActv
+
+		////////////////////////////////
+		public static final int DEFAULT_PROGRESS = 50;
+		
+		public static int currentProgress;
+		
+		public static int oldProgress;
+
+		public static final int MAX_PROGRESS = 100;
+		
+		public static final String 
+		pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection = 
+							"pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection";
+		
+	}//Pref
 
 	public static class MainActv {
 		
@@ -327,6 +357,12 @@ public class CONS {
 		////////////////////////////////
 		public final static int layout_MemoActv_LV_Height = 60;
 		
+		
+	}
+	
+	public static class MemoEditActv {
+		
+		public static Memo memo;
 		
 	}
 	
@@ -503,7 +539,7 @@ public class CONS {
 		
 		public static String remote_Root_Image = "./cake_apps/images/ta2";
 
-		public static String remote_Root_DBFile = "./android_app_data/TA2";
+		public static String remote_Root_DBFile = "./android_app_data/TA2/db";
 		
 		// initialize res:int in Task_FTP.doInBackground()
 		public static int initial_IntValue = -100;
@@ -558,7 +594,7 @@ public class CONS {
 		public static enum SortType {
 			
 			FileName, POSITION, CREATED_AT,
-			WORD,
+			WORD, USED,
 			
 		}
 
@@ -582,5 +618,14 @@ public class CONS {
 		}
 		
 	}//Enums
+
+	public static class 
+	PrefActv {
+		
+		public static final String sp_NoSelection_label = "No selection";
+		
+		public static final int sp_NoSelection_value = -10;
+		
+	}
 	
 }//public class CONS

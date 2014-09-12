@@ -20,6 +20,7 @@
     	<string name="commons_import_db_name">ifm11.db</string>
     	<string name="commons_lbl_create_table">Create table</string>
     	<string name="commons_lbl_drop_table">Drop table</string>
+    	<string name="commons_lbl_add_column">Add column</string>
     	<string name="commons_lbl_restore_db">Restore DB</string>
     	<string name="commons_lbl_clear_view">Clear view</string>
     	<string name="commons_lbl_word">Word</string>
@@ -80,7 +81,13 @@
    		    										Drop table: memos</string>
    		<string name="dlg_actvmain_operations_create_table_memos">
    		    							Create table: memos</string>
+   		    							
+   		<string name="dlg_actvmain_operations_upload_db">
+   		    							Upload DB</string>
 
+   		<string name="dlg_actvmain_operations_sql_add_col_used">
+   		    							Add column: used</string>
+   		
    	<!-- pref: MainActv -->
 	   	<string name="prefs_sound_effect_titile">
 	   		    							Sound effect</string>
@@ -89,6 +96,15 @@
 	   	<string name="prefs_sound_effect_summary">
 	   		    							Use sound effect</string>
 	   		    							
+	   	<string name="prefs_MemoList_Size_titile">
+	   		    							Memo list size</string>
+	   	<string name="prefs_MemoList_Size_key">
+	   		    							prefs_MemoList_Size_key</string>
+	   	<string name="prefs_MemoList_Size_summary">
+	   		    							Current = </string>
+	   		    							
+	   	<string name="prefs_MemoList_Size_ListPref_key">
+	   		    							prefs_MemoList_Size_ListPref_key</string>
 	   	
 	   	
 </resources>

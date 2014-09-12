@@ -78,6 +78,7 @@ import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
+import ta2.main.MemoEditActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
 import ta2.main.ShowListActv;
@@ -2535,6 +2536,49 @@ public static String
 	}
 
 	public static void 
+	report_Update_Memos
+	(Activity actv, int res) {
+		// TODO Auto-generated method stub
+//		1	update => done
+//		0	update => failed
+		
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+		
+		case 1: 
+			
+			msg = "update => done";
+			colorID = R.color.green4;
+			
+			break;
+			
+		case 0: 
+			
+			msg = "update => failed";
+			colorID = R.color.red;
+			
+			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage(
+//				Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID);
+		
+	}//report_Update_Memos
+	
+	public static void 
 	save_Memo_Temporary
 	(Activity actv) {
 		// TODO Auto-generated method stub
@@ -2928,6 +2972,639 @@ public static String
 //				colorID);
 		
 	}//delete_Pattern
+
+	public static void 
+	start_Activity_MemoEditActv
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// setup: intent
+
+		////////////////////////////////
+		Intent i = new Intent();
+		
+		i.setClass(actv, MemoEditActv.class);
+
+		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//start_Activity_MemoEditActv
+
+	public static boolean 
+	update_Memo
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// view
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		////////////////////////////////
+
+		// get text
+
+		////////////////////////////////
+		String text = et.getText().toString();
+
+//		////////////////////////////////
+//
+//		// update: memo
+//
+//		////////////////////////////////
+//		CONS.MemoEditActv.memo.setText(text);
+		
+		////////////////////////////////
+
+		// save
+
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7
+
+		boolean res = DBUtils.updateData_generic_With_TimeLable(
+						actv, 
+						CONS.DB.tname_TA2, 
+						CONS.MemoEditActv.memo.getDb_Id(), 
+						CONS.DB.col_names_TA2_full[3], 
+						text);
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return res;
+		
+	}//update_Memo
+
+	/*********************************
+	 * REF=> http://www.searchman.info/tips/2640.html
+	 * 
+	 * #sqlite db file: "database disk image is malformed"
+	 * REF=> http://stackoverflow.com/questions/9058169/sqlite-database-disk-image-is-malformed-on-windows-but-fine-on-android
+	 * @return
+	 * -1	=> SocketException<br>
+	 * -2	=> IOException<br>
+	 * -3	=> IOException in disconnecting<br>
+	 * -4	=> Login failed<br>
+	 * -5	=> IOException in logging-in<br>
+	 * 
+	 * -6	=> storeFile returned false<br>
+	 * -7	=> can't find the source file<br>
+	 * -8	=> can't find the source file; can't disconnect FTP client<br>
+	 * -9	=> storeFile ---> IOException<br>
+	 * -10	=> storeFile ---> IOException; can't disconnect FTP client<br>
+	 * 
+	 * -11	=> set file type ---> failed<br>
+	 * -12	=> IOException in logging-in; can't disconnect FTP client<br>
+	 * 
+	 * -2	=> Log in failed<br>
+	 * >0	=> Reply code<br>
+	 * 
+	 *********************************/
+	public static int 
+	ftp_Remote_DB
+	(Activity actv) {
+		/*********************************
+		 * memo
+		 *********************************/
+		// FTP client
+		FTPClient fp = new FTPClient();
+		
+		int reply_code;
+		
+		// backup db name
+		String dbName_backup = String.format(Locale.JAPAN,
+					"%s_%s%s", 
+					CONS.DB.fname_DB_Backup_Trunk,
+					Methods.get_TimeLabel(
+							Methods.getMillSeconds_now()),
+					CONS.DB.fname_DB_Backup_ext
+					);
+		
+		String fpath_Src = 
+					actv.getDatabasePath(CONS.DB.dbName).getAbsolutePath();
+		
+		String fpath_remote = StringUtils.join(
+				new String[]{
+						CONS.Remote.remote_Root_DBFile,
+						dbName_backup
+				}, File.separator);
+		
+		/*********************************
+		 * Connect
+		 *********************************/
+		try {
+			
+			// Log
+			String msg_Log = "connecting...";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			fp.connect(CONS.Remote.server_Name);
+//			fp.connect(server_name);
+			
+			reply_code = fp.getReplyCode();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "fp.getReplyCode()=" + fp.getReplyCode());
+			
+		} catch (SocketException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Error: " + e.toString());
+			
+			return -1;
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Error: " + e.toString());
+			
+			return -2;
+		}
+		
+		/*********************************
+		 * Log in
+		 *********************************/
+		boolean res;
+		
+		try {
+			
+//			res = fp.login(uname, passwd);
+			res = fp.login(
+					CONS.Remote.uname, 
+					CONS.Remote.passwd);
+			
+			if(res == false) {
+				
+				reply_code = fp.getReplyCode();
+				
+				// Log
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Log in failed => " + reply_code);
+				
+				fp.disconnect();
+				
+				return -4;
+				
+			} else {
+				
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Log in => Succeeded");
+				
+			}
+			
+		} catch (IOException e1) {
+			
+			// Log
+			String msg_Log = "IOException";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e1.printStackTrace();
+			
+			try {
+				
+				fp.disconnect();
+				
+				return -5;
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				
+				return -12;
+				
+			}
+			
+		}
+		
+		/*********************************
+		 * FTP files
+		 *********************************/
+		// �t�@�C�����M
+		FileInputStream is;
+		
+		try {
+			
+			// Log
+			String msg_Log = "fpath_Src => " + fpath_Src;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			is = new FileInputStream(fpath_Src);
+//			is = new FileInputStream(fpath_audio);
+			
+			// Log
+			msg_Log = "Input stream => created";
+//			String msg_Log = "Input stream => created";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			////////*////////////////////////
+			
+			// set: file type
+			
+			////////////////////////////////
+			// REF http://stackoverflow.com/questions/7740817/how-to-upload-an-image-to-ftp-using-ftpclient answered Oct 12 '11 at 13:52
+			res = fp.setFileType(FTP.BINARY_FILE_TYPE);
+			
+			/******************************
+				validate
+			 ******************************/
+			if (res == false) {
+				
+				// Log
+				msg_Log = "set file type => failed";
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				is.close();
+				
+				fp.disconnect();
+				
+				return -11;
+				
+			}
+			
+			////////////////////////////////
+			
+			// store
+			
+			////////////////////////////////
+			// Log
+			msg_Log = "Stroing file to remote... => "
+					+ fpath_remote;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			fp.storeFile("./" + MainActv.fileName_db, is);// �T�[�o�[��
+			res = fp.storeFile(fpath_remote, is);// �T�[�o�[��
+			
+//			fp.makeDirectory("./ABC");
+			
+			if (res == true) {
+				
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "File => Stored");
+				
+			} else {//if (res == true)
+				
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Store file => Failed");
+				
+				fp.disconnect();
+				
+				return -6;
+				
+			}//if (res == true)
+			
+			is.close();
+			
+		} catch (FileNotFoundException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			try {
+				
+				fp.disconnect();
+				
+				return -7;
+				
+			} catch (IOException e1) {
+				
+				e1.printStackTrace();
+				
+				return -8;
+				
+			}
+			
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			try {
+				fp.disconnect();
+				
+				return -9;
+				
+			} catch (IOException e1) {
+				
+				
+				e1.printStackTrace();
+				
+				return -10;
+				
+			}
+			
+		}
+		
+		
+		//debug
+		/*********************************
+		 * Disconnect
+		 *********************************/
+		try {
+			
+			// Log
+			String msg_Log = "disconnecting...";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			fp.disconnect();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "fp => Disconnected");
+			
+			return reply_code;
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Error: " + e.toString());
+			
+			return -3;
+			
+		}
+		
+	}//ftp_DB_to_Remote
+
+	public static void 
+	write_Log
+	(Activity actv, String message,
+			String fileName, int lineNumber) {
+		
+		////////////////////////////////
+
+		// validate: dir exists
+
+		////////////////////////////////
+		File dpath_Log = new File(CONS.DB.dPath_Log);
+		
+		if (!dpath_Log.exists()) {
+			
+			dpath_Log.mkdirs();
+			
+			// Log
+			String msg_Log = "log dir => created: " + dpath_Log.getAbsolutePath();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "log dir => exists: " + dpath_Log.getAbsolutePath();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// file
+
+		////////////////////////////////
+		File fpath_Log = new File(CONS.DB.dPath_Log, CONS.DB.fname_Log);
+		
+		////////////////////////////////
+
+		// file exists?
+
+		////////////////////////////////
+		if (!fpath_Log.exists()) {
+			
+			try {
+				
+				fpath_Log.createNewFile();
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				
+				String msg = "Can't create a log file";
+				Methods_dlg.dlg_ShowMessage_Duration(actv, msg, R.color.gold2);
+				
+				return;
+				
+			}
+			
+		} else {
+			
+			// Log
+			String msg_Log = "log file => exists";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// write
+
+		////////////////////////////////
+		try {
+			
+			//REF append http://stackoverflow.com/questions/8544771/how-to-write-data-with-fileoutputstream-without-losing-old-data answered Dec 17 '11 at 12:37
+			FileOutputStream fos = new FileOutputStream(fpath_Log, true);
+//			FileOutputStream fos = new FileOutputStream(fpath_Log);
+			
+			String text = String.format(Locale.JAPAN,
+							"[%s] [%s : %d] %s\n", 
+							Methods.conv_MillSec_to_TimeLabel(
+											Methods.getMillSeconds_now()),
+							fileName, lineNumber,
+							message
+						);
+			
+			//REF getBytes() http://www.adakoda.com/android/000240.html
+			fos.write(text.getBytes());
+//			fos.write(message.getBytes());
+			
+//			fos.write("\n".getBytes());
+			
+			fos.close();
+			
+			// Log
+			String msg_Log = "log => written";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+//			FileChannel oChannel = new FileOutputStream(fpath_Log).getChannel();
+//			
+//			oChannel.wri
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}//write_Log
+
+	public static void 
+	addCol_PatternsUsed
+	(Activity actv, 
+		Dialog d1, Dialog d2, Dialog d3) {
+		// TODO Auto-generated method stub
+		
+//		String colName = "word";
+		String colName = "used";
+		String colType = "TEXT";
+		
+		
+		int res = DBUtils.add_Column(actv, CONS.DB.tname_Patterns, colName, colType);
+//		int res = DBUtils.add_Column(actv, CONS.DB.tname_Patterns, "used", "TEXT");
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		if (res == 1) {
+			
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+			
+			String msg = "Column 'used' => created";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return;
+			
+		} else if (res == -1) {
+
+			d3.dismiss();
+			d2.dismiss();
+			d1.dismiss();
+
+			String msg = "Column exists";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+	}//addCol_PatternsUsed
+
+	public static void 
+	update_Pattern_Used
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// update
+
+		////////////////////////////////
+		int res = DBUtils.update_Pattern_Used(actv, db_Id);
+
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+
+//		-1 find pattern => failed
+//		-2 SQLException
+//		1 update => executed
+
+		case -1: 
+			
+			msg = "find pattern => failed: " + db_Id;
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "SQLException: " + db_Id;
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "update => executed: " + db_Id;
+			colorID = R.color.green4;
+			
+			break;
+			
+		}
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg);
+		
+//		Methods_dlg.dlg_ShowMessage(
+//				actv, 
+//				msg,
+//				colorID);
+		
+	}//update_Pattern_Used
 
 }//public class Methods
 

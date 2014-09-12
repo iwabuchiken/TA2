@@ -245,6 +245,8 @@ public class DOI_CL implements OnItemClickListener {
 		if (li.getText().equals(actv.getString(
 				R.string.generic_tv_edit))) {
 
+			Methods.start_Activity_MemoEditActv(actv, d1, memo);
+			
 //			Methods_dlg.register_Patterns(actv, d1);
 			
 //			Methods_dlg.dlg_Admin_Ops(actv, d1);
@@ -360,15 +362,30 @@ public class DOI_CL implements OnItemClickListener {
 		// TODO Auto-generated method stub
 
 		if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_import_db))) {
+				R.string.dlg_actvmain_admin_item_upload_db))) {
 
-			Methods_dlg.conf_Import_DB(actv, d1, d2);
+			Methods_dlg.conf_Upload_DB(actv, d1, d2);
 			
+		} else if (li.getText().equals(actv.getString(
+					R.string.dlg_actvmain_operations_import_db))) {
+				
+				Methods_dlg.conf_Import_DB(actv, d1, d2);
+				
 		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_operations_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 		
 			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
 		
+			////////////////////////////////
+
+			// columns
+
+			////////////////////////////////
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_operations_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_AddColumn_Used(actv, d1, d2);
+			
 			////////////////////////////////
 
 			// tables
