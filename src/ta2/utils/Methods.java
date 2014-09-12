@@ -3546,5 +3546,65 @@ public static String
 		
 	}//addCol_PatternsUsed
 
+	public static void 
+	update_Pattern_Used
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// update
+
+		////////////////////////////////
+		int res = DBUtils.update_Pattern_Used(actv, db_Id);
+
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+
+//		-1 find pattern => failed
+//		-2 SQLException
+//		1 update => executed
+
+		case -1: 
+			
+			msg = "find pattern => failed: " + db_Id;
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "SQLException: " + db_Id;
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "update => executed: " + db_Id;
+			colorID = R.color.green4;
+			
+			break;
+			
+		}
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg);
+		
+//		Methods_dlg.dlg_ShowMessage(
+//				actv, 
+//				msg,
+//				colorID);
+		
+	}//update_Pattern_Used
+
 }//public class Methods
 

@@ -164,7 +164,6 @@ public class ShowListActv extends ListActivity {
 			
 		}
 		
-		
 		/******************************
 			validate
 		 ******************************/

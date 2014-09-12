@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_ListItems;
 import ta2.adapters.Adp_WordPatterns;
+import ta2.comps.Comp_WP;
 import ta2.items.ListItem;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -1967,6 +1968,28 @@ public class Methods_dlg {
 			return false;
 			
 		}
+		
+		////////////////////////////////
+
+		// sort
+
+		////////////////////////////////
+		Collections.sort(
+				list_WPs, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.WORD,
+						CONS.Enums.SortOrder.ASC
+				));
+
+		Collections.sort(
+				list_WPs, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
 		
 		////////////////////////////////
 

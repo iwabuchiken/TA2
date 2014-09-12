@@ -470,7 +470,14 @@ public class MemoActv extends Activity {
 								CONS.Enums.SortType.WORD,
 								CONS.Enums.SortOrder.ASC
 						));
-		
+
+		Collections.sort(
+				CONS.MemoActv.list_WP_1, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+
 		////////////////////////////////
 
 		// adapter
@@ -570,12 +577,16 @@ public class MemoActv extends Activity {
 		Collections.sort(
 						CONS.MemoActv.list_WP_2, 
 						new Comp_WP(
-								
 								CONS.Enums.SortType.WORD,
 								CONS.Enums.SortOrder.ASC
 						));
 		
-
+		Collections.sort(
+				CONS.MemoActv.list_WP_2, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
 		
 		////////////////////////////////
 		
@@ -681,6 +692,14 @@ public class MemoActv extends Activity {
 								CONS.Enums.SortOrder.ASC
 						));
 		
+		Collections.sort(
+				CONS.MemoActv.list_WP_3, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+//						CONS.Enums.SortOrder.ASC
+						));
+
 		////////////////////////////////
 		
 		// adapter

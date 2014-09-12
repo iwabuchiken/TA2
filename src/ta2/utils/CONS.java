@@ -168,6 +168,7 @@ public class CONS {
 		public static String[] col_names_Patterns = {
 			
 			"word",							// 0
+			"used",							// 0
 					
 		};
 		
@@ -176,12 +177,13 @@ public class CONS {
 			android.provider.BaseColumns._ID,		// 0
 			"created_at", "modified_at",			// 1,2
 			"word",									// 3
-			
+			"used",									// 4
 		};
 		
 		public static String[] col_types_Patterns = {
 			
 			"TEXT", 			// 0
+			"TEXT", 			// 1
 					
 		};
 		
@@ -189,6 +191,7 @@ public class CONS {
 			
 			"INTEGER", "TEXT", "TEXT",	// 0,1,2
 			"TEXT", 					// 3
+			"TEXT", 					// 4
 			
 		};
 		
@@ -591,7 +594,7 @@ public class CONS {
 		public static enum SortType {
 			
 			FileName, POSITION, CREATED_AT,
-			WORD,
+			WORD, USED,
 			
 		}
 
