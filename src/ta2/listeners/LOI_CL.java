@@ -98,9 +98,17 @@ public class LOI_CL implements OnItemClickListener {
 		// build: text
 
 		////////////////////////////////
+		int pos_Current = et.getSelectionStart();
+		
 		String tmp = et.getText().toString();
 		
-		tmp = tmp + item.getWord() + " ";
+		tmp = tmp.substring(0, pos_Current) +
+				" " + 
+				item.getWord() + 
+				" "
+				+ tmp.substring(pos_Current);
+//		+ tmp.substring(pos_Current + item.getWord().length());
+//		tmp = tmp + item.getWord() + " ";
 		
 		////////////////////////////////
 
@@ -109,8 +117,10 @@ public class LOI_CL implements OnItemClickListener {
 		////////////////////////////////
 		et.setText(tmp);
 		
-		et.setSelection(tmp.length());
-
+		// + 1 => space length
+		et.setSelection(pos_Current + item.getWord().length() + 2);
+//		et.setSelection(tmp.length());
+		
 		////////////////////////////////
 
 		// update: used
