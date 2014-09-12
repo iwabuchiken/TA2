@@ -907,6 +907,34 @@ public class DB_OCL implements OnClickListener {
 			
 			list_args.add(tokens[i]);
 
+		} else if (RB_id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+			String msg_Log = "NOT is checked";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			////////////////////////////////
+			
+			// where
+			
+			////////////////////////////////
+			int i;
+			
+			for (i = 0; i < tokens.length - 1; i++) {
+				
+				where += CONS.DB.col_names_TA2[0] + " like ?"
+						+ " " + "OR" + " ";
+				
+				list_args.add(tokens[i]);
+				
+			}
+			
+			where += CONS.DB.col_names_TA2[0] + " like ?";
+			
+			list_args.add(tokens[i]);
+			
 		} else {
 			
 			// Log
