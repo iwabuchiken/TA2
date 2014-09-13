@@ -98,6 +98,7 @@ public class LOI_CL implements OnItemClickListener {
 		// build: text
 
 		////////////////////////////////
+		//REF http://stackoverflow.com/questions/3609174/android-insert-text-into-edittext-at-current-position answered Aug 31 '10 at 15:32
 		int pos_Current = et.getSelectionStart();
 		
 		String tmp = et.getText().toString();

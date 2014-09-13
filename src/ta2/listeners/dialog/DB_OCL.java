@@ -1020,14 +1020,14 @@ public class DB_OCL implements OnClickListener {
 			
 			for (i = 0; i < tokens.length - 1; i++) {
 				
-				where += CONS.DB.col_names_TA2[0] + " like ?"
-						+ " " + "OR" + " ";
+				where += CONS.DB.col_names_TA2[0] + " NOT LIKE ?"
+						+ " " + "AND" + " ";
 				
 				list_args.add(tokens[i]);
 				
 			}
 			
-			where += CONS.DB.col_names_TA2[0] + " like ?";
+			where += CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
 			
 			list_args.add(tokens[i]);
 			

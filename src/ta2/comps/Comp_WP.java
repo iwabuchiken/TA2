@@ -184,9 +184,9 @@ public class Comp_WP implements Comparator<WordPattern> {
 					wp2.getWord(),
 					res_Used);
 		
-		Log.d("Comp_WP.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		Log.d("Comp_WP.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 
 		switch (sortOrder) {
 		
