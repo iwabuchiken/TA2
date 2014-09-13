@@ -1933,6 +1933,13 @@ public class Methods_dlg {
 
 		////////////////////////////////
 
+		// set previous string
+
+		////////////////////////////////
+		res = _filter_ShowList__SetString(actv, d);
+		
+		////////////////////////////////
+
 		// show
 
 		////////////////////////////////
@@ -1940,6 +1947,63 @@ public class Methods_dlg {
 		
 	}//filter_ShowList
 
+	/******************************
+		@return
+			false => pref val is null<br>
+	 ******************************/
+	private static boolean 
+	_filter_ShowList__SetString
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get pref
+
+		////////////////////////////////
+		String pref_FilterString = Methods.get_Pref_String(
+						actv, 
+						CONS.Pref.pname_MainActv, 
+						CONS.Pref.pkey_ShowListActv_Filter_String, 
+						null);
+		
+		if (pref_FilterString == null) {
+			
+			// Log
+			String msg_Log = "pref_FilterString => null";
+			Log.d("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// set: text
+
+		////////////////////////////////
+		EditText et = (EditText) d.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		et.setText(pref_FilterString);
+		
+		////////////////////////////////
+
+		// selection
+
+		////////////////////////////////
+		et.setSelection(pref_FilterString.length());
+		
+		return true;
+		
+	}//_filter_ShowList__SetString
+
+	/******************************
+		@return
+			false 1. Can't get list<br>
+				2. Can't build adapter<br>
+	 ******************************/
 	private static boolean 
 	_filter_ShowList__GridView
 	(Activity actv, Dialog d) {

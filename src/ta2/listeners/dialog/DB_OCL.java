@@ -829,6 +829,36 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		d1.dismiss();
 		
+		////////////////////////////////
+
+		// store: string --> pref
+
+		////////////////////////////////
+		boolean res = Methods.set_Pref_String(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				CONS.Pref.pkey_ShowListActv_Filter_String, 
+				input);
+		
+		if (res == true) {
+			
+			// Log
+			msg_Log = "pref filter => set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+
+			// Log
+			msg_Log = "pref filter => not set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+
+//				input
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
 

@@ -328,6 +328,15 @@ public class CONS {
 		pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection = 
 							"pkey_PrefActv_MemoListSize_Dropdown_CurrentSelection";
 		
+		////////////////////////////////
+
+		// ShowListActv
+
+		////////////////////////////////
+		public static final String 
+		pkey_ShowListActv_Filter_String = 
+							"pkey_ShowListActv_Filter_String";
+		
 	}//Pref
 
 	public static class MainActv {
