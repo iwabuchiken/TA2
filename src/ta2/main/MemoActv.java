@@ -9,6 +9,7 @@ import ta2.items.WordPattern;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
 import ta2.listeners.STL;
+import ta2.listeners.TW;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
@@ -31,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MemoActv extends Activity {
@@ -878,6 +880,15 @@ public class MemoActv extends Activity {
 		
 		bt_Save.setOnClickListener(new BO_CL(this));
 		
+		////////////////////////////////
+
+		// edittext
+
+		////////////////////////////////
+		EditText et_Content = (EditText) this.findViewById(R.id.actv_memo_et);
+		TextView tv_Num = (TextView) this.findViewById(R.id.actv_memo_tv_num);
+		
+		et_Content.addTextChangedListener(new TW(this, et_Content, tv_Num));
 		
 		
 	}//_Setup_Listeners
