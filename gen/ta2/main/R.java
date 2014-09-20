@@ -294,7 +294,10 @@ public final class R {
         /**  Menu: showlist 
          */
         public static final int menu_showlist_filter=0x7f080020;
-        public static final int prefs_MemoList_Size_ListPref_key=0x7f080037;
+        public static final int prefs_ClearView_WhenSaved_key=0x7f080038;
+        public static final int prefs_ClearView_WhenSaved_summary=0x7f080039;
+        public static final int prefs_ClearView_WhenSaved_titile=0x7f080037;
+        public static final int prefs_MemoList_Size_ListPref_key=0x7f08003a;
         public static final int prefs_MemoList_Size_key=0x7f080035;
         public static final int prefs_MemoList_Size_summary=0x7f080036;
         public static final int prefs_MemoList_Size_titile=0x7f080034;

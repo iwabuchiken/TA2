@@ -268,7 +268,36 @@ public class MemoActv extends Activity {
 		////////////////////////////////
 		_Setup_Set_PrefText();
 		
+		//test
+		_do_test();
+		
 	}//protected void onStart()
+
+	private void 
+	_do_test() {
+		// TODO Auto-generated method stub
+		
+//		_do_test__D_13_V_1_0_Pref();
+		
+	}
+
+	private void 
+	_do_test__D_13_V_1_0_Pref() {
+		// TODO Auto-generated method stub
+		
+		boolean pref = Methods.get_Pref_Boolean(
+							this, 
+							CONS.Pref.pname_MainActv, 
+							this.getString(R.string.prefs_ClearView_WhenSaved_key), 
+							false);
+		
+		// Log
+		String msg_Log = "pref => " + pref;
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//_do_test
 
 	private void 
 	_Setup_Set_PrefText() {

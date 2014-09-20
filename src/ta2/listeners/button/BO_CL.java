@@ -397,6 +397,24 @@ public class BO_CL implements OnClickListener {
 //			-2	Exception<br>
 //			1	text => inserted<br>
 
+		////////////////////////////////
+
+		// clear view?
+
+		////////////////////////////////
+		boolean pref = Methods.get_Pref_Boolean(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_ClearView_WhenSaved_key), 
+				false);
+
+		if (pref == true) {
+			
+			et.setText("");
+			
+		}
+		
+		
 		Methods.report_Save_Memos(actv, res);
 		
 	}

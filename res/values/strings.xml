@@ -103,6 +103,13 @@
 	   	<string name="prefs_MemoList_Size_summary">
 	   		    							Current = </string>
 	   		    							
+	   	<string name="prefs_ClearView_WhenSaved_titile">
+	   		    							Clear view</string>
+	   	<string name="prefs_ClearView_WhenSaved_key">
+	   		    							prefs_ClearView_WhenSaved_key</string>
+	   	<string name="prefs_ClearView_WhenSaved_summary">
+	   		    							When memo is saved</string>
+	   		    							
 	   	<string name="prefs_MemoList_Size_ListPref_key">
 	   		    							prefs_MemoList_Size_ListPref_key</string>
 	   	
