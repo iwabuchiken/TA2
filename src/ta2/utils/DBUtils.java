@@ -3247,6 +3247,8 @@ public class DBUtils extends SQLiteOpenHelper{
 		val.put("modified_at",
 				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
 		
+		text = text.replaceAll("'", "\'");
+		
 		val.put("text", text);
 		
 		return val;
@@ -3570,13 +3572,39 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 		
+		
+		////////////////////////////////
+
+		// modify: text
+
+		////////////////////////////////
+		// Log
+		String msg_Log = "colValue => " + colValue;
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		//REF http://stackoverflow.com/questions/12615113/how-to-escape-special-characters-like-in-sqlite-in-android answered Jul 10 at 9:44
+		String val = colValue.replaceAll("'", "''");
+//		String val = colValue.replaceAll("'", "\\'");
+//		String val = colValue.replaceAll("'", "\'");
+			
+//		val = colValue.replaceAll("'", "\'");
+		
+		// Log
+		msg_Log = "colValue(replaced) => " + val;
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		/***************************************
 		 * Build SQL
 		 ***************************************/
 		//REF sql http://stackoverflow.com/questions/16071087/update-multiple-columns-on-a-row-with-a-single-select-in-sqlite answered Jul 7 '13 at 7:44
 		String sql = "UPDATE " + tableName + " SET "
 //				+ colName + "='" + colValue + "', "
-				+ colName + "='" + colValue + "'"
+				+ colName + "='" + val + "'"
+//				+ colName + "='" + colValue + "'"
 				+ ", "
 				+ CONS.DB.col_names_TA2_full[2] + "='"
 				+ Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now())
