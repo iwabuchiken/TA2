@@ -461,6 +461,13 @@ public class CONS {
 		// default colors
 		public static int dflt_Background_Color = R.color.white;
 		
+		public static String[] special_Chars = new String[]{
+			
+			"()", "[]",
+			"（）", "「」", "『』", "〈〉", "【】", "｛｝",
+			
+		};
+		
 		////////////////////////////////
 
 		// MainActv.java

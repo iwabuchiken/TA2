@@ -3546,7 +3546,7 @@ public static String
 		
 	}//addCol_PatternsUsed
 
-	public static void 
+	public static int 
 	update_Pattern_Used
 	(Activity actv, long db_Id) {
 		// TODO Auto-generated method stub
@@ -3604,7 +3604,157 @@ public static String
 //				msg,
 //				colorID);
 		
+		return res;
+		
 	}//update_Pattern_Used
+
+	public static boolean 
+	is_SpecialChars
+	(Activity actv, String w) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// build: list
+
+		////////////////////////////////
+		List<String> list_Specials = new ArrayList<String>();
+
+		for (String chr : CONS.Admin.special_Chars) {
+			
+			list_Specials.add(chr);
+			
+		}
+		
+		////////////////////////////////
+
+		// judge
+
+		////////////////////////////////
+		return list_Specials.contains(w) ? true : false;
+		
+//		return false;
+		
+	}//if(Methods.is_SpecialChars(actv, w))
+
+	/******************************
+		@return
+			-1 find pattern => failed<br>
+			-2 SQLException<br>
+			1 update => executed<br>
+	 ******************************/
+	public static int 
+	add_WP_to_Memo_SpecialChars
+	(Activity actv, EditText et, WordPattern item) {
+		// TODO Auto-generated method stub
+		
+//		////////////////////////////////
+//	
+//		// EditText
+//	
+//		////////////////////////////////
+//		EditText et = (EditText) et.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+		
+		// build: text
+	
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/3609174/android-insert-text-into-edittext-at-current-position answered Aug 31 '10 at 15:32
+		int pos_Current = et.getSelectionStart();
+		
+		String tmp = et.getText().toString();
+		
+		tmp = tmp.substring(0, pos_Current) +
+				" " + 
+				item.getWord() + 
+				" "
+				+ tmp.substring(pos_Current);
+		
+		////////////////////////////////
+	
+		// set
+	
+		////////////////////////////////
+		et.setText(tmp);
+		
+		// + 1 => space length
+		et.setSelection(pos_Current + 2);
+	//	et.setSelection(tmp.length());
+		
+		////////////////////////////////
+	
+		// update: used
+	
+		////////////////////////////////
+		int res = Methods.update_Pattern_Used(actv, item.getDb_Id());
+	
+		return res;
+		
+	}//add_WP_to_Memo_SpecialChars
+	
+	/******************************
+		@return
+			-1 find pattern => failed<br>
+			-2 SQLException<br>
+			1 update => executed<br>
+	 ******************************/
+	public static int 
+	add_WP_to_Memo
+	(Activity actv, EditText et, WordPattern item) {
+		// TODO Auto-generated method stub
+		
+//		////////////////////////////////
+//		
+//		// EditText
+//		
+//		////////////////////////////////
+//		EditText et = (EditText) et.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+		
+		// build: text
+		
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/3609174/android-insert-text-into-edittext-at-current-position answered Aug 31 '10 at 15:32
+		int pos_Current = et.getSelectionStart();
+		
+		String tmp = et.getText().toString();
+		
+		tmp = tmp.substring(0, pos_Current) +
+				" " + 
+				item.getWord() + 
+				" "
+				+ tmp.substring(pos_Current);
+	//	+ tmp.substring(pos_Current + item.getWord().length());
+	//	tmp = tmp + item.getWord() + " ";
+		
+		////////////////////////////////
+		
+		// set
+		
+		////////////////////////////////
+		et.setText(tmp);
+		
+		// + 1 => space length
+		et.setSelection(pos_Current + item.getWord().length() + 2);
+	//	et.setSelection(tmp.length());
+		
+		////////////////////////////////
+		
+		// update: used
+		
+		////////////////////////////////
+		int res = Methods.update_Pattern_Used(actv, item.getDb_Id());
+		
+
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return res;
+		
+	}//add_WP_to_Memo
 
 }//public class Methods
 

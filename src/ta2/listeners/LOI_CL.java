@@ -103,31 +103,55 @@ public class LOI_CL implements OnItemClickListener {
 		
 		String tmp = et.getText().toString();
 		
-		tmp = tmp.substring(0, pos_Current) +
-				" " + 
-				item.getWord() + 
-				" "
-				+ tmp.substring(pos_Current);
+		// Log
+		String msg_Log = "tmp => " + tmp;
+		Log.d("LOI_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		tmp = tmp.substring(0, pos_Current) +
+//				" " + 
+//				item.getWord() + 
+//				" "
+//				+ tmp.substring(pos_Current);
 //		+ tmp.substring(pos_Current + item.getWord().length());
 //		tmp = tmp + item.getWord() + " ";
 		
-		////////////////////////////////
-
-		// set
-
-		////////////////////////////////
-		et.setText(tmp);
-		
-		// + 1 => space length
-		et.setSelection(pos_Current + item.getWord().length() + 2);
-//		et.setSelection(tmp.length());
+//		////////////////////////////////
+//
+//		// set
+//
+//		////////////////////////////////
+//		et.setText(tmp);
 		
 		////////////////////////////////
 
-		// update: used
+		// selection
 
 		////////////////////////////////
-		Methods.update_Pattern_Used(actv, item.getDb_Id());
+		int res;
+		
+		if (Methods.is_SpecialChars(actv, item.getWord())) {
+//			if (Methods.is_SpecialChars(actv, tmp)) {
+			
+			res = Methods.add_WP_to_Memo_SpecialChars(actv, et, item);
+			
+		} else {
+			
+			res = Methods.add_WP_to_Memo(actv, et, item);
+			
+		}//if(Methods.is_SpecialChars(actv, w))
+
+//		// + 1 => space length
+//		et.setSelection(pos_Current + item.getWord().length() + 2);
+////		et.setSelection(tmp.length());
+		
+//		////////////////////////////////
+//
+//		// update: used
+//
+//		////////////////////////////////
+//		Methods.update_Pattern_Used(actv, item.getDb_Id());
 		
 	}//case_ACTV_MEMO_LV_1
 
