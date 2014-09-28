@@ -2179,6 +2179,20 @@ public static String
 			
 		}//try
 
+		////////////////////////////////
+
+		// save date
+
+		////////////////////////////////
+		boolean res = DBUtils._backup_DB_SaveDate(actv);
+		
+		// Log
+		String msg_Log = "save date => " + res;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
 		return true;
 		
 	}//public static boolean db_backup(Activity actv)
@@ -3756,5 +3770,6 @@ public static String
 		
 	}//add_WP_to_Memo
 
+	
 }//public class Methods
 

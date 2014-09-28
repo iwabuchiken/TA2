@@ -118,6 +118,8 @@ public class CONS {
 		
 //		public static String dname_TapeATalk_Sdcard = "tapeatalk_records";
 		
+		public static final String admin_LastBackup = "last_backup";
+		
 		////////////////////////////////
 		
 		// Table: ta2
