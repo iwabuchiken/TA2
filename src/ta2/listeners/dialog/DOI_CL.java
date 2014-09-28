@@ -367,12 +367,12 @@ public class DOI_CL implements OnItemClickListener {
 			Methods_dlg.conf_Upload_DB(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-					R.string.dlg_actvmain_operations_import_db))) {
+					R.string.dlg_actvmain_ops_import_db))) {
 				
 				Methods_dlg.conf_Import_DB(actv, d1, d2);
 				
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 		
 			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
 		
@@ -382,7 +382,7 @@ public class DOI_CL implements OnItemClickListener {
 
 			////////////////////////////////
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_AddColumn_Used(actv, d1, d2);
 			
@@ -392,24 +392,29 @@ public class DOI_CL implements OnItemClickListener {
 
 			////////////////////////////////
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_create_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_create_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_drop_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_drop_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_CreateTable_Memos(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_operations_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+				R.string.dlg_actvmain_ops_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_DropTable_Memos(actv, d1, d2);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_db_ops_item_drop_create_tbl_admin))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_DropCreate_Table_Admin(actv, d1, d2);
 			
 		}
 

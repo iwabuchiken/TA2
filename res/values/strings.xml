@@ -64,29 +64,32 @@
    		
 
 	<!-- dlg_actvmain_operations.xml -->
-   		<string name="dlg_actvmain_operations_title">DB Admin</string>   				
+   		<string name="dlg_actvmain_ops_title">DB Admin</string>   				
    		
-   		<string name="dlg_actvmain_operations_import_db">
+   		<string name="dlg_actvmain_ops_import_db">
    		    										Import DB</string>
    		    										
-   		<string name="dlg_actvmain_operations_import_patterns">
+   		<string name="dlg_actvmain_ops_import_patterns">
    		    										Import patterns</string>
    		    										
-   		<string name="dlg_actvmain_operations_drop_table_patterns">
+   		<string name="dlg_actvmain_ops_drop_table_patterns">
    		    										Drop table: patterns</string>
-   		<string name="dlg_actvmain_operations_create_table_patterns">
+   		<string name="dlg_actvmain_ops_create_table_patterns">
    		    							Create table: patterns</string>
     		
-   		<string name="dlg_actvmain_operations_drop_table_memos">
+   		<string name="dlg_actvmain_ops_drop_table_memos">
    		    										Drop table: memos</string>
-   		<string name="dlg_actvmain_operations_create_table_memos">
+   		<string name="dlg_actvmain_ops_create_table_memos">
    		    							Create table: memos</string>
    		    							
-   		<string name="dlg_actvmain_operations_upload_db">
+   		<string name="dlg_actvmain_ops_upload_db">
    		    							Upload DB</string>
 
-   		<string name="dlg_actvmain_operations_sql_add_col_used">
+   		<string name="dlg_actvmain_ops_sql_add_col_used">
    		    							Add column: used</string>
+   		
+   		<string name="dlg_db_ops_item_drop_create_tbl_admin">
+   		    							Drop/Create table: admin</string>
    		
    	<!-- pref: MainActv -->
 	   	<string name="prefs_sound_effect_titile">
@@ -113,5 +116,11 @@
 	   	<string name="prefs_MemoList_Size_ListPref_key">
 	   		    							prefs_MemoList_Size_ListPref_key</string>
 	   	
+	   	<string name="prefs_db_auto_backup_key">
+    	    									prefs_db_auto_backup_key</string>
+    	<string name="prefs_db_auto_backup_summary">
+    	    									Every 0 days</string>
+    	<string name="prefs_db_auto_backup_title">
+    	    									DB auto backup</string>
 	   	
 </resources>

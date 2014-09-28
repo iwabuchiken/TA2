@@ -79,18 +79,70 @@ public class PrefActv extends PreferenceActivity
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		
 		_Setup_FontSize();
-//		EditTextPreference prefEditText = 
-//				(EditTextPreference) findPreference(
-//						this.getString(R.string.prefs_tnactv_list_font_size_key));
-////		this.getString(R.string.prefs_history_size_key));
-//		
-//		prefEditText.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+		
+		_Setup_Pref_AutoBk();
 		
 		_Setup_Listeners();
 		
 		super.onStart();
 		
 	}//protected void onStart()
+
+	private void _Setup_Pref_AutoBk() {
+		// TODO Auto-generated method stub
+//		String msg_Log;
+		
+		////////////////////////////////
+		
+		// pref: auto backup
+		
+		////////////////////////////////
+		EditTextPreference pref_AutoBk = 
+				(EditTextPreference) findPreference(
+						this.getString(R.string.prefs_db_auto_backup_key));
+		
+		pref_AutoBk.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+		
+		////////////////////////////////
+		
+		// show: current
+		
+		////////////////////////////////
+		String current = pref_AutoBk.getText();
+		
+		String summary = pref_AutoBk.getSummary().toString();
+//		
+		// Log
+		String msg_Log = String.format("summary = %s, current = %s", summary, current);
+		Log.d("PrefActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (current == null) {
+//			if (summary == null || current == null) {
+			
+			summary = this.getString(R.string.prefs_db_auto_backup_summary);
+			
+		} else {
+
+			//REF http://stackoverflow.com/questions/12377838/android-replace-with-regex answered Sep 11 '12 at 21:01
+			summary = summary.replaceAll("\\d{1,}", current);
+//			summary = summary.replaceAll("\\d+?", current);	// every digit gets replaced with "current"
+//			summary = summary.replace("\\d+?", current);	// no replacement
+//			summary = summary.replaceAll("\\d+?", current);
+//			summary = summary.replaceAll("(\\d+?|X)", current);
+//			summary = summary.replaceAll("[\\d+?X]", current);
+			
+			// Log
+			msg_Log = "summary(replaced) => " + summary;
+			Log.d("PrefActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+		}
+		
+		pref_AutoBk.setSummary(summary);
+		
+	}
 
 	private void _Setup_Listeners() {
 		// TODO Auto-generated method stub
@@ -195,6 +247,8 @@ public class PrefActv extends PreferenceActivity
 		// TODO Auto-generated method stub
 		
 		_Setup_FontSize();
+		
+		this._Setup_Pref_AutoBk();
 		
 	}
 

@@ -106,6 +106,8 @@ public class DB_OTL implements OnTouchListener {
 				case DLG_CONF_UPLOAD_DB_OK:
 				case DLG_CONF_ADD_COLUMN_USED_OK:
 					
+				case DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK:
+					
 					v.setBackgroundColor(Color.GRAY);
 					
 					break;
@@ -164,6 +166,8 @@ public class DB_OTL implements OnTouchListener {
 			case DLG_CONF_DELETE_PATTERN_OK:
 			case DLG_CONF_UPLOAD_DB_OK:
 			case DLG_CONF_ADD_COLUMN_USED_OK:
+				
+			case DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK:
 				
 					v.setBackgroundColor(Color.WHITE);
 					

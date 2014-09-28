@@ -3863,6 +3863,189 @@ public class DBUtils extends SQLiteOpenHelper{
 		}
 		
 	}//update_Pattern_Used
-	
+
+	/******************************
+		public boolean dropTable
+		
+		@return
+			-1	Table doesn't exist<br>
+			-2	SQLException<br>
+			1	Table dropped<br>
+	 ******************************/
+	public static int dropTable_2
+	(Activity actv, String tableName) {
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/*------------------------------
+		 * The table exists?
+		 *------------------------------*/
+		// The table exists?
+		boolean tempBool = DBUtils.tableExists(actv, CONS.DB.dbName, tableName);
+		
+		if (tempBool == true) {
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+			
+		} else {//if (tempBool == true)
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tableName);
+			
+			return -1;
+			
+		}//if (tempBool == true)
+		
+		/*------------------------------
+		 * Drop the table
+		 *------------------------------*/
+		// Define the sql
+		String sql = "DROP TABLE " + tableName;
+		
+		// Execute
+		try {
+			wdb.execSQL(sql);
+			
+			// Vacuum
+			wdb.execSQL("VACUUM");
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "The table dropped => " + tableName);
+			
+			wdb.close();
+			
+			// Return
+			return 1;
+			
+		} catch (SQLException e) {
+			// TODO ?��?��?��?��?��?��?��?��?��?��?��ꂽ catch ?��u?��?��?��b?��N
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "DROP TABLE => failed (table=" + tableName + "): " + e.toString());
+			
+			wdb.close();
+			
+			// Return
+			return -2;
+		}//try
+		
+	}//public boolean dropTable(String tableName) 
+
+	/******************************
+		createTable()<br>
+		1. Columns "created_at" and "modified_at" => auto-inserted
+		
+		@param columns, types => use non-full version
+		@return 
+			-1	Table exists<br>
+			-2	SQLException<br>
+			1	Table created<br>
+	 ******************************/
+	public static int createTable_static
+	(Activity actv, 
+			String tableName, String[] columns, String[] types)
+	{
+		/*----------------------------
+		 * Steps
+		 * 1. Table exists?
+		 * 2. Build sql
+		 * 3. Exec sql
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+	//	SQLiteDatabase wdb = this.getWritableDatabase();
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		//
+		//if (!tableExists(db, tableName)) {
+		if (DBUtils.tableExists(actv, CONS.DB.dbName, tableName)) {
+	//		if (tableExists(wdb, tableName)) {
+			// Log
+			Log.i("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists => " + tableName);
+			
+			// debug
+			String msg_Toast = "Table exists => " + tableName;
+			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
+			
+			
+			return -1;
+	//		return false;
+		}//if (!tableExists(SQLiteDatabase db, String tableName))
+		
+		/*----------------------------
+		 * 2. Build sql
+			----------------------------*/
+		//
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("CREATE TABLE " + tableName + " (");
+		sb.append(android.provider.BaseColumns._ID +
+				" INTEGER PRIMARY KEY AUTOINCREMENT, ");
+		
+		// created_at, modified_at
+		sb.append("created_at TEXT, modified_at TEXT, ");
+	//	sb.append("created_at INTEGER, modified_at INTEGER, ");
+		
+		int i = 0;
+		for (i = 0; i < columns.length - 1; i++) {
+			sb.append(columns[i] + " " + types[i] + ", ");
+		}//for (int i = 0; i < columns.length - 1; i++)
+		
+		sb.append(columns[i] + " " + types[i]);
+		
+		sb.append(");");
+		
+		// Log
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "sql => " + sb.toString());
+		
+		/*----------------------------
+		 * 3. Exec sql
+			----------------------------*/
+		//
+		try {
+			//	db.execSQL(sql);
+			wdb.execSQL(sb.toString());
+			
+			// Log
+			Log.d(actv.getClass().getName() + 
+					"["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table created => " + tableName);
+			
+			wdb.close();
+			
+			return 1;
+			
+		} catch (SQLException e) {
+			
+			// Log
+			Log.e(actv.getClass().getName() + 
+					"[" + Thread.currentThread().getStackTrace()[2].getLineNumber() + "]", 
+					"Exception => " + e.toString());
+			
+			wdb.close();
+			
+			return -2;
+			
+		}//try
+		
+	}//public boolean createTable(SQLiteDatabase db, String tableName)
+
 }//public class DBUtils
 

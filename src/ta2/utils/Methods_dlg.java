@@ -31,6 +31,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -1308,14 +1309,14 @@ public class Methods_dlg {
 		
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
-									R.string.dlg_actvmain_operations_import_db))
+									R.string.dlg_actvmain_ops_import_db))
 						.setIconID(R.drawable.menu_icon_admin_32x32_blue)
 						.setTextColor_ID(R.color.blue1)
 						.build());
 		
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
-								R.string.dlg_actvmain_operations_import_patterns))
+								R.string.dlg_actvmain_ops_import_patterns))
 						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
 						.setTextColor_ID(R.color.black)
 						.build());
@@ -1327,7 +1328,7 @@ public class Methods_dlg {
 		////////////////////////////////
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
-								R.string.dlg_actvmain_operations_sql_add_col_used))
+								R.string.dlg_actvmain_ops_sql_add_col_used))
 								.setIconID(R.drawable.menu_icon_admin_32x32_yellow)
 								.setTextColor_ID(R.color.black)
 								.build());
@@ -1339,31 +1340,38 @@ public class Methods_dlg {
 		////////////////////////////////
 		list.add(new ListItem.Builder()
 		.setText(actv.getString(
-				R.string.dlg_actvmain_operations_create_table_patterns))
+				R.string.dlg_actvmain_ops_create_table_patterns))
 				.setIconID(R.drawable.menu_icon_admin_32x32_purple)
 				.setTextColor_ID(R.color.purple4)
 				.build());
 		
 		list.add(new ListItem.Builder()
 		.setText(actv.getString(
-				R.string.dlg_actvmain_operations_drop_table_patterns))
+				R.string.dlg_actvmain_ops_drop_table_patterns))
 				.setIconID(R.drawable.menu_icon_admin_32x32_red)
 				.setTextColor_ID(R.color.red)
 				.build());
 		
 		list.add(new ListItem.Builder()
 		.setText(actv.getString(
-				R.string.dlg_actvmain_operations_create_table_memos))
+				R.string.dlg_actvmain_ops_create_table_memos))
 				.setIconID(R.drawable.menu_icon_admin_32x32_purple)
 				.setTextColor_ID(R.color.purple4)
 				.build());
 		
 		list.add(new ListItem.Builder()
 		.setText(actv.getString(
-				R.string.dlg_actvmain_operations_drop_table_memos))
+				R.string.dlg_actvmain_ops_drop_table_memos))
 				.setIconID(R.drawable.menu_icon_admin_32x32_red)
 				.setTextColor_ID(R.color.red)
 				.build());
+		
+		list.add(new ListItem.Builder()
+					.setText(actv.getString(
+							R.string.dlg_db_ops_item_drop_create_tbl_admin))
+							.setIconID(R.drawable.menu_icon_admin_32x32_red)
+							.setTextColor_ID(R.color.red)
+							.build());
 		
 		////////////////////////////////
 
@@ -1424,7 +1432,7 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
 		
 		tv_Msg.setText(actv.getString(
-								R.string.dlg_actvmain_operations_import_db)
+								R.string.dlg_actvmain_ops_import_db)
 								+ "?");
 		
 		////////////////////////////////
@@ -1476,7 +1484,7 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
 		
 		tv_Msg.setText(actv.getString(
-				R.string.dlg_actvmain_operations_upload_db)
+				R.string.dlg_actvmain_ops_upload_db)
 				+ "?");
 		
 		////////////////////////////////
@@ -1528,7 +1536,7 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
 		
 		tv_Msg.setText(actv.getString(
-								R.string.dlg_actvmain_operations_import_patterns)
+								R.string.dlg_actvmain_ops_import_patterns)
 								+ "?");
 		
 		////////////////////////////////
@@ -1811,6 +1819,58 @@ public class Methods_dlg {
 		dlg3.show();
 		
 	}//conf_DropTable_Patterns
+	
+	public static void 
+	conf_DropCreate_Table_Admin
+	(Activity actv, 
+			Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.dlg_db_ops_item_drop_create_tbl_admin)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText(CONS.DB.tname_Admin);
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_DropCreate_Table_Admin
 	
 	public static void 
 	conf_Restore_DB
@@ -2691,5 +2751,31 @@ public class Methods_dlg {
 		d2.show();		
 		
 	}//conf_Delete_Pattern
+
+	public static void
+	dlg_ShowMessage_ThirdDialog
+	(Activity actv, 
+			String message, Dialog dlg1, Dialog dlg2, int colorID) {
+		
+		Dialog dlg3 = Methods_dlg.dlg_Template_Cancel_ThirdDialog(
+				actv, dlg1, dlg2,
+				R.layout.dlg_tmpl_toast_ok, 
+				R.string.generic_tv_confirm, 
+				
+				R.id.dlg_tmpl_toast_ok_bt_cancel, 
+				Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG);
+		
+		TextView tv_Message = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+		
+		tv_Message.setBackgroundColor(actv.getResources().getColor(colorID));
+		
+		tv_Message.setTextColor(Color.WHITE);
+		
+		tv_Message.setText(message);
+		
+		dlg3.show();
+		
+	}
 
 }//public class Methods_dialog
