@@ -344,6 +344,8 @@ public class CONS {
 		
 		public static String pkey_CurrentPosition_MainActv = "pkey_CurrentPosition";
 
+//		public static String pkey_CurrentPosition_MainActv = "prefs_db_auto_backup_key";
+		
 		////////////////////////////////
 
 		// MemoActv

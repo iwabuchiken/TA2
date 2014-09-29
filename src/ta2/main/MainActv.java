@@ -12,6 +12,7 @@ import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
@@ -72,11 +73,109 @@ public class MainActv extends Activity {
 		////////////////////////////////
 		_Setup_Listeners();
 		
-		
+		////////////////////////////////
+
+		// auto bk
+
+		////////////////////////////////
+		this._Setup_AutoBK();
 		
 		do_test();
 		
 	}//onStart
+
+	private void 
+	_Setup_AutoBK() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get: pref
+
+		////////////////////////////////
+		String auto = Methods.get_Pref_String(
+						this, 
+						CONS.Pref.pname_MainActv, 
+						this.getString(R.string.prefs_db_auto_backup_key),
+//						"prefs_tnactv_db_auto_backup_key", 
+						null);
+		
+		if (auto == null) {
+			
+			// Log
+			String msg_Log = "auto bk => null";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		//
+		int auto_days = Integer.parseInt(auto);
+		
+		// Log
+		String msg_Log = "auto_days => " + auto_days;
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// get: last bk-ed
+
+		////////////////////////////////
+		String last_bk = DBUtils.find_LastBK(this);
+		
+		////////////////////////////////
+
+		// now + auto
+
+		////////////////////////////////
+//		String now = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+		String schedule = Methods.conv_MillSec_to_TimeLabel(
+								Methods.conv_TimeLabel_to_MillSec(last_bk)
+								+ (1 * 60 * 60 * 24 * auto_days * 1000));
+
+		// Log
+		msg_Log = String.format(
+							"last = %s ** sch = %s", 
+							last_bk, schedule);
+		
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// comp
+
+		////////////////////////////////
+		int res = schedule.compareToIgnoreCase(last_bk);
+		
+		if (res <= 0) {
+//			if (res > 0) {
+			
+			Methods.backup_DB(this);
+			
+			// Log
+			msg_Log = "auto bk => done";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			msg_Log = "auto bk => not yet";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+	}//_Setup_AutoBK
 
     
 	private void 
