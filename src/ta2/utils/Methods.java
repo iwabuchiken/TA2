@@ -42,6 +42,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.media.MediaRecorder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -1554,6 +1555,25 @@ public static String
 		
 	}//conv_MillSec_to_TimeLabel(long millSec)
 
+	public static String
+	conv_MillSec_to_AudioFileLabel(long millSec)
+	{
+		//REF http://stackoverflow.com/questions/7953725/how-to-convert-milliseconds-to-date-format-in-android answered Oct 31 '11 at 12:59
+		String dateFormat = CONS.Admin.format_Date_AudioFile;
+//		String dateFormat = "yyyy/MM/dd hh:mm:ss.SSS";
+		
+		DateFormat formatter = new SimpleDateFormat(dateFormat, Locale.JAPAN);
+//		DateFormat formatter = new SimpleDateFormat(dateFormat);
+		
+		// Create a calendar object that will convert the date and time value in milliseconds to date. 
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.setTimeInMillis(millSec);
+		
+		return formatter.format(calendar.getTime());
+		
+	}//conv_MillSec_to_TimeLabel(long millSec)
+	
 	public static void 
 	createTable_Patterns
 	(Activity actv, 
@@ -3784,6 +3804,178 @@ public static String
 		return res;
 		
 	}//add_WP_to_Memo
+
+	public static void 
+	start_Rec
+	(Activity actv) {
+		// TODO Auto-generated method stub
+	
+		////////////////////////////////
+
+		// validate: folder exists
+
+		////////////////////////////////
+		boolean res = Methods.conf_DirExists(actv, CONS.DB.dPath_Audio);
+		
+		if (res == false) {
+
+			String msg = "Can't setup folder";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		CONS.RecActv.mr = new MediaRecorder();
+		
+		CONS.RecActv.mr.setAudioSource(MediaRecorder.AudioSource.MIC);
+		
+		CONS.RecActv.mr.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+		
+		CONS.RecActv.mr.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+		
+		String filePath = String.format("%s/%s%s", 
+					CONS.DB.dPath_Audio, 
+					Methods.conv_MillSec_to_AudioFileLabel(Methods.getMillSeconds_now()),
+					CONS.DB.fname_Audio_Ext
+		);
+		
+		CONS.RecActv.mr.setOutputFile(filePath);
+		
+	    try {
+	    	
+	    	CONS.RecActv.mr.prepare();
+	    	
+	    	// Log
+			String msg_Log = "prepare => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+	    	
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			// Log
+			String msg_Log = "Exception";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+	    
+	    CONS.RecActv.mr.start();	//録音開始
+	
+	    // Log
+		String msg_Log = "record => started";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//start_Rec
+
+	
+	/******************************
+		If the dir doesn't exist => create one
+	 ******************************/
+	private static boolean 
+	conf_DirExists
+	(Activity actv, String dpath) {
+		// TODO Auto-generated method stub
+
+		File d = new File(dpath);
+		
+		if (!d.exists()) {
+			
+			try {
+				
+				d.mkdirs();
+//				db_Backup.mkdir();
+				
+				/******************************
+					validate
+				 ******************************/
+				if (d.isDirectory()) {
+					
+					// Log
+					Log.d("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Folder created: " + d.getAbsolutePath());
+					
+				} else {
+					
+					// Log
+					String msg_Log = "Create folder => not successful: " + d.getAbsolutePath();
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					return false;
+					
+				}
+				
+			} catch (Exception e) {
+				
+				// Log
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+						.getLineNumber() + "]", 
+						"Create folder => Failed: " + d.getAbsolutePath());
+				
+				return false;
+				
+			}
+			
+		} else {//if (!d.exists())
+			
+			// Log
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Folder exists: " + d.getAbsolutePath());
+			
+		}//if (!d.exists())
+		
+		return true;
+		
+	}//conf_DirExists
+
+	public static void 
+	start_StopRec
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		if (CONS.RecActv.mr == null) {
+			
+			// Log
+			String msg_Log = "CONS.RecActv.mr => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// stop
+
+		////////////////////////////////
+		CONS.RecActv.mr.stop();
+		
+		CONS.RecActv.mr.release();
+		
+		// Log
+		String msg_Log = "CONS.RecActv.mr => released";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//start_StopRec
 
 	
 }//public class Methods

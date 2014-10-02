@@ -31,7 +31,9 @@ public class BO_TL implements OnTouchListener {
 	}
 
 //	@Override
-	public boolean onTouch(View v, MotionEvent event) {
+	public boolean 
+	onTouch
+	(View v, MotionEvent event) {
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		Tags.ButtonTags tag = (Tags.ButtonTags) v.getTag();
 		
@@ -44,6 +46,13 @@ public class BO_TL implements OnTouchListener {
 			
 			switch (tag) {
 			
+			case ACTV_REC_REC://----------------------------------------------------
+			case ACTV_REC_BACK://----------------------------------------------------
+				
+				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
 			case ACTV_MAIN_MEMO://----------------------------------------------------
 				
 				ib = (ImageButton) v;
@@ -153,6 +162,14 @@ public class BO_TL implements OnTouchListener {
 			
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
+			
+			case ACTV_REC_REC://----------------------------------------------------
+			case ACTV_REC_BACK://----------------------------------------------------
+				
+				v.setBackgroundColor(Color.WHITE);
+				
+				break;// case ib_up
+
 			case ACTV_MAIN_MEMO://----------------------------------------------------
 				
 				ib = (ImageButton) v;
@@ -258,7 +275,9 @@ public class BO_TL implements OnTouchListener {
 			
 			break;//case MotionEvent.ACTION_UP:
 		}//switch (event.getActionMasked())
+		
 		return false;
-	}
+		
+	}//onTouch
 
-}
+}//public class BO_TL implements OnTouchListener

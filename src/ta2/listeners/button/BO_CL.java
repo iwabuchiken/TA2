@@ -160,12 +160,79 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_REC_REC: //------------------------------
+			
+			case_ACTV_REC_REC();
+			
+			break;
+			
+		case ACTV_REC_STOP: //------------------------------
+			
+			case_ACTV_REC_STOP();
+			
+			break;
+			
+		case ACTV_REC_BACK: //------------------------------
+			
+			case_ACTV_REC_BACK();
+			
+			break;
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_REC_BACK() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// release
+
+		////////////////////////////////
+		if (CONS.RecActv.mr != null) {
+			
+			CONS.RecActv.mr.stop();
+			
+			CONS.RecActv.mr.release();
+			
+			// Log
+			String msg_Log = "CONS.RecActv.mr => released";
+			Log.d("RecActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+
+		////////////////////////////////
+
+		// finish
+
+		////////////////////////////////
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+		
+	}//case_ACTV_REC_BACK
+
+	private void 
+	case_ACTV_REC_STOP() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_StopRec(actv);
+		
+	}//case_ACTV_REC_STOP
+
+	private void 
+	case_ACTV_REC_REC() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Rec(actv);
+		
+	}//case_ACTV_REC_REC
 
 	private void case_ACTV_MAIN_VOICE() {
 		// TODO Auto-generated method stub

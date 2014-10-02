@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/actv_play_ll_controls"
+        android:id="@+id/actv_rec_ll_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -17,7 +17,7 @@
         android:gravity="center" >
 
         <Button
-            android:id="@+id/actv_play_bt_rec"
+            android:id="@+id/actv_rec_bt_rec"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
 		 />
 
         <Button
-            android:id="@+id/actv_play_bt_stop"
+            android:id="@+id/actv_rec_bt_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -47,10 +47,10 @@
             android:text="@string/commons_lbl_stop"
             android:textColor="@color/red"
             android:textSize="25sp"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
-            android:id="@+id/actv_play_bt_back"
+            android:id="@+id/actv_rec_bt_back"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

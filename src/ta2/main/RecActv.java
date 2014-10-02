@@ -5,6 +5,11 @@ import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.listeners.button.BO_CL;
+import ta2.listeners.button.BO_TL;
+import ta2.utils.CONS;
+import ta2.utils.Tags;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -95,6 +100,45 @@ public class RecActv extends Activity {
 		// Get: views
 
 		////////////////////////////////
+		////////////////////////////////
+
+		// rec
+
+		////////////////////////////////
+		Button bt_Rec = (Button) findViewById(R.id.actv_rec_bt_rec);
+		
+		bt_Rec.setTag(Tags.ButtonTags.ACTV_REC_REC);
+		
+		bt_Rec.setOnTouchListener(new BO_TL(this));
+		
+		bt_Rec.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// stop
+		
+		////////////////////////////////
+		Button bt_Stop = (Button) findViewById(R.id.actv_rec_bt_stop);
+		
+		bt_Stop.setTag(Tags.ButtonTags.ACTV_REC_STOP);
+		
+		bt_Stop.setOnTouchListener(new BO_TL(this));
+		
+		bt_Stop.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// back
+		
+		////////////////////////////////
+		Button bt_Back = (Button) findViewById(R.id.actv_rec_bt_back);
+		
+		bt_Back.setTag(Tags.ButtonTags.ACTV_REC_BACK);
+		
+		bt_Back.setOnTouchListener(new BO_TL(this));
+		
+		bt_Back.setOnClickListener(new BO_CL(this));
+		
 		
 	}//private void _onCreate_SetListeners()
 
@@ -167,10 +211,31 @@ public class RecActv extends Activity {
 	}//protected void onStart()
 
 	@Override
-	protected void onStop() {
+	protected void 
+	onStop() {
 		// TODO ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ黷ｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ\?�ｿｽ�ｿｽb?�ｿｽ�ｿｽh?�ｿｽ�ｿｽE?�ｿｽ�ｿｽX?�ｿｽ�ｿｽ^?�ｿｽ�ｿｽu
 		super.onStop();
-	}
+		
+		////////////////////////////////
+
+		// release
+
+		////////////////////////////////
+		if (CONS.RecActv.mr != null) {
+			
+			CONS.RecActv.mr.stop();
+			
+			CONS.RecActv.mr.release();
+			
+			// Log
+			String msg_Log = "CONS.RecActv.mr => released";
+			Log.d("RecActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+	}//onStop
 
 	@Override
 	public void onBackPressed() {

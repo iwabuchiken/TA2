@@ -110,10 +110,10 @@ public final class R {
         public static final int actv_memo_lv_2=0x7f0b0009;
         public static final int actv_memo_lv_3=0x7f0b000a;
         public static final int actv_memo_tv_num=0x7f0b000e;
-        public static final int actv_play_bt_back=0x7f0b0012;
-        public static final int actv_play_bt_rec=0x7f0b0010;
-        public static final int actv_play_bt_stop=0x7f0b0011;
-        public static final int actv_play_ll_controls=0x7f0b000f;
+        public static final int actv_rec_bt_back=0x7f0b0012;
+        public static final int actv_rec_bt_rec=0x7f0b0010;
+        public static final int actv_rec_bt_stop=0x7f0b0011;
+        public static final int actv_rec_ll_controls=0x7f0b000f;
         public static final int actv_showlist_ib_back=0x7f0b0016;
         public static final int actv_showlist_ib_bottom=0x7f0b0018;
         public static final int actv_showlist_ib_down=0x7f0b0017;

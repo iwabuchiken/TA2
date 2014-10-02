@@ -15,6 +15,7 @@ import ta2.tasks.Task_AudioTrack;
 import android.content.SharedPreferences;
 import android.media.AudioTrack;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -102,6 +103,10 @@ public class CONS {
 		public final static String dPath_Data = dPath_Data_Root + "/data";
 		
 		public final static String dPath_Log = dPath_Data_Root + "/log";
+		
+		public final static String dPath_Audio = dPath_Data_Root + "/audio";
+		
+		public final static String fname_Audio_Ext = ".wav";
 		
 		public static String dPath_dbFile_backup_IFM11 = 
 				"/mnt/sdcard-ext/ifm11_backup";
@@ -527,8 +532,8 @@ public class CONS {
 		public static final int vibLength_click = 35;
 		
 		public static final String format_Date = "yyyy/MM/dd HH:mm:ss.SSS";
-//		public static final String format_Date = "yyyy/MM/dd hh:mm:ss.SSS";
-//		public static final String date_Format = "yyyy/MM/dd hh:mm:ss.SSS";
+		
+		public static final String format_Date_AudioFile = "yyyy-MM-dd_HH-mm-ss-SSS";
 		
 		public static final String format_Clock = "%02d:%02d";
 		
@@ -677,6 +682,12 @@ public class CONS {
 		
 	}//Enums
 
+	public static class RecActv {
+	
+		public static MediaRecorder mr;
+		
+	}
+	
 	public static class 
 	PrefActv {
 		
