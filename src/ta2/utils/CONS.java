@@ -554,6 +554,13 @@ public class CONS {
 		
 		public static String dpath_Storage_Camera = "/mnt/sdcard-ext/dcim/Camera";
 		
+		////////////////////////////////
+
+		// RecActv
+
+		////////////////////////////////
+		public static String fpath_AudioRecorded;
+		
 	}
 	
 	public static class Retval {

@@ -222,7 +222,7 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_REC_STOP() {
 		// TODO Auto-generated method stub
 		
-		Methods.start_StopRec(actv);
+		Methods.recActv_Stop(actv);
 		
 	}//case_ACTV_REC_STOP
 
@@ -230,7 +230,7 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_REC_REC() {
 		// TODO Auto-generated method stub
 		
-		Methods.start_Rec(actv);
+		Methods.recActv_Rec(actv);
 		
 	}//case_ACTV_REC_REC
 

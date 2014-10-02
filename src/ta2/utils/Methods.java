@@ -469,6 +469,53 @@ public class Methods {
 	
 	}//get_Dirname
 
+	public static String 
+	get_Filename
+	(Activity actv, String target) {
+		
+		String[] tokens = target.split(File.separator);
+		
+		////////////////////////////////
+		
+		// tokens => null
+		
+		////////////////////////////////
+		if (tokens == null) {
+			
+			// Log
+			String msg_Log = "tokens => null";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return target;
+			
+		}
+		
+		////////////////////////////////
+		
+		// tokens => 1
+		
+		////////////////////////////////
+		if (tokens.length == 1) {
+			
+			return target;
+			
+		}
+		
+		////////////////////////////////
+		
+		// tokens > 1
+		
+		////////////////////////////////
+//		String[] tokens_New = Arrays.copyOfRange(tokens, 0, tokens.length - 1);
+		
+		return tokens[tokens.length - 1];
+		
+//		return StringUtils.join(tokens_New, File.separator);
+		
+	}//get_Dirname
+	
 	/****************************
 	 * deleteDirectory(File target)()
 	 * 
@@ -3806,7 +3853,7 @@ public static String
 	}//add_WP_to_Memo
 
 	public static void 
-	start_Rec
+	recActv_Rec
 	(Activity actv) {
 		// TODO Auto-generated method stub
 	
@@ -3873,6 +3920,13 @@ public static String
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// set: file name
+
+		////////////////////////////////
+		CONS.Paths.fpath_AudioRecorded = filePath;
 		
 	}//start_Rec
 
@@ -3944,7 +3998,7 @@ public static String
 	}//conf_DirExists
 
 	public static void 
-	start_StopRec
+	recActv_Stop
 	(Activity actv) {
 		// TODO Auto-generated method stub
 		
@@ -3974,6 +4028,76 @@ public static String
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// memo
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_rec_et);
+		
+		String memo = et.getText().toString();
+		
+		////////////////////////////////
+
+		// db
+
+		////////////////////////////////
+//		// Log
+//		msg_Log = "CONS.Paths.fname_AudioRecorded => " + CONS.Paths.fname_AudioRecorded;
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		String text = String.format("@%s %s", 
+						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
+//						CONS.Paths.fpath_AudioRecorded, 
+						memo);
+		
+		int res = DBUtils.save_Memo(actv, text);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+
+//		-1 insertion => failed
+//		-2 Exception
+//		1 text => inserted		
+		
+		case -1: 
+			
+			msg = "insertion => failed";
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Exception";
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "text => inserted";
+			colorID = R.color.green4;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID,
+				CONS.Admin.dflt_MessageDialog_Length);
 		
 	}//start_StopRec
 

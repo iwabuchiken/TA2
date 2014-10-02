@@ -48,6 +48,7 @@ public class BO_TL implements OnTouchListener {
 			
 			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_REC_BACK://----------------------------------------------------
+			case ACTV_REC_STOP://----------------------------------------------------
 				
 				v.setBackgroundColor(Color.GRAY);
 				
@@ -165,6 +166,7 @@ public class BO_TL implements OnTouchListener {
 			
 			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_REC_BACK://----------------------------------------------------
+			case ACTV_REC_STOP://----------------------------------------------------
 				
 				v.setBackgroundColor(Color.WHITE);
 				
