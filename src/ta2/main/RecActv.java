@@ -36,7 +36,7 @@ public class RecActv extends Activity {
 		////////////////////////////////
 		boolean res;
 		
-//		setContentView(R.layout.actv_play);
+		setContentView(R.layout.actv_rec);
 
 		this.setTitle(this.getClass().getName());
 
@@ -175,9 +175,9 @@ public class RecActv extends Activity {
 	@Override
 	public void onBackPressed() {
 		
-//		this.finish();
-//		
-//		overridePendingTransition(0, 0);
+		this.finish();
+		
+		overridePendingTransition(0, 0);
 		
 	}//public void onBackPressed()
 

@@ -240,6 +240,20 @@ public class MainActv extends Activity {
 		bt_ShowList.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
+		
+		// IB: voice memo
+		
+		////////////////////////////////
+		ImageButton bt_Voice = 
+				(ImageButton) this.findViewById(R.id.actv_main_ib_voice);
+		
+		bt_Voice.setTag(Tags.ButtonTags.ACTV_MAIN_VOICE);
+		
+		bt_Voice.setOnTouchListener(new BO_TL(this));
+		
+		bt_Voice.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
 
 		// LL: base
 

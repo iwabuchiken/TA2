@@ -81,6 +81,7 @@ import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
+import ta2.main.RecActv;
 import ta2.main.ShowListActv;
 import ta2.tasks.Task_AudioTrack;
 
@@ -903,6 +904,20 @@ public static String
 		actv.startActivity(i);
 		
 	}//start_Activity_PrefActv
+	
+	public static void 
+	start_Activity_RecActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, RecActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_RecActv
 	
 	public static void 
 	start_Activity_ShowListActv
