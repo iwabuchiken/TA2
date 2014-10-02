@@ -13,6 +13,7 @@ import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 
 import android.content.SharedPreferences;
+import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -694,6 +695,20 @@ public class CONS {
 		public static MediaRecorder mr;
 		
 		public static Recorder rc;
+		
+		public static final String AUDIO_RECORDER_FOLDER = CONS.DB.dPath_Audio;
+		
+		public static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
+		
+		public static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
+		
+		public static final int RECORDER_SAMPLERATE = 44100;
+		public static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_STEREO;
+		public static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
+		
+		public int bufferSize = 0;
+		public Thread recordingThread = null;
+		public boolean isRecording = false;
 		
 	}
 	

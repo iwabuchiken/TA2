@@ -38,39 +38,72 @@ public class Recorder {
 
 	public String getFilename(){
 		
-		String filepath = CONS.DB.dPath_Audio;
+//		String filepath = CONS.DB.dPath_Audio;
 		
 //		String filepath = Environment.getExternalStorageDirectory().getPath();
 		
-		File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+		File file = new File(CONS.RecActv.AUDIO_RECORDER_FOLDER);
+//		File file = new File(filepath,AUDIO_RECORDER_FOLDER);
 		
 		if(!file.exists()){
 		        file.mkdirs();
 		}
 		
-		return (file.getAbsolutePath() + "/" + System.currentTimeMillis() + AUDIO_RECORDER_FILE_EXT_WAV);
+		return (file.getAbsolutePath() 
+					+ "/" 
+					+ System.currentTimeMillis() 
+					+ CONS.RecActv.AUDIO_RECORDER_FILE_EXT_WAV);
+		
 	}
 
 	private String getTempFilename(){
 		
-		String filepath = CONS.DB.dPath_Audio;
+		String dirpath = CONS.DB.dPath_Audio;
 		
 //		String filepath = Environment.getExternalStorageDirectory().getPath();
-		File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+		File file = new File(CONS.RecActv.AUDIO_RECORDER_FOLDER);
+//		File file = new File(filepath,AUDIO_RECORDER_FOLDER);
 		
 		if(!file.exists()){
 		        file.mkdirs();
 		}
 		
-		File tempFile = new File(filepath,AUDIO_RECORDER_TEMP_FILE);
+		File tempFile = new File(dirpath,CONS.RecActv.AUDIO_RECORDER_TEMP_FILE);
 		
-		if(tempFile.exists())
-				tempFile.delete();
+//		if(tempFile.exists())
+//				tempFile.delete();
 		
-		return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_TEMP_FILE);
+		return (file.getAbsolutePath() + "/" + CONS.RecActv.AUDIO_RECORDER_TEMP_FILE);
+		
 	}
 
-	public void startRecording(){
+	public void startRecording() {
+		
+		////////////////////////////////
+
+		// validate: any temp file?
+
+		////////////////////////////////
+		String dirpath = CONS.DB.dPath_Audio;
+		
+		File tempFile = new File(dirpath,CONS.RecActv.AUDIO_RECORDER_TEMP_FILE);
+		
+		if(tempFile.exists()) {
+			
+			tempFile.delete();
+			
+			// Log
+			String msg_Log = "temp file => deleted: " + tempFile.getAbsolutePath();
+			Log.d("Recorder.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		////////////////////////////////
+
+		// recorder
+
+		////////////////////////////////
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
                                         RECORDER_SAMPLERATE, RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING, bufferSize);
         
@@ -92,6 +125,13 @@ public class Recorder {
 	
 	private void 
 	writeAudioDataToFile(){
+		
+		// Log
+		String msg_Log = "writeAudioDataToFile";
+		Log.d("Recorder.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
         byte data[] = new byte[bufferSize];
         String filename = getTempFilename();
         FileOutputStream os = null;
@@ -100,6 +140,13 @@ public class Recorder {
                 os = new FileOutputStream(filename);
         } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
+        	
+        	// Log
+			msg_Log = "FileNotFoundException";
+			Log.e("Recorder.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+        	
                 e.printStackTrace();
         }
         
@@ -151,7 +198,16 @@ public class Recorder {
         file.delete();
 	}
 	
-	private void copyWaveFile(String inFilename,String outFilename){
+	private void 
+	copyWaveFile
+	(String inFilename,String outFilename) {
+		
+		// Log
+		String msg_Log = "inFilename => " + inFilename;
+		Log.d("Recorder.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
         FileInputStream in = null;
         FileOutputStream out = null;
         long totalAudioLen = 0;
@@ -180,11 +236,34 @@ public class Recorder {
                 in.close();
                 out.close();
         } catch (FileNotFoundException e) {
+        	
+        	// Log
+			msg_Log = "FileNotFoundException";
+			Log.e("Recorder.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
                 e.printStackTrace();
+                
         } catch (IOException e) {
+        	
+        	// Log
+			msg_Log = "IOException";
+			Log.e("Recorder.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+        	
                 e.printStackTrace();
+                
         }
-	}
+        
+        // Log
+		msg_Log = "outFilename => " + outFilename;
+		Log.d("Recorder.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+        
+	}//copyWaveFile
 	
 	private void WriteWaveFileHeader(
             FileOutputStream out, long totalAudioLen,
@@ -241,7 +320,12 @@ public class Recorder {
 	    out.write(header, 0, 44);
 	}
 
-	public int getState() {
+	/******************************
+		@return
+			-10	recorder => null<br>
+	 ******************************/
+	public int 
+	getState() {
 		
 		if (this.recorder == null) {
 			
@@ -262,5 +346,6 @@ public class Recorder {
 		////////////////////////////////
 		return recorder.getState();
 
-	}
+	}//getState
+	
 }//public class Recorder
