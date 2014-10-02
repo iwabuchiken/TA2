@@ -3853,6 +3853,49 @@ public static String
 	}//add_WP_to_Memo
 
 	public static void 
+	recActv_Rec_2
+	(Activity actv) {
+		////////////////////////////////
+
+		// validate: null?
+
+		////////////////////////////////
+//		if (CONS.RecActv.rc != null) {
+//			
+//			// Log
+//			String msg_Log = "CONS.RecActv.rc => not null";
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return;
+//			
+//		}
+		
+		////////////////////////////////
+
+		// record
+
+		////////////////////////////////
+		CONS.RecActv.rc = new Recorder();
+		
+		CONS.RecActv.rc.startRecording();
+
+		// Log
+		String msg_Log = "CONS.RecActv.rc => started recording";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		// Log
+		msg_Log = "state => " + CONS.RecActv.rc.getState();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//recActv_Rec_2
+	
+	public static void 
 	recActv_Rec
 	(Activity actv) {
 		// TODO Auto-generated method stub
@@ -3997,6 +4040,54 @@ public static String
 		
 	}//conf_DirExists
 
+	public static void 
+	recActv_Stop_2
+	(Activity actv) {
+		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (CONS.RecActv.rc == null) {
+			
+			// Log
+			String msg_Log = "CONS.RecActv.rc => null";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "state => " + CONS.RecActv.rc.getState();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// stop
+
+		////////////////////////////////
+		CONS.RecActv.rc.stopRecording();
+		
+		// Log
+		msg_Log = "CONS.RecActv.rc => stopped";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		// Log
+		msg_Log = "state => " + CONS.RecActv.rc.getState();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//recActv_Stop_2
+	
 	public static void 
 	recActv_Stop
 	(Activity actv) {

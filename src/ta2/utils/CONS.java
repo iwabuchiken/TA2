@@ -693,6 +693,8 @@ public class CONS {
 	
 		public static MediaRecorder mr;
 		
+		public static Recorder rc;
+		
 	}
 	
 	public static class 
