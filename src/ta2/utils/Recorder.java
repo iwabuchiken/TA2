@@ -36,7 +36,7 @@ public class Recorder {
 		
 	}
 
-	private String getFilename(){
+	public String getFilename(){
 		
 		String filepath = CONS.DB.dPath_Audio;
 		

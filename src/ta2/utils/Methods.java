@@ -3892,7 +3892,14 @@ public static String
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-		
+
+		////////////////////////////////
+
+		// set: file name
+
+		////////////////////////////////
+		CONS.Paths.fpath_AudioRecorded = CONS.RecActv.rc.getFilename();
+
 	}//recActv_Rec_2
 	
 	public static void 
@@ -4085,7 +4092,77 @@ public static String
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// memo
+
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_rec_et);
 		
+		String memo = et.getText().toString();
+		
+		////////////////////////////////
+
+		// db
+
+		////////////////////////////////
+//		// Log
+//		msg_Log = "CONS.Paths.fname_AudioRecorded => " + CONS.Paths.fname_AudioRecorded;
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		String text = String.format("@%s %s", 
+						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
+//						CONS.Paths.fpath_AudioRecorded, 
+						memo);
+		
+		int res = DBUtils.save_Memo(actv, text);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+
+//		-1 insertion => failed
+//		-2 Exception
+//		1 text => inserted		
+		
+		case -1: 
+			
+			msg = "insertion => failed";
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Exception";
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "text => inserted";
+			colorID = R.color.green4;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_Duration(
+				actv, 
+				msg,
+				colorID,
+				CONS.Admin.dflt_MessageDialog_Length);
+
 	}//recActv_Stop_2
 	
 	public static void 
