@@ -49,10 +49,27 @@ public class Recorder {
 		        file.mkdirs();
 		}
 		
-		return (file.getAbsolutePath() 
-					+ "/" 
-					+ System.currentTimeMillis() 
-					+ CONS.RecActv.AUDIO_RECORDER_FILE_EXT_WAV);
+		String fname = String.format("%s/%s%s", 
+				file.getAbsolutePath(), 
+				Methods.conv_MillSec_to_AudioFileLabel(Methods.getMillSeconds_now()),
+				CONS.DB.fname_Audio_Ext);
+		
+		// Log
+		String msg_Log = "fname => " + fname;
+		Log.d("Recorder.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		return fname;
+//		return String.format("%s/%s%s", 
+//				file.getAbsolutePath(), 
+//				Methods.conv_MillSec_to_AudioFileLabel(Methods.getMillSeconds_now()),
+//				CONS.DB.fname_Audio_Ext);
+		
+//		return (file.getAbsolutePath() 
+//				+ "/" 
+//				+ System.currentTimeMillis() 
+//				+ CONS.RecActv.AUDIO_RECORDER_FILE_EXT_WAV);
 		
 	}
 
