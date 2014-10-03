@@ -178,11 +178,49 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PLAY_PLAY: //------------------------------
+			
+			case_ACTV_PLAY_PLAY();
+			
+			break;
+			
+		case ACTV_PLAT_STOP: //------------------------------
+			
+			case_ACTV_PLAT_STOP();
+			
+			break;
+			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_PLAT_STOP() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_ACTV_PLAT_STOP";
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//case_ACTV_PLAT_STOP
+
+	private void 
+	case_ACTV_PLAY_PLAY() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_ACTV_PLAY_PLAY";
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		Methods.play_File(actv);
+		
+	}//ACTV_PLAT_PLAY
 
 	private void 
 	case_ACTV_REC_BACK() {

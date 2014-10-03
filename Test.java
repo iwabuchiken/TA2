@@ -17,13 +17,15 @@ public class Test {
 		
 //		System.out.println("regex");
 		
-		String fmt_FileName_PlayMemo = "2014";	// 
+//		String fmt_FileName_PlayMemo = "2014";	// 
 //		String fmt_FileName_PlayMemo = "\\d{4}";	// not
 //		String fmt_FileName_PlayMemo = "^\\@";	// not
 //		String fmt_FileName_PlayMemo = "^@";	// not
 //		String fmt_FileName_PlayMemo = "^@\\d{4}";	// not
+		String fmt_FileName_PlayMemo = "^@\\d{4}.+wav";	// not
 		
-		String text = "@2014-10-03_10-01-45-933.wav";
+//		String text = "@2014-10-03_10-01-45-933.wav";
+		String text = "@2014-10-03_10-01-45-933.wav :N :DONE";
 		
 		Pattern p = Pattern.compile(fmt_FileName_PlayMemo);
 		
@@ -33,6 +35,8 @@ public class Test {
 //			if (m.matches()) {
 			
 			System.out.println("matches");
+			
+			System.out.println("m.group(0) => " + m.group(0));
 			
 		} else {
 			
