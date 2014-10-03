@@ -206,6 +206,23 @@ public class PlayActv extends Activity {
 		
 		super.onDestroy();
 		
+		////////////////////////////////
+
+		// release mp
+
+		////////////////////////////////
+		if (CONS.PlayActv.mp != null) {
+			
+			CONS.PlayActv.mp.release();
+			
+			// Log
+			String msg_Log = "player => released";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
 		/***************************************
 		 * Finish activity
 		 ***************************************/
@@ -390,6 +407,8 @@ public class PlayActv extends Activity {
 	protected void onStop() {
 		// TODO ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ黷ｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ\?�ｿｽ�ｿｽb?�ｿｽ�ｿｽh?�ｿｽ�ｿｽE?�ｿｽ�ｿｽX?�ｿｽ�ｿｽ^?�ｿｽ�ｿｽu
 		super.onStop();
+		
+		
 	}
 
 	@Override

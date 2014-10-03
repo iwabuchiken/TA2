@@ -4597,18 +4597,18 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Player => Stopped");
 			
-			////////////////////////////////
-
-			// release
-
-			////////////////////////////////
-			CONS.PlayActv.mp.release();
-			
-			// Log
-			String msg_Log = "player => released";
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+//			////////////////////////////////
+//
+//			// release
+//
+//			////////////////////////////////
+//			CONS.PlayActv.mp.release();
+//			
+//			// Log
+//			String msg_Log = "player => released";
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
 			
 //			/***************************************
 //			 * Stop: Service
