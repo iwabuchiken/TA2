@@ -67,16 +67,20 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/darkgreen"
-        android:gravity="center_vertical|center_horizontal" >
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="3dp"
+        android:paddingLeft="10dp" >
 
-        <ImageButton
-            android:id="@+id/actv_memo_ib_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
+        <TextView
+            android:id="@+id/actv_memo_tv_num"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@color/darkgreen"
-            android:src="@drawable/actv_memo_ib_back_49x37" />
+            android:background="@color/white"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="25sp" />
 
         <ImageButton
             android:id="@+id/actv_memo_ib_save"
@@ -96,16 +100,14 @@
             android:background="@color/darkgreen"
             android:src="@drawable/actv_memo_ib_clear_41x50" />
 
-        <TextView
-            android:id="@+id/actv_memo_tv_num"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dp"
+        <ImageButton
+            android:id="@+id/actv_memo_ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" />
+            android:background="@color/darkgreen"
+            android:src="@drawable/actv_memo_ib_back_49x37" />
 
     </LinearLayout>
     

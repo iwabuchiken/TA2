@@ -2,12 +2,19 @@ package ta2.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.adapters.Adp_WordPatterns;
+import ta2.comps.Comp_WP;
+import ta2.listeners.LOI_CL;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
+import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 
 import android.app.Activity;
@@ -17,13 +24,17 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,12 +89,12 @@ public class RecActv extends Activity {
 //			
 //		}
 
-		////////////////////////////////
-
-		// Setup: listeners
-
-		////////////////////////////////
-		_onCreate_SetListeners();
+//		////////////////////////////////
+//
+//		// Setup: listeners
+//
+//		////////////////////////////////
+//		_Setup_SetListeners();
 		
 		
 	}//public void onCreate(Bundle savedInstanceState)
@@ -94,7 +105,7 @@ public class RecActv extends Activity {
 	}
 
 	private void 
-	_onCreate_SetListeners() {
+	_Setup_Listeners() {
 		// TODO Auto-generated method stub
 		////////////////////////////////
 
@@ -144,11 +155,524 @@ public class RecActv extends Activity {
 	}//private void _onCreate_SetListeners()
 
 	private boolean
-	_onCreate_SetupViews() {
+	_Setup_SetupViews() {
 
+		////////////////////////////////
+
+		// ib: stop
+
+		////////////////////////////////
+		ImageButton ib_Stop = (ImageButton) findViewById(R.id.actv_rec_bt_stop);
+		
+		ib_Stop.setEnabled(false);
+		
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		
+		
+		
 		return false;
 		
 	}//_onCreate_SetupViews()
+
+	private void 
+	_Setup_Layout() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+//		final int layout_MemoActv_LV_Height = 50;	// X out of 100
+		
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_rec_ll_listview);
+//		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_memo_ll_listview);
+		
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+		DisplayMetrics displayMetrics = this.getResources()
+                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		// Log
+		String msg_Log = "w => " + w;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		int layout_Width = w * CONS.MemoActv.layout_MemoActv_LV_Height / 100;
+//		int layout_Width = w * layout_MemoActv_LV_Height / 100;
+
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								layout_Width
+				);
+//		LayoutParams.WRAP_CONTENT);
+		
+		params.setMargins(20, 10, 20, 30);
+
+		ll_LV.setLayoutParams(params);
+		
+//		////////////////////////////////
+//
+//		// EditText
+//
+//		////////////////////////////////
+//		EditText et = (EditText) this.findViewById(R.id.actv_memo_et);
+//
+//		String text = et.getText().toString();
+//		
+//		if (text != null && text.length() > 0) {
+//			
+//			et.setSelection(text.length());
+//			
+//		}
+		
+	}//_Setup_Layout
+
+	private boolean 
+	_Setup_Lists() {
+		// TODO Auto-generated method stub
+		boolean res;
+		
+		res = _Setup_List_1();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_1 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		// List 2
+		res = _Setup_List_2();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_2 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		// List 3
+		res = _Setup_List_3();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_3 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		return true;
+		
+	}//_Setup_Lists
+
+	/******************************
+		List: Symbols
+	 ******************************/
+	private boolean 
+	_Setup_List_1() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+	
+		// vars
+	
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+	
+		// build list
+	
+		////////////////////////////////
+		CONS.MemoActv.list_WP_1 = DBUtils.find_All_WP_symbols(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_1 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_1.size() => " 
+						+ CONS.MemoActv.list_WP_1.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_1, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+	
+		Collections.sort(
+				CONS.MemoActv.list_WP_1, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+	
+		////////////////////////////////
+	
+		// adapter
+	
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_1 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_1
+				);
+	
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_1 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_1 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+	
+		// set adapter
+	
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_rec_lv_1);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_1.setAdapter(CONS.MemoActv.adp_WPList_1);
+		
+		return true;
+		
+	}//_Setup_List
+
+	/******************************
+		List: Tags
+	 ******************************/
+	private boolean 
+	_Setup_List_2() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_2 = DBUtils.find_All_WP_tags(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_2 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_2.size() => " 
+				+ CONS.MemoActv.list_WP_2.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_2, 
+						new Comp_WP(
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_2, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_2 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_2 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_2
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_2 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_2 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_rec_lv_2);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_2.setAdapter(CONS.MemoActv.adp_WPList_2);
+		
+		return true;
+		
+	}//_Setup_List_2
+
+	/******************************
+		List: Literals
+	 ******************************/
+	private boolean 
+	_Setup_List_3() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_3 = DBUtils.find_All_WP_literals(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_3 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_3.size() => " 
+				+ CONS.MemoActv.list_WP_3.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_3, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_3, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+	//					CONS.Enums.SortOrder.ASC
+						));
+	
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_3 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_3 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_3
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_3 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_3 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_rec_lv_3);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_3.setAdapter(CONS.MemoActv.adp_WPList_3);
+		
+		return true;
+		
+	}//_Setup_List_3
+
+	private boolean 
+	_Setup_Listeners_LVs() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// view: list 1
+
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_rec_lv_1);
+		
+		lv_1.setTag(Tags.ListTags.ACTV_REC_LV_1);
+		
+		lv_1.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_1.setOnItemLongClickListener(new LOI_LCL(this));
+		
+		////////////////////////////////
+		
+		// view: list 2
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_rec_lv_2);
+		
+		lv_2.setTag(Tags.ListTags.ACTV_REC_LV_2);
+		
+		lv_2.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_2.setOnItemLongClickListener(new LOI_LCL(this));
+		
+		////////////////////////////////
+		
+		// view: list 3
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_rec_lv_3);
+		
+		lv_3.setTag(Tags.ListTags.ACTV_REC_LV_3);
+		
+		lv_3.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_3.setOnItemLongClickListener(new LOI_LCL(this));
+
+		
+		return false;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,6 +732,40 @@ public class RecActv extends Activity {
 		 *********************************/
 		super.onStart();
 		
+		////////////////////////////////
+
+		// Setup: listeners
+
+		////////////////////////////////
+		_Setup_Listeners();
+
+		////////////////////////////////
+
+		// layout
+
+		////////////////////////////////
+		this._Setup_Layout();
+		
+		////////////////////////////////
+
+		// views
+
+		////////////////////////////////
+		this._Setup_SetupViews();
+		
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		this._Setup_Lists();
+		
+		////////////////////////////////
+
+		// listeners: listviews
+
+		////////////////////////////////
+		this._Setup_Listeners_LVs();
 		
 	}//protected void onStart()
 

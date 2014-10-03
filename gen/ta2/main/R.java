@@ -105,7 +105,7 @@ public final class R {
         public static final int actv_main_ib_voice=0x7f0b0004;
         public static final int actv_main_ll_base=0x7f0b0000;
         public static final int actv_memo_et=0x7f0b0006;
-        public static final int actv_memo_ib_back=0x7f0b000b;
+        public static final int actv_memo_ib_back=0x7f0b000e;
         public static final int actv_memo_ib_clear=0x7f0b000d;
         public static final int actv_memo_ib_save=0x7f0b000c;
         public static final int actv_memo_ll_base=0x7f0b0005;
@@ -113,7 +113,7 @@ public final class R {
         public static final int actv_memo_lv_1=0x7f0b0008;
         public static final int actv_memo_lv_2=0x7f0b0009;
         public static final int actv_memo_lv_3=0x7f0b000a;
-        public static final int actv_memo_tv_num=0x7f0b000e;
+        public static final int actv_memo_tv_num=0x7f0b000b;
         public static final int actv_play_bt_back=0x7f0b001b;
         public static final int actv_play_bt_backward=0x7f0b0018;
         public static final int actv_play_bt_forward=0x7f0b001c;

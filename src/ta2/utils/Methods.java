@@ -3798,6 +3798,55 @@ public static String
 			1 update => executed<br>
 	 ******************************/
 	public static int 
+	add_WP_to_Memo_SpecialChars_RecActv
+	(Activity actv, EditText et, WordPattern item) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// build: text
+		
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/3609174/android-insert-text-into-edittext-at-current-position answered Aug 31 '10 at 15:32
+		int pos_Current = et.getSelectionStart();
+		
+		String tmp = et.getText().toString();
+		
+		tmp = tmp.substring(0, pos_Current) +
+				" " + 
+				item.getWord() + 
+				" "
+				+ tmp.substring(pos_Current);
+		
+		////////////////////////////////
+		
+		// set
+		
+		////////////////////////////////
+		et.setText(tmp);
+		
+		// + 1 => space length
+		et.setSelection(pos_Current + 2);
+		//	et.setSelection(tmp.length());
+		
+		////////////////////////////////
+		
+		// update: used
+		
+		////////////////////////////////
+		int res = Methods.update_Pattern_Used(actv, item.getDb_Id());
+		
+		return res;
+		
+	}//add_WP_to_Memo_SpecialChars_RecActv
+	
+	/******************************
+		@return
+			-1 find pattern => failed<br>
+			-2 SQLException<br>
+			1 update => executed<br>
+	 ******************************/
+	public static int 
 	add_WP_to_Memo
 	(Activity actv, EditText et, WordPattern item) {
 		// TODO Auto-generated method stub

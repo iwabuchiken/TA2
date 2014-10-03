@@ -317,6 +317,19 @@ public class PlayActv extends Activity {
 		
 		ib_Stop.setOnClickListener(new BO_CL(this));
 		
+		////////////////////////////////
+		
+		// IB: stop
+		
+		////////////////////////////////
+		ImageButton ib_Back = (ImageButton) this.findViewById(R.id.actv_play_bt_back);
+		
+		ib_Back.setTag(Tags.ButtonTags.ACTV_PLAY_BACK);
+		
+		ib_Back.setOnTouchListener(new BO_TL(this));
+		
+		ib_Back.setOnClickListener(new BO_CL(this));
+		
 	}//_Setup_Listeners
 	
 
