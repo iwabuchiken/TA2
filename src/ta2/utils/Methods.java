@@ -3875,7 +3875,18 @@ public static String
 		ib_Stop.setImageResource(R.drawable.actv_rec_stop);
 		
 		ib_Stop.setEnabled(true);
-		
+
+		////////////////////////////////
+
+		// set: file name
+
+		////////////////////////////////
+		CONS.Paths.fpath_AudioRecorded = String.format("%s/%s%s", 
+								CONS.DB.dPath_Audio, 
+								Methods.conv_MillSec_to_AudioFileLabel(
+											Methods.getMillSeconds_now()),
+								CONS.DB.fname_Audio_Ext);;
+
 		////////////////////////////////
 
 		// record
@@ -3897,12 +3908,18 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
-		////////////////////////////////
-
-		// set: file name
-
-		////////////////////////////////
-		CONS.Paths.fpath_AudioRecorded = CONS.RecActv.rc.getFilename();
+//		////////////////////////////////
+//
+//		// set: file name
+//
+//		////////////////////////////////
+//		CONS.Paths.fpath_AudioRecorded = String.format("%s/%s%s", 
+//								CONS.DB.dPath_Audio, 
+//								Methods.conv_MillSec_to_AudioFileLabel(
+//											Methods.getMillSeconds_now()),
+//								CONS.DB.fname_Audio_Ext);;
+								
+//		CONS.Paths.fpath_AudioRecorded = CONS.RecActv.rc.getFilename();
 //		CONS.Paths.fpath_AudioRecorded = filePath;
 
 	}//recActv_Rec_2
@@ -4138,15 +4155,16 @@ public static String
 		String text = String.format(CONS.RecActv.fmt_FileName, 
 //				String text = String.format("@%s %s", 
 						 
-						Methods.get_Filename(actv, CONS.RecActv.fname_Generated_WavFile), 
-//						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
+//						Methods.get_Filename(actv, CONS.RecActv.fname_Generated_WavFile), 
+						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
 //						CONS.Paths.fpath_AudioRecorded, 
 						memo);
 		
 		int res = DBUtils.save_Memo(actv, text);
 		
 		// null => CONS.RecActv.fname_Generated_WavFile
-		CONS.RecActv.fname_Generated_WavFile = null;
+//		CONS.RecActv.fname_Generated_WavFile = null;
+		CONS.Paths.fpath_AudioRecorded = null;
 		
 		////////////////////////////////
 

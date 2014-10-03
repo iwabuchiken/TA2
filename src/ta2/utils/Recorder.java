@@ -49,13 +49,15 @@ public class Recorder {
 		        file.mkdirs();
 		}
 		
-		String fname = String.format("%s/%s%s", 
-				file.getAbsolutePath(), 
-				Methods.conv_MillSec_to_AudioFileLabel(Methods.getMillSeconds_now()),
-				CONS.DB.fname_Audio_Ext);
+		String fname = CONS.Paths.fpath_AudioRecorded, 
+				
+//		String fname = String.format("%s/%s%s", 
+//				file.getAbsolutePath(), 
+//				Methods.conv_MillSec_to_AudioFileLabel(Methods.getMillSeconds_now()),
+//				CONS.DB.fname_Audio_Ext);
 		
 		// Log
-		String msg_Log = "fname => " + fname;
+		msg_Log = "fname => " + fname;
 		Log.d("Recorder.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
@@ -65,7 +67,7 @@ public class Recorder {
 		// set: file name => use the name in memo.text
 
 		////////////////////////////////
-		CONS.RecActv.fname_Generated_WavFile = fname;
+//		CONS.RecActv.fname_Generated_WavFile = fname;
 		
 		////////////////////////////////
 
