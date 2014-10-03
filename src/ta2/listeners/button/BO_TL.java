@@ -46,11 +46,28 @@ public class BO_TL implements OnTouchListener {
 			
 			switch (tag) {
 			
-			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_REC_BACK://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37_disabled);
+				
+				break;// case ib_up
+				
 			case ACTV_REC_STOP://----------------------------------------------------
 				
-				v.setBackgroundColor(Color.GRAY);
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_rec_stop);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
+			case ACTV_REC_REC://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_rec_rec_recording);
+				
+//				v.setBackgroundColor(Color.GRAY);
 				
 				break;// case ib_up
 				
@@ -164,14 +181,31 @@ public class BO_TL implements OnTouchListener {
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
 			
-			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_REC_BACK://----------------------------------------------------
-			case ACTV_REC_STOP://----------------------------------------------------
 				
-				v.setBackgroundColor(Color.WHITE);
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37);
 				
 				break;// case ib_up
 
+			case ACTV_REC_STOP://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_rec_stop_not_in_use);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
+			case ACTV_REC_REC://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_rec_rec);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
 			case ACTV_MAIN_MEMO://----------------------------------------------------
 				
 				ib = (ImageButton) v;

@@ -11,4 +11,7 @@
 11	general_ib_clear_yellow_64x64.png	edit_clear (1).png	http://findicons.com/icon/94106/edit_clear
 12	general_ib_cancel_red_64x64.png	edit_undo.png	http://findicons.com/icon/203546/edit_undo
 13	menu_memo_patterns_32x32.png	kwikdisk.png	http://findicons.com/icon/226916/kwikdisk
-14	
+14	actv_rec_rec.png	multimedia.xcf	http://www.flaticon.com/free-icon/recorder-microphone_16276
+15	http://www.flaticon.com/free-icon/multimedia-stop-button_88
+16	actv_rec_stop.png	multimedia.xcf	http://www.flaticon.com/free-icon/multimedia-stop-button_88
+17

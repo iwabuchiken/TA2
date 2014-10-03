@@ -3857,20 +3857,21 @@ public static String
 	(Activity actv) {
 		////////////////////////////////
 
-		// validate: null?
+		// change icon
 
 		////////////////////////////////
-//		if (CONS.RecActv.rc != null) {
-//			
-//			// Log
-//			String msg_Log = "CONS.RecActv.rc => not null";
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			return;
-//			
-//		}
+		ImageButton ib_Rec = (ImageButton) actv.findViewById(R.id.actv_rec_bt_rec);
+		
+		ib_Rec.setImageResource(R.drawable.actv_rec_rec_recording);
+		
+		ib_Rec.setEnabled(false);
+
+		// stop
+		ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_rec_bt_stop);
+		
+		ib_Stop.setImageResource(R.drawable.actv_rec_stop);
+		
+		ib_Stop.setEnabled(true);
 		
 		////////////////////////////////
 
@@ -4050,7 +4051,6 @@ public static String
 	public static void 
 	recActv_Stop_2
 	(Activity actv) {
-		
 		////////////////////////////////
 
 		// validate
@@ -4093,6 +4093,24 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
+		////////////////////////////////
+
+		// change icon
+
+		////////////////////////////////
+		ImageButton ib_Rec = (ImageButton) actv.findViewById(R.id.actv_rec_bt_rec);
+		
+		ib_Rec.setImageResource(R.drawable.actv_rec_rec);
+
+		ib_Rec.setEnabled(true);
+
+		// stop
+		ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_rec_bt_stop);
+		
+		ib_Stop.setImageResource(R.drawable.actv_rec_stop_not_in_use);
+		
+		ib_Stop.setEnabled(false);
+		
 		////////////////////////////////
 
 		// memo

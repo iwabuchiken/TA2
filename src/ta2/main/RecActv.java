@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -105,39 +106,39 @@ public class RecActv extends Activity {
 		// rec
 
 		////////////////////////////////
-		Button bt_Rec = (Button) findViewById(R.id.actv_rec_bt_rec);
+		ImageButton ib_Rec = (ImageButton) findViewById(R.id.actv_rec_bt_rec);
 		
-		bt_Rec.setTag(Tags.ButtonTags.ACTV_REC_REC);
+		ib_Rec.setTag(Tags.ButtonTags.ACTV_REC_REC);
 		
-		bt_Rec.setOnTouchListener(new BO_TL(this));
+		ib_Rec.setOnTouchListener(new BO_TL(this));
 		
-		bt_Rec.setOnClickListener(new BO_CL(this));
+		ib_Rec.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
 		
 		// stop
 		
 		////////////////////////////////
-		Button bt_Stop = (Button) findViewById(R.id.actv_rec_bt_stop);
+		ImageButton ib_Stop = (ImageButton) findViewById(R.id.actv_rec_bt_stop);
 		
-		bt_Stop.setTag(Tags.ButtonTags.ACTV_REC_STOP);
+		ib_Stop.setTag(Tags.ButtonTags.ACTV_REC_STOP);
 		
-		bt_Stop.setOnTouchListener(new BO_TL(this));
+		ib_Stop.setOnTouchListener(new BO_TL(this));
 		
-		bt_Stop.setOnClickListener(new BO_CL(this));
+		ib_Stop.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
 		
 		// back
 		
 		////////////////////////////////
-		Button bt_Back = (Button) findViewById(R.id.actv_rec_bt_back);
+		ImageButton ib_Back = (ImageButton) findViewById(R.id.actv_rec_bt_back);
 		
-		bt_Back.setTag(Tags.ButtonTags.ACTV_REC_BACK);
+		ib_Back.setTag(Tags.ButtonTags.ACTV_REC_BACK);
 		
-		bt_Back.setOnTouchListener(new BO_TL(this));
+		ib_Back.setOnTouchListener(new BO_TL(this));
 		
-		bt_Back.setOnClickListener(new BO_CL(this));
+		ib_Back.setOnClickListener(new BO_CL(this));
 		
 		
 	}//private void _onCreate_SetListeners()
