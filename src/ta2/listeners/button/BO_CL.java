@@ -200,11 +200,13 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_PLAT_STOP() {
 		// TODO Auto-generated method stub
 		
-		// Log
-		String msg_Log = "case_ACTV_PLAT_STOP";
-		Log.d("BO_CL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+		Methods.stop_Player(actv);
+		
+//		// Log
+//		String msg_Log = "case_ACTV_PLAT_STOP";
+//		Log.d("BO_CL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 	}//case_ACTV_PLAT_STOP
 
@@ -212,11 +214,13 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_PLAY_PLAY() {
 		// TODO Auto-generated method stub
 		
-		// Log
-		String msg_Log = "case_ACTV_PLAY_PLAY";
-		Log.d("BO_CL.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+		Methods.play_File(actv);
+		
+//		// Log
+//		String msg_Log = "case_ACTV_PLAY_PLAY";
+//		Log.d("BO_CL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 //		Methods.play_File(actv);
 		

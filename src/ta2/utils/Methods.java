@@ -3903,6 +3903,7 @@ public static String
 
 		////////////////////////////////
 		CONS.Paths.fpath_AudioRecorded = CONS.RecActv.rc.getFilename();
+//		CONS.Paths.fpath_AudioRecorded = filePath;
 
 	}//recActv_Rec_2
 	
@@ -4136,11 +4137,16 @@ public static String
 		
 		String text = String.format(CONS.RecActv.fmt_FileName, 
 //				String text = String.format("@%s %s", 
-						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
+						 
+						Methods.get_Filename(actv, CONS.RecActv.fname_Generated_WavFile), 
+//						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
 //						CONS.Paths.fpath_AudioRecorded, 
 						memo);
 		
 		int res = DBUtils.save_Memo(actv, text);
+		
+		// null => CONS.RecActv.fname_Generated_WavFile
+		CONS.RecActv.fname_Generated_WavFile = null;
 		
 		////////////////////////////////
 
@@ -4318,6 +4324,12 @@ public static String
 
 			CONS.PlayActv.mp.stop();
 			
+			// Log
+			String msg_Log = "mp => stopped";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
 		}//if (mp.isPlaying())
 
 //		CONS.PlayActv.mp.
@@ -4331,6 +4343,12 @@ public static String
 			
 			CONS.PlayActv.mp = new MediaPlayer();
 			
+			// Log
+			String msg_Log = "mp => instantiated";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
 		}
 		
 		/*********************************
@@ -4338,8 +4356,33 @@ public static String
 		 *********************************/
 //		CONS.PlayActv.mp = new MediaPlayer();
 		
-		CONS.PlayActv.mp.setOnCompletionListener(new MP_OCmpL(actv));
-
+		try {
+			
+			CONS.PlayActv.mp.setOnCompletionListener(new MP_OCmpL(actv));
+		
+			// Log
+			String msg_Log = "setOnCompletionListener => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Log
+			String msg_Log = "Exception";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "setOnCompletionListener => exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
+		
 		/*********************************
 		 * 3. Set data source
 		 *********************************/
@@ -4486,19 +4529,34 @@ public static String
 //		actv.startService(i);
 
 		
-		/*********************************
-		 * 5. Start
-		 *********************************/
-		CONS.PlayActv.mp.start();
-		
-		//debug
-		// Log
-		msg_Log = "getAudioSessionId() = " 
-						+ CONS.PlayActv.mp.getAudioSessionId();
-		
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+		try {
+			/*********************************
+			 * 5. Start
+			 *********************************/
+			CONS.PlayActv.mp.start();
+			
+			// Log
+			msg_Log = "mp => started";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Log
+			msg_Log = "Exception";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "mp.start => exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
 		
 	}//play_File(Activity actv, AI ai)
 

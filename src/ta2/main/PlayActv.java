@@ -365,7 +365,8 @@ public class PlayActv extends Activity {
 		
 		if (m.find()) {
 			
-			CONS.PlayActv.fname_Audio = m.group(0);
+			CONS.PlayActv.fname_Audio = m.group(1);
+//			CONS.PlayActv.fname_Audio = m.group(0);
 			
 			return true;
 			

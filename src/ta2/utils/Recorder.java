@@ -59,7 +59,19 @@ public class Recorder {
 		Log.d("Recorder.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// set: file name => use the name in memo.text
+
+		////////////////////////////////
+		CONS.RecActv.fname_Generated_WavFile = fname;
 		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
 		return fname;
 //		return String.format("%s/%s%s", 
 //				file.getAbsolutePath(), 
@@ -94,7 +106,8 @@ public class Recorder {
 		
 	}
 
-	public void startRecording() {
+	public void 
+	startRecording() {
 		
 		////////////////////////////////
 
@@ -138,7 +151,7 @@ public class Recorder {
         
         recordingThread.start();
         
-	}
+	}//startRecording
 	
 	private void 
 	writeAudioDataToFile(){
