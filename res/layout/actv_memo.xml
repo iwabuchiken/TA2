@@ -67,7 +67,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/darkgreen"
-        android:gravity="center_horizontal" >
+        android:gravity="center_vertical|center_horizontal" >
 
         <ImageButton
             android:id="@+id/actv_memo_ib_back"
@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@color/darkgreen"
             android:src="@drawable/actv_memo_ib_back_49x37" />
 
         <ImageButton
@@ -83,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@color/darkgreen"
             android:src="@drawable/actv_memo_ib_save_64x64" />
 
         <ImageButton
@@ -91,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@color/darkgreen"
             android:src="@drawable/actv_memo_ib_clear_41x50" />
 
         <TextView

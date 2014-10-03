@@ -67,6 +67,14 @@ public class CONS {
 		
 		public final static int RESULT_CODE_SEE_BOOKMARKS_CANCEL = 0;
 		
+		////////////////////////////////
+
+		// PlayActv
+
+		////////////////////////////////
+		public final static String iKey_PlayActv_Memo_Id = "iKey_PlayActv_Memo_Id";
+		
+		
 	}//public static class Intent
 	
 	public static class DB {

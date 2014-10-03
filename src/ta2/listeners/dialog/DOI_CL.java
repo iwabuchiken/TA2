@@ -256,6 +256,14 @@ public class DOI_CL implements OnItemClickListener {
 
 			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
 			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_play))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			d1.dismiss();
+			
+			Methods.start_Activity_PlatyActv(actv, memo);
+//			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
+			
 		} else {
 			
 		}

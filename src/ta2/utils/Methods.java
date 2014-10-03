@@ -80,6 +80,7 @@ import ta2.items.WordPattern;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
+import ta2.main.PlayActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
 import ta2.main.RecActv;
@@ -4287,6 +4288,23 @@ public static String
 				CONS.Admin.dflt_MessageDialog_Length);
 		
 	}//start_StopRec
+
+	public static void 
+	start_Activity_PlatyActv
+	(Activity actv, Memo memo) {
+		// TODO Auto-generated method stub
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, PlayActv.class);
+
+		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_PlatyActv
 
 	
 }//public class Methods

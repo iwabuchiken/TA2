@@ -37,6 +37,7 @@
         <activity android:name=".ShowListActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".MemoEditActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".RecActv" android:screenOrientation="portrait"></activity>
+        <activity android:name=".PlayActv" android:screenOrientation="portrait"></activity>
         
         
     </application>
