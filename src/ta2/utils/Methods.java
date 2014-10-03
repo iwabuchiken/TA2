@@ -4131,7 +4131,8 @@ public static String
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
 		
-		String text = String.format("@%s %s", 
+		String text = String.format(CONS.RecActv.fmt_FileName, 
+//				String text = String.format("@%s %s", 
 						Methods.get_Filename(actv, CONS.Paths.fpath_AudioRecorded), 
 //						CONS.Paths.fpath_AudioRecorded, 
 						memo);

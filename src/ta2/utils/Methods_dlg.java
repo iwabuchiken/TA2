@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -2430,6 +2432,48 @@ public class Methods_dlg {
 						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
 						.setTextColor_ID(R.color.black)
 						.build());
+		
+		////////////////////////////////
+
+		// voice memo
+
+		////////////////////////////////
+		String text = memo.getText();
+		
+		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		Matcher m = p.matcher(text);
+		
+		// Log
+		msg_Log = "CONS.RecActv.fmt_FileName_PlayMemo => "
+						+ CONS.RecActv.fmt_FileName_PlayMemo;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// Log
+		msg_Log = "text => " + text;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (m.find()) {
+//			if (m.matches()) {
+			
+			list.add(new ListItem.Builder()
+					.setText(actv.getString(
+							R.string.generic_tv_play))
+					.setIconID(R.drawable.menu_icon_admin_32x32_green)
+					.setTextColor_ID(R.color.green4)
+					.build());
+			
+		} else {
+			
+			// Log
+			msg_Log = "text => no match";
+			Log.d("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+		}
 		
 		/****************************
 		* 3. Adapter

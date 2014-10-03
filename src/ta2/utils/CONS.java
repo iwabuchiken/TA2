@@ -710,6 +710,12 @@ public class CONS {
 		public Thread recordingThread = null;
 		public boolean isRecording = false;
 		
+		// voice memo
+		public static final String fmt_FileName = "@%s %s";
+		
+		public static final String fmt_FileName_PlayMemo = "^@\\d{4}";
+//		public static final String fmt_FileName_PlayMemo = "@\\d{4}";
+		
 	}
 	
 	public static class 
