@@ -88,6 +88,7 @@ import ta2.main.PrefActv;
 import ta2.main.R;
 import ta2.main.RecActv;
 import ta2.main.ShowListActv;
+import ta2.services.Service_ShowProgress;
 import ta2.tasks.Task_AudioTrack;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
@@ -4384,26 +4385,47 @@ public static String
 
 	public static void
 	play_File(Activity actv) {
-		// TODO Auto-generated method stub
-		/*********************************
-		 * 1. Media player is playing?
-		 *********************************/
-//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
-		if (CONS.PlayActv.mp != null) {
-			
-			if  (CONS.PlayActv.mp.isPlaying()) {
+		try {
+			// TODO Auto-generated method stub
+			/*********************************
+			 * 1. Media player is playing?
+			 *********************************/
+			//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
+			if (CONS.PlayActv.mp != null) {
 
-				CONS.PlayActv.mp.stop();
-				
-				// Log
-				String msg_Log = "mp => stopped";
-				Log.d("Methods.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", msg_Log);
-				
-			}
+				if (CONS.PlayActv.mp.isPlaying()) {
+
+					CONS.PlayActv.mp.stop();
+
+					// Log
+					String msg_Log = "mp => stopped";
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+
+				}
+
+			}//if (mp.isPlaying())
 			
-		}//if (mp.isPlaying())
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Log
+			String msg_Log = "Exception => " + e.toString();
+//			String msg_Log = "Exception => " + e.getMessage();
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg_Log, R.color.red);
+			
+			
+			e.printStackTrace();
+			
+//			return;
+			
+		}
+		
 
 //		CONS.PlayActv.mp.
 		
@@ -4579,27 +4601,27 @@ public static String
 			
 		}//if (prefPosition == condition)
 		
-//		/***************************************
-//		 * Prepare: Service
-//		 ***************************************/
-//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-//
-//		i.putExtra(
-//				CONS.Intent.iKey_PlayActv_TaskPeriod, 
-//				CONS.PlayActv.playActv_task_Period);
-//		
-//		//
-////		i.putExtra("counter", timeLeft);
-//		
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "Starting service...");
-//		//
-//		actv.startService(i);
+		/***************************************
+		 * Prepare: Service
+		 ***************************************/
+		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+		i.putExtra(
+				CONS.Intent.iKey_PlayActv_TaskPeriod, 
+				CONS.PlayActv.playActv_task_Period);
+		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Starting service...");
+		//
+		actv.startService(i);
 
 		
 		try {
@@ -4635,6 +4657,9 @@ public static String
 
 	public static void
 	stop_Player(Activity actv) {
+		
+		String msg_Log;
+		
 		// TODO Auto-generated method stub
 		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
 
@@ -4658,31 +4683,31 @@ public static String
 //
 //			////////////////////////////////
 //			CONS.PlayActv.mp.release();
-//			
-//			// Log
-//			String msg_Log = "player => released";
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
 			
-//			/***************************************
-//			 * Stop: Service
-//			 ***************************************/
-//			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-//
-//			//
-////			i.putExtra("counter", timeLeft);
-//
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "Stopping service...");
-//
-//			//
-////			actv.startService(i);
-//			actv.stopService(i);
+			// Log
+			msg_Log = "player => released";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			/***************************************
+			 * Stop: Service
+			 ***************************************/
+			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+			//
+//			i.putExtra("counter", timeLeft);
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Stopping service...");
+
+			//
+//			actv.startService(i);
+			actv.stopService(i);
 
 //			////////////////////////////////
 //
@@ -4697,35 +4722,35 @@ public static String
 //			
 //			if (res == true) {
 //				
-//				res = Methods.setPref_Long(
-//							actv,
-//							CONS.Pref.pname_PlayActv,
-//	//						CONS.Pref.pkey_PlayActv_position,
-//							CONS.Pref.pkey_PlayActv_CurrentPosition,
-//	//						CONS.Pref.pkey_CurrentPosition,
-//							player_Pos);
+			boolean res = Methods.setPref_Long(
+							actv,
+							CONS.Pref.pname_PlayActv,
+	//						CONS.Pref.pkey_PlayActv_position,
+							CONS.Pref.pkey_PlayActv_CurrentPosition,
+	//						CONS.Pref.pkey_CurrentPosition,
+							player_Pos);
 //				
-//				if (res == true) {
-//					
-//					// Log
-//					String msg_Log = "Position => set: " 
-//								+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-//					
-//				} else {
-//
-//					// Log
-//					String msg_Log = "Position => not set: " 
-//								+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-//					
-//				}//if (res == true)
+				if (res == true) {
+					
+					// Log
+					msg_Log = "Position => set: " 
+								+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+				} else {
+
+					// Log
+					msg_Log = "Position => not set: " 
+								+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+				}//if (res == true)
 //				
 //			}//if (res == true)
 
@@ -4735,7 +4760,7 @@ public static String
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "CONS.PlayActv.mp != null");
+					+ "]", "CONS.PlayActv.mp => null");
 
 		} else if (!CONS.PlayActv.mp.isPlaying()) {//if (mp.isPlaying())
 
@@ -4959,6 +4984,60 @@ public static String
 		return prefs.getLong(pref_key, defValue);
 		
 	}//public static boolean set_pref(String pref_name, String value)
+
+	public static void 
+	update_ProgressLable() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (CONS.PlayActv.mp == null) {
+			
+			// Log
+			String msg_Log = "CONS.PlayActv.mp => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// get: position
+
+		////////////////////////////////
+		int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+		
+//		TextView tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+		if (CONS.PlayActv.tvCurrentPosition == null) {
+			
+			// Log
+			String msg_Log = "CONS.PlayActv.tvCurrentPosition => null";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			CONS.PlayActv.tvCurrentPosition = 
+					(TextView) (new PlayActv()).findViewById(R.id.actv_play_tv_current_position);
+//			(TextView) this.findViewById(R.id.actv_play_tv_current_position);
+			
+		}//if (CONS.PlayActv.tvCurrentPosition == null)
+//		CONS.PlayActv.tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+
+		////////////////////////////////
+
+		// set: position
+
+		////////////////////////////////
+		CONS.PlayActv.tvCurrentPosition.setText(
+					Methods.conv_MillSec_to_ClockLabel(currentPosition));
+//		Methods.convert_intSec2Digits_lessThanHour((int)currentPosition / 1000));
+
+	}//update_ProgressLable
 
 }//public class Methods
 

@@ -581,7 +581,23 @@ public class PlayActv extends Activity {
 		// TODO ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ黷ｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?�ｿｽ�ｿｽ\?�ｿｽ�ｿｽb?�ｿｽ�ｿｽh?�ｿｽ�ｿｽE?�ｿｽ�ｿｽX?�ｿｽ�ｿｽ^?�ｿｽ�ｿｽu
 		super.onStop();
 		
-		
+//		////////////////////////////////
+//
+//		// release
+//
+//		////////////////////////////////
+//		if (CONS.PlayActv.mp != null) {
+//			
+//			CONS.PlayActv.mp.release();
+//			
+//			// Log
+//			String msg_Log = "CONS.PlayActv.mp => released";
+//			Log.d("PlayActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
+
 	}
 
 	@Override

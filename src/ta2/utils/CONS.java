@@ -74,6 +74,10 @@ public class CONS {
 		////////////////////////////////
 		public final static String iKey_PlayActv_Memo_Id = "iKey_PlayActv_Memo_Id";
 		
+		// Used in Service_ShowProgress
+		public static String iKey_PlayActv_TaskPeriod
+											= "iKey_PlayActv_TaskPeriod";
+
 		
 	}//public static class Intent
 	
@@ -758,6 +762,8 @@ public class CONS {
 		public static TextView tvCurrentPosition;
 		
 		public static long len_Audio;
+		
+		public static int playActv_task_Period = 1000;
 		
 	}
 	

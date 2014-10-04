@@ -1,5 +1,6 @@
 package ta2.listeners;
 
+import ta2.services.Service_ShowProgress;
 import ta2.utils.CONS;
 import android.app.Activity;
 import android.content.Context;
@@ -31,24 +32,24 @@ MP_OCmpL implements OnCompletionListener {	// "MP" => MediaPlayer
 		 ***************************************/
 		CONS.PlayActv.mp.stop();
 		
-//		/***************************************
-//		 * Stop: Service
-//		 ***************************************/
-//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-//
-//		//
-////		i.putExtra("counter", timeLeft);
-//
-//		// Log
-//		Log.d("DialogOnItemClickListener.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "Stopping service...");
-//
-//		//
-////		actv.startService(i);
-//		actv.stopService(i);
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+		//
+//		i.putExtra("counter", timeLeft);
+
+		// Log
+		Log.d("MP_OCmpL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+
+		//
+//		actv.startService(i);
+		actv.stopService(i);
 
 		
 //		// debug
