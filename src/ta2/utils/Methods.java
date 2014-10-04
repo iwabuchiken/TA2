@@ -4385,46 +4385,50 @@ public static String
 
 	public static void
 	play_File(Activity actv) {
-		try {
-			// TODO Auto-generated method stub
-			/*********************************
-			 * 1. Media player is playing?
-			 *********************************/
-			//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
-			if (CONS.PlayActv.mp != null) {
-
-				if (CONS.PlayActv.mp.isPlaying()) {
-
-					CONS.PlayActv.mp.stop();
-
-					// Log
-					String msg_Log = "mp => stopped";
-					Log.d("Methods.java"
-							+ "["
-							+ Thread.currentThread().getStackTrace()[2]
-									.getLineNumber() + "]", msg_Log);
-
-				}
-
-			}//if (mp.isPlaying())
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			// Log
-			String msg_Log = "Exception => " + e.toString();
-//			String msg_Log = "Exception => " + e.getMessage();
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			Methods_dlg.dlg_ShowMessage(actv, msg_Log, R.color.red);
-			
-			
-			e.printStackTrace();
-			
-//			return;
-			
-		}
+		
+		String msg_Log;
+		
+		
+//		try {
+//			// TODO Auto-generated method stub
+//			/*********************************
+//			 * 1. Media player is playing?
+//			 *********************************/
+//			//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
+//			if (CONS.PlayActv.mp != null) {
+//
+//				if (CONS.PlayActv.mp.isPlaying()) {
+//
+//					CONS.PlayActv.mp.stop();
+//
+//					// Log
+//					String msg_Log = "mp => stopped";
+//					Log.d("Methods.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
+//
+//				}
+//
+//			}//if (mp.isPlaying())
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			// Log
+//			String msg_Log = "Exception => " + e.toString();
+////			String msg_Log = "Exception => " + e.getMessage();
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			Methods_dlg.dlg_ShowMessage(actv, msg_Log, R.color.red);
+//			
+//			
+//			e.printStackTrace();
+//			
+////			return;
+//			
+//		}
 		
 
 //		CONS.PlayActv.mp.
@@ -4434,17 +4438,17 @@ public static String
 		// validate
 
 		////////////////////////////////
-		if (CONS.PlayActv.mp == null) {
+//		if (CONS.PlayActv.mp == null) {
 			
 			CONS.PlayActv.mp = new MediaPlayer();
 			
 			// Log
-			String msg_Log = "mp => instantiated";
+			msg_Log = "mp => instantiated";
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-		}
+//		}
 		
 		/*********************************
 		 * 2. OnCompletionListener
@@ -4456,7 +4460,7 @@ public static String
 			CONS.PlayActv.mp.setOnCompletionListener(new MP_OCmpL(actv));
 		
 			// Log
-			String msg_Log = "setOnCompletionListener => done";
+			msg_Log = "setOnCompletionListener => done";
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -4464,7 +4468,7 @@ public static String
 		} catch (Exception e) {
 			// TODO: handle exception
 			// Log
-			String msg_Log = "Exception";
+			msg_Log = "Exception";
 			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -4484,7 +4488,7 @@ public static String
 		CONS.PlayActv.mp.reset();
 		
 		// Log
-		String msg_Log = "mp => reset()";
+		msg_Log = "mp => reset()";
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
