@@ -4544,21 +4544,21 @@ public static String
 				+ "]", msg_Log);
 		
 		
-//		/***************************************
-//		 * Position set in the preference?
-//		 ***************************************/
-//		long prefPosition = 
-//				Methods.getPref_Long(
-//						actv,
-//						CONS.Pref.pname_PlayActv,
-//						CONS.Pref.pkey_PlayActv_CurrentPosition,
-//						CONS.Pref.dflt_LongExtra_value);
-//		
-//		// Log
-//		msg_Log = "prefPosition = " + prefPosition;
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
+		/***************************************
+		 * Position set in the preference?
+		 ***************************************/
+		long pref_Position = 
+				Methods.get_Pref_Long(
+						actv,
+						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pkey_PlayActv_CurrentPosition,
+						CONS.Pref.dflt_LongExtra_value);
+		
+		// Log
+		msg_Log = "prefPosition = " + pref_Position;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 //		
 //		//debug
 //		// Log
@@ -4567,17 +4567,17 @@ public static String
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
 //		
-//		if (prefPosition >= 0) {
-//			
-//			CONS.PlayActv.mp.seekTo((int) prefPosition);
-//			
-//			// Log
-//			msg_Log = "seekTo() => done";
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}//if (prefPosition == condition)
+		if (pref_Position >= 0) {
+			
+			CONS.PlayActv.mp.seekTo((int) pref_Position);
+			
+			// Log
+			msg_Log = "seekTo() => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (prefPosition == condition)
 		
 //		/***************************************
 //		 * Prepare: Service
@@ -4946,6 +4946,19 @@ public static String
 		return len;
 		
 	}//private static long getFileLength(String fileFullPath)
+
+	public static long get_Pref_Long
+	(Activity actv, String pref_name, String pref_key, long defValue) {
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
+		
+		/****************************
+		 * Return
+		 ****************************/
+		return prefs.getLong(pref_key, defValue);
+		
+	}//public static boolean set_pref(String pref_name, String value)
 
 }//public class Methods
 
