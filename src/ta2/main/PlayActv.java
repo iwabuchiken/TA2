@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 
 import ta2.items.Memo;
+import ta2.listeners.SBL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
+import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 
@@ -97,13 +99,6 @@ public class PlayActv extends Activity {
 		////////////////////////////////
 		_onCreate_InitVars();
 
-		////////////////////////////////
-
-		// Setup: views
-
-		////////////////////////////////
-		res = _onCreate_SetupViews();
-
 		/******************************
 			validate
 		 ******************************/
@@ -124,14 +119,6 @@ public class PlayActv extends Activity {
 
 		////////////////////////////////
 
-		// Setup: listeners
-
-		////////////////////////////////
-//		_onCreate_SetListeners();
-		
-		
-		////////////////////////////////
-
 		// Prefs
 
 		////////////////////////////////
@@ -149,16 +136,6 @@ public class PlayActv extends Activity {
 		
 		
 	}
-
-	private boolean
-	_onCreate_SetupViews() {
-		// - Get values from the AI instance
-		// - Set the values to the views
-		
-
-		return true;
-		
-	}//_onCreate_SetupViews()
 
 	private boolean _onCreate_Get_IntentValues() {
 		
@@ -223,6 +200,23 @@ public class PlayActv extends Activity {
 			
 		}
 		
+		////////////////////////////////
+
+		// pref => clear
+
+		////////////////////////////////
+		boolean res = Methods.setPref_Long(
+				this,
+				CONS.Pref.pname_PlayActv,
+				CONS.Pref.pkey_PlayActv_CurrentPosition,
+				CONS.Pref.dflt_LongExtra_value);
+		
+		// Log
+		String msg_Log = "pkey_PlayActv_CurrentPosition => cleared";
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		/***************************************
 		 * Finish activity
 		 ***************************************/
@@ -284,9 +278,164 @@ public class PlayActv extends Activity {
 			
 		}
 		
+		////////////////////////////////
+
+		// audio length
+
+		////////////////////////////////
+		_Setup_AudioLen();
+		
+		////////////////////////////////
+		
+		// views
+		
+		////////////////////////////////
+		_Setup_Views();
+		
+		////////////////////////////////
+
+		// listeners
+
+		////////////////////////////////
 		_Setup_Listeners();
 		
 	}//protected void onStart()
+
+	private void 
+	_Setup_Views() {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// memo
+
+		////////////////////////////////
+		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv_file_name);
+		
+		tv_Memo.setText(CONS.PlayActv.memo.getText());
+		
+		////////////////////////////////
+
+		// length
+
+		////////////////////////////////
+		TextView tv_Length = (TextView) findViewById(R.id.actv_play_tv_length);
+		
+		if (CONS.PlayActv.len_Audio >= 0) {
+			
+			tv_Length.setText(Methods.conv_MillSec_to_ClockLabel(CONS.PlayActv.len_Audio));
+			
+		} else {
+			
+			tv_Length.setText("xx:xx");
+			
+		}
+		
+		////////////////////////////////
+
+		// Current position
+
+		////////////////////////////////
+		CONS.PlayActv.tvCurrentPosition = 
+				(TextView) findViewById(
+						R.id.actv_play_tv_current_position);
+
+	}//_Setup_Views
+
+	private void 
+	_Setup_AudioLen() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// get file name
+
+		////////////////////////////////
+		String text = CONS.PlayActv.memo.getText();
+		
+		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		Matcher m = p.matcher(text);
+
+		String file_full_path = null;
+		
+		if (m.find()) {
+			
+			file_full_path = StringUtils.join(
+					new String[]{
+							CONS.DB.dPath_Audio,
+							m.group(1)
+					},
+					File.separator);
+			
+			// Log
+			String msg_Log = "file_full_path => " + file_full_path;
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "no match";
+			Log.e("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// set: length
+
+		////////////////////////////////
+		long tmp = Methods.get_AudioLength(file_full_path);
+		
+		if (tmp > 0) {
+			
+			CONS.PlayActv.len_Audio = Methods.get_AudioLength(file_full_path);
+			
+		} else {
+			
+			String msg = null;
+			
+			switch((int)tmp) {
+//			-1 file => exist not
+//			-2 IllegalArgumentException
+//			-3 IllegalStateException
+//			-4 IOException
+			case -1:
+				msg = "file => exist not"; break;
+				
+			case -2:
+				msg = "IllegalArgumentException"; break;
+				
+			case -3:
+				msg = "IllegalStateException"; break;
+				
+			case -4:
+				msg = "IOException"; break;
+				
+			}//switch((int)tmp)
+			
+			// Log
+			Log.d("PlayActv.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", msg);
+			
+			return;
+			
+		}//if (tmp > 0)
+		
+		// Log
+		String msg_Log = "audio len => " + CONS.PlayActv.len_Audio;
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//_Setup_AudioLen
 
 	private void 
 	_Setup_Listeners() {
@@ -329,6 +478,17 @@ public class PlayActv extends Activity {
 		ib_Back.setOnTouchListener(new BO_TL(this));
 		
 		ib_Back.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+
+		// seekbar
+
+		////////////////////////////////
+		CONS.PlayActv.sb = (SeekBar) findViewById(R.id.actv_play_sb);
+		
+		CONS.PlayActv.sb.setOnSeekBarChangeListener(
+							new SBL(this, CONS.PlayActv.sb));
+
 		
 	}//_Setup_Listeners
 	

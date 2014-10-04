@@ -392,6 +392,20 @@ public class CONS {
 		public static final String 
 		pkey_ShowListActv_Filter_String = 
 							"pkey_ShowListActv_Filter_String";
+
+		////////////////////////////////
+		
+		// PlayActv.java
+		
+		////////////////////////////////
+		public static final String pname_PlayActv = "pname_PlayActv";
+		
+		public static final String pkey_PlayActv_CurrentPosition = 
+											"pkey_PlayActv_CurrentPosition";
+		
+		public static final String pkey_PlayActv_CurrentFileName = 
+											"pkey_PlayActv_CurrentFileName";
+
 		
 	}//Pref
 
@@ -738,6 +752,12 @@ public class CONS {
 		public static String fname_Audio;
 
 		public static MediaPlayer mp;
+
+		public static SeekBar sb;
+
+		public static TextView tvCurrentPosition;
+		
+		public static long len_Audio;
 		
 	}
 	

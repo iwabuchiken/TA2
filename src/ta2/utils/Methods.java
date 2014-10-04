@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -4387,15 +4388,20 @@ public static String
 		/*********************************
 		 * 1. Media player is playing?
 		 *********************************/
-		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
-
-			CONS.PlayActv.mp.stop();
+//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
+		if (CONS.PlayActv.mp != null) {
 			
-			// Log
-			String msg_Log = "mp => stopped";
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+			if  (CONS.PlayActv.mp.isPlaying()) {
+
+				CONS.PlayActv.mp.stop();
+				
+				// Log
+				String msg_Log = "mp => stopped";
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			}
 			
 		}//if (mp.isPlaying())
 
@@ -4741,6 +4747,205 @@ public static String
 		}//if (mp.isPlaying())	
 		
 	}//stop_Player(Activity actv)
+
+	public static boolean
+	setPref_Long
+	(Activity actv, String pName, String pKey, long value) {
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pName, Context.MODE_PRIVATE);
+
+		/****************************
+		 * 2. Get editor
+			****************************/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/****************************
+		 * 3. Set value
+			****************************/
+		editor.putLong(pKey, value);
+		
+		try {
+			
+			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+			
+		}
+
+	}//public static boolean setPref_long(Activity actv, String pref_name, String pref_key, long value)
+
+	/***************************************
+	 * 20130320_120437<br>
+	 * @param t ... Value in seconds, <i>not</i> in mill seconds
+	 ***************************************/
+	public static String convert_intSec2Digits_lessThanHour(int t) {
+		
+		int sec = t % 60;
+		
+		if (t / 60 < 1) {
+			
+//			return "00:00:" + String.valueOf(sec);
+//			return "00:00:" + Methods.convert_sec2digits(sec, 2);
+			return "00:" + Methods.convert_sec2digits(sec, 2);
+			
+		}//if (t / 60 < 1)
+		
+//		int min = (t - sec) % 60;
+		int min = ((t - sec) % (60 * 60)) / 60;
+		
+		return Methods.convert_sec2digits(min, 2) + ":"
+			+ Methods.convert_sec2digits(sec, 2);
+			
+	}//public static String convert_intSec2Digits(int time)
+
+	private static 
+	String convert_sec2digits
+	(int sec, int i) {
+		
+		int current_len = String.valueOf(sec).length();
+		
+		if (current_len < i) {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			for (int j = 0; j < i - current_len; j++) {
+				
+				sb.append("0");
+			}
+			
+			sb.append(String.valueOf(sec));
+			
+			return sb.toString();
+			
+		}//if (current_len == condition)
+		
+		return String.valueOf(sec);
+		
+	}//private static String convert_sec2digits(int sec, int i)
+
+	/******************************
+		REF http://stackoverflow.com/questions/625433/how-to-convert-milliseconds-to-x-mins-x-seconds-in-java answered Mar 9 '09 at 10:01
+	 ******************************/
+	public static String
+	conv_MillSec_to_ClockLabel(long millSec)
+	{
+		return String.format(
+			Locale.JAPAN,
+			CONS.Admin.format_Clock, 
+	//		"%02d:%02d", 
+			TimeUnit.MILLISECONDS.toMinutes(millSec),
+			TimeUnit.MILLISECONDS.toSeconds(millSec) - 
+			TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millSec))
+		);
+		
+	}//conv_MillSec_to_ClockLabel(long millSec)
+
+	/******************************
+		@return
+			-1	file => exist not<br>
+			-2	IllegalArgumentException<br>
+			-3	IllegalStateException<br>
+			-4	IOException<br>
+	 ******************************/
+	public static long 
+	get_AudioLength
+	(String fileFullPath) {
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "File path=" + fileFullPath);
+		
+		/******************************
+			validate
+		 ******************************/
+		File f = new File(fileFullPath);
+		
+		if (!f.exists()) {
+			
+			// Log
+			String msg_Log = "file => exist not: " + f.getAbsolutePath();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+		
+		MediaPlayer mp = new MediaPlayer();
+		
+//		int len = 0;
+		long len = 0;
+		
+		try {
+			mp.setDataSource(fileFullPath);
+			
+			mp.prepare();
+			
+//			len = mp.getDuration() / 1000;
+			len = mp.getDuration();
+			
+			// REF=> http://stackoverflow.com/questions/9609479/android-mediaplayer-went-away-with-unhandled-events
+			mp.reset();
+			
+			// REF=> http://stackoverflow.com/questions/3761305/android-mediaplayer-throwing-prepare-failed-status-0x1-on-2-1-works-on-2-2
+			mp.release();
+			
+		} catch (IllegalArgumentException e) {
+			
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+			
+			e.printStackTrace();
+			
+			return -2;
+			
+		} catch (IllegalStateException e) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+			
+			e.printStackTrace();
+			
+			return -3;
+
+		} catch (IOException e) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+			
+			e.printStackTrace();
+			
+			return -4;
+			
+		}//try
+		
+		return len;
+		
+	}//private static long getFileLength(String fileFullPath)
 
 }//public class Methods
 
