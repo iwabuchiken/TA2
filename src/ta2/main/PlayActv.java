@@ -340,6 +340,15 @@ public class PlayActv extends Activity {
 				(TextView) findViewById(
 						R.id.actv_play_tv_current_position);
 
+		////////////////////////////////
+
+		// IB: stop => disable
+
+		////////////////////////////////
+		ImageButton ib_Stop = (ImageButton) findViewById(R.id.actv_play_ib_stop);
+		
+		ib_Stop.setEnabled(false);
+		
 	}//_Setup_Views
 
 	private void 
@@ -445,7 +454,7 @@ public class PlayActv extends Activity {
 		// IB: play
 
 		////////////////////////////////
-		ImageButton ib_Play = (ImageButton) this.findViewById(R.id.actv_play_bt_play);
+		ImageButton ib_Play = (ImageButton) this.findViewById(R.id.actv_play_ib_play);
 		
 		ib_Play.setTag(Tags.ButtonTags.ACTV_PLAY_PLAY);
 		
@@ -458,7 +467,7 @@ public class PlayActv extends Activity {
 		// IB: stop
 		
 		////////////////////////////////
-		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_bt_stop);
+		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_ib_stop);
 		
 		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAT_STOP);
 		
@@ -471,7 +480,7 @@ public class PlayActv extends Activity {
 		// IB: stop
 		
 		////////////////////////////////
-		ImageButton ib_Back = (ImageButton) this.findViewById(R.id.actv_play_bt_back);
+		ImageButton ib_Back = (ImageButton) this.findViewById(R.id.actv_play_ib_back);
 		
 		ib_Back.setTag(Tags.ButtonTags.ACTV_PLAY_BACK);
 		

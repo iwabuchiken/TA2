@@ -151,7 +151,7 @@
             android:textSize="25sp" />
 
         <ImageButton
-            android:id="@+id/actv_play_bt_play"
+            android:id="@+id/actv_play_ib_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -159,7 +159,7 @@
             android:src="@drawable/actv_rec_rec" />
 
         <ImageButton
-            android:id="@+id/actv_play_bt_stop"
+            android:id="@+id/actv_play_ib_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -167,7 +167,7 @@
             android:src="@drawable/actv_rec_stop_not_in_use" />
 
         <ImageButton
-            android:id="@+id/actv_play_bt_back"
+            android:id="@+id/actv_play_ib_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

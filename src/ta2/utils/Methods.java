@@ -4388,51 +4388,6 @@ public static String
 		
 		String msg_Log;
 		
-		
-//		try {
-//			// TODO Auto-generated method stub
-//			/*********************************
-//			 * 1. Media player is playing?
-//			 *********************************/
-//			//		if (CONS.PlayActv.mp != null && CONS.PlayActv.mp.isPlaying()) {
-//			if (CONS.PlayActv.mp != null) {
-//
-//				if (CONS.PlayActv.mp.isPlaying()) {
-//
-//					CONS.PlayActv.mp.stop();
-//
-//					// Log
-//					String msg_Log = "mp => stopped";
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-//
-//				}
-//
-//			}//if (mp.isPlaying())
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			// Log
-//			String msg_Log = "Exception => " + e.toString();
-////			String msg_Log = "Exception => " + e.getMessage();
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			Methods_dlg.dlg_ShowMessage(actv, msg_Log, R.color.red);
-//			
-//			
-//			e.printStackTrace();
-//			
-////			return;
-//			
-//		}
-		
-
-//		CONS.PlayActv.mp.
-		
 		////////////////////////////////
 
 		// validate
@@ -4657,6 +4612,25 @@ public static String
 			
 		}
 		
+		////////////////////////////////
+
+		// buttons
+
+		////////////////////////////////
+		// stop
+		ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_play_ib_stop);
+		
+		ib_Stop.setImageResource(R.drawable.actv_rec_stop);
+		
+		ib_Stop.setEnabled(true);
+		
+		// play
+		ImageButton ib_Play = (ImageButton) actv.findViewById(R.id.actv_play_ib_play);
+		
+		ib_Play.setImageResource(R.drawable.actv_rec_rec_recording);
+		
+		ib_Play.setEnabled(false);
+		
 	}//play_File(Activity actv, AI ai)
 
 	public static void
@@ -4757,6 +4731,25 @@ public static String
 				}//if (res == true)
 //				
 //			}//if (res == true)
+
+			////////////////////////////////
+
+			// buttons
+
+			////////////////////////////////
+			// stop
+			ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_play_ib_stop);
+			
+			ib_Stop.setImageResource(R.drawable.actv_rec_stop_not_in_use);
+			
+			ib_Stop.setEnabled(false);
+			
+			// play
+			ImageButton ib_Play = (ImageButton) actv.findViewById(R.id.actv_play_ib_play);
+			
+			ib_Play.setImageResource(R.drawable.actv_rec_rec);
+			
+			ib_Play.setEnabled(true);
 
 			
 		} else if (CONS.PlayActv.mp == null) {//if (mp.isPlaying())
