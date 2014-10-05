@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -80,6 +81,11 @@ public class MainActv extends Activity {
 		////////////////////////////////
 		this._Setup_AutoBK();
 		
+		////////////////////////////////
+
+		// tests
+
+		////////////////////////////////
 		do_test();
 		
 	}//onStart
@@ -182,10 +188,101 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+		_test_Content_Provider();
 //		_test_PrefVal_SoundEffect();
 		
 	}
 
+
+	private void 
+	_test_Content_Provider() {
+		// TODO Auto-generated method stub
+		
+		String CONTENT =
+		        "content://ifm11.main.CV/";
+//		"content://ifm11.main.CV";
+//		"content://ifm11.provider.db";
+//		"content://ifm11.provider.db/";
+		
+		getIntent().setData(Uri.parse(CONTENT));
+		
+		Cursor c = null;
+		
+		try {
+			
+			// Log
+			String msg_Log = "calling query...";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			c = managedQuery(getIntent().getData(), null, null, null, null);
+			
+			// Log
+			msg_Log = "query => done";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			// Log
+			String msg_Log = "Exception";
+			Log.e("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "cursor => obtained";
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+		}//if (c == null)
+		
+		////////////////////////////////
+
+		// get info
+
+		////////////////////////////////
+		// Log
+		msg_Log = "c.getCount() => " + c.getCount();
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+	}//_test_Content_Provider
 
 	private void 
 	_test_PrefVal_SoundEffect() {
