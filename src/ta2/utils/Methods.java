@@ -2518,21 +2518,23 @@ public static String
 	}//save_Memo
 
 	/******************************
-		@return
+		@param d1 
+	 * @return
 			-1	insertion => failed<br>
 			-2	Exception<br>
 			1	text => inserted<br>
 	 ******************************/
 	public static int 
 	save_Memo
-	(Activity actv, int resourceID) {
+	(Activity actv, Dialog d1, int resourceID) {
 		// TODO Auto-generated method stub
 		////////////////////////////////
 		
 		// view
 		
 		////////////////////////////////
-		EditText et = (EditText) actv.findViewById(resourceID);
+		EditText et = (EditText) d1.findViewById(resourceID);
+//		EditText et = (EditText) actv.findViewById(resourceID);
 //		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
 		
 		////////////////////////////////
@@ -3200,6 +3202,63 @@ public static String
 		
 	}//update_Memo
 
+	public static boolean 
+	update_Memo_PlayActv
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+		
+		// get text
+		
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+//		////////////////////////////////
+//
+//		// update: memo
+//
+//		////////////////////////////////
+//		CONS.MemoEditActv.memo.setText(text);
+		
+		////////////////////////////////
+		
+		// save
+		
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7
+		
+		boolean res = DBUtils.updateData_generic_With_TimeLable(
+				actv, 
+				CONS.DB.tname_TA2, 
+				CONS.PlayActv.memo.getDb_Id(), 
+				CONS.DB.col_names_TA2_full[3], 
+				text);
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return res;
+		
+	}//update_Memo
+	
 	/*********************************
 	 * REF=> http://www.searchman.info/tips/2640.html
 	 * 

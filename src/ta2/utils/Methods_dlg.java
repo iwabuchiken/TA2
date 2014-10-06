@@ -10,6 +10,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -2870,6 +2871,595 @@ public class Methods_dlg {
 		dlg3.show();
 		
 	}
+
+	public static void 
+	dlg_EditMemo
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		int res_i;
+		String msg_Log;
+		
+		////////////////////////////////
+
+		// dlg
+
+		////////////////////////////////
+		Dialog d1 = Methods_dlg._dlg_AddMemo_GetDialog(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (d1 == null) {
+			
+			String msg = "dlg => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "dlg => obtained";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		res_i = _dlg_AddMemo_Set_LV_1(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+
+		// LV 2
+		res_i = _dlg_AddMemo_Set_LV_2(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+		
+		// LV 3
+		res_i = _dlg_AddMemo_Set_LV_3(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+		
+		////////////////////////////////
+
+		// set: listeners
+
+		////////////////////////////////
+		res_i = _dlg_AddMemo_Set_Listeners(actv, d1);
+		
+		////////////////////////////////
+
+		// show
+
+		////////////////////////////////
+		d1.show();
+
+		
+	}//dlg_EditMemo
+
+	private static int 
+	_dlg_AddMemo_Set_Listeners
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// lv 1
+
+		////////////////////////////////
+		ListView lv_1 = (ListView) d.findViewById(R.id.dlg_add_memos_lv1);
+		
+		lv_1.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_1);
+		
+		lv_1.setOnItemClickListener(new DOI_CL(actv, d));
+		
+//		lv_1.setOnItemLongClickListener(new DLOI_LCL(actv));
+
+		////////////////////////////////
+		
+		// lv 2
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) d.findViewById(R.id.dlg_add_memos_lv2);
+		
+		lv_2.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_2);
+		
+		lv_2.setOnItemClickListener(new DOI_CL(actv, d));
+		
+//		lv_2.setOnItemLongClickListener(new DLOI_LCL(actv));
+		
+		////////////////////////////////
+		
+		// lv 3
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) d.findViewById(R.id.dlg_add_memos_lv3);
+		
+		lv_3.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_3);
+		
+		lv_3.setOnItemClickListener(new DOI_CL(actv, d));
+		
+//		lv_3.setOnItemLongClickListener(new DLOI_LCL(actv));
+		
+		
+		return 0;
+		
+	}//_dlg_AddMemo_Set_Listeners
+
+	/******************************
+		@return
+			-1 build list => null<br>
+			-2 adapter 1 => null<br>
+			1 list => set<br>
+	 ******************************/
+	private static int
+	_dlg_AddMemo_Set_LV_1
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+
+		// lv 1
+
+		////////////////////////////////
+		////////////////////////////////
+
+		// build list
+
+		////////////////////////////////
+		CONS.MemoActv.list_WP_1 = DBUtils.find_All_WP_symbols(actv);
+//		CONS.IMageActv.list_WP_1 = DBUtils.find_All_WP_symbols(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_1 == null) {
+			
+			return -1;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_1.size() => " 
+						+ CONS.MemoActv.list_WP_1.size();
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		//debug
+//		for (WordPattern wp : CONS.MemoActv.list_WP_1) {
+//			
+//			// Log
+//			msg_Log = String.format(
+//							Locale.JAPAN,
+//							"(%d) %s (used = %d)", 
+//							wp.getDb_Id(), wp.getWord(), wp.getUsed());
+//			
+//			Log.d("Methods_dlg.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//		}
+		
+		////////////////////////////////
+
+		// sort
+
+		////////////////////////////////
+		Collections.sort(
+				CONS.MemoActv.list_WP_1, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+
+		Collections.sort(
+				CONS.MemoActv.list_WP_1, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+
+		////////////////////////////////
+
+		// adapter
+
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_1 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				actv,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_1
+				);
+
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_1 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_1 => null";
+			Log.e("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return -2;
+			
+		}
+		
+		////////////////////////////////
+
+		// set adapter
+
+		////////////////////////////////
+		ListView lv_1 = (ListView) d.findViewById(R.id.dlg_add_memos_lv1);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_1.setAdapter(CONS.MemoActv.adp_WPList_1);
+		
+		
+		return 1;
+		
+	}//_dlg_AddMemo_Set_Listviews
+
+	/******************************
+		@return
+			-1 build list => null<br>
+			-2 adapter 1 => null<br>
+			1 list => set<br>
+	 ******************************/
+	private static int
+	_dlg_AddMemo_Set_LV_2
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// lv 2
+		
+		////////////////////////////////
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_2 = DBUtils.find_All_WP_tags(actv);
+//		CONS.IMageActv.list_WP_1 = DBUtils.find_All_WP_symbols(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_2 == null) {
+			
+			return -1;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_2.size() => " 
+				+ CONS.MemoActv.list_WP_2.size();
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// sort
+		
+		////////////////////////////////
+		Collections.sort(
+				CONS.MemoActv.list_WP_2, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.WORD,
+						CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_2, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_2 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				actv,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_2
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_2 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_2 => null";
+			Log.e("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 2 => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return -2;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) d.findViewById(R.id.dlg_add_memos_lv2);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_2.setAdapter(CONS.MemoActv.adp_WPList_2);
+		
+		
+		return 1;
+		
+	}//_dlg_AddMemo_Set_Listviews
+	
+	/******************************
+		@return
+			-1 build list => null<br>
+			-2 adapter 1 => null<br>
+			1 list => set<br>
+	 ******************************/
+	private static int
+	_dlg_AddMemo_Set_LV_3
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// lv 3
+		
+		////////////////////////////////
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_3 = DBUtils.find_All_WP_literals(actv);
+//		CONS.IMageActv.list_WP_1 = DBUtils.find_All_WP_symbols(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_3 == null) {
+			
+			return -1;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_3.size() => " 
+				+ CONS.MemoActv.list_WP_3.size();
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// sort
+		
+		////////////////////////////////
+		Collections.sort(
+				CONS.MemoActv.list_WP_3, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.WORD,
+						CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_3, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_3 = new Adp_WordPatterns(
+//				CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				actv,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_3
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_3 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_3 => null";
+			Log.e("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 3 => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return -2;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) d.findViewById(R.id.dlg_add_memos_lv3);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_3.setAdapter(CONS.MemoActv.adp_WPList_3);
+		
+		
+		return 1;
+		
+	}//_dlg_AddMemo_Set_Listviews
+
+	public static Dialog 
+	_dlg_AddMemo_GetDialog
+	(Activity actv) {
+		
+		// 
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_add_memos);
+		
+		// Title
+		dlg.setTitle(R.string.commons_lbl_edit_memo);
+		
+		/*----------------------------
+		 * 1-2. Set text to edit text
+			----------------------------*/
+//		TI ti = DBUtils.get_TI_From_DbId(actv, db_Id);
+//		TI ti = DBUtils.get_TI_From_FileId(actv, db_Id);
+		
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
+		
+		if (CONS.PlayActv.memo != null) {
+			
+			String memo = CONS.PlayActv.memo.getText();
+			
+			et.setText(memo);
+			
+			et.setSelection(memo.length());
+			
+		} else {//if (ti.getMemo() != null)
+			
+			et.setSelection(0);
+			
+		}//if (ti.getMemo() != null)
+		
+		////////////////////////////////
+
+		// Add listeners: OnTouch
+
+		////////////////////////////////
+		
+		Button btn_add = (Button) dlg.findViewById(R.id.dlg_add_memos_bt_add);
+		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_add_memos_cancel);
+		
+//		Button btn_patterns = (Button) dlg.findViewById(R.id.dlg_add_memos_bt_patterns);
+		
+		// Tags
+//		btn_add.setTag(DialogTags.dlg_add_memos_bt_add);
+		btn_add.setTag(DialogTags.DLG_EDIT_MEMOS_BT_OK);
+		btn_cancel.setTag(DialogTags.GENERIC_DISMISS);
+//		btn_cancel.setTag(DialogTags.dlg_generic_dismiss);
+		
+//		btn_patterns.setTag(DialogTags.dlg_add_memos_bt_patterns);
+//		btn_patterns.setTag(DialogTags.DLG_ADD_MEMOS_BT_PATTERNS);
+		
+		//
+		btn_add.setOnTouchListener(new DB_OTL(actv, dlg));
+		btn_cancel.setOnTouchListener(new DB_OTL(actv, dlg));
+		
+//		btn_patterns.setOnTouchListener(new DB_OTL(actv, dlg));
+		
+		////////////////////////////////
+
+		// Add listeners => OnClick
+
+		////////////////////////////////
+		btn_add.setOnClickListener(new DB_OCL(actv, dlg));
+		btn_cancel.setOnClickListener(new DB_OCL(actv, dlg));
+		
+//		btn_patterns.setOnClickListener(new DB_OCL(actv, dlg));
+
+		
+		return dlg;
+		
+	}//public static Dialog dlg_addMemo(Activity actv, long file_id, String tableName)
 
 	
 }//public class Methods_dialog

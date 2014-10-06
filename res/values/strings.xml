@@ -34,6 +34,8 @@
     	<string name="commons_lbl_rec">Rec</string>
     	<string name="commons_lbl_back">Back</string>
     	<string name="commons_lbl_stop">Stop</string>
+    	
+    	<string name="commons_lbl_edit_memo">Edit memo</string>
     
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">

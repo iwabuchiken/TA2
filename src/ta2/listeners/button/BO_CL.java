@@ -112,11 +112,11 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
-		case ACTV_PLAY_SAVE:
-			
-			case_ACTV_PLAY_SAVE();
-			
-			break;
+//		case ACTV_PLAY_SAVE:
+//			
+//			case_ACTV_PLAY_SAVE();
+//			
+//			break;
 			
 		case ACTV_MAIN_SHOWLIST:
 			
@@ -208,11 +208,26 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PLAY_TV: //------------------------------
+			
+			case_ACTV_PLAY_TV();
+			
+			break;
+			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_PLAY_TV() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_EditMemo(actv);
+		
+		
+	}//case_ACTV_PLAY_TV
 
 	private void 
 	case_ACTV_PLAY_BACK() {
@@ -576,68 +591,68 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
-	private void 
-	case_ACTV_PLAY_SAVE() {
-		// TODO Auto-generated method stub
-		////////////////////////////////
-		
-		// validate: any text?
-		
-		////////////////////////////////
-		EditText et = (EditText) actv.findViewById(R.id.actv_play_et);
-		
-		String tmp = et.getText().toString();
-		
-		if (tmp == null) {
-			
-			String msg = "Text => null";
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
-			
-			return;
-			
-		}
-		
-		if (tmp.length() < 1) {
-			
-			String msg = "No text";
-			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
-			
-			return;
-			
-		}
-		
-		////////////////////////////////
-		
-		// save memo
-		
-		////////////////////////////////
-		int res = Methods.save_Memo(actv, R.id.actv_play_et);
-		
-//			-1	insertion => failed<br>
-//			-2	Exception<br>
-//			1	text => inserted<br>
-		
-		////////////////////////////////
-		
-		// clear view?
-		
-		////////////////////////////////
-		boolean pref = Methods.get_Pref_Boolean(
-				actv, 
-				CONS.Pref.pname_MainActv, 
-				actv.getString(R.string.prefs_ClearView_WhenSaved_key), 
-				false);
-		
-		if (pref == true) {
-			
-			et.setText("");
-			
-		}
-		
-		
-		Methods.report_Save_Memos(actv, res);
-		
-	}//ACTV_PLAY_SAVE
+//	private void 
+//	case_ACTV_PLAY_SAVE() {
+//		// TODO Auto-generated method stub
+//		////////////////////////////////
+//		
+//		// validate: any text?
+//		
+//		////////////////////////////////
+//		EditText et = (EditText) actv.findViewById(R.id.actv_play_et);
+//		
+//		String tmp = et.getText().toString();
+//		
+//		if (tmp == null) {
+//			
+//			String msg = "Text => null";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+//			
+//			return;
+//			
+//		}
+//		
+//		if (tmp.length() < 1) {
+//			
+//			String msg = "No text";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+//			
+//			return;
+//			
+//		}
+//		
+//		////////////////////////////////
+//		
+//		// save memo
+//		
+//		////////////////////////////////
+//		int res = Methods.save_Memo(actv, R.id.actv_play_et);
+//		
+////			-1	insertion => failed<br>
+////			-2	Exception<br>
+////			1	text => inserted<br>
+//		
+//		////////////////////////////////
+//		
+//		// clear view?
+//		
+//		////////////////////////////////
+//		boolean pref = Methods.get_Pref_Boolean(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				actv.getString(R.string.prefs_ClearView_WhenSaved_key), 
+//				false);
+//		
+//		if (pref == true) {
+//			
+//			et.setText("");
+//			
+//		}
+//		
+//		
+//		Methods.report_Save_Memos(actv, res);
+//		
+//	}//ACTV_PLAY_SAVE
 	
 	private void 
 	case_ACTV_MEMO_CLEAR() {

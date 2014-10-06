@@ -5,98 +5,23 @@
     android:background="@color/yellow_pale_dark"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/actv_play_et"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+    <TextView
+        android:id="@+id/actv_play_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:ems="10"
+        android:layout_weight="1"
+        android:background="@color/yellow_pale_bright"
         android:gravity="top|left"
+        android:padding="5dp"
+        android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="25sp" >
-
-        <requestFocus />
-    </EditText>
-
-    <LinearLayout
-        android:id="@+id/actv_play_ll_listview"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="5dp"
-        android:background="@color/blue1"
-        android:baselineAligned="false" >
-
-        <ListView
-            android:id="@+id/actv_play_lv_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1" >
-        </ListView>
-
-        <ListView
-            android:id="@+id/actv_play_lv_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1" >
-        </ListView>
-
-        <ListView
-            android:id="@+id/actv_play_lv_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1" >
-        </ListView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/darkgreen"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="3dp"
-        android:paddingLeft="10dp" >
-
-        <TextView
-            android:id="@+id/actv_play_tv_num"
-            android:layout_width="45dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" />
-
-        <ImageButton
-            android:id="@+id/actv_play_ib_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:background="@color/darkgreen"
-            android:src="@drawable/actv_memo_ib_save_64x64" />
-
-        <ImageButton
-            android:id="@+id/actv_play_ib_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:background="@color/darkgreen"
-            android:src="@drawable/actv_memo_ib_clear_41x50" />
-    </LinearLayout>
+        android:textSize="25sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
