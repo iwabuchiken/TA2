@@ -27,7 +27,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/actv_rec_ll_listview"
+        android:id="@+id/actv_play_ll_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -35,7 +35,7 @@
         android:baselineAligned="false" >
 
         <ListView
-            android:id="@+id/actv_rec_lv_1"
+            android:id="@+id/actv_play_lv_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -44,7 +44,7 @@
         </ListView>
 
         <ListView
-            android:id="@+id/actv_rec_lv_2"
+            android:id="@+id/actv_play_lv_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -53,7 +53,7 @@
         </ListView>
 
         <ListView
-            android:id="@+id/actv_rec_lv_3"
+            android:id="@+id/actv_play_lv_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"

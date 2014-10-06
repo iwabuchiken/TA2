@@ -888,7 +888,7 @@ public class MemoActv extends Activity {
 		// button: all clear
 
 		////////////////////////////////
-		ImageButton bt_Clear = (ImageButton) this.findViewById(R.id.actv_memo_ib_clear);
+		ImageButton bt_Clear = (ImageButton) this.findViewById(R.id.actv_play_ib_clear);
 		
 		bt_Clear.setTag(Tags.ButtonTags.ACTV_MEMO_CLEAR);
 		
@@ -901,7 +901,7 @@ public class MemoActv extends Activity {
 		// button: save
 		
 		////////////////////////////////
-		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_memo_ib_save);
+		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_play_ib_save);
 		
 		bt_Save.setTag(Tags.ButtonTags.ACTV_MEMO_SAVE);
 		
@@ -915,7 +915,7 @@ public class MemoActv extends Activity {
 
 		////////////////////////////////
 		EditText et_Content = (EditText) this.findViewById(R.id.actv_memo_et);
-		TextView tv_Num = (TextView) this.findViewById(R.id.actv_memo_tv_num);
+		TextView tv_Num = (TextView) this.findViewById(R.id.actv_play_tv_num);
 		
 		et_Content.addTextChangedListener(new TW(this, et_Content, tv_Num));
 		

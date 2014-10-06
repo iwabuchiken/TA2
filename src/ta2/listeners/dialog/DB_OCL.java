@@ -349,6 +349,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+//		case DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK://------------------------------------------------
+//			
+//			case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK();
+//			
+//			break;
+			
 		case DLG_FILTER_SHOWLIST_CLEAR://------------------------------------------------
 			
 			case_DLG_FILTER_SHOWLIST_CLEAR();
@@ -403,11 +409,110 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_EDIT_MEMOS_BT_OK://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_BT_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_EDIT_MEMOS_BT_OK() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// save memo
+		
+		////////////////////////////////
+		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+//		int res = Methods.save_Memo(actv, d1, R.id.dlg_add_memos_et_content);
+//		int res = Methods.save_Memo(actv, R.id.actv_play_et);
+		
+//			-1	insertion => failed<br>
+//			-2	Exception<br>
+//			1	text => inserted<br>
+		
+//		////////////////////////////////
+//		
+//		// clear view?
+//		
+//		////////////////////////////////
+//		boolean pref = Methods.get_Pref_Boolean(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				actv.getString(R.string.prefs_ClearView_WhenSaved_key), 
+//				false);
+//		
+//		if (pref == true) {
+//			
+//			et.setText("");
+//			
+//		}
+		
+		////////////////////////////////
+
+		// closing
+
+		////////////////////////////////
+		if (res == true) {
+			
+			d1.dismiss();
+			
+			TextView tv_Memo = (TextView) actv.findViewById(R.id.actv_play_tv);
+			
+			tv_Memo.setText(tmp);
+			
+			////////////////////////////////
+
+			// update: CONS.PlayActv.memo
+
+			////////////////////////////////
+			CONS.PlayActv.memo.setText(tmp);
+			
+		} else {
+			
+			String msg = "Can't save memo";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+
+		}
+		
+//		Methods.report_Save_Memos(actv, res);
+		
+	}//case_DLG_EDIT_MEMOS_BT_OK
 
 	private void 
 	case_DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK() {
@@ -1443,6 +1548,32 @@ public class DB_OCL implements OnClickListener {
 		
 	}
 
+//	private void 
+//	case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK() {
+//		// TODO Auto-generated method stub
+//		////////////////////////////////
+//		
+//		// view
+//		
+//		////////////////////////////////
+//		EditText et = (EditText) actv.findViewById(R.id.actv_play_et);
+//		
+//		////////////////////////////////
+//		
+//		// clear
+//		
+//		////////////////////////////////
+//		et.setText("");
+//		
+//		////////////////////////////////
+//		
+//		// dismiss
+//		
+//		////////////////////////////////
+//		d1.dismiss();
+//		
+//	}//case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK
+	
 	private void 
 	case_DLG_CONF_RESTORE_DB_OK() {
 		// TODO Auto-generated method stub
