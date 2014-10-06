@@ -5136,5 +5136,94 @@ public static String
 
 	}//update_ProgressLable
 
+
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
+	filter_MemoList
+	(Activity actv, int id_Checked, EditText et) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+
+		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+
+		// filter
+
+		////////////////////////////////
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					continue;
+					
+				}
+				
+				list_Memos.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}
+//			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+//		// Log
+//		msg_Log = "where => " + where;
+//		Log.d("DB_OCL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+//		where = CONS.DB.col_names_TA2[0] + " like ?";
+//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
+		
+//		args = new String[]{
+//				
+//				"%" + et.getText().toString() + "%"
+//				
+//		};
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList
+
 }//public class Methods
 

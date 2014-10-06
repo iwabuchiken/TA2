@@ -655,7 +655,7 @@ public class ShowListActv extends ListActivity {
 	case_OPT_Filter() {
 		// TODO Auto-generated method stub
 	
-		Methods_dlg.filter_ShowList(this);
+		Methods_dlg.dlg_filter_ShowList(this);
 		
 	}
 

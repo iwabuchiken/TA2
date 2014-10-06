@@ -363,7 +363,8 @@ public class DB_OCL implements OnClickListener {
 			
 		case DLG_FILTER_SHOWLIST_OK://------------------------------------------------
 			
-			case_DLG_FILTER_SHOWLIST_OK();
+			case_DLG_FILTER_SHOWLIST_OK_2();
+//			case_DLG_FILTER_SHOWLIST_OK();
 			
 			break;
 			
@@ -1110,6 +1111,207 @@ public class DB_OCL implements OnClickListener {
 			
 		}
 
+//				input
+	}//case_DLG_FILTER_SHOWLIST_OK
+	
+	@SuppressWarnings("unused")
+	private void 
+	case_DLG_FILTER_SHOWLIST_OK_2() {
+		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// get view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		////////////////////////////////
+		
+		// validate: multiple keywords
+		
+		////////////////////////////////
+		String input = et.getText().toString();
+		
+		input = input.trim();
+		
+		input = input.replaceAll("　", " ");
+		
+		input = input.replaceAll(" +", " ");
+		
+		// Log
+		msg_Log = "input is now => " + input;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		String[] tokens = input.split(" +");
+		String[] tokens = input.split(" ");
+		
+		if (tokens == null) {
+			
+			String msg = "Split the input => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "tokens.length => " + tokens.length;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// setup: where, args
+		
+		////////////////////////////////
+		String where = null;
+		
+		String[] args = null;
+		
+		List<Memo> list_Memos = null;
+		
+		////////////////////////////////
+		
+		// condition: NOT
+		
+		////////////////////////////////
+		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
+		
+		int RB_id_Checked = rg.getCheckedRadioButtonId();
+		
+		////////////////////////////////
+		
+		// dispatch
+		
+		////////////////////////////////
+		if (tokens.length <= 1) {
+			
+			// Log
+			msg_Log = "tokens.length <= 1";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			list_Memos = Methods.filter_MemoList(actv, RB_id_Checked, et);
+			
+		} else {//if (tokens.length <= 1)
+			
+			//test
+			where = this._Filter_ShowList_Build_Conditions_where(actv, d1);
+			
+//			this._Filter_ShowList_Build_Conditions(actv, d1, where, args);
+//			Object[] objects = this._Filter_ShowList_Build_Conditions(actv, d1);
+			
+			// Log
+			msg_Log = "where => " + where;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			args = this._Filter_ShowList_Build_Conditions_args(actv, d1);
+			args = tokens;
+			
+			for (int i = 0; i < args.length; i++) {
+				
+				args[i] = "%" + args[i] + "%";
+				
+				// Log
+				msg_Log = "args => " + args[i];
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+			}
+			
+			list_Memos = DBUtils.find_All_Memos_conditions(
+//					List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
+					actv, 
+					CONS.Enums.SortOrder.DESC, 
+					where, 
+					args);
+			
+		}//if (tokens.length <= 1)
+		
+//		list_Memos = DBUtils.find_All_Memos_conditions(
+////				List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
+//				actv, 
+//				CONS.Enums.SortOrder.DESC, 
+//				where, 
+//				args);
+		
+		////////////////////////////////
+		
+		// update: list
+		
+		////////////////////////////////
+		if (list_Memos == null) {
+			
+			String msg = "Can't build list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "list_Memos.size() => " + list_Memos.size();
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		CONS.ShowListActv.list_Memos.clear();
+		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+		
+		////////////////////////////////
+		
+		// notify
+		
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+		////////////////////////////////
+		
+		// store: string --> pref
+		
+		////////////////////////////////
+		boolean res = Methods.set_Pref_String(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				CONS.Pref.pkey_ShowListActv_Filter_String, 
+				input);
+		
+		if (res == true) {
+			
+			// Log
+			msg_Log = "pref filter => set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			msg_Log = "pref filter => not set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
 //				input
 	}//case_DLG_FILTER_SHOWLIST_OK
 	

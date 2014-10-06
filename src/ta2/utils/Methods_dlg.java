@@ -2024,7 +2024,7 @@ public class Methods_dlg {
 	}//conf_Clear_View_PlayActv
 	
 	public static void 
-	filter_ShowList
+	dlg_filter_ShowList
 	(Activity actv) {
 		// TODO Auto-generated method stub
 		boolean res;
