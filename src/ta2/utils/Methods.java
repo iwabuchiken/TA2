@@ -2517,6 +2517,47 @@ public static String
 		
 	}//save_Memo
 
+	/******************************
+		@return
+			-1	insertion => failed<br>
+			-2	Exception<br>
+			1	text => inserted<br>
+	 ******************************/
+	public static int 
+	save_Memo
+	(Activity actv, int resourceID) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(resourceID);
+//		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		////////////////////////////////
+		
+		// get text
+		
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// save
+		
+		////////////////////////////////
+		int res = DBUtils.save_Memo(actv, text);
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return res;
+		
+	}//save_Memo
+	
 	public static void 
 	report_DropTable_Memos
 	(Activity actv, 

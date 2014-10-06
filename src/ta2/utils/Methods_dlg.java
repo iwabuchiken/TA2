@@ -1974,6 +1974,55 @@ public class Methods_dlg {
 	}//conf_Clear_View
 
 	public static void 
+	conf_Clear_View_PlayActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		Dialog d1 = 
+				Methods_dlg.dlg_Tmpl_OkCancel(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK, 
+						Tags.DialogTags.GENERIC_DISMISS);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) d1.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.commons_lbl_clear_view) + "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+		TextView tv_ItemName = 
+				(TextView) d1.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+//		dlg_tmpl_confirm_simple_tv_message
+		
+		tv_ItemName.setText("EditText");
+//		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		d1.show();
+		
+	}//conf_Clear_View_PlayActv
+	
+	public static void 
 	filter_ShowList
 	(Activity actv) {
 		// TODO Auto-generated method stub

@@ -349,6 +349,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK://------------------------------------------------
+			
+			case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK();
+			
+			break;
+			
 		case DLG_FILTER_SHOWLIST_CLEAR://------------------------------------------------
 			
 			case_DLG_FILTER_SHOWLIST_CLEAR();
@@ -1443,6 +1449,32 @@ public class DB_OCL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) actv.findViewById(R.id.actv_play_et);
+		
+		////////////////////////////////
+		
+		// clear
+		
+		////////////////////////////////
+		et.setText("");
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//case_DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK
+	
 	private void 
 	case_DLG_CONF_RESTORE_DB_OK() {
 		// TODO Auto-generated method stub

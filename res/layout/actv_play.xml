@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/actv_play_et"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -24,7 +24,7 @@
     <LinearLayout
         android:id="@+id/actv_play_ll_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_margin="5dp"
         android:background="@color/blue1"
         android:baselineAligned="false" >

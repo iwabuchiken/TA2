@@ -2,12 +2,17 @@ package ta2.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.adapters.Adp_WordPatterns;
+import ta2.comps.Comp_WP;
 import ta2.items.Memo;
+import ta2.listeners.LOI_CL;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.SBL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -32,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -292,7 +298,7 @@ public class PlayActv extends Activity {
 		
 		////////////////////////////////
 		_Setup_Views();
-		
+
 		////////////////////////////////
 
 		// listeners
@@ -300,7 +306,448 @@ public class PlayActv extends Activity {
 		////////////////////////////////
 		_Setup_Listeners();
 		
+		this._Setup_Listeners_Memo();
+		
+		////////////////////////////////
+
+		// listviews
+
+		////////////////////////////////
+		this._Setup_Lists();
+		
+		this._Setup_Listeners_LVs();
+		
+		
 	}//protected void onStart()
+
+	private boolean 
+	_Setup_Lists() {
+		// TODO Auto-generated method stub
+		boolean res;
+		
+		res = _Setup_List_1();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_1 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		// List 2
+		res = _Setup_List_2();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_2 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		// List 3
+		res = _Setup_List_3();
+		
+		// If the list can't be built
+		//	=> go no further in settingup
+		if (res == false) {
+			
+			String msg = "_Setup_List_3 => false";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		return true;
+		
+	}//_Setup_Lists
+
+	/******************************
+		List: Symbols
+	 ******************************/
+	private boolean 
+	_Setup_List_1() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+	
+		// vars
+	
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+	
+		// build list
+	
+		////////////////////////////////
+		CONS.MemoActv.list_WP_1 = DBUtils.find_All_WP_symbols(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_1 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_1.size() => " 
+						+ CONS.MemoActv.list_WP_1.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_1, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+	
+		Collections.sort(
+				CONS.MemoActv.list_WP_1, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+	
+		////////////////////////////////
+	
+		// adapter
+	
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_1 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_1 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_1
+				);
+	
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_1 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_1 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+	
+		// set adapter
+	
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_play_lv_1);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_1.setAdapter(CONS.MemoActv.adp_WPList_1);
+		
+		return true;
+		
+	}//_Setup_List
+	
+	/******************************
+		List: Tags
+	 ******************************/
+	private boolean 
+	_Setup_List_2() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_2 = DBUtils.find_All_WP_tags(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_2 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_2.size() => " 
+				+ CONS.MemoActv.list_WP_2.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_2, 
+						new Comp_WP(
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_2, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_2 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_2 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_2
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_2 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_2 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_play_lv_2);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_2.setAdapter(CONS.MemoActv.adp_WPList_2);
+		
+		return true;
+		
+	}//_Setup_List_2
+	
+	/******************************
+		List: Literals
+	 ******************************/
+	private boolean 
+	_Setup_List_3() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// build list
+		
+		////////////////////////////////
+		CONS.MemoActv.list_WP_3 = DBUtils.find_All_WP_literals(this);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (CONS.MemoActv.list_WP_3 == null) {
+			
+			return false;
+			
+		}
+		
+		// Log
+		msg_Log = "CONS.MemoActv.list_WP_3.size() => " 
+				+ CONS.MemoActv.list_WP_3.size();
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+	
+		// sort
+	
+		////////////////////////////////
+		Collections.sort(
+						CONS.MemoActv.list_WP_3, 
+						new Comp_WP(
+								
+								CONS.Enums.SortType.WORD,
+								CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				CONS.MemoActv.list_WP_3, 
+				new Comp_WP(
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+	//					CONS.Enums.SortOrder.ASC
+						));
+	
+		////////////////////////////////
+		
+		// adapter
+		
+		////////////////////////////////
+		// Log
+		msg_Log = "Constructing an adapter...";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		CONS.MemoActv.adp_WPList_3 = new Adp_WordPatterns(
+	//			CONS.MemoActv.adp_WPList_3 = new ArrayAdapter<WordPattern>(
+				this,
+				R.layout.list_row_gv,
+				CONS.MemoActv.list_WP_3
+				);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.MemoActv.adp_WPList_3 == null) {
+			
+			// Log
+			msg_Log = "CONS.MemoActv.adp_WPList_3 => null";
+			Log.e("MemoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter 1 => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set adapter
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_play_lv_3);
+		
+		// Log
+		msg_Log = "setting the adapter to the listview";
+		Log.d("MemoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		lv_3.setAdapter(CONS.MemoActv.adp_WPList_3);
+		
+		return true;
+		
+	}//_Setup_List_3
+	
+	private boolean 
+	_Setup_Listeners_LVs() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+	
+		// view: list 1
+	
+		////////////////////////////////
+		ListView lv_1 = (ListView) findViewById(R.id.actv_play_lv_1);
+		
+		lv_1.setTag(Tags.ListTags.ACTV_REC_LV_1);
+		
+		lv_1.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_1.setOnItemLongClickListener(new LOI_LCL(this));
+		
+		////////////////////////////////
+		
+		// view: list 2
+		
+		////////////////////////////////
+		ListView lv_2 = (ListView) findViewById(R.id.actv_play_lv_2);
+		
+		lv_2.setTag(Tags.ListTags.ACTV_REC_LV_2);
+		
+		lv_2.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_2.setOnItemLongClickListener(new LOI_LCL(this));
+		
+		////////////////////////////////
+		
+		// view: list 3
+		
+		////////////////////////////////
+		ListView lv_3 = (ListView) findViewById(R.id.actv_play_lv_3);
+		
+		lv_3.setTag(Tags.ListTags.ACTV_REC_LV_3);
+		
+		lv_3.setOnItemClickListener(new LOI_CL(this));
+		
+		lv_3.setOnItemLongClickListener(new LOI_LCL(this));
+	
+		
+		return false;
+	}
 
 	private void 
 	_Setup_Views() {
@@ -512,6 +959,37 @@ public class PlayActv extends Activity {
 		CONS.PlayActv.sb.setOnSeekBarChangeListener(
 							new SBL(this, CONS.PlayActv.sb));
 
+		
+	}//_Setup_Listeners
+	
+	private void 
+	_Setup_Listeners_Memo() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// IB: play
+		
+		////////////////////////////////
+		ImageButton ib_Save = (ImageButton) this.findViewById(R.id.actv_play_ib_save);
+		
+		ib_Save.setTag(Tags.ButtonTags.ACTV_PLAY_SAVE);
+		
+		ib_Save.setOnTouchListener(new BO_TL(this));
+		
+		ib_Save.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: clear
+		
+		////////////////////////////////
+		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_ib_clear);
+		
+		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAY_CLEAR);
+		
+		ib_Stop.setOnTouchListener(new BO_TL(this));
+		
+		ib_Stop.setOnClickListener(new BO_CL(this));
 		
 	}//_Setup_Listeners
 	
