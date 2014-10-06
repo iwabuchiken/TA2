@@ -953,7 +953,7 @@ public class MemoEditActv extends Activity {
 		// button: all clear
 
 		////////////////////////////////
-		ImageButton bt_Clear = (ImageButton) this.findViewById(R.id.actv_memo_ib_clear);
+		ImageButton bt_Clear = (ImageButton) this.findViewById(R.id.actv_play_ib_clear);
 		
 		bt_Clear.setTag(Tags.ButtonTags.ACTV_MEMO_CLEAR);
 		
@@ -966,7 +966,7 @@ public class MemoEditActv extends Activity {
 		// button: save
 		
 		////////////////////////////////
-		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_memo_ib_save);
+		ImageButton bt_Save = (ImageButton) this.findViewById(R.id.actv_play_ib_save);
 		
 		bt_Save.setTag(Tags.ButtonTags.ACTV_MEMO_EDIT_SAVE);
 		

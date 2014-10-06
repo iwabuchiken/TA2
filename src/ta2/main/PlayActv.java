@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -310,9 +311,22 @@ public class PlayActv extends Activity {
 		// memo
 
 		////////////////////////////////
-		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv_file_name);
+		EditText et_Memo = (EditText) findViewById(R.id.actv_play_et);
 		
-		tv_Memo.setText(CONS.PlayActv.memo.getText());
+		et_Memo.setText(CONS.PlayActv.memo.getText());
+		
+		et_Memo.setSelection(CONS.PlayActv.memo.getText().length());
+		
+		////////////////////////////////
+		
+		// num
+		
+		////////////////////////////////
+		TextView tv_Num = (TextView) findViewById(R.id.actv_play_tv_num);
+		
+		tv_Num.setText(
+				String.valueOf(CONS.PlayActv.memo.getText().length())
+				);
 		
 		////////////////////////////////
 
