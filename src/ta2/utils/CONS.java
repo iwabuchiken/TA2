@@ -538,7 +538,7 @@ public class CONS {
 		public static String[] special_Chars = new String[]{
 			
 			"()", "[]",
-			"（）", "「」", "『』", "〈〉", "【】", "｛｝",
+			"（）", "「」", "『』", "〈〉", "【】", "｛｝", "\"\"", "''",
 			
 		};
 		

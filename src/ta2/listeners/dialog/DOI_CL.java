@@ -199,12 +199,87 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case ACTV_PLAY_ADD_MEMO_LV_1://----------------------------------------------
+		case ACTV_PLAY_ADD_MEMO_LV_2://----------------------------------------------
+		case ACTV_PLAY_ADD_MEMO_LV_3://----------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_ACTV_PLAY_ADD_MEMO_LV_1(wp);
+			
+			break;// case dlg_add_memos_gv
+			
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_PLAY_ADD_MEMO_LV_1
+	(WordPattern wp) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// view
+
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+
+		// build: text
+
+		////////////////////////////////
+		//REF http://stackoverflow.com/questions/3609174/android-insert-text-into-edittext-at-current-position answered Aug 31 '10 at 15:32
+		int pos_Current = et.getSelectionStart();
+		
+		String tmp = et.getText().toString();
+		
+		// Log
+		String msg_Log = "tmp => " + tmp;
+		Log.d("DOI_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		tmp = tmp.substring(0, pos_Current) +
+//				" " + 
+//				item.getWord() + 
+//				" "
+//				+ tmp.substring(pos_Current);
+//		+ tmp.substring(pos_Current + item.getWord().length());
+//		tmp = tmp + item.getWord() + " ";
+		
+//		////////////////////////////////
+//
+//		// set
+//
+//		////////////////////////////////
+//		et.setText(tmp);
+		
+		////////////////////////////////
+
+		// selection
+
+		////////////////////////////////
+		int res;
+		
+		if (Methods.is_SpecialChars(actv, wp.getWord())) {
+//			if (Methods.is_SpecialChars(actv, tmp)) {
+			
+			res = Methods.add_WP_to_Memo_SpecialChars(actv, et, wp);
+			
+		} else {
+			
+			res = Methods.add_WP_to_Memo(actv, et, wp);
+			
+		}//if(Methods.is_SpecialChars(actv, w))
+
+		
+		
+	}//case_ACTV_PLAY_ADD_MEMO_LV_1
 
 	private void 
 	case_ACTV_MEMO_ADMIN_PATTERNS_GV

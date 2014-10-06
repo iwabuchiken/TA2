@@ -496,6 +496,13 @@ public class DB_OCL implements OnClickListener {
 			
 			tv_Memo.setText(tmp);
 			
+			////////////////////////////////
+
+			// update: CONS.PlayActv.memo
+
+			////////////////////////////////
+			CONS.PlayActv.memo.setText(tmp);
+			
 		} else {
 			
 			String msg = "Can't save memo";

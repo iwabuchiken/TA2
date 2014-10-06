@@ -2968,7 +2968,7 @@ public class Methods_dlg {
 		////////////////////////////////
 		ListView lv_1 = (ListView) d.findViewById(R.id.dlg_add_memos_lv1);
 		
-		lv_1.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_1);
+		lv_1.setTag(Tags.DialogItemTags.ACTV_PLAY_ADD_MEMO_LV_1);
 		
 		lv_1.setOnItemClickListener(new DOI_CL(actv, d));
 		
@@ -2981,7 +2981,7 @@ public class Methods_dlg {
 		////////////////////////////////
 		ListView lv_2 = (ListView) d.findViewById(R.id.dlg_add_memos_lv2);
 		
-		lv_2.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_2);
+		lv_2.setTag(Tags.DialogItemTags.ACTV_PLAY_ADD_MEMO_LV_2);
 		
 		lv_2.setOnItemClickListener(new DOI_CL(actv, d));
 		
@@ -2994,7 +2994,7 @@ public class Methods_dlg {
 		////////////////////////////////
 		ListView lv_3 = (ListView) d.findViewById(R.id.dlg_add_memos_lv3);
 		
-		lv_3.setTag(Tags.DialogItemTags.ACTV_IMAGE_ADD_MEMO_LV_3);
+		lv_3.setTag(Tags.DialogItemTags.ACTV_PLAY_ADD_MEMO_LV_3);
 		
 		lv_3.setOnItemClickListener(new DOI_CL(actv, d));
 		
