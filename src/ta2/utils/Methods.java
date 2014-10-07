@@ -5141,7 +5141,7 @@ public static String
 		filter memo list with a single keyword
 	 ******************************/
 	public static List<Memo>
-	filter_MemoList
+	filter_MemoList_Single_KW
 	(Activity actv, int id_Checked, EditText et) {
 		// TODO Auto-generated method stub
 
@@ -5224,6 +5224,186 @@ public static String
 		return list_Memos;
 		
 	}//filter_MemoList
+
+	public static List<Memo> 
+	filter_MemoList_Multiple_KW
+	(Activity actv, int id_Checked, String[] tokens) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+
+//		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+
+		// filter
+
+		////////////////////////////////
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+			msg_Log = "filter => not";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				for (String token : tokens) {
+					
+					text = memo.getText();
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == false) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (id_Checked == R.id.dlg_filter_showlist_rb_and) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "filter => and";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = true;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+					
+				// Log
+				msg_Log = "text => " + text;
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				// reset value
+				contained = true;
+				
+				for (String token : tokens) {
+				
+					// Log
+					msg_Log = "token => " + token;
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+//					text = memo.getText();
+					
+					if (!text.contains(token)) {
+						
+						contained = false;
+						
+						// Log
+						msg_Log = String.format(
+									"!text.contains(token) => %s, %s", 
+									text, token);
+						
+						Log.d("Methods.java"
+								+ "["
+								+ Thread.currentThread().getStackTrace()[2]
+										.getLineNumber() + "]", msg_Log);
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+
+		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "filter => or";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				// reset
+				contained = false;
+				
+				text = memo.getText();
+				
+				for (String token : tokens) {
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "unknown radio button id => " + id_Checked;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList_Multiple_KW
 
 }//public class Methods
 

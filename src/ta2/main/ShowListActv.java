@@ -37,6 +37,12 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onStart();
 
+		// Log
+		String msg_Log = "onStart";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber() + "]",
+				msg_Log);		
+		
 		boolean res;
 		
 		////////////////////////////////
@@ -126,6 +132,23 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
+		
+		////////////////////////////////
+
+		// validate: memo => not yet built
+
+		////////////////////////////////
+		if (CONS.ShowListActv.list_Memos != null) {
+			
+			// Log
+			msg_Log = "CONS.ShowListActv.list_Memos => not null. Recyling...";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		}
 		
 		////////////////////////////////
 
@@ -536,6 +559,22 @@ public class ShowListActv extends ListActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		
+		// Log
+		String msg_Log = "onDestroy";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// clear: memo list
+
+		////////////////////////////////
+		CONS.ShowListActv.list_Memos.clear();
+		
+		CONS.ShowListActv.list_Memos = null;
+		
 	}
 
 
@@ -543,6 +582,13 @@ public class ShowListActv extends ListActivity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		
+		// Log
+		String msg_Log = "onPause";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 	}
 
 
@@ -550,6 +596,13 @@ public class ShowListActv extends ListActivity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		super.onRestart();
+		
+		// Log
+		String msg_Log = "onRestart";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}
 
 
@@ -557,6 +610,13 @@ public class ShowListActv extends ListActivity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		
+		// Log
+		String msg_Log = "onStop";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}
 
 
@@ -568,7 +628,7 @@ public class ShowListActv extends ListActivity {
 		// Log
 		String log_msg = "onResume()";
 
-		Log.d("[" + "MainActv.java : "
+		Log.d("[" + "ShowListActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -587,7 +647,7 @@ public class ShowListActv extends ListActivity {
 		// Log
 		String log_msg = "Starting => onCreate()";
 
-		Log.d("[" + "MainActv.java : "
+		Log.d("[" + "ShowListActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
