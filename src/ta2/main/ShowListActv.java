@@ -19,12 +19,15 @@ import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,6 +47,13 @@ public class ShowListActv extends ListActivity {
 				msg_Log);		
 		
 		boolean res;
+		
+		////////////////////////////////
+
+		// init vars
+
+		////////////////////////////////
+		this._Setup_InitVars();
 		
 		////////////////////////////////
 
@@ -79,6 +89,50 @@ public class ShowListActv extends ListActivity {
 	}//onStart
 
     
+	@Override
+	protected void 
+	onListItemClick
+	(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		
+		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
+		
+		////////////////////////////////
+
+		// set pref
+
+		////////////////////////////////
+		this._ItemClick_SetPref_CurrentPosition(position);
+		
+		
+	}//onListItemClick
+
+	private void
+	_ItemClick_SetPref_CurrentPosition(int position) {
+		// TODO Auto-generated method stub
+		Methods.set_Pref_Int(
+				this,
+				CONS.Pref.pname_ShowListActv,
+				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				position);
+		
+		// Log
+//		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
+		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+						+ " => "
+						+ "Set to: " + position;
+		
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_log);
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+	}
+
+
 	private boolean 
 	_Setup_Adapter() {
 		// TODO Auto-generated method stub
@@ -220,6 +274,13 @@ public class ShowListActv extends ListActivity {
 		
 	}//_Setup_List
 
+	private void 
+	_Setup_InitVars() {
+		// TODO Auto-generated method stub
+		
+		CONS.Admin.vib = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		
+	}//_Setup_InitVars
 
 	private void 
 	do_test() {

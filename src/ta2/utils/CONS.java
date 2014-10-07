@@ -393,10 +393,17 @@ public class CONS {
 		// ShowListActv
 
 		////////////////////////////////
+		public static String pname_ShowListActv = "pname_ShowListActv"; 
+		
+		
 		public static final String 
 		pkey_ShowListActv_Filter_String = 
 							"pkey_ShowListActv_Filter_String";
 
+		public static final String 
+		pkey_ShowListActv_Current_Position = 
+							"pkey_ShowListActv_Current_Position";
+		
 		////////////////////////////////
 		
 		// PlayActv.java

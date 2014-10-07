@@ -504,6 +504,36 @@ public class DB_OCL implements OnClickListener {
 			////////////////////////////////
 			CONS.PlayActv.memo.setText(tmp);
 			
+			////////////////////////////////
+
+			// notify
+
+			////////////////////////////////
+			Memo m = Methods.find_Memo_from_ListView(actv, CONS.PlayActv.memo.getDb_Id());
+			
+			if (m != null) {
+				
+				m.setText(tmp);
+				
+			} else {
+
+				// Log
+				String msg_Log = "memo => null";
+				Log.e("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+			CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+			
+			// Log
+			String msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
 		} else {
 			
 			String msg = "Can't save memo";

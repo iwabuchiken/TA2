@@ -2989,6 +2989,39 @@ public static String
 		CONS.ShowListActv.list_Memos.remove(memo);
 		
 		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+
+		// pref => remove
+
+		////////////////////////////////
+		boolean res_b = Methods.set_Pref_Int(
+				actv,
+				CONS.Pref.pname_ShowListActv,
+				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				CONS.Pref.dflt_IntExtra_value);
+		
+		if (res_b == true) {
+			
+			// notify adapter
+			CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+			
+			// Log
+			String msg_Log = "pref position => reset";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "pref position rest => not done";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		}
 
 		////////////////////////////////
 
@@ -5404,6 +5437,25 @@ public static String
 		return list_Memos;
 		
 	}//filter_MemoList_Multiple_KW
+
+	public static Memo 
+	find_Memo_from_ListView
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		
+		for (Memo m : CONS.ShowListActv.list_Memos) {
+			
+			if (m.getDb_Id() == db_Id) {
+				
+				return m;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}//find_Memo_from_ListView
 
 }//public class Methods
 
