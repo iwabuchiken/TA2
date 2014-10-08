@@ -179,6 +179,24 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
     	
     	////////////////////////////////
 
+		// setup: positions
+
+		////////////////////////////////
+		CONS.ShowListActv.list_Pos_Prev = CONS.ShowListActv.list_Pos_Current;
+		
+		CONS.ShowListActv.list_Pos_Current = position;
+
+		// Log
+		msg_Log = String.format(
+						"pos prev = %d, pos current = %d", 
+						CONS.ShowListActv.list_Pos_Prev,
+						CONS.ShowListActv.list_Pos_Current);
+		
+		Log.d("Adp_MemoList.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+    	////////////////////////////////
+
 		// View
 
 		////////////////////////////////

@@ -68,13 +68,27 @@ public class ShowListActv extends ListActivity {
 			
 		}
 		
+//		////////////////////////////////
+//
+//		// selection
+//
+//		////////////////////////////////
+//		this._Setup_SetSelection();
+		
 		////////////////////////////////
 
 		// adapter
 
 		////////////////////////////////
 		res = _Setup_Adapter();
+
+		////////////////////////////////
 		
+		// selection
+		
+		////////////////////////////////
+		this._Setup_SetSelection();
+
 		////////////////////////////////
 
 		// listeners
@@ -87,6 +101,60 @@ public class ShowListActv extends ListActivity {
 //		do_test();
 		
 	}//onStart
+
+	private void 
+	_Setup_SetSelection() {
+		// TODO Auto-generated method stub
+		
+		int target_Position;
+		
+		// If the current is larger than the previous,
+		//	i.e. the position is increasing
+		//	i.e. the list is scrolling downward
+		//	=> modify the target
+		
+		// Log
+		String msg_Log = String.format(
+						"list_Pos_Prev = %d, list_Pos_Current = %d", 
+						CONS.ShowListActv.list_Pos_Prev,
+						CONS.ShowListActv.list_Pos_Current);
+		
+		Log.d("ShowList.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (CONS.ShowListActv.list_Pos_Current
+				> CONS.ShowListActv.list_Pos_Prev) {
+			
+			target_Position = CONS.ShowListActv.list_Pos_Current - 5;
+			
+		} else {
+			
+			// If the current is smaller than the previous,
+			//	i.e. the position is decreasing
+			//	=> set the target with the current
+			target_Position = CONS.ShowListActv.list_Pos_Current;
+
+		}
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.list_Pos_Current = "
+						+ CONS.ShowListActv.list_Pos_Current
+						+ " // "
+						+ "CONS.ShowListActv.list_Pos_Prev = "
+						+ CONS.ShowListActv.list_Pos_Prev
+						+ " // "
+						+ "target_Position = "
+						+ target_Position
+						;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
+		this.getListView().setSelection(target_Position);
+		
+	}//_Setup_SetSelection()
 
     
 	@Override
@@ -177,7 +245,7 @@ public class ShowListActv extends ListActivity {
 		
 		return true;
 		
-	}
+	}//_Setup_Adapter
 	
 
 

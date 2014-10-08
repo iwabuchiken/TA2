@@ -456,7 +456,8 @@ public class CONS {
 		
 	}
 	
-	public static class ShowListActv {
+	public static class 
+	ShowListActv {
 		
 		public static List<Memo> list_Memos;
 		
@@ -466,7 +467,10 @@ public class CONS {
 
 		public static final int length_Conf_Message		= 20;
 		
-	}
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
+	}//ShowListActv
 	
 	public static class TNActv {
 		
