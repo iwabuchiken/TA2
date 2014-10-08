@@ -83,6 +83,7 @@ import ta2.listeners.MP_OCmpL;
 import ta2.listeners.dialog.DL;
 import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
+import ta2.main.PhotoActv;
 import ta2.main.PlayActv;
 import ta2.main.PrefActv;
 import ta2.main.R;
@@ -950,7 +951,7 @@ public static String
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
 		
-		i.setClass(actv, MemoActv.class);
+		i.setClass(actv, PhotoActv.class);
 		
 		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		
