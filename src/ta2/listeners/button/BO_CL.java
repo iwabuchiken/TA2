@@ -230,7 +230,7 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_MAIN_PHOTO() {
 		// TODO Auto-generated method stub
 		
-		Methods.start_Activity_MemoActv(actv);
+		Methods.start_Activity_PhotoActv(actv);
 		
 		
 	}//case_ACTV_MAIN_PHOTO

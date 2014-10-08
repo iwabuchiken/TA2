@@ -951,7 +951,7 @@ public static String
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
 		
-		i.setClass(actv, PhotoActv.class);
+		i.setClass(actv, MemoActv.class);
 		
 		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		
@@ -963,13 +963,13 @@ public static String
 	start_Activity_PhotoActv
 	(Activity actv) {
 		// TODO Auto-generated method stub
-//		Intent i = new Intent();
-//		
-//		i.setClass(actv, MemoActv.class);
-//		
-//		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//		
-//		actv.startActivity(i);
+		Intent i = new Intent();
+		
+		i.setClass(actv, PhotoActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
 		
 	}//start_Activity_PhotoActv
 	

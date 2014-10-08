@@ -19,12 +19,15 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +41,13 @@ public class PhotoActv extends ListActivity {
 		super.onStart();
 
 		boolean res;
+		
+		////////////////////////////////
+
+		// init vars
+
+		////////////////////////////////
+		this._Setup_Init_Vars();
 		
 		////////////////////////////////
 
@@ -72,48 +82,86 @@ public class PhotoActv extends ListActivity {
 		
 	}//onStart
 
+	private void 
+	_Setup_SetSelection() {
+		// TODO Auto-generated method stub
+		
+		int target_Position;
+		
+//		// If the current is larger than the previous,
+//		//	i.e. the position is increasing
+//		//	i.e. the list is scrolling downward
+//		//	=> modify the target
+//		
+//		if (CONS.ShowListActv.list_Pos_Current
+//				> CONS.ShowListActv.list_Pos_Prev) {
+//			
+//			target_Position = CONS.ShowListActv.list_Pos_Current - 5;
+//			
+//		} else {
+//			
+//			// If the current is smaller than the previous,
+//			//	i.e. the position is decreasing
+//			//	=> set the target with the current
+//			target_Position = CONS.ShowListActv.list_Pos_Current;
+//
+//		}
+//		
+//		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
+//		this.getListView().setSelection(target_Position);
+		
+	}//_Setup_SetSelection()
+
+	private void 
+	_Setup_Init_Vars() {
+		// TODO Auto-generated method stub
+		
+		CONS.Admin.vib = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		
+	}//_Setup_InitVars
+
     
 	private boolean 
 	_Setup_Adapter() {
 		// TODO Auto-generated method stub
 		
-		////////////////////////////////
-
-		// get adapter
-
-		////////////////////////////////
-		CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
-				
-						this,
-						R.layout.list_row_showlist,
-						CONS.ShowListActv.list_Memos
-				
-		);
-		
-		/******************************
-			validate
-		 ******************************/
-		if (CONS.ShowListActv.adp_List_Memos == null) {
-			
-			// Log
-			String msg_Log = "CONS.ShowListActv.adp_List_Memos => null";
-			Log.e("ShowListActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			String msg = "adapter => null";
-			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
-			
-			return false;
-			
-		}
-		
-		////////////////////////////////
-
-		// set
-
-		////////////////////////////////
-		this.getListView().setAdapter(CONS.ShowListActv.adp_List_Memos);
+//		////////////////////////////////
+//
+//		// get adapter
+//
+//		////////////////////////////////
+//		CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
+//				
+//						this,
+//						R.layout.list_row_showlist,
+//						CONS.ShowListActv.list_Memos
+//				
+//		);
+//		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (CONS.ShowListActv.adp_List_Memos == null) {
+//			
+//			// Log
+//			String msg_Log = "CONS.ShowListActv.adp_List_Memos => null";
+//			Log.e("ShowListActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			String msg = "adapter => null";
+//			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+//			
+//			return false;
+//			
+//		}
+//		
+//		////////////////////////////////
+//
+//		// set
+//
+//		////////////////////////////////
+//		this.getListView().setAdapter(CONS.ShowListActv.adp_List_Memos);
 		
 		return true;
 		
@@ -126,74 +174,76 @@ public class PhotoActv extends ListActivity {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
+
+		return true;
 		
-		////////////////////////////////
-
-		// list size
-
-		////////////////////////////////
-		String pref_MemoList_Size = Methods.get_Pref_String(
-							this, 
-							CONS.Pref.pname_MainActv, 
-							this.getString(R.string.prefs_MemoList_Size_key), 
-							null);
-
-//		// Log
-//		msg_Log = "pref_MemoList_Size => " + pref_MemoList_Size;
-//		Log.d("ShowListActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-		
-		////////////////////////////////
-
-		// list
-
-		////////////////////////////////
-		if (pref_MemoList_Size != null) {
-			
-			CONS.ShowListActv.list_Memos = 
-					DBUtils.find_All_Memos(
-								this, 
-								CONS.Enums.SortOrder.DESC, 
-								Integer.parseInt(pref_MemoList_Size));
-			
-		} else {
-
-			CONS.ShowListActv.list_Memos = 
-					DBUtils.find_All_Memos(this, CONS.Enums.SortOrder.DESC);
-			
-		}
-		
-		/******************************
-			validate
-		 ******************************/
-		if (CONS.ShowListActv.list_Memos == null) {
-			
-			// Log
-			msg_Log = "CONS.ShowListActv.list_Memos => null";
-			Log.e("ShowListActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			String msg = "Can't get memo list";
-			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
-			
-			return false;
-			
-		} else {
-
-			// Log
-			msg_Log = "memo size => " + CONS.ShowListActv.list_Memos.size();
-			Log.d("ShowListActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-
-			//test
-			do_test();
-			
-			return true;
-			
-		}
+//		////////////////////////////////
+//
+//		// list size
+//
+//		////////////////////////////////
+//		String pref_MemoList_Size = Methods.get_Pref_String(
+//							this, 
+//							CONS.Pref.pname_MainActv, 
+//							this.getString(R.string.prefs_MemoList_Size_key), 
+//							null);
+//
+////		// Log
+////		msg_Log = "pref_MemoList_Size => " + pref_MemoList_Size;
+////		Log.d("ShowListActv.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", msg_Log);
+//		
+//		////////////////////////////////
+//
+//		// list
+//
+//		////////////////////////////////
+//		if (pref_MemoList_Size != null) {
+//			
+//			CONS.ShowListActv.list_Memos = 
+//					DBUtils.find_All_Memos(
+//								this, 
+//								CONS.Enums.SortOrder.DESC, 
+//								Integer.parseInt(pref_MemoList_Size));
+//			
+//		} else {
+//
+//			CONS.ShowListActv.list_Memos = 
+//					DBUtils.find_All_Memos(this, CONS.Enums.SortOrder.DESC);
+//			
+//		}
+//		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (CONS.ShowListActv.list_Memos == null) {
+//			
+//			// Log
+//			msg_Log = "CONS.ShowListActv.list_Memos => null";
+//			Log.e("ShowListActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			String msg = "Can't get memo list";
+//			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+//			
+//			return false;
+//			
+//		} else {
+//
+//			// Log
+//			msg_Log = "memo size => " + CONS.ShowListActv.list_Memos.size();
+//			Log.d("ShowListActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//
+//			//test
+//			do_test();
+//			
+//			return true;
+//			
+//		}
 		
 	}//_Setup_List
 
@@ -212,106 +262,92 @@ public class PhotoActv extends ListActivity {
 	private void 
 	_Setup_Listeners() {
 		// TODO Auto-generated method stub
-		////////////////////////////////
-
-		// LL: base
-
-		////////////////////////////////
-		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_showlist_ll_base);
-		
-		ll_Base.setTag(Tags.SwipeTags.ACTV_SHOWLIST_BASE);
-		
-		ll_Base.setOnTouchListener(new STL(this));
-
-		////////////////////////////////
-
-		// long click
-
-		////////////////////////////////
-		ListView lv = (ListView) this.getListView();
-		
-		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
-		
-		lv.setOnItemLongClickListener(new LOI_LCL(this));
+//		////////////////////////////////
+//
+//		// LL: base
+//
+//		////////////////////////////////
+//		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_showlist_ll_base);
+//		
+//		ll_Base.setTag(Tags.SwipeTags.ACTV_SHOWLIST_BASE);
+//		
+//		ll_Base.setOnTouchListener(new STL(this));
+//
+//		////////////////////////////////
+//
+//		// long click
+//
+//		////////////////////////////////
+//		ListView lv = (ListView) this.getListView();
+//		
+//		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
+//		
+//		lv.setOnItemLongClickListener(new LOI_LCL(this));
 		
 	}//_Setup_Listeners
 
 	private void 
 	_Setup_Listeners_IBs() {
 		// TODO Auto-generated method stub
-		////////////////////////////////
-		
-		// IB: memo
-		
-		////////////////////////////////
-		ImageButton bt_Back = 
-				(ImageButton) this.findViewById(R.id.actv_showlist_ib_back);
-		
-		bt_Back.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BACK);
-		
-		bt_Back.setOnTouchListener(new BO_TL(this));
-		
-		bt_Back.setOnClickListener(new BO_CL(this));
-		
-		////////////////////////////////
-		
-		// IB: Top
-		
-		////////////////////////////////
-		ImageButton bt_Top = 
-				(ImageButton) this.findViewById(R.id.actv_showlist_ib_top);
-		
-		bt_Top.setTag(Tags.ButtonTags.ACTV_SHOWLIST_TOP);
-		
-		bt_Top.setOnTouchListener(new BO_TL(this));
-		
-		bt_Top.setOnClickListener(new BO_CL(this));
-		
-		////////////////////////////////
-		
-		// IB: Up
-		
-		////////////////////////////////
-		ImageButton bt_Up = 
-				(ImageButton) this.findViewById(R.id.actv_showlist_ib_up);
-		
-		bt_Up.setTag(Tags.ButtonTags.ACTV_SHOWLIST_UP);
-		
-		bt_Up.setOnTouchListener(new BO_TL(this));
-		
-		bt_Up.setOnClickListener(new BO_CL(this));
-		
-		////////////////////////////////
-		
-		// IB: Down
-		
-		////////////////////////////////
-		ImageButton bt_Down = 
-				(ImageButton) this.findViewById(R.id.actv_showlist_ib_down);
-		
-		bt_Down.setTag(Tags.ButtonTags.ACTV_SHOWLIST_DOWN);
-		
-		bt_Down.setOnTouchListener(new BO_TL(this));
-		
-		bt_Down.setOnClickListener(new BO_CL(this));
-		
-		////////////////////////////////
-		
-		// IB: Bottom
-		
-		////////////////////////////////
-		ImageButton bt_Bottom = 
-				(ImageButton) this.findViewById(R.id.actv_showlist_ib_bottom);
-		
-		bt_Bottom.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BOTTOM);
-		
-		bt_Bottom.setOnTouchListener(new BO_TL(this));
-		
-		bt_Bottom.setOnClickListener(new BO_CL(this));
-		
+//		////////////////////////////////
+//		
+//		// IB: memo
+//		
+//		////////////////////////////////
+//		ImageButton bt_Back = 
+//				(ImageButton) this.findViewById(R.id.actv_showlist_ib_back);
+//		
+//		bt_Back.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BACK);
+//		
+//		bt_Back.setOnTouchListener(new BO_TL(this));
+//		
+//		bt_Back.setOnClickListener(new BO_CL(this));
 		
 	}//_Setup_Listeners
-	
+
+	@Override
+	protected void 
+	onListItemClick
+	(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		
+		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
+		
+//		////////////////////////////////
+//
+//		// set pref
+//
+//		////////////////////////////////
+//		this._ItemClick_SetPref_CurrentPosition(position);
+		
+		
+	}//onListItemClick
+
+	private void
+	_ItemClick_SetPref_CurrentPosition(int position) {
+		// TODO Auto-generated method stub
+//		Methods.set_Pref_Int(
+//				this,
+//				CONS.Pref.pname_ShowListActv,
+//				CONS.Pref.pkey_ShowListActv_Current_Position,
+////				CONS.Pref.pkey_CurrentPosition,
+//				position);
+//		
+//		// Log
+////		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
+//		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+//						+ " => "
+//						+ "Set to: " + position;
+//		
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_log);
+//		
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+	}
+
 
 	@Override
 	public void onBackPressed() {
@@ -412,26 +448,12 @@ public class PhotoActv extends ListActivity {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		
-		case R.id.menu_showlist_filter://--------------------
-			
-			case_OPT_Filter();
-//			this.logoutFromTwitter();
-			
-			break;
-			
 		case R.id.menu_main_settings://--------------------
 			
 			case_OPT_Settings();
 //			this.logoutFromTwitter();
 			
 			break;
-			
-//		case R.id.menu_main_settings://--------------------
-//			
-//			case_OPT_Settings();
-////			this.logoutFromTwitter();
-//			
-//			break;
 			
 		default://-------------------------------------
 			break;
@@ -448,15 +470,6 @@ public class PhotoActv extends ListActivity {
 		Methods.start_Activity_PrefActv(this);
 		
 	}
-
-	private void 
-	case_OPT_Filter() {
-		// TODO Auto-generated method stub
-	
-		Methods_dlg.filter_ShowList(this);
-		
-	}
-
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
