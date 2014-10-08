@@ -21,6 +21,8 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -48,6 +50,13 @@ public class PhotoActv extends ListActivity {
 
 		////////////////////////////////
 		this._Setup_Init_Vars();
+
+		////////////////////////////////
+
+		// get: content
+
+		////////////////////////////////
+		this._Setup_Get_Content();
 		
 		////////////////////////////////
 
@@ -81,6 +90,116 @@ public class PhotoActv extends ListActivity {
 //		do_test();
 		
 	}//onStart
+
+	private void 
+	_Setup_Get_Content() {
+		// TODO Auto-generated method stub
+	
+		getIntent().setData(Uri.parse(CONS.PhotoActv.content_Uri));
+		
+		Cursor c = null;
+		
+		try {
+			
+			// Log
+			String msg_Log = "calling query...";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			c = managedQuery(getIntent().getData(), null, null, null, null);
+			
+			// Log
+			msg_Log = "query => done";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			// Log
+			String msg_Log = "Exception";
+			Log.e("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "cursor => obtained";
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+		}//if (c == null)
+		
+		////////////////////////////////
+
+		// get info
+
+		////////////////////////////////
+		// Log
+		msg_Log = "c.getCount() => " + c.getCount();
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// test: get values
+
+		////////////////////////////////
+		int count = 0;
+		
+		while(c.moveToNext()) {
+			
+			// Log
+			msg_Log = "c.getString(5) => " + c.getString(5);
+			Log.d("PhotoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			count += 1;
+			
+			if (count > 20) {
+				
+				break;
+				
+			}
+			
+		}//while(c.moveToNext())
+		
+		
+	}//_Setup_Get_Content
+	
 
 	private void 
 	_Setup_SetSelection() {

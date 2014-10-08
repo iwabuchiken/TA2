@@ -188,7 +188,7 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
-		_test_Content_Provider();
+//		_test_Content_Provider();
 //		_test_PrefVal_SoundEffect();
 		
 	}

@@ -786,5 +786,58 @@ public class CONS {
 		public static final int sp_NoSelection_value = -10;
 		
 	}
+
+	public static class
+	PhotoActv {
+		
+		public static final String content_Uri = "content://ifm11.main.CV/";
+		
+	}
+
+	public static class
+	IFM11 {
+	
+		////////////////////////////////
+		
+		// Table: ifm11
+		
+		////////////////////////////////
+		public static final String tname_IFM11 = "ifm11";
+
+		public static final String[] col_names_IFM11 = {
+			
+			"file_id", "file_path", "file_name",	// 0,1,2
+			"date_added", "date_modified",			// 3,4
+			"memos", "tags",						// 5,6
+			"last_viewed_at",						// 7
+			"table_name",							// 8
+			"uploaded_at",							// 9
+			
+		};
+		
+		public static final String[] col_names_IFM11_full = {
+			
+			//	0
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			"file_id", "file_path", "file_name",	// 3,4,5
+			"date_added", "date_modified",			// 6,7
+			"memos", "tags",						// 8,9
+			"last_viewed_at",						// 10
+			"table_name",							// 11
+			"uploaded_at",							// 12
+			
+		};
+
+		public static final String[] col_types_IFM11 = {
+			"INTEGER", "TEXT", "TEXT",	// 0,1,2
+			"TEXT", "TEXT",				// 3,4
+			"TEXT", "TEXT",				// 5,6
+			"TEXT",						// 7
+			"TEXT",						// 8
+			"TEXT",						// 9
+		};		
+		
+	}//IFM11
 	
 }//public class CONS
