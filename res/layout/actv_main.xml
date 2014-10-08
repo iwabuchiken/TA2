@@ -62,14 +62,13 @@
         android:gravity="center_horizontal" >
 
         <ImageButton
-            android:id="@+id/actv_main_ib_twitter_login"
+            android:id="@+id/actv_main_ib_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/black"
-            android:src="@drawable/actv_main_bt_twittter_login_128x113"
-            android:visibility="invisible" />
+            android:src="@drawable/actv_main_bt_photo_128x128" />
 
         <ImageButton
             android:id="@+id/actv_main_ib_voice"

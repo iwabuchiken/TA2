@@ -2,12 +2,17 @@ package ta2.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.adapters.Adp_WordPatterns;
+import ta2.comps.Comp_WP;
 import ta2.items.Memo;
+import ta2.listeners.LOI_CL;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.SBL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -29,8 +34,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -291,13 +298,25 @@ public class PlayActv extends Activity {
 		
 		////////////////////////////////
 		_Setup_Views();
-		
+
 		////////////////////////////////
 
 		// listeners
 
 		////////////////////////////////
 		_Setup_Listeners();
+		
+//		this._Setup_Listeners_Memo();
+		
+//		////////////////////////////////
+//
+//		// listviews
+//
+//		////////////////////////////////
+//		this._Setup_Lists();
+//		
+//		this._Setup_Listeners_LVs();
+		
 		
 	}//protected void onStart()
 
@@ -310,10 +329,23 @@ public class PlayActv extends Activity {
 		// memo
 
 		////////////////////////////////
-		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv_file_name);
+		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv);
 		
 		tv_Memo.setText(CONS.PlayActv.memo.getText());
 		
+//		et_Memo.setSelection(CONS.PlayActv.memo.getText().length());
+		
+//		////////////////////////////////
+//		
+//		// num
+//		
+//		////////////////////////////////
+//		TextView tv_Num = (TextView) findViewById(R.id.actv_play_tv_num);
+//		
+//		tv_Num.setText(
+//				String.valueOf(CONS.PlayActv.memo.getText().length())
+//				);
+//		
 		////////////////////////////////
 
 		// length
@@ -498,8 +530,51 @@ public class PlayActv extends Activity {
 		CONS.PlayActv.sb.setOnSeekBarChangeListener(
 							new SBL(this, CONS.PlayActv.sb));
 
+		////////////////////////////////
+
+		// textview
+
+		////////////////////////////////
+		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv);
+		
+		tv_Memo.setTag(Tags.ButtonTags.ACTV_PLAY_TV);
+		
+		tv_Memo.setOnTouchListener(new BO_TL(this));
+		
+		tv_Memo.setOnClickListener(new BO_CL(this));
 		
 	}//_Setup_Listeners
+	
+//	private void 
+//	_Setup_Listeners_Memo() {
+//		// TODO Auto-generated method stub
+//		////////////////////////////////
+//		
+//		// IB: play
+//		
+//		////////////////////////////////
+//		ImageButton ib_Save = (ImageButton) this.findViewById(R.id.actv_play_ib_save);
+//		
+//		ib_Save.setTag(Tags.ButtonTags.ACTV_PLAY_SAVE);
+//		
+//		ib_Save.setOnTouchListener(new BO_TL(this));
+//		
+//		ib_Save.setOnClickListener(new BO_CL(this));
+//		
+//		////////////////////////////////
+//		
+//		// IB: clear
+//		
+//		////////////////////////////////
+//		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_ib_clear);
+//		
+//		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAY_CLEAR);
+//		
+//		ib_Stop.setOnTouchListener(new BO_TL(this));
+//		
+//		ib_Stop.setOnClickListener(new BO_CL(this));
+//		
+//	}//_Setup_Listeners
 	
 
 	private boolean 

@@ -960,6 +960,20 @@ public static String
 	}//start_Activity_PrefActv
 	
 	public static void 
+	start_Activity_PhotoActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+//		Intent i = new Intent();
+//		
+//		i.setClass(actv, MemoActv.class);
+//		
+//		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//		
+//		actv.startActivity(i);
+		
+	}//start_Activity_PhotoActv
+	
+	public static void 
 	start_Activity_RecActv
 	(Activity actv) {
 		// TODO Auto-generated method stub
@@ -2518,6 +2532,49 @@ public static String
 		
 	}//save_Memo
 
+	/******************************
+		@param d1 
+	 * @return
+			-1	insertion => failed<br>
+			-2	Exception<br>
+			1	text => inserted<br>
+	 ******************************/
+	public static int 
+	save_Memo
+	(Activity actv, Dialog d1, int resourceID) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(resourceID);
+//		EditText et = (EditText) actv.findViewById(resourceID);
+//		EditText et = (EditText) actv.findViewById(R.id.actv_memo_et);
+		
+		////////////////////////////////
+		
+		// get text
+		
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// save
+		
+		////////////////////////////////
+		int res = DBUtils.save_Memo(actv, text);
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return res;
+		
+	}//save_Memo
+	
 	public static void 
 	report_DropTable_Memos
 	(Activity actv, 
@@ -2947,6 +3004,39 @@ public static String
 		CONS.ShowListActv.list_Memos.remove(memo);
 		
 		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+
+		// pref => remove
+
+		////////////////////////////////
+		boolean res_b = Methods.set_Pref_Int(
+				actv,
+				CONS.Pref.pname_ShowListActv,
+				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				CONS.Pref.dflt_IntExtra_value);
+		
+		if (res_b == true) {
+			
+			// notify adapter
+			CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+			
+			// Log
+			String msg_Log = "pref position => reset";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "pref position rest => not done";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		}
 
 		////////////////////////////////
 
@@ -3160,6 +3250,63 @@ public static String
 		
 	}//update_Memo
 
+	public static boolean 
+	update_Memo_PlayActv
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+		
+		// get text
+		
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+//		////////////////////////////////
+//
+//		// update: memo
+//
+//		////////////////////////////////
+//		CONS.MemoEditActv.memo.setText(text);
+		
+		////////////////////////////////
+		
+		// save
+		
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"uploaded_at",							// 4
+//		"twted_at",								// 5
+//		
+//		"twt_id",								// 6
+//		"twt_created_at",						// 7
+		
+		boolean res = DBUtils.updateData_generic_With_TimeLable(
+				actv, 
+				CONS.DB.tname_TA2, 
+				CONS.PlayActv.memo.getDb_Id(), 
+				CONS.DB.col_names_TA2_full[3], 
+				text);
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return res;
+		
+	}//update_Memo
+	
 	/*********************************
 	 * REF=> http://www.searchman.info/tips/2640.html
 	 * 
@@ -5036,6 +5183,294 @@ public static String
 //		Methods.convert_intSec2Digits_lessThanHour((int)currentPosition / 1000));
 
 	}//update_ProgressLable
+
+
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
+	filter_MemoList_Single_KW
+	(Activity actv, int id_Checked, EditText et) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+
+		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+
+		// filter
+
+		////////////////////////////////
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					continue;
+					
+				}
+				
+				list_Memos.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}
+//			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+//		// Log
+//		msg_Log = "where => " + where;
+//		Log.d("DB_OCL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
+//		where = CONS.DB.col_names_TA2[0] + " like ?";
+//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
+		
+//		args = new String[]{
+//				
+//				"%" + et.getText().toString() + "%"
+//				
+//		};
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList
+
+	public static List<Memo> 
+	filter_MemoList_Multiple_KW
+	(Activity actv, int id_Checked, String[] tokens) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+
+//		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+
+		// filter
+
+		////////////////////////////////
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+			msg_Log = "filter => not";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				for (String token : tokens) {
+					
+					text = memo.getText();
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == false) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (id_Checked == R.id.dlg_filter_showlist_rb_and) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "filter => and";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = true;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+					
+				// Log
+				msg_Log = "text => " + text;
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				// reset value
+				contained = true;
+				
+				for (String token : tokens) {
+				
+					// Log
+					msg_Log = "token => " + token;
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+//					text = memo.getText();
+					
+					if (!text.contains(token)) {
+						
+						contained = false;
+						
+						// Log
+						msg_Log = String.format(
+									"!text.contains(token) => %s, %s", 
+									text, token);
+						
+						Log.d("Methods.java"
+								+ "["
+								+ Thread.currentThread().getStackTrace()[2]
+										.getLineNumber() + "]", msg_Log);
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+
+		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "filter => or";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				// reset
+				contained = false;
+				
+				text = memo.getText();
+				
+				for (String token : tokens) {
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+
+			// Log
+			msg_Log = "unknown radio button id => " + id_Checked;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList_Multiple_KW
+
+	public static Memo 
+	find_Memo_from_ListView
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		
+		for (Memo m : CONS.ShowListActv.list_Memos) {
+			
+			if (m.getDb_Id() == db_Id) {
+				
+				return m;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}//find_Memo_from_ListView
 
 }//public class Methods
 

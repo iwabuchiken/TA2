@@ -94,6 +94,7 @@ public class BO_TL implements OnTouchListener {
 				break;// case ib_up
 				
 			case ACTV_MEMO_CLEAR://----------------------------------------------------
+			case ACTV_PLAY_CLEAR://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_clear_41x50_disabled);
@@ -104,6 +105,7 @@ public class BO_TL implements OnTouchListener {
 				
 			case ACTV_MEMO_SAVE://----------------------------------------------------
 			case ACTV_MEMO_EDIT_SAVE://----------------------------------------------------
+			case ACTV_PLAY_SAVE://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_save_64x64_disabled);
@@ -175,6 +177,15 @@ public class BO_TL implements OnTouchListener {
 				
 				break;// case ib_up
 				
+			case ACTV_MAIN_PHOTO://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_main_bt_photo_touched);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
 				
 			}//switch (tag)
 			
@@ -232,6 +243,7 @@ public class BO_TL implements OnTouchListener {
 				break;// case ib_up
 			
 			case ACTV_MEMO_CLEAR://----------------------------------------------------
+			case ACTV_PLAY_CLEAR://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_clear_41x50);
@@ -242,6 +254,7 @@ public class BO_TL implements OnTouchListener {
 				
 			case ACTV_MEMO_SAVE://----------------------------------------------------
 			case ACTV_MEMO_EDIT_SAVE://----------------------------------------------------
+			case ACTV_PLAY_SAVE://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_save_64x64);
@@ -308,6 +321,15 @@ public class BO_TL implements OnTouchListener {
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_main_bt_voice_128x128);
+				
+//				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case ib_up
+				
+			case ACTV_MAIN_PHOTO://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_main_bt_photo_128x128);
 				
 //				v.setBackgroundColor(Color.GRAY);
 				

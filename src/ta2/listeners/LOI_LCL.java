@@ -7,6 +7,7 @@ import java.util.List;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.utils.CONS;
+import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 
@@ -77,7 +78,7 @@ LOI_LCL implements OnItemLongClickListener {
 
 			item = (Memo) parent.getItemAtPosition(position);
 			
-			case_ACTV_SHOWLIST_LV(item);
+			case_ACTV_SHOWLIST_LV(item, position);
 			
 			break;// case actv_bm_lv
 			
@@ -125,9 +126,38 @@ LOI_LCL implements OnItemLongClickListener {
 
 	private void 
 	case_ACTV_SHOWLIST_LV
-	(Memo memo) {
+	(Memo memo, int inList_Pos) {
 		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// pref: position
+
+		////////////////////////////////
+		Methods.set_Pref_Int(
+				actv,
+				CONS.Pref.pname_ShowListActv,
+				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				inList_Pos);
 		
+		// Log
+//		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
+		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+						+ " => "
+						+ "Set to: " + inList_Pos;
+		
+		Log.d("LOI_LCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_log);
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+		
+		////////////////////////////////
+
+		// dialog
+
+		////////////////////////////////
 		Methods_dlg.dlg_ShowListActv_LongClick(actv, memo);
 		
 		

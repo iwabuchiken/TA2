@@ -193,7 +193,7 @@ public class RecActv extends Activity {
 		// listviews
 
 		////////////////////////////////
-		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_rec_ll_listview);
+		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_play_ll_listview);
 //		LinearLayout ll_LV = (LinearLayout) findViewById(R.id.actv_memo_ll_listview);
 		
 		////////////////////////////////
@@ -392,7 +392,7 @@ public class RecActv extends Activity {
 		// set adapter
 	
 		////////////////////////////////
-		ListView lv_1 = (ListView) findViewById(R.id.actv_rec_lv_1);
+		ListView lv_1 = (ListView) findViewById(R.id.actv_play_lv_1);
 		
 		// Log
 		msg_Log = "setting the adapter to the listview";
@@ -502,7 +502,7 @@ public class RecActv extends Activity {
 		// set adapter
 		
 		////////////////////////////////
-		ListView lv_2 = (ListView) findViewById(R.id.actv_rec_lv_2);
+		ListView lv_2 = (ListView) findViewById(R.id.actv_play_lv_2);
 		
 		// Log
 		msg_Log = "setting the adapter to the listview";
@@ -614,7 +614,7 @@ public class RecActv extends Activity {
 		// set adapter
 		
 		////////////////////////////////
-		ListView lv_3 = (ListView) findViewById(R.id.actv_rec_lv_3);
+		ListView lv_3 = (ListView) findViewById(R.id.actv_play_lv_3);
 		
 		// Log
 		msg_Log = "setting the adapter to the listview";
@@ -636,7 +636,7 @@ public class RecActv extends Activity {
 		// view: list 1
 
 		////////////////////////////////
-		ListView lv_1 = (ListView) findViewById(R.id.actv_rec_lv_1);
+		ListView lv_1 = (ListView) findViewById(R.id.actv_play_lv_1);
 		
 		lv_1.setTag(Tags.ListTags.ACTV_REC_LV_1);
 		
@@ -649,7 +649,7 @@ public class RecActv extends Activity {
 		// view: list 2
 		
 		////////////////////////////////
-		ListView lv_2 = (ListView) findViewById(R.id.actv_rec_lv_2);
+		ListView lv_2 = (ListView) findViewById(R.id.actv_play_lv_2);
 		
 		lv_2.setTag(Tags.ListTags.ACTV_REC_LV_2);
 		
@@ -662,7 +662,7 @@ public class RecActv extends Activity {
 		// view: list 3
 		
 		////////////////////////////////
-		ListView lv_3 = (ListView) findViewById(R.id.actv_rec_lv_3);
+		ListView lv_3 = (ListView) findViewById(R.id.actv_play_lv_3);
 		
 		lv_3.setTag(Tags.ListTags.ACTV_REC_LV_3);
 		

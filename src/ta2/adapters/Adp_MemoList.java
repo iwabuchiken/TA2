@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
+import ta2.utils.CONS;
 import ta2.utils.Methods;
 
 
@@ -178,6 +179,24 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
     	
     	////////////////////////////////
 
+		// setup: positions
+
+		////////////////////////////////
+		CONS.ShowListActv.list_Pos_Prev = CONS.ShowListActv.list_Pos_Current;
+		
+		CONS.ShowListActv.list_Pos_Current = position;
+
+//		// Log
+//		msg_Log = String.format(
+//						"pos prev = %d, pos current = %d", 
+//						CONS.ShowListActv.list_Pos_Prev,
+//						CONS.ShowListActv.list_Pos_Current);
+//		
+//		Log.d("Adp_MemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+    	////////////////////////////////
+
 		// View
 
 		////////////////////////////////
@@ -205,7 +224,7 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 		// view
 
 		////////////////////////////////
-    	_Setup_Views(v, memo);
+    	_Setup_Views(v, memo, position);
     	
 //    	TextView tv = (TextView) v.findViewById(R.id.list_row);
 //    	
@@ -217,7 +236,7 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 
 	private void 
 	_Setup_Views
-	(View v, Memo memo) {
+	(View v, Memo memo, int inList_Pos) {
 		// TODO Auto-generated method stub
 		////////////////////////////////
 
@@ -227,6 +246,39 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 		TextView tv_Memo = (TextView) v.findViewById(R.id.list_row_showlist_tv_text);
 		
 		tv_Memo.setText(memo.getText());
+		
+		////////////////////////////////
+
+		// background
+
+		////////////////////////////////
+		int pref_Pos = Methods.get_Pref_Int(
+						(Activity)con,
+						CONS.Pref.pname_ShowListActv,
+						CONS.Pref.pkey_ShowListActv_Current_Position,
+		//				CONS.Pref.pkey_CurrentPosition,
+						inList_Pos);
+		
+		if (pref_Pos != CONS.Pref.dflt_IntExtra_value) {
+			
+			if (pref_Pos == inList_Pos) {
+				
+				tv_Memo.setBackgroundColor(
+							((Activity)con).getResources().getColor(R.color.gold2));
+				
+			} else {
+				
+				tv_Memo.setBackgroundColor(
+						((Activity)con).getResources().getColor(R.color.white));
+				
+			}
+			
+		} else {//if (pref_Pos != CONS.Pref.dflt_IntExtra_value)
+			
+			tv_Memo.setBackgroundColor(
+					((Activity)con).getResources().getColor(R.color.white));
+			
+		}//if (pref_Pos != CONS.Pref.dflt_IntExtra_value)
 		
 		////////////////////////////////
 

@@ -393,10 +393,17 @@ public class CONS {
 		// ShowListActv
 
 		////////////////////////////////
+		public static String pname_ShowListActv = "pname_ShowListActv"; 
+		
+		
 		public static final String 
 		pkey_ShowListActv_Filter_String = 
 							"pkey_ShowListActv_Filter_String";
 
+		public static final String 
+		pkey_ShowListActv_Current_Position = 
+							"pkey_ShowListActv_Current_Position";
+		
 		////////////////////////////////
 		
 		// PlayActv.java
@@ -449,7 +456,8 @@ public class CONS {
 		
 	}
 	
-	public static class ShowListActv {
+	public static class 
+	ShowListActv {
 		
 		public static List<Memo> list_Memos;
 		
@@ -459,7 +467,10 @@ public class CONS {
 
 		public static final int length_Conf_Message		= 20;
 		
-	}
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
+	}//ShowListActv
 	
 	public static class TNActv {
 		
@@ -538,7 +549,7 @@ public class CONS {
 		public static String[] special_Chars = new String[]{
 			
 			"()", "[]",
-			"（）", "「」", "『』", "〈〉", "【】", "｛｝",
+			"（）", "「」", "『』", "〈〉", "【】", "｛｝", "\"\"", "''",
 			
 		};
 		

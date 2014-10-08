@@ -19,12 +19,15 @@ import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,7 +40,20 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onStart();
 
+		// Log
+		String msg_Log = "onStart";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber() + "]",
+				msg_Log);		
+		
 		boolean res;
+		
+		////////////////////////////////
+
+		// init vars
+
+		////////////////////////////////
+		this._Setup_InitVars();
 		
 		////////////////////////////////
 
@@ -52,13 +68,27 @@ public class ShowListActv extends ListActivity {
 			
 		}
 		
+//		////////////////////////////////
+//
+//		// selection
+//
+//		////////////////////////////////
+//		this._Setup_SetSelection();
+		
 		////////////////////////////////
 
 		// adapter
 
 		////////////////////////////////
 		res = _Setup_Adapter();
+
+		////////////////////////////////
 		
+		// selection
+		
+		////////////////////////////////
+		this._Setup_SetSelection();
+
 		////////////////////////////////
 
 		// listeners
@@ -72,7 +102,105 @@ public class ShowListActv extends ListActivity {
 		
 	}//onStart
 
+	private void 
+	_Setup_SetSelection() {
+		// TODO Auto-generated method stub
+		
+		int target_Position;
+		
+		// If the current is larger than the previous,
+		//	i.e. the position is increasing
+		//	i.e. the list is scrolling downward
+		//	=> modify the target
+		
+//		// Log
+//		String msg_Log = String.format(
+//						"list_Pos_Prev = %d, list_Pos_Current = %d", 
+//						CONS.ShowListActv.list_Pos_Prev,
+//						CONS.ShowListActv.list_Pos_Current);
+//		
+//		Log.d("ShowList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		if (CONS.ShowListActv.list_Pos_Current
+				> CONS.ShowListActv.list_Pos_Prev) {
+			
+			target_Position = CONS.ShowListActv.list_Pos_Current - 5;
+			
+		} else {
+			
+			// If the current is smaller than the previous,
+			//	i.e. the position is decreasing
+			//	=> set the target with the current
+			target_Position = CONS.ShowListActv.list_Pos_Current;
+
+		}
+		
+//		// Log
+//		msg_Log = "CONS.ShowListActv.list_Pos_Current = "
+//						+ CONS.ShowListActv.list_Pos_Current
+//						+ " // "
+//						+ "CONS.ShowListActv.list_Pos_Prev = "
+//						+ CONS.ShowListActv.list_Pos_Prev
+//						+ " // "
+//						+ "target_Position = "
+//						+ target_Position
+//						;
+//		Log.d("ShowListActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
+		this.getListView().setSelection(target_Position);
+		
+	}//_Setup_SetSelection()
+
     
+	@Override
+	protected void 
+	onListItemClick
+	(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		
+		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
+		
+		////////////////////////////////
+
+		// set pref
+
+		////////////////////////////////
+		this._ItemClick_SetPref_CurrentPosition(position);
+		
+		
+	}//onListItemClick
+
+	private void
+	_ItemClick_SetPref_CurrentPosition(int position) {
+		// TODO Auto-generated method stub
+		Methods.set_Pref_Int(
+				this,
+				CONS.Pref.pname_ShowListActv,
+				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				position);
+		
+		// Log
+//		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
+		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+						+ " => "
+						+ "Set to: " + position;
+		
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_log);
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+	}
+
+
 	private boolean 
 	_Setup_Adapter() {
 		// TODO Auto-generated method stub
@@ -117,7 +245,7 @@ public class ShowListActv extends ListActivity {
 		
 		return true;
 		
-	}
+	}//_Setup_Adapter
 	
 
 
@@ -126,6 +254,23 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
+		
+		////////////////////////////////
+
+		// validate: memo => not yet built
+
+		////////////////////////////////
+		if (CONS.ShowListActv.list_Memos != null) {
+			
+			// Log
+			msg_Log = "CONS.ShowListActv.list_Memos => not null. Recyling...";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		}
 		
 		////////////////////////////////
 
@@ -197,6 +342,13 @@ public class ShowListActv extends ListActivity {
 		
 	}//_Setup_List
 
+	private void 
+	_Setup_InitVars() {
+		// TODO Auto-generated method stub
+		
+		CONS.Admin.vib = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		
+	}//_Setup_InitVars
 
 	private void 
 	do_test() {
@@ -536,6 +688,22 @@ public class ShowListActv extends ListActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		
+		// Log
+		String msg_Log = "onDestroy";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// clear: memo list
+
+		////////////////////////////////
+		CONS.ShowListActv.list_Memos.clear();
+		
+		CONS.ShowListActv.list_Memos = null;
+		
 	}
 
 
@@ -543,6 +711,13 @@ public class ShowListActv extends ListActivity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		
+		// Log
+		String msg_Log = "onPause";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 	}
 
 
@@ -550,6 +725,13 @@ public class ShowListActv extends ListActivity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		super.onRestart();
+		
+		// Log
+		String msg_Log = "onRestart";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}
 
 
@@ -557,6 +739,13 @@ public class ShowListActv extends ListActivity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		
+		// Log
+		String msg_Log = "onStop";
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}
 
 
@@ -568,7 +757,7 @@ public class ShowListActv extends ListActivity {
 		// Log
 		String log_msg = "onResume()";
 
-		Log.d("[" + "MainActv.java : "
+		Log.d("[" + "ShowListActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -587,7 +776,7 @@ public class ShowListActv extends ListActivity {
 		// Log
 		String log_msg = "Starting => onCreate()";
 
-		Log.d("[" + "MainActv.java : "
+		Log.d("[" + "ShowListActv.java : "
 				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ " : "
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -655,7 +844,7 @@ public class ShowListActv extends ListActivity {
 	case_OPT_Filter() {
 		// TODO Auto-generated method stub
 	
-		Methods_dlg.filter_ShowList(this);
+		Methods_dlg.dlg_filter_ShowList(this);
 		
 	}
 
