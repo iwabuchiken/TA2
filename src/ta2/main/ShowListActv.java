@@ -113,15 +113,15 @@ public class ShowListActv extends ListActivity {
 		//	i.e. the list is scrolling downward
 		//	=> modify the target
 		
-		// Log
-		String msg_Log = String.format(
-						"list_Pos_Prev = %d, list_Pos_Current = %d", 
-						CONS.ShowListActv.list_Pos_Prev,
-						CONS.ShowListActv.list_Pos_Current);
-		
-		Log.d("ShowList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		String msg_Log = String.format(
+//						"list_Pos_Prev = %d, list_Pos_Current = %d", 
+//						CONS.ShowListActv.list_Pos_Prev,
+//						CONS.ShowListActv.list_Pos_Current);
+//		
+//		Log.d("ShowList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		if (CONS.ShowListActv.list_Pos_Current
 				> CONS.ShowListActv.list_Pos_Prev) {
@@ -137,19 +137,19 @@ public class ShowListActv extends ListActivity {
 
 		}
 		
-		// Log
-		msg_Log = "CONS.ShowListActv.list_Pos_Current = "
-						+ CONS.ShowListActv.list_Pos_Current
-						+ " // "
-						+ "CONS.ShowListActv.list_Pos_Prev = "
-						+ CONS.ShowListActv.list_Pos_Prev
-						+ " // "
-						+ "target_Position = "
-						+ target_Position
-						;
-		Log.d("ShowListActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		// Log
+//		msg_Log = "CONS.ShowListActv.list_Pos_Current = "
+//						+ CONS.ShowListActv.list_Pos_Current
+//						+ " // "
+//						+ "CONS.ShowListActv.list_Pos_Prev = "
+//						+ CONS.ShowListActv.list_Pos_Prev
+//						+ " // "
+//						+ "target_Position = "
+//						+ target_Position
+//						;
+//		Log.d("ShowListActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
 		this.getListView().setSelection(target_Position);

@@ -14,4 +14,5 @@
 14	actv_rec_rec.png	multimedia.xcf	http://www.flaticon.com/free-icon/recorder-microphone_16276
 15	http://www.flaticon.com/free-icon/multimedia-stop-button_88
 16	actv_rec_stop.png	multimedia.xcf	http://www.flaticon.com/free-icon/multimedia-stop-button_88
-17
+17	actv_main_bt_photo.png	camera41.png	http://www.flaticon.com/free-icon/camera-ios-7-interface-symbol_22204
+18

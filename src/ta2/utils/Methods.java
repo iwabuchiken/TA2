@@ -959,6 +959,20 @@ public static String
 	}//start_Activity_PrefActv
 	
 	public static void 
+	start_Activity_PhotoActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+//		Intent i = new Intent();
+//		
+//		i.setClass(actv, MemoActv.class);
+//		
+//		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//		
+//		actv.startActivity(i);
+		
+	}//start_Activity_PhotoActv
+	
+	public static void 
 	start_Activity_RecActv
 	(Activity actv) {
 		// TODO Auto-generated method stub

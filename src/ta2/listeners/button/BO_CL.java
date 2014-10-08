@@ -214,11 +214,26 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MAIN_PHOTO: //------------------------------
+			
+			case_ACTV_MAIN_PHOTO();
+			
+			break;
+			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MAIN_PHOTO() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_MemoActv(actv);
+		
+		
+	}//case_ACTV_MAIN_PHOTO
 
 	private void 
 	case_ACTV_PLAY_TV() {

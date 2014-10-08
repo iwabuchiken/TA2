@@ -351,6 +351,20 @@ public class MainActv extends Activity {
 		bt_Voice.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
+		
+		// IB: photo memo
+		
+		////////////////////////////////
+		ImageButton bt_Photo = 
+				(ImageButton) this.findViewById(R.id.actv_main_ib_photo);
+		
+		bt_Photo.setTag(Tags.ButtonTags.ACTV_MAIN_PHOTO);
+		
+		bt_Photo.setOnTouchListener(new BO_TL(this));
+		
+		bt_Photo.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
 
 		// LL: base
 
