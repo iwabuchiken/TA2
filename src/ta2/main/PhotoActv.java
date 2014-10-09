@@ -91,6 +91,11 @@ public class PhotoActv extends ListActivity {
 		
 		this._Setup_Listeners_IBs();
 		
+		////////////////////////////////
+
+		// tests
+
+		////////////////////////////////
 		do_test();
 		
 	}//onStart
@@ -440,7 +445,7 @@ public class PhotoActv extends ListActivity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
-		this._test_Start_ImageActv();
+//		this._test_Start_ImageActv();
 		
 //		_test_Color_Date_v2();
 //		_test_Color_Date();
@@ -683,6 +688,14 @@ public class PhotoActv extends ListActivity {
 		case R.id.menu_main_settings://--------------------
 			
 			case_OPT_Settings();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		case R.id.menu_showlist_filter://--------------------
+			
+			this._test_Start_ImageActv();
+//			case_OPT_Settings();
 //			this.logoutFromTwitter();
 			
 			break;

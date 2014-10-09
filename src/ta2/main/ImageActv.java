@@ -1,5 +1,9 @@
 package ta2.main;
 
+import java.io.File;
+
+import org.apache.commons.lang.StringUtils;
+
 import ta2.items.MyView;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -361,6 +365,13 @@ public class ImageActv extends Activity {
 		
 		////////////////////////////////
 
+		// set: image
+
+		////////////////////////////////
+		this._Setup_Set_Image();
+		
+		////////////////////////////////
+
 		// setup
 
 		////////////////////////////////
@@ -383,6 +394,57 @@ public class ImageActv extends Activity {
 		
 	}
 
+	private void 
+	_Setup_Set_Image() {
+		// TODO Auto-generated method stub
+		
+		String fpath = StringUtils.join(
+				new String[]{
+						
+						CONS.IMageActv.ti.getFile_path(),
+						CONS.IMageActv.ti.getFile_name()
+				}, 
+				File.separator);
+		
+		// Log
+		String msg_Log = "fpath => " + fpath;
+		Log.d("ImageActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		// Log
+//		Log.d("ImageActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "file_path=" + file_path);
+//		
+////		Bitmap bm = BitmapFactory.decodeFile(file_path);
+		CONS.IMageActv.bm = BitmapFactory.decodeFile(fpath);
+//		
+//		
+		Bitmap bm_modified = set_image_1_modify_bitmap(CONS.IMageActv.bm);
+		
+		/*----------------------------
+		 * 3. Set image to the view
+			----------------------------*/
+		// MyView
+//		MyView v = new MyView(this);
+		v = new MyView(this);
+		
+		// Set image
+//		v.setImageBitmap(bm);
+		v.setImageBitmap(bm_modified);
+		
+		//
+//		LinearLayout LL = (LinearLayout) findViewById(R.id.image_activity_LL_image);
+		LL = (LinearLayout) findViewById(R.id.image_activity_LL_image);
+		
+		LL.addView(v);
+
+	}//_Setup_Set_Image
+
+	
 	private void 
 	do_test() {
 		// TODO Auto-generated method stub

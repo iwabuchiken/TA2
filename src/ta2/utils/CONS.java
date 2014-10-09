@@ -14,6 +14,7 @@ import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.media.MediaPlayer;
@@ -513,6 +514,8 @@ public class CONS {
 		public static ArrayAdapter<String> adp_ImageActv_GridView = null;
 
 		public static TI ti;
+		
+		public static Bitmap bm;
 		
 //		public static List<String> patternList = null;
 		
