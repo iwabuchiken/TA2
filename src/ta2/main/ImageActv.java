@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.commons.lang.StringUtils;
 
 import ta2.items.MyView;
+import ta2.listeners.LOI_LCL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
@@ -31,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -67,7 +69,8 @@ public class ImageActv extends Activity {
 		//
 
 //		setContentView(R.layout.image_activity);
-		setContentView(R.layout.image_activity_for_myview);
+		setContentView(R.layout.actv_image_with_myview);
+//		setContentView(R.layout.image_activity_for_myview);
 
 		this.setTitle(this.getClass().getName());
 		
@@ -223,7 +226,7 @@ public class ImageActv extends Activity {
 		 * 2. "Prev" button
 		 * 3. "Next" button
 			----------------------------*/
-		ImageButton ib_back = (ImageButton) findViewById(R.id.image_activity_ib_back);
+		ImageButton ib_back = (ImageButton) findViewById(R.id.actv_image_with_myview_ib_back);
 		
 		ib_back.setTag(Tags.ButtonTags.image_activity_back);
 		
@@ -233,7 +236,7 @@ public class ImageActv extends Activity {
 		/*********************************
 		 * 2. "Prev" button
 		 *********************************/
-		ImageButton ib_prev = (ImageButton) findViewById(R.id.image_activity_ib_prev);
+		ImageButton ib_prev = (ImageButton) findViewById(R.id.actv_image_with_myview_ib_prev);
 		
 		ib_prev.setImageResource(R.drawable.ifm8_back);
 		
@@ -245,7 +248,7 @@ public class ImageActv extends Activity {
 		/*********************************
 		 * 3. "Next" button
 		 *********************************/
-		ImageButton ib_next = (ImageButton) findViewById(R.id.image_activity_ib_next);
+		ImageButton ib_next = (ImageButton) findViewById(R.id.actv_image_with_myview_ib_next);
 		
 		ib_next.setImageResource(R.drawable.ifm8_forward);
 		
@@ -407,12 +410,40 @@ public class ImageActv extends Activity {
 
 		////////////////////////////////
 
+		// listeners
+
+		////////////////////////////////
+		this._Setup_Listeners();
+		
+		////////////////////////////////
+
 		// tests
 
 		////////////////////////////////
 		do_test();
 		
 	}
+
+	private void 
+	_Setup_Listeners() {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+		
+		// IB: memo
+		
+		////////////////////////////////
+		ImageButton bt_Back = 
+				(ImageButton) this.findViewById(R.id.actv_image_with_myview_ib_back);
+		
+		bt_Back.setTag(Tags.ButtonTags.ACTV_IMAGE_BACK);
+		
+		bt_Back.setOnTouchListener(new BO_TL(this));
+		
+		bt_Back.setOnClickListener(new BO_CL(this));
+
+		
+	}//_Setup_Listeners
 
 	private void 
 	_Setup_Set_Image() {

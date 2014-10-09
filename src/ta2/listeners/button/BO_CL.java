@@ -127,6 +127,7 @@ public class BO_CL implements OnClickListener {
 			
 		case ACTV_SHOWLIST_BACK:
 		case ACTV_PHOTO_BACK:
+		case ACTV_IMAGE_BACK:
 			
 			case_ACTV_SHOWLIST_BACK();
 			
