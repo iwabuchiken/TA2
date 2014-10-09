@@ -94,6 +94,13 @@ public class PhotoActv extends ListActivity {
 		
 		////////////////////////////////
 
+		// set: selection
+
+		////////////////////////////////
+		this._Setup_Set_Selection();
+		
+		////////////////////////////////
+
 		// tests
 
 		////////////////////////////////
@@ -232,32 +239,61 @@ public class PhotoActv extends ListActivity {
 	
 
 	private void 
-	_Setup_SetSelection() {
+	_Setup_Set_Selection() {
 		// TODO Auto-generated method stub
 		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (CONS.PhotoActv.list_TIs == null) {
+			
+			String msg = "CONS.PhotoActv.list_TIs => null. Can't set selection";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// set: selection
+
+		////////////////////////////////
 		int target_Position;
 		
-//		// If the current is larger than the previous,
-//		//	i.e. the position is increasing
-//		//	i.e. the list is scrolling downward
-//		//	=> modify the target
-//		
-//		if (CONS.ShowListActv.list_Pos_Current
-//				> CONS.ShowListActv.list_Pos_Prev) {
-//			
-//			target_Position = CONS.ShowListActv.list_Pos_Current - 5;
-//			
-//		} else {
-//			
-//			// If the current is smaller than the previous,
-//			//	i.e. the position is decreasing
-//			//	=> set the target with the current
-//			target_Position = CONS.ShowListActv.list_Pos_Current;
-//
-//		}
-//		
-//		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
-//		this.getListView().setSelection(target_Position);
+		// If the current is larger than the previous,
+		//	i.e. the position is increasing
+		//	i.e. the list is scrolling downward
+		//	=> modify the target
+		
+		if (CONS.TNActv.list_Pos_Current
+				> CONS.TNActv.list_Pos_Prev) {
+			
+			int diff = CONS.TNActv.list_Pos_Current - 4;
+//			int diff = CONS.TNActv.list_Pos_Current - 5;
+			
+			if (diff < 0) {
+				
+				diff = 0;
+				
+			}
+			
+			target_Position = diff;
+//			target_Position = CONS.TNActv.list_Pos_Current - 5;
+			
+		} else {
+			
+			// If the current is smaller than the previous,
+			//	i.e. the position is decreasing
+			//	=> set the target with the current
+			target_Position = CONS.TNActv.list_Pos_Current;
+
+		}
+		
+		//REF http://stackoverflow.com/questions/7561353/programmatically-scroll-to-a-specific-position-in-an-android-listview answered Sep 26 '11 at 21:39
+		this.getListView().setSelection(target_Position);
 		
 	}//_Setup_SetSelection()
 

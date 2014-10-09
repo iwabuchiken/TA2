@@ -824,6 +824,9 @@ public class CONS {
 
 		public static Adp_TIList adp_List_TIs = null;
 		
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
 	}
 
 	public static class
