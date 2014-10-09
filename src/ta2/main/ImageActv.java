@@ -649,6 +649,23 @@ public class ImageActv extends Activity {
 			
 		}
 		
+		////////////////////////////////
+		
+		// nullify: CONS.IMageActv.ti
+		
+		////////////////////////////////
+		if (CONS.IMageActv.ti != null) {
+			
+			CONS.IMageActv.ti = null;
+			
+			// Log
+			String msg_Log = "CONS.IMageActv.ti => nullified";
+			Log.d("ImageActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
 	}//onStop
 
 	@Override
@@ -657,13 +674,15 @@ public class ImageActv extends Activity {
 		super.onDestroy();
 		
 		// REF=> http://ameblo.jp/yolluca/entry-10725668557.html
-		if (bm != null) {
-			bm.recycle();
+		if (CONS.IMageActv.bm != null) {
+			CONS.IMageActv.bm.recycle();
+//			if (bm != null) {
+//				bm.recycle();
 			
 			// Log
 			Log.d("ImageActivity.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "bm => recycled");
+					+ "]", "CONS.IMageActv.bm => recycled");
 			
 			
 		}//if (bm != null)

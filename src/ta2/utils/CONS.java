@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_MemoList;
+import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
 import ta2.items.Memo;
@@ -809,6 +810,8 @@ public class CONS {
 		public static final String content_Uri = "content://ifm11.main.CV/";
 		
 		public static List<TI> ti_List;
+
+		public static Adp_TIList adp_List_TIs = null;
 		
 	}
 

@@ -56,7 +56,7 @@ public class Tags {
 		ACTV_MEMO_LV_1, ACTV_MEMO_LV_2, ACTV_MEMO_LV_3,
 		
 		// ShowListActv
-		ACTV_SHOWLIST_LV, ACTV_REC_LV_1, ACTV_REC_LV_2, ACTV_REC_LV_3,
+		ACTV_SHOWLIST_LV, ACTV_REC_LV_1, ACTV_REC_LV_2, ACTV_REC_LV_3, ACTV_PHOTO_LV,
 		
 	}//public static enum ListTags
 

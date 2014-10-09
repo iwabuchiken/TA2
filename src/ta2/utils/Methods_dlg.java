@@ -3704,6 +3704,22 @@ public class Methods_dlg {
 			
 			String memo = CONS.IMageActv.ti.getMemo();
 			
+			/******************************
+				fail-safe
+			 ******************************/
+			if (memo == null) {
+				
+				// Log
+				String msg_Log = "memo => null";
+				Log.d("Methods_dlg.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				memo = "";
+				
+			}
+			
 			et.setText(memo);
 			
 			et.setSelection(memo.length());

@@ -9,6 +9,7 @@ import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_MemoList;
+import ta2.adapters.Adp_TIList;
 import ta2.items.Memo;
 import ta2.items.TI;
 import ta2.listeners.LOI_LCL;
@@ -109,6 +110,17 @@ public class PhotoActv extends ListActivity {
 		
 		Cursor c = null;
 		
+//		String selection = android.provider.BaseColumns._ID + " = ?";
+//		
+//		String[] args = new String[]{
+//				
+//				id_str
+//				
+//		};
+		
+		String order = android.provider.BaseColumns._ID + " DESC";
+
+		
 		try {
 			
 			// Log
@@ -117,7 +129,8 @@ public class PhotoActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			c = managedQuery(getIntent().getData(), null, null, null, null);
+			c = managedQuery(getIntent().getData(), null, null, null, order);
+//			c = managedQuery(getIntent().getData(), null, null, null, null);
 			
 			// Log
 			msg_Log = "query => done";
@@ -263,47 +276,48 @@ public class PhotoActv extends ListActivity {
 	_Setup_Adapter() {
 		// TODO Auto-generated method stub
 		
-//		////////////////////////////////
-//
-//		// get adapter
-//
-//		////////////////////////////////
-//		CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
-//				
-//						this,
-//						R.layout.list_row_showlist,
-//						CONS.ShowListActv.list_Memos
-//				
-//		);
-//		
-//		/******************************
-//			validate
-//		 ******************************/
-//		if (CONS.ShowListActv.adp_List_Memos == null) {
-//			
-//			// Log
-//			String msg_Log = "CONS.ShowListActv.adp_List_Memos => null";
-//			Log.e("ShowListActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			String msg = "adapter => null";
-//			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
-//			
-//			return false;
-//			
-//		}
-//		
-//		////////////////////////////////
-//
-//		// set
-//
-//		////////////////////////////////
-//		this.getListView().setAdapter(CONS.ShowListActv.adp_List_Memos);
+		////////////////////////////////
+
+		// get adapter
+
+		////////////////////////////////
+		CONS.PhotoActv.adp_List_TIs = new Adp_TIList(
+//				CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
+				
+						this,
+						R.layout.list_row,
+						CONS.PhotoActv.ti_List
+				
+		);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.PhotoActv.adp_List_TIs == null) {
+			
+			// Log
+			String msg_Log = "CONS.PhotoActv.adp_List_TIs => null";
+			Log.e("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "adapter => null";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+
+		// set
+
+		////////////////////////////////
+		this.getListView().setAdapter(CONS.PhotoActv.adp_List_TIs);
 		
 		return true;
 		
-	}
+	}//_Setup_Adapter
 	
 
 
@@ -510,16 +524,16 @@ public class PhotoActv extends ListActivity {
 //		
 //		ll_Base.setOnTouchListener(new STL(this));
 //
-//		////////////////////////////////
-//
-//		// long click
-//
-//		////////////////////////////////
-//		ListView lv = (ListView) this.getListView();
-//		
-//		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
-//		
-//		lv.setOnItemLongClickListener(new LOI_LCL(this));
+		////////////////////////////////
+
+		// long click
+
+		////////////////////////////////
+		ListView lv = (ListView) this.getListView();
+		
+		lv.setTag(Tags.ListTags.ACTV_PHOTO_LV);
+		
+		lv.setOnItemLongClickListener(new LOI_LCL(this));
 		
 	}//_Setup_Listeners
 
@@ -551,6 +565,17 @@ public class PhotoActv extends ListActivity {
 		
 		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
 		
+		////////////////////////////////
+
+		// start: ImageActv
+
+		////////////////////////////////
+		TI ti = (TI) l.getItemAtPosition(position);
+		
+		_onListItemClick_Start_ImageActv(ti);
+		
+//		this._test_Start_ImageActv();
+//		aa
 //		////////////////////////////////
 //
 //		// set pref
@@ -560,6 +585,50 @@ public class PhotoActv extends ListActivity {
 		
 		
 	}//onListItemClick
+
+	private void 
+	_onListItemClick_Start_ImageActv(TI ti) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+//		if (CONS.PhotoActv.ti_List == null) {
+//			
+//			// Log
+//			String msg_Log = "CONS.PhotoActv.ti_List => null";
+//			Log.e("PhotoActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return;
+//			
+//		}
+//		
+		////////////////////////////////
+
+		// intent
+
+		////////////////////////////////
+//		TI ti = CONS.PhotoActv.ti_List.get(0);
+		
+		Intent i = new Intent();
+		
+		i.setClass(this, ImageActv.class);
+		
+		i.putExtra("file_id", ti.getFileId());
+		i.putExtra("db_id", ti.getDb_Id());
+		i.putExtra("file_path", ti.getFile_path());
+		i.putExtra("file_name", ti.getFile_name());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+		startActivity(i);
+		
+	}//_onListItemClick_Start_ImageActv
+
 
 	private void
 	_ItemClick_SetPref_CurrentPosition(int position) {
