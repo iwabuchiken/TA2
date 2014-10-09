@@ -2525,6 +2525,49 @@ public class Methods_dlg {
 					+ "]", msg_Log);
 		}
 		
+		////////////////////////////////
+		
+		// photo memo
+		
+		////////////////////////////////
+		text = memo.getText();
+		
+		p = Pattern.compile(CONS.RecActv.fmt_FileName_PhotoMemo);
+//		p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		m = p.matcher(text);
+		
+		// Log
+		msg_Log = "CONS.RecActv.fmt_FileName_PhotoMemo => "
+				+ CONS.RecActv.fmt_FileName_PhotoMemo;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// Log
+		msg_Log = "text => " + text;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (m.find()) {
+//			if (m.matches()) {
+			
+			list.add(new ListItem.Builder()
+			.setText(actv.getString(
+					R.string.generic_tv_view))
+					.setIconID(R.drawable.menu_icon_admin_32x32_green)
+					.setTextColor_ID(R.color.green4)
+					.build());
+			
+		} else {
+			
+			// Log
+			msg_Log = "text => no match";
+			Log.d("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+		}
+		
 		/****************************
 		* 3. Adapter
 		****************************/

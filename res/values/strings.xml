@@ -14,7 +14,9 @@
 	    <string name="generic_tv_delete">Delete</string>
 	    <string name="generic_tv_upload">Upload</string>
 	    <string name="generic_tv_quit_app">Quit app?</string>
+	    
 	    <string name="generic_tv_play">Play</string>
+	    <string name="generic_tv_view">View</string>
 	    
     	<string name="generic_notice">Notice</string>
     

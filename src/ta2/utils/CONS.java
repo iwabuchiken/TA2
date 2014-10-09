@@ -733,7 +733,8 @@ public class CONS {
 		
 	}//Enums
 
-	public static class RecActv {
+	public static class 
+	RecActv {
 	
 		public static MediaRecorder mr;
 		
@@ -758,6 +759,10 @@ public class CONS {
 		
 		public static final String fmt_FileName_Photo = "&%d %s";
 		
+		// '?' => needs to be outside of "()"
+		public static final String fmt_FileName_PhotoMemo = "^&(\\d+)?";	
+//		public static final String fmt_FileName_PhotoMemo = "^&(\\d+?)";
+		
 		public static final String fmt_FileName_PlayMemo = "^@(\\d{4}.+wav)";
 //		public static final String fmt_FileName_PlayMemo = "^@\\d{4}.+wav";
 //		public static final String fmt_FileName_PlayMemo = "^@\\d{4}";
@@ -765,7 +770,7 @@ public class CONS {
 		
 		public static String fname_Generated_WavFile;
 		
-	}
+	}//RecActv
 	
 	public static class 
 	PlayActv {

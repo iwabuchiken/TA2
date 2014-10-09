@@ -477,7 +477,28 @@ public class ImageActv extends Activity {
 	private void 
 	_Setup_Get_TI() {
 		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// dispatch: From ShowListActv
+
+		////////////////////////////////
+		if (CONS.IMageActv.ti != null) {
+			
+			// Log
+			String msg_Log = "CONS.IMageActv.ti => not null";
+			Log.d("ImageActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
 		
+		////////////////////////////////
+
+		// build: TI
+
+		////////////////////////////////
 		Intent i = getIntent();
 		
 		String file_path = i.getStringExtra("file_path");

@@ -82,6 +82,7 @@ import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.listeners.MP_OCmpL;
 import ta2.listeners.dialog.DL;
+import ta2.main.ImageActv;
 import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
 import ta2.main.PhotoActv;
@@ -3194,6 +3195,174 @@ public static String
 		
 	}//start_Activity_MemoEditActv
 
+	/******************************
+		Used from ShowListActv
+	 ******************************/
+	public static void 
+	start_Activity_ImageActv
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// get: id
+
+		////////////////////////////////
+		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PhotoMemo);
+//		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		Matcher m = p.matcher(memo.getText());
+
+//		String file_full_path = null;
+		
+		String id_str = null;
+		
+		if (m.find()) {
+			
+			id_str = m.group(1);
+			
+			// Log
+			String msg_Log = "id_str => " + id_str;
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "no match";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+
+		////////////////////////////////
+
+		// get: TI
+
+		////////////////////////////////
+		String selection = android.provider.BaseColumns._ID + " = ?";
+		
+		String[] args = new String[]{
+				
+				id_str
+				
+		};
+		
+		String order = null;
+		
+		Cursor c = Methods.get_Content(actv, selection, args, order);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (c == null) {
+			
+			// Log
+			String msg_Log = "cursor => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg_Log, d1);
+
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "c.getCount() => " + c.getCount();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// build: TI
+
+		////////////////////////////////
+		c.moveToFirst();
+		
+		CONS.IMageActv.ti = new TI.Builder()
+//		TI ti = new TI.Builder()
+
+				.setDb_Id(c.getLong(0))
+				.setCreated_at(c.getString(1))
+				.setModified_at(c.getString(2))
+				
+				.setFileId(c.getLong(3))
+				.setFile_path(c.getString(4))
+				.setFile_name(c.getString(5))
+				
+				.setDate_added(c.getString(6))
+				.setDate_modified(c.getString(7))
+				
+				.setMemo(c.getString(8))
+				.setTags(c.getString(9))
+				
+				.setLast_viewed_at(c.getString(10))
+				.setTable_name(c.getString(11))
+		
+				.setUploaded_at(c.getString(12))
+				
+				.build();
+
+//		// fpath
+//		String fpath = StringUtils.join(
+//				new String[]{
+//						
+//						ti.getFile_path(),
+//						ti.getFile_name()
+//				}, 
+//				File.separator);
+		
+		////////////////////////////////
+		
+		// setup: intent
+		
+		////////////////////////////////
+		Intent i = new Intent();
+		
+		i.setClass(actv, ImageActv.class);
+		
+		// Log
+		msg_Log = "ti.getDb_Id() => " + CONS.IMageActv.ti.getDb_Id();
+		Log.d("TNActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		i.putExtra("file_id", ti.getFileId());
+//		i.putExtra("db_id", ti.getDb_Id());
+//		i.putExtra("file_path", fpath);
+////		i.putExtra("file_path", ti.getFile_path());
+//		i.putExtra("file_name", ti.getFile_name());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+		actv.startActivity(i);
+
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+		
+//		Intent i = new Intent();
+//		
+//		i.setClass(actv, ImageActv.class);
+//		
+//		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+//		
+//		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//		
+//		actv.startActivity(i);
+//		
+		
+	}//start_Activity_PhotoActv
+	
 	public static boolean 
 	update_Memo
 	(Activity actv) {
@@ -5491,6 +5660,109 @@ public static String
 		return null;
 		
 	}//find_TI_From_TIList
+
+	/******************************
+		@return
+			null<br>
+			1. managedQuery => exception<br>
+			2. cursor => null<br>
+			3. cursor => count less than 1<br>
+	 ******************************/
+	public  static Cursor 
+	get_Content
+	(Activity actv, 
+		String selection, String[] args, String order) {
+		// TODO Auto-generated method stub
+	
+		actv.getIntent().setData(Uri.parse(CONS.PhotoActv.content_Uri));
+		
+		Cursor c = null;
+		
+		try {
+			
+			// Log
+			String msg_Log = "calling query...";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			c = actv.managedQuery(
+							actv.getIntent().getData(), 
+							null, 
+							selection, 
+							args, 
+							order);
+			
+			// Log
+			msg_Log = "query => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			// Log
+			String msg_Log = "Exception";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e.printStackTrace();
+			
+			return null;
+			
+		}
+		
+		// Log
+		String msg_Log = "cursor => obtained";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+			return null;
+			
+		}//if (c == null)
+		
+		////////////////////////////////
+
+		// get info
+
+		////////////////////////////////
+		// Log
+		msg_Log = "c.getCount() => " + c.getCount();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		return c;
+		
+	}//get_Content
 
 }//public class Methods
 
