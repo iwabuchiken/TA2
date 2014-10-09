@@ -78,6 +78,7 @@ import org.json.JSONObject;
 
 import ta2.comps.Comp_WP;
 import ta2.items.Memo;
+import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.listeners.MP_OCmpL;
 import ta2.listeners.dialog.DL;
@@ -5471,6 +5472,25 @@ public static String
 		return null;
 		
 	}//find_Memo_from_ListView
+
+	public static TI 
+	find_TI_From_TIList
+	(Activity actv, long db_Id) {
+		// TODO Auto-generated method stub
+		
+		for (TI ti : CONS.PhotoActv.ti_List) {
+			
+			if (ti.getDb_Id() == db_Id) {
+				
+				return ti;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}//find_TI_From_TIList
 
 }//public class Methods
 

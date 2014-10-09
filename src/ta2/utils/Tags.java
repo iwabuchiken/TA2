@@ -39,7 +39,7 @@ public class Tags {
 		ACTV_PLAT_STOP, 
 		ACTV_PLAY_BACK, 
 		ACTV_PLAY_SAVE, 
-		ACTV_PLAY_CLEAR, ACTV_PLAY_TV, ACTV_MAIN_PHOTO,
+		ACTV_PLAY_CLEAR, ACTV_PLAY_TV, ACTV_MAIN_PHOTO, image_activity_next, image_activity_back, image_activity_prev,
 		
 	}
 	

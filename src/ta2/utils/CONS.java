@@ -8,6 +8,7 @@ import ta2.adapters.Adp_MemoList;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
 import ta2.items.Memo;
+import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
@@ -510,6 +511,8 @@ public class CONS {
 	public static class IMageActv {
 		
 		public static ArrayAdapter<String> adp_ImageActv_GridView = null;
+
+		public static TI ti;
 		
 //		public static List<String> patternList = null;
 		
@@ -792,6 +795,8 @@ public class CONS {
 		
 		public static final String content_Uri = "content://ifm11.main.CV/";
 		
+		public static List<TI> ti_List;
+		
 	}
 
 	public static class
@@ -839,5 +844,6 @@ public class CONS {
 		};		
 		
 	}//IFM11
+
 	
 }//public class CONS

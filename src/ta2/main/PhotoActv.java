@@ -1,13 +1,16 @@
 package ta2.main;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_MemoList;
 import ta2.items.Memo;
+import ta2.items.TI;
 import ta2.listeners.LOI_LCL;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
@@ -20,6 +23,7 @@ import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
@@ -56,14 +60,14 @@ public class PhotoActv extends ListActivity {
 		// get: content
 
 		////////////////////////////////
-		this._Setup_Get_Content();
+		Cursor c = this._Setup_Get_Content();
 		
 		////////////////////////////////
 
 		// build list
 
 		////////////////////////////////
-		res = _Setup_List();
+		res = _Setup_List(c);
 
 		if (res == false) {
 			
@@ -87,11 +91,12 @@ public class PhotoActv extends ListActivity {
 		
 		this._Setup_Listeners_IBs();
 		
-//		do_test();
+		do_test();
 		
 	}//onStart
 
-	private void 
+    
+	private Cursor 
 	_Setup_Get_Content() {
 		// TODO Auto-generated method stub
 	
@@ -126,7 +131,7 @@ public class PhotoActv extends ListActivity {
 			
 			e.printStackTrace();
 			
-			return;
+			return null;
 			
 		}
 		
@@ -150,6 +155,8 @@ public class PhotoActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", "Query failed");
 			
+			return null;
+			
 		} else if (c.getCount() < 1) {//if (c == null)
 			
 			// Log
@@ -158,6 +165,8 @@ public class PhotoActv extends ListActivity {
 					+ ":"
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", "No entry in the table");
+			
+			return null;
 			
 		}//if (c == null)
 		
@@ -172,30 +181,35 @@ public class PhotoActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
-		////////////////////////////////
-
-		// test: get values
-
-		////////////////////////////////
-		int count = 0;
+		return c;
 		
-		while(c.moveToNext()) {
-			
-			// Log
-			msg_Log = "c.getString(5) => " + c.getString(5);
-			Log.d("PhotoActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			count += 1;
-			
-			if (count > 20) {
-				
-				break;
-				
-			}
-			
-		}//while(c.moveToNext())
+
+		
+		
+//		////////////////////////////////
+//
+//		// test: get values
+//
+//		////////////////////////////////
+//		int count = 0;
+//		
+//		while(c.moveToNext()) {
+//			
+//			// Log
+//			msg_Log = "c.getString(5) => " + c.getString(5);
+//			Log.d("PhotoActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			count += 1;
+//			
+//			if (count > 20) {
+//				
+//				break;
+//				
+//			}
+//			
+//		}//while(c.moveToNext())
 		
 		
 	}//_Setup_Get_Content
@@ -289,11 +303,66 @@ public class PhotoActv extends ListActivity {
 
 
 	private boolean 
-	_Setup_List() {
+	_Setup_List(Cursor c) {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
 
+		////////////////////////////////
+
+		// build: list
+
+		////////////////////////////////
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"file_id", "file_path", "file_name",	// 3,4,5
+//		"date_added", "date_modified",			// 6,7
+//		"memos", "tags",						// 8,9
+//		"last_viewed_at",						// 10
+//		"table_name"							// 11
+//		"uploaded_at",							// 12
+		
+		CONS.PhotoActv.ti_List = new ArrayList<TI>();
+//		List<TI> ti_List = new ArrayList<TI>();
+		
+		while(c.moveToNext()) {
+			
+			TI ti = new TI.Builder()
+
+					.setDb_Id(c.getLong(0))
+					.setCreated_at(c.getString(1))
+					.setModified_at(c.getString(2))
+					
+					.setFileId(c.getLong(3))
+					.setFile_path(c.getString(4))
+					.setFile_name(c.getString(5))
+					
+					.setDate_added(c.getString(6))
+					.setDate_modified(c.getString(7))
+					
+					.setMemo(c.getString(8))
+					.setTags(c.getString(9))
+					
+					.setLast_viewed_at(c.getString(10))
+					.setTable_name(c.getString(11))
+
+					.setUploaded_at(c.getString(12))
+					
+					.build();
+			
+			CONS.PhotoActv.ti_List.add(ti);
+			
+		}
+
+		// Log
+		msg_Log = "ti_List.size() => " + CONS.PhotoActv.ti_List.size();
+		Log.d("PhotoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		return true;
 		
 //		////////////////////////////////
@@ -371,12 +440,56 @@ public class PhotoActv extends ListActivity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+		this._test_Start_ImageActv();
+		
 //		_test_Color_Date_v2();
 //		_test_Color_Date();
 //		_test_PrefVal_SoundEffect();
 		
 	}
 
+	private void 
+	_test_Start_ImageActv() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+
+		// validate
+
+		////////////////////////////////
+		if (CONS.PhotoActv.ti_List == null) {
+			
+			// Log
+			String msg_Log = "CONS.PhotoActv.ti_List => null";
+			Log.e("PhotoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+
+		// intent
+
+		////////////////////////////////
+		TI ti = CONS.PhotoActv.ti_List.get(0);
+		
+		Intent i = new Intent();
+		
+		i.setClass(this, ImageActv.class);
+		
+		i.putExtra("file_id", ti.getFileId());
+		i.putExtra("db_id", ti.getDb_Id());
+		i.putExtra("file_path", ti.getFile_path());
+		i.putExtra("file_name", ti.getFile_name());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+		startActivity(i);
+		
+	}//_test_Start_ImageActv
 
 	private void 
 	_Setup_Listeners() {
