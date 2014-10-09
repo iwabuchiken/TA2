@@ -101,7 +101,6 @@ public class PhotoActv extends ListActivity {
 		
 	}//onStart
 
-    
 	private Cursor 
 	_Setup_Get_Content() {
 		// TODO Auto-generated method stub
@@ -539,22 +538,80 @@ public class PhotoActv extends ListActivity {
 	private void 
 	_Setup_Listeners_IBs() {
 		// TODO Auto-generated method stub
-//		////////////////////////////////
-//		
-//		// IB: memo
-//		
-//		////////////////////////////////
-//		ImageButton bt_Back = 
-//				(ImageButton) this.findViewById(R.id.actv_showlist_ib_back);
-//		
-//		bt_Back.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BACK);
-//		
-//		bt_Back.setOnTouchListener(new BO_TL(this));
-//		
-//		bt_Back.setOnClickListener(new BO_CL(this));
+		////////////////////////////////
+		
+		// IB: memo
+		
+		////////////////////////////////
+		ImageButton bt_Back = 
+				(ImageButton) this.findViewById(R.id.actv_showlist_ib_back);
+		
+		bt_Back.setTag(Tags.ButtonTags.ACTV_PHOTO_BACK);
+		
+		bt_Back.setOnTouchListener(new BO_TL(this));
+		
+		bt_Back.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: Top
+		
+		////////////////////////////////
+		ImageButton bt_Top = 
+				(ImageButton) this.findViewById(R.id.actv_showlist_ib_top);
+		
+		bt_Top.setTag(Tags.ButtonTags.ACTV_PHOTO_TOP);
+		
+		bt_Top.setOnTouchListener(new BO_TL(this));
+		
+		bt_Top.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: Up
+		
+		////////////////////////////////
+		ImageButton bt_Up = 
+				(ImageButton) this.findViewById(R.id.actv_showlist_ib_up);
+		
+		bt_Up.setTag(Tags.ButtonTags.ACTV_PHOTO_UP);
+		
+		bt_Up.setOnTouchListener(new BO_TL(this));
+		
+		bt_Up.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: Down
+		
+		////////////////////////////////
+		ImageButton bt_Down = 
+				(ImageButton) this.findViewById(R.id.actv_showlist_ib_down);
+		
+		bt_Down.setTag(Tags.ButtonTags.ACTV_PHOTO_DOWN);
+		
+		bt_Down.setOnTouchListener(new BO_TL(this));
+		
+		bt_Down.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: Bottom
+		
+		////////////////////////////////
+		ImageButton bt_Bottom = 
+				(ImageButton) this.findViewById(R.id.actv_showlist_ib_bottom);
+		
+		bt_Bottom.setTag(Tags.ButtonTags.ACTV_PHOTO_BOTTOM);
+		
+		bt_Bottom.setOnTouchListener(new BO_TL(this));
+		
+		bt_Bottom.setOnClickListener(new BO_CL(this));
+		
 		
 	}//_Setup_Listeners
 
+	
 	@Override
 	protected void 
 	onListItemClick

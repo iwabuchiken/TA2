@@ -126,6 +126,7 @@ public class BO_CL implements OnClickListener {
 			break;
 			
 		case ACTV_SHOWLIST_BACK:
+		case ACTV_PHOTO_BACK:
 			
 			case_ACTV_SHOWLIST_BACK();
 			
@@ -137,9 +138,21 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PHOTO_TOP:
+			
+			case_ACTV_PHOTO_TOP();
+			
+			break;
+			
 		case ACTV_SHOWLIST_UP:
 			
 			case_ACTV_SHOWLIST_UP();
+			
+			break;
+			
+		case ACTV_PHOTO_UP:
+			
+			case_ACTV_PHOTO_UP();
 			
 			break;
 			
@@ -149,9 +162,21 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PHOTO_DOWN:
+			
+			case_ACTV_PHOTO_DOWN();
+			
+			break;
+			
 		case ACTV_SHOWLIST_BOTTOM:
 			
 			case_ACTV_SHOWLIST_BOTTOM();
+			
+			break;
+			
+		case ACTV_PHOTO_BOTTOM:
+			
+			case_ACTV_PHOTO_BOTTOM();
 			
 			break;
 			
@@ -469,6 +494,37 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void 
+	case_ACTV_PHOTO_BOTTOM() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.ti_List == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+
+		////////////////////////////////
+
+		// set selection
+
+		////////////////////////////////
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int numOfGroups = CONS.PhotoActv.ti_List.size() / lv.getChildCount();
+		
+		int indexOfLastChild = lv.getChildCount() * numOfGroups;
+		
+		lv.setSelection(indexOfLastChild);
+		
+	}//case_ACTV_PHOTO_BOTTOM
+	
 	private void case_ACTV_SHOWLIST_DOWN() {
 		// TODO Auto-generated method stub
 		/******************************
@@ -497,6 +553,36 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_ACTV_PHOTO_DOWN() {
+		// TODO Auto-generated method stub
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.ti_List == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int new_Position = lv.getLastVisiblePosition();
+		
+		if((new_Position + lv.getChildCount()) 
+				> CONS.PhotoActv.ti_List.size()) {
+			
+			new_Position = CONS.PhotoActv.ti_List.size() - lv.getChildCount();
+			
+		}
+		
+		lv.setSelection(new_Position);
+		
+	}//case_ACTV_PHOTO_DOWN
+	
 	private void case_ACTV_SHOWLIST_UP() {
 		// TODO Auto-generated method stub
 		
@@ -533,6 +619,49 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_ACTV_PHOTO_UP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.ti_List == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+
+		////////////////////////////////
+
+		// set: position
+
+		////////////////////////////////
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int lastPos = lv.getLastVisiblePosition();
+		
+		int childCount = lv.getChildCount();
+		
+		int new_Position;
+		
+		if (lastPos - (childCount * 2) + 2 > 0) {
+			
+			new_Position = lastPos - (childCount * 2) + 2;
+			
+		} else {
+			
+			new_Position = 0;
+			
+		}
+		
+		lv.setSelection(new_Position);		
+		
+	}
+	
 	private void case_ACTV_SHOWLIST_TOP() {
 		// TODO Auto-generated method stub
 	
@@ -553,6 +682,31 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void case_ACTV_PHOTO_TOP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.ti_List == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+//			CONS.PhotoActv.ti_List = DBUtils.find_All_Memos(actv);
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		lv.setSelection(0);
+		
+	}
+	
 	private void 
 	case_ACTV_SHOWLIST_BACK() {
 		// TODO Auto-generated method stub
