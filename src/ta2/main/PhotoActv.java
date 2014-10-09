@@ -110,16 +110,15 @@ public class PhotoActv extends ListActivity {
 		
 		Cursor c = null;
 		
-//		String selection = android.provider.BaseColumns._ID + " = ?";
-//		
-//		String[] args = new String[]{
-//				
-//				id_str
-//				
-//		};
+		String selection = CONS.IFM11.col_names_IFM11_full[11] + " = ?";
+		
+		String[] args = new String[]{
+				
+				CONS.IFM11.tname_IFM11
+				
+		};
 		
 		String order = android.provider.BaseColumns._ID + " DESC";
-
 		
 		try {
 			
@@ -129,7 +128,7 @@ public class PhotoActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			c = managedQuery(getIntent().getData(), null, null, null, order);
+			c = managedQuery(getIntent().getData(), null, selection, args, order);
 //			c = managedQuery(getIntent().getData(), null, null, null, null);
 			
 			// Log
