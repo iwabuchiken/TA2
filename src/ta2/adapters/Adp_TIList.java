@@ -6,6 +6,7 @@ import java.util.List;
 import ta2.items.TI;
 import ta2.main.R;
 import ta2.utils.CONS;
+import ta2.utils.Methods;
 
 
 import android.app.Activity;
@@ -312,30 +313,30 @@ public class Adp_TIList extends ArrayAdapter<TI> {
 			----------------------------*/
     	TI ti = (TI) getItem(position);
 
-//    	////////////////////////////////
-//
-//		// Set background
-//
-//		////////////////////////////////
-//		int savedPosition = Methods.get_Pref_Int(
-//								(Activity)con, 
-//								CONS.Pref.pname_MainActv, 
-//								CONS.Pref.pkey_CurrentPosition_TNActv, 
-//								CONS.Pref.dflt_IntExtra_value);
-//		
-//		if (savedPosition == position) {
-//			
-//			tv.setBackgroundResource(R.color.gold2);
-//			tv.setTextColor(Color.BLACK);
-//			
-//		} else if (savedPosition == -1) {//if (savedPosition == position)
-//			
-//		} else {//if (savedPosition == position)
-//			
-//			tv.setBackgroundColor(Color.BLACK);
-//			tv.setTextColor(Color.WHITE);
-//			
-//		}//if (savedPosition == position)
+    	////////////////////////////////
+
+		// Set background
+
+		////////////////////////////////
+		int savedPosition = Methods.get_Pref_Int(
+								(Activity)con, 
+								CONS.Pref.pname_PhotoActv, 
+								CONS.Pref.pkey_PhotoActv_Current_Position, 
+								CONS.Pref.dflt_IntExtra_value);
+		
+		if (savedPosition == position) {
+			
+			tv.setBackgroundResource(R.color.gold2);
+			tv.setTextColor(Color.BLACK);
+			
+		} else if (savedPosition == -1) {//if (savedPosition == position)
+			
+		} else {//if (savedPosition == position)
+			
+			tv.setBackgroundColor(Color.BLACK);
+			tv.setTextColor(Color.WHITE);
+			
+		}//if (savedPosition == position)
 
     	
     	

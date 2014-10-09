@@ -284,7 +284,7 @@ public class PhotoActv extends ListActivity {
 				
 						this,
 						R.layout.list_row,
-						CONS.PhotoActv.ti_List
+						CONS.PhotoActv.list_TIs
 				
 		);
 		
@@ -342,7 +342,7 @@ public class PhotoActv extends ListActivity {
 //		"table_name"							// 11
 //		"uploaded_at",							// 12
 		
-		CONS.PhotoActv.ti_List = new ArrayList<TI>();
+		CONS.PhotoActv.list_TIs = new ArrayList<TI>();
 //		List<TI> ti_List = new ArrayList<TI>();
 		
 		while(c.moveToNext()) {
@@ -370,12 +370,12 @@ public class PhotoActv extends ListActivity {
 					
 					.build();
 			
-			CONS.PhotoActv.ti_List.add(ti);
+			CONS.PhotoActv.list_TIs.add(ti);
 			
 		}
 
 		// Log
-		msg_Log = "ti_List.size() => " + CONS.PhotoActv.ti_List.size();
+		msg_Log = "ti_List.size() => " + CONS.PhotoActv.list_TIs.size();
 		Log.d("PhotoActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
@@ -474,7 +474,7 @@ public class PhotoActv extends ListActivity {
 		// validate
 
 		////////////////////////////////
-		if (CONS.PhotoActv.ti_List == null) {
+		if (CONS.PhotoActv.list_TIs == null) {
 			
 			// Log
 			String msg_Log = "CONS.PhotoActv.ti_List => null";
@@ -491,7 +491,7 @@ public class PhotoActv extends ListActivity {
 		// intent
 
 		////////////////////////////////
-		TI ti = CONS.PhotoActv.ti_List.get(0);
+		TI ti = CONS.PhotoActv.list_TIs.get(0);
 		
 		Intent i = new Intent();
 		
@@ -620,6 +620,31 @@ public class PhotoActv extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		
 		CONS.Admin.vib.vibrate(CONS.Admin.vibLength_click);
+		
+		////////////////////////////////
+
+		// set: pref
+
+		////////////////////////////////
+		boolean res = Methods.set_Pref_Int(
+						this, 
+						CONS.Pref.pname_PhotoActv, 
+						CONS.Pref.pkey_PhotoActv_Current_Position, 
+						position);
+		
+		if (res == false) {
+			
+			// Log
+			String msg_Log = "pref position => can't be set";
+			Log.e("PhotoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			CONS.PhotoActv.adp_List_TIs.notifyDataSetChanged();
+			
+		}
 		
 		////////////////////////////////
 

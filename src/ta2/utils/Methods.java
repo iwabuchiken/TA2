@@ -5679,7 +5679,7 @@ public static String
 	(Activity actv, long db_Id) {
 		// TODO Auto-generated method stub
 		
-		for (TI ti : CONS.PhotoActv.ti_List) {
+		for (TI ti : CONS.PhotoActv.list_TIs) {
 			
 			if (ti.getDb_Id() == db_Id) {
 				

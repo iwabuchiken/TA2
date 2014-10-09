@@ -501,7 +501,7 @@ public class BO_CL implements OnClickListener {
 		/******************************
 			validate: list
 		 ******************************/
-		if (CONS.PhotoActv.ti_List == null) {
+		if (CONS.PhotoActv.list_TIs == null) {
 			
 			String msg = "TI list  => null. Please go back to MainActv";
 			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
@@ -517,7 +517,7 @@ public class BO_CL implements OnClickListener {
 		////////////////////////////////
 		ListView lv = ((ListActivity) actv).getListView();
 		
-		int numOfGroups = CONS.PhotoActv.ti_List.size() / lv.getChildCount();
+		int numOfGroups = CONS.PhotoActv.list_TIs.size() / lv.getChildCount();
 		
 		int indexOfLastChild = lv.getChildCount() * numOfGroups;
 		
@@ -559,7 +559,7 @@ public class BO_CL implements OnClickListener {
 		/******************************
 			validate: list
 		 ******************************/
-		if (CONS.PhotoActv.ti_List == null) {
+		if (CONS.PhotoActv.list_TIs == null) {
 			
 			String msg = "TI list  => null. Please go back to MainActv";
 			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
@@ -573,9 +573,9 @@ public class BO_CL implements OnClickListener {
 		int new_Position = lv.getLastVisiblePosition();
 		
 		if((new_Position + lv.getChildCount()) 
-				> CONS.PhotoActv.ti_List.size()) {
+				> CONS.PhotoActv.list_TIs.size()) {
 			
-			new_Position = CONS.PhotoActv.ti_List.size() - lv.getChildCount();
+			new_Position = CONS.PhotoActv.list_TIs.size() - lv.getChildCount();
 			
 		}
 		
@@ -626,7 +626,7 @@ public class BO_CL implements OnClickListener {
 		/******************************
 			validate: list
 		 ******************************/
-		if (CONS.PhotoActv.ti_List == null) {
+		if (CONS.PhotoActv.list_TIs == null) {
 			
 			String msg = "TI list  => null. Please go back to MainActv";
 			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
@@ -688,7 +688,7 @@ public class BO_CL implements OnClickListener {
 		/******************************
 			validate: list
 		 ******************************/
-		if (CONS.PhotoActv.ti_List == null) {
+		if (CONS.PhotoActv.list_TIs == null) {
 			
 			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
 			

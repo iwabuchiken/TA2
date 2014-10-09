@@ -409,6 +409,17 @@ public class CONS {
 		
 		////////////////////////////////
 		
+		// PhotoActv
+		
+		////////////////////////////////
+		public static String pname_PhotoActv = "pname_PhotoActv"; 
+		
+		public static final String 
+		pkey_PhotoActv_Current_Position = 
+							"pkey_PhotoActv_Current_Position";
+		
+		////////////////////////////////
+		
 		// PlayActv.java
 		
 		////////////////////////////////
@@ -809,7 +820,7 @@ public class CONS {
 		
 		public static final String content_Uri = "content://ifm11.main.CV/";
 		
-		public static List<TI> ti_List;
+		public static List<TI> list_TIs;
 
 		public static Adp_TIList adp_List_TIs = null;
 		
