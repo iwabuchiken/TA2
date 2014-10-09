@@ -285,7 +285,17 @@ public class ImageActv extends Activity {
 			
 		case R.id.actv_image_menu_add_patterns://------------------------------------
 			
-			Methods_dlg.dlg_EditMemo_ImageActv(this);
+			if (CONS.IMageActv.memo == null) {
+				
+				Methods_dlg.dlg_EditMemo_ImageActv(this);
+				
+			} else {
+				
+				Methods_dlg.dlg_EditMemo_ImageActv_From_ShowList(this);
+
+			}
+//			Methods_dlg.dlg_EditMemo_ImageActv(this);
+//			Methods_dlg.dlg_EditMemo_ImageActv(this);
 //			Methods.dlg_register_patterns(this);
 			
 //			Methods_dlg.dlg_patterns(this);
@@ -617,10 +627,29 @@ public class ImageActv extends Activity {
 	}//_Setup_Update_LastViewed
 
 	@Override
-	protected void onStop() {
+	protected void 
+	onStop() {
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		super.onStop();
-	}
+		
+		////////////////////////////////
+
+		// nullify: CONS.IMageActv.memo
+
+		////////////////////////////////
+		if (CONS.IMageActv.memo != null) {
+			
+			CONS.IMageActv.memo = null;
+			
+			// Log
+			String msg_Log = "CONS.IMageActv.memo => nullified";
+			Log.d("ImageActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+	}//onStop
 
 	@Override
 	protected void onDestroy() {

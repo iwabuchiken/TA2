@@ -1,5 +1,6 @@
 package ta2.listeners.button;
 
+import ta2.items.Memo;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
@@ -352,6 +353,8 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_MEMO_EDIT_SAVE() {
 		// TODO Auto-generated method stub
 		
+		String msg_Log;
+		
 		////////////////////////////////
 
 		// validate: any text?
@@ -394,6 +397,37 @@ public class BO_CL implements OnClickListener {
 		
 		Methods.report_Update_Memos(actv, res_i);
 		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+//		Memo m = CONS.MemoEditActv.memo;
+		Memo m = Methods.find_Memo_from_ListView(actv, CONS.MemoEditActv.memo.getDb_Id());
+		
+		if (m != null) {
+			
+			m.setText(tmp);
+			
+		} else {
+
+			// Log
+			msg_Log = "memo => null";
+			Log.e("DB_OCL.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", msg_Log);
+			
+		}
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}//case_ACTV_MEMO_EDIT_SAVE
 
 	private void 

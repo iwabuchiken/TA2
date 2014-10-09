@@ -3318,6 +3318,18 @@ public static String
 //				File.separator);
 		
 		////////////////////////////////
+
+		// set: memo (global)
+
+		////////////////////////////////
+		CONS.IMageActv.memo = memo;
+		
+		// Log
+		msg_Log = "CONS.IMageActv.memo => set";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		////////////////////////////////
 		
 		// setup: intent
 		
@@ -3328,7 +3340,7 @@ public static String
 		
 		// Log
 		msg_Log = "ti.getDb_Id() => " + CONS.IMageActv.ti.getDb_Id();
-		Log.d("TNActv.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
@@ -5628,6 +5640,26 @@ public static String
 	(Activity actv, long db_Id) {
 		// TODO Auto-generated method stub
 		
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.ShowListActv.list_Memos == null) {
+			
+			// Log
+			String msg_Log = "CONS.ShowListActv.list_Memos => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+
+		// find: memo
+
+		////////////////////////////////
 		for (Memo m : CONS.ShowListActv.list_Memos) {
 			
 			if (m.getDb_Id() == db_Id) {

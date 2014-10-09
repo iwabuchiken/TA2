@@ -15,6 +15,7 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
@@ -422,6 +423,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
@@ -429,11 +436,11 @@ public class DB_OCL implements OnClickListener {
 	}//public void onClick(View v)
 
 	private void 
-	case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK() {
+	case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK() {
 		// TODO Auto-generated method stub
 		
 		// Log
-		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK";
+		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK";
 		Log.d("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
@@ -471,14 +478,66 @@ public class DB_OCL implements OnClickListener {
 		// save memo
 		
 		////////////////////////////////
-		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
-//				String text = String.format("@%s %s", 
-						 
-						CONS.IMageActv.ti.getDb_Id(), 
-						tmp);
+//		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
+////				String text = String.format("@%s %s", 
+//						 
+//						CONS.IMageActv.ti.getDb_Id(), 
+//						tmp);
 
-		int res = DBUtils.save_Memo(actv, text);
+		String tname = CONS.DB.tname_TA2;
+		
+		String where = CONS.DB.col_names_TA2_full[0] + " = ?";
+		
+		String[] args = new String[]{
+				
+				String.valueOf(CONS.IMageActv.memo.getDb_Id())
+				
+		};
+		
+		ContentValues cv = new ContentValues();
+		
+		cv.put(CONS.DB.col_names_TA2_full[3], tmp);
+		
+		boolean res = DBUtils.updateData_generic_static(
+							actv, 
+							CONS.DB.tname_TA2, 
+							cv, 
+							where, 
+							args);
+		
+//		int res = DBUtils.save_Memo(actv, text);
 //		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+		Memo m = Methods.find_Memo_from_ListView(actv, CONS.IMageActv.memo.getDb_Id());
+		
+		if (m != null) {
+			
+			m.setText(tmp);
+			
+		} else {
+
+			// Log
+			msg_Log = "memo => null";
+			Log.e("DB_OCL.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", msg_Log);
+			
+		}
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 		
 		////////////////////////////////
 
@@ -487,20 +546,153 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		String msg = null;
 		int colorID = 0;
+		
+		if (res == true) {
 
+			msg = "text => updated";
+			colorID = R.color.green4;
+
+			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage(
+//					Methods_dlg.dlg_ShowMessage_Duration(
+					actv, 
+					msg,
+					colorID);
+
+		} else {
+
+			msg = "text => can't update";
+			colorID = R.color.red;
+
+//			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+					
+		}
+//
+////		-1 Table doesnt exist
+////		-2 SQLException
+////		1 Table dropped
+//
+//		switch(res) {
+//
+//		case -1: 
+//			
+//			msg = "insertion => failed";
+//			colorID = R.color.red;
+//			
+//			break;
+//		
+//		case -2: 
+//			
+//			msg = "Exception";
+//			colorID = R.color.red;
+//			
+//			break;
+//			
+//		case 1: 
+//			
+//			msg = "text => inserted";
+//			colorID = R.color.green4;
+//
+//			d1.dismiss();
+//			
+//			Methods_dlg.dlg_ShowMessage(
+////					Methods_dlg.dlg_ShowMessage_Duration(
+//					actv, 
+//					msg,
+//					colorID);
+//
+//			return;
+////			break;
+//			
+//		default:
+//			
+//			msg = "Unknown result => " + res;
+//			colorID = R.color.gold2;
+//			
+//			break;
+//			
+//		}
+		
+//		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+		
+	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
+
+	private void 
+	case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// save memo
+		
+		////////////////////////////////
+		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
+//				String text = String.format("@%s %s", 
+				
+				CONS.IMageActv.ti.getDb_Id(), 
+				tmp);
+		
+		int res = DBUtils.save_Memo(actv, text);
+//		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
+		////////////////////////////////
+		
+		// report
+		
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
 //		-1 Table doesnt exist
 //		-2 SQLException
 //		1 Table dropped
-
+		
 		switch(res) {
-
+		
 		case -1: 
 			
 			msg = "insertion => failed";
 			colorID = R.color.red;
 			
 			break;
-		
+			
 		case -2: 
 			
 			msg = "Exception";
@@ -512,7 +704,7 @@ public class DB_OCL implements OnClickListener {
 			
 			msg = "text => inserted";
 			colorID = R.color.green4;
-
+			
 			d1.dismiss();
 			
 			Methods_dlg.dlg_ShowMessage(
@@ -520,7 +712,7 @@ public class DB_OCL implements OnClickListener {
 					actv, 
 					msg,
 					colorID);
-
+			
 			return;
 //			break;
 			
@@ -536,7 +728,7 @@ public class DB_OCL implements OnClickListener {
 		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
 		
 	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
-
+	
 	private void 
 	case_DLG_EDIT_MEMOS_BT_OK() {
 		// TODO Auto-generated method stub

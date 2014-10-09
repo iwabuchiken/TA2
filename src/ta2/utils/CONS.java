@@ -516,6 +516,9 @@ public class CONS {
 		public static TI ti;
 		
 		public static Bitmap bm;
+
+		public static Memo memo;	// hold an instance of Memo for use in ImageActv
+									//		when ImageActv is called from ShowList 
 		
 //		public static List<String> patternList = null;
 		
