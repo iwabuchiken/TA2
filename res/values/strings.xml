@@ -134,5 +134,6 @@
     <!-- image_actv_menu.xml -->
 	    <string name="image_actv_menu_add_memo">Memo</string>
 	    <string name="image_actv_menu_add_patterns">定型句登録</string>
+	    <string name="actv_image_menu_add_photo_memo">Photo memo</string>
     			   	
 </resources>

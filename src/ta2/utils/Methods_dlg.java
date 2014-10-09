@@ -2956,6 +2956,91 @@ public class Methods_dlg {
 		
 	}//dlg_EditMemo
 
+	public static void 
+	dlg_EditMemo_ImageActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		int res_i;
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// dlg
+		
+		////////////////////////////////
+		Dialog d1 = Methods_dlg._dlg_AddMemo_GetDialog_ImageActv(actv);
+//		Dialog d1 = Methods_dlg._dlg_AddMemo_GetDialog(actv);
+		
+		/******************************
+			validate: null
+		 ******************************/
+		if (d1 == null) {
+			
+			String msg = "dlg => null";
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "dlg => obtained";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// listviews
+		
+		////////////////////////////////
+		res_i = _dlg_AddMemo_Set_LV_1(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+		
+		// LV 2
+		res_i = _dlg_AddMemo_Set_LV_2(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+		
+		// LV 3
+		res_i = _dlg_AddMemo_Set_LV_3(actv, d1);
+		
+		// Log
+		msg_Log = "res_i => " + res_i;
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		dlg = _dlg_AddMemo_Set_Listviews(actv, dlg);
+		
+		////////////////////////////////
+		
+		// set: listeners
+		
+		////////////////////////////////
+		res_i = _dlg_AddMemo_Set_Listeners(actv, d1);
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		d1.show();
+		
+		
+	}//dlg_EditMemo_ImageActv
+	
 	private static int 
 	_dlg_AddMemo_Set_Listeners
 	(Activity actv, Dialog d) {
@@ -3461,5 +3546,66 @@ public class Methods_dlg {
 		
 	}//public static Dialog dlg_addMemo(Activity actv, long file_id, String tableName)
 
+	public static Dialog 
+	_dlg_AddMemo_GetDialog_ImageActv
+	(Activity actv) {
+		
+		// 
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_add_memos);
+		
+		// Title
+		dlg.setTitle(R.string.commons_lbl_edit_memo);
+		
+		/*----------------------------
+		 * 1-2. Set text to edit text
+			----------------------------*/
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
+		
+		if (CONS.IMageActv.ti != null) {
+			
+			String memo = CONS.IMageActv.ti.getMemo();
+			
+			et.setText(memo);
+			
+			et.setSelection(memo.length());
+			
+		} else {//if (ti.getMemo() != null)
+			
+			et.setSelection(0);
+			
+		}//if (ti.getMemo() != null)
+		
+		////////////////////////////////
+		
+		// Add listeners: OnTouch
+		
+		////////////////////////////////
+		
+		Button btn_add = (Button) dlg.findViewById(R.id.dlg_add_memos_bt_add);
+		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_add_memos_cancel);
+		
+		// Tags
+		btn_add.setTag(DialogTags.DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK);
+		btn_cancel.setTag(DialogTags.GENERIC_DISMISS);
+		
+		//
+		btn_add.setOnTouchListener(new DB_OTL(actv, dlg));
+		btn_cancel.setOnTouchListener(new DB_OTL(actv, dlg));
+		
+		////////////////////////////////
+		
+		// Add listeners => OnClick
+		
+		////////////////////////////////
+		btn_add.setOnClickListener(new DB_OCL(actv, dlg));
+		btn_cancel.setOnClickListener(new DB_OCL(actv, dlg));
+		
+		return dlg;
+		
+	}//_dlg_AddMemo_GetDialog_ImageActv
+	
 	
 }//public class Methods_dialog

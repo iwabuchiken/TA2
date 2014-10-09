@@ -416,11 +416,126 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// save memo
+		
+		////////////////////////////////
+		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
+//				String text = String.format("@%s %s", 
+						 
+						CONS.IMageActv.ti.getDb_Id(), 
+						tmp);
+
+		int res = DBUtils.save_Memo(actv, text);
+//		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
+		////////////////////////////////
+
+		// report
+
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+
+//		-1 Table doesnt exist
+//		-2 SQLException
+//		1 Table dropped
+
+		switch(res) {
+
+		case -1: 
+			
+			msg = "insertion => failed";
+			colorID = R.color.red;
+			
+			break;
+		
+		case -2: 
+			
+			msg = "Exception";
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "text => inserted";
+			colorID = R.color.green4;
+
+			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage(
+//					Methods_dlg.dlg_ShowMessage_Duration(
+					actv, 
+					msg,
+					colorID);
+
+			return;
+//			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+			
+			break;
+			
+		}
+		
+		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+		
+	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
 
 	private void 
 	case_DLG_EDIT_MEMOS_BT_OK() {
@@ -544,7 +659,7 @@ public class DB_OCL implements OnClickListener {
 //		Methods.report_Save_Memos(actv, res);
 		
 	}//case_DLG_EDIT_MEMOS_BT_OK
-
+	
 	private void 
 	case_DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK() {
 		// TODO Auto-generated method stub

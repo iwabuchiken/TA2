@@ -121,6 +121,7 @@ public final class R {
     public static final class id {
         public static final int LL_main=0x7f0b006a;
         public static final int LinearLayout01=0x7f0b0078;
+        public static final int actv_image_menu_add_patterns=0x7f0b007d;
         public static final int actv_main_ib_memo=0x7f0b0002;
         public static final int actv_main_ib_photo=0x7f0b0003;
         public static final int actv_main_ib_showlist=0x7f0b0001;
@@ -236,12 +237,12 @@ public final class R {
         public static final int list_row_slimple_iv_1_iv=0x7f0b0076;
         public static final int list_row_slimple_iv_1_ll=0x7f0b0075;
         public static final int list_row_slimple_iv_1_tv=0x7f0b0077;
-        public static final int menu_main_admin=0x7f0b007f;
-        public static final int menu_main_horizontal_listview=0x7f0b0080;
-        public static final int menu_main_logout=0x7f0b007e;
-        public static final int menu_main_settings=0x7f0b007d;
-        public static final int menu_memo_admin_patterns=0x7f0b0081;
-        public static final int menu_showlist_filter=0x7f0b0082;
+        public static final int menu_main_admin=0x7f0b0080;
+        public static final int menu_main_horizontal_listview=0x7f0b0081;
+        public static final int menu_main_logout=0x7f0b007f;
+        public static final int menu_main_settings=0x7f0b007e;
+        public static final int menu_memo_admin_patterns=0x7f0b0082;
+        public static final int menu_showlist_filter=0x7f0b0083;
         public static final int pref_dropdown_sp=0x7f0b0079;
         public static final int pref_seekbar=0x7f0b007a;
         public static final int thumb_activity_LL_buttons=0x7f0b000f;
@@ -285,7 +286,7 @@ public final class R {
         public static final int spinner_item_simple_1=0x7f03001e;
     }
     public static final class menu {
-        public static final int image_actv_menu=0x7f0a0000;
+        public static final int menu_actv_image=0x7f0a0000;
         public static final int menu_actv_main=0x7f0a0001;
         public static final int menu_actv_memo=0x7f0a0002;
         public static final int menu_actv_showlist=0x7f0a0003;
@@ -303,6 +304,7 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
+        public static final int actv_image_menu_add_photo_memo=0x7f080046;
         public static final int app_name=0x7f080000;
         public static final int btn_lbl_memo_patterns=0x7f08001d;
         /**  UI labels 

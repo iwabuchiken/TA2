@@ -260,7 +260,7 @@ public class ImageActv extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// 
 		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.image_actv_menu, menu);
+		mi.inflate(R.menu.menu_actv_image, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -282,6 +282,16 @@ public class ImageActv extends Activity {
 //			Methods_dlg.dlg_patterns(this);
 			
 			break;
+			
+		case R.id.actv_image_menu_add_patterns://------------------------------------
+			
+			Methods_dlg.dlg_EditMemo_ImageActv(this);
+//			Methods.dlg_register_patterns(this);
+			
+//			Methods_dlg.dlg_patterns(this);
+			
+			break;
+			
 		}//switch (item.getItemId())
 		
 		return super.onOptionsItemSelected(item);
