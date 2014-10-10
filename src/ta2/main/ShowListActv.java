@@ -258,19 +258,23 @@ public class ShowListActv extends ListActivity {
 		////////////////////////////////
 
 		// validate: memo => not yet built
+		
+		// 	=> commenting out, because, if back from
+		//		PrefActv, the list needs to be rebuilt
+		//		using the pref value for the list size
 
 		////////////////////////////////
-		if (CONS.ShowListActv.list_Memos != null) {
-			
-			// Log
-			msg_Log = "CONS.ShowListActv.list_Memos => not null. Recyling...";
-			Log.d("ShowListActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			return true;
-			
-		}
+//		if (CONS.ShowListActv.list_Memos != null) {
+//			
+//			// Log
+//			msg_Log = "CONS.ShowListActv.list_Memos => not null. Recyling...";
+//			Log.d("ShowListActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return true;
+//			
+//		}
 		
 		////////////////////////////////
 
