@@ -23,6 +23,8 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -62,6 +64,23 @@ public class PhotoActv extends ListActivity {
 
 		////////////////////////////////
 		Cursor c = this._Setup_Get_Content();
+		
+		/******************************
+			validate
+		 ******************************/
+		if (c == null) {
+			
+			// Log
+			String msg_Log = "cursor => null";
+			Log.e("PhotoActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			Methods_dlg.dlg_ShowMessage(this, msg_Log, R.color.red);
+			
+			return;
+			
+		}
 		
 		////////////////////////////////
 
@@ -493,6 +512,7 @@ public class PhotoActv extends ListActivity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+//		this._test_CV_update();
 //		this._test_Start_ImageActv();
 		
 //		_test_Color_Date_v2();
@@ -500,6 +520,102 @@ public class PhotoActv extends ListActivity {
 //		_test_PrefVal_SoundEffect();
 		
 	}
+	
+	private void 
+	_test_CV_update() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "_test_CV_update";
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri + CONS.IFM11.tname_IFM11);
+		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri);
+
+//		// testテーブルの_idが1のレコードを取得する
+//		Cursor cursor = getContentResolver().query(ContentUris.withAppendedId(contentUri, 1), null, null, null, null);
+//
+//		// testテーブルの全レコードを取得する
+//		Cursor cursor2 = getContentResolver().query(contentUri, null, null, null, null);
+//
+//		// testテーブルにレコードを投入する
+//		// FIXME 本当はContentValuesに投入データを入れるが省略
+//		Uri newUri = getContentResolver().insert(contentUri, new ContentValues());
+
+		// testテーブルの_idが1のレコードを更新する
+		// FIXME 本当はContentValuesに投入データを入れるが省略
+		ContentValues cv = new ContentValues();
+		
+		cv.put("memos", ":m Σ　積分　MATH AAA");
+		
+		String where = android.provider.BaseColumns._ID
+				+ " = ?";
+
+		String[] args = new String[]{
+				
+				"312"
+				
+		};
+
+		int updatedCount = getContentResolver()
+					.update(
+							contentUri, 
+//							ContentUris.withAppendedId(contentUri, 1), 
+							cv, 
+//							new ContentValues(), 
+							where, args);
+//		null, null);
+		
+		// Log
+		msg_Log = "updatedCount => " + updatedCount;
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//_test_CV_update
+
+
+	private void 
+	_test_CV_update_void() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "_test_CV_update";
+		Log.d("PhotoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri + CONS.IFM11.tname_IFM11);
+		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri);
+
+//		// testテーブルの_idが1のレコードを取得する
+//		Cursor cursor = getContentResolver().query(ContentUris.withAppendedId(contentUri, 1), null, null, null, null);
+//
+//		// testテーブルの全レコードを取得する
+//		Cursor cursor2 = getContentResolver().query(contentUri, null, null, null, null);
+//
+//		// testテーブルにレコードを投入する
+//		// FIXME 本当はContentValuesに投入データを入れるが省略
+//		Uri newUri = getContentResolver().insert(contentUri, new ContentValues());
+
+		// testテーブルの_idが1のレコードを更新する
+		// FIXME 本当はContentValuesに投入データを入れるが省略
+		int updatedCount = getContentResolver()
+					.update(
+							contentUri, 
+//							ContentUris.withAppendedId(contentUri, 1), 
+							new ContentValues(), 
+							null, null);
+		
+		// Log
+		msg_Log = "updatedCount => " + updatedCount;
+		Log.d("PhotoActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//_test_CV_update
 
 	private void 
 	_test_Start_ImageActv() {
@@ -643,7 +759,6 @@ public class PhotoActv extends ListActivity {
 		bt_Bottom.setOnTouchListener(new BO_TL(this));
 		
 		bt_Bottom.setOnClickListener(new BO_CL(this));
-		
 		
 	}//_Setup_Listeners
 
