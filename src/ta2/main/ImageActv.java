@@ -272,12 +272,12 @@ public class ImageActv extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
-		case R.id.image_actv_menu_add_memo://------------------------------------
-
-			_case_AddMemo();
-			
-			break;
-			
+//		case R.id.image_actv_menu_add_memo://------------------------------------
+//
+//			_case_AddMemo();
+//			
+//			break;
+//			
 		case R.id.image_actv_menu_add_patterns://------------------------------------
 			
 //			Methods.dlg_register_patterns(this);
@@ -286,7 +286,7 @@ public class ImageActv extends Activity {
 			
 			break;
 			
-		case R.id.actv_image_menu_add_patterns://------------------------------------
+		case R.id.image_actv_menu_add_memo://------------------------------------
 			
 			if (CONS.IMageActv.memo == null) {
 				

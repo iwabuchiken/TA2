@@ -121,7 +121,6 @@ public final class R {
     public static final class id {
         public static final int LL_main=0x7f0b006a;
         public static final int LinearLayout01=0x7f0b007a;
-        public static final int actv_image_menu_add_patterns=0x7f0b007f;
         public static final int actv_image_with_myview_ib_back=0x7f0b0003;
         public static final int actv_image_with_myview_ib_next=0x7f0b0004;
         public static final int actv_image_with_myview_ib_prev=0x7f0b0002;
@@ -222,8 +221,8 @@ public final class R {
         public static final int dlg_tmpl_toast_ok_scrollview_tv_message=0x7f0b0068;
         public static final int dlg_tmpl_toast_ok_tv_message=0x7f0b0066;
         public static final int image_activity_LL_image=0x7f0b0000;
-        public static final int image_actv_menu_add_memo=0x7f0b007d;
-        public static final int image_actv_menu_add_patterns=0x7f0b007e;
+        public static final int image_actv_menu_add_memo=0x7f0b007e;
+        public static final int image_actv_menu_add_patterns=0x7f0b007d;
         public static final int iv_thumbnail=0x7f0b006b;
         public static final int list_row_checked_box_checkBox1=0x7f0b0071;
         public static final int list_row_checked_box_iv_thumbnail=0x7f0b006e;
@@ -237,12 +236,12 @@ public final class R {
         public static final int list_row_slimple_iv_1_iv=0x7f0b0078;
         public static final int list_row_slimple_iv_1_ll=0x7f0b0077;
         public static final int list_row_slimple_iv_1_tv=0x7f0b0079;
-        public static final int menu_main_admin=0x7f0b0082;
-        public static final int menu_main_horizontal_listview=0x7f0b0083;
-        public static final int menu_main_logout=0x7f0b0081;
-        public static final int menu_main_settings=0x7f0b0080;
-        public static final int menu_memo_admin_patterns=0x7f0b0084;
-        public static final int menu_showlist_filter=0x7f0b0085;
+        public static final int menu_main_admin=0x7f0b0081;
+        public static final int menu_main_horizontal_listview=0x7f0b0082;
+        public static final int menu_main_logout=0x7f0b0080;
+        public static final int menu_main_settings=0x7f0b007f;
+        public static final int menu_memo_admin_patterns=0x7f0b0083;
+        public static final int menu_showlist_filter=0x7f0b0084;
         public static final int pref_dropdown_sp=0x7f0b007b;
         public static final int pref_seekbar=0x7f0b007c;
         public static final int textView1=0x7f0b006c;

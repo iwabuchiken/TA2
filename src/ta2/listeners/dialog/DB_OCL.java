@@ -2,6 +2,8 @@ package ta2.listeners.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -17,6 +19,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -510,6 +513,45 @@ public class DB_OCL implements OnClickListener {
 		
 		////////////////////////////////
 
+		// db: IFM11
+
+		////////////////////////////////
+		if (res == true) {
+			
+			res = _update_ContentProvider_IFM11(actv, tmp);
+
+			if (res == true) {
+				
+				// Log
+				msg_Log = "contentprovider => updated: " + tmp;
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} else {
+
+				// Log
+				msg_Log = "contentprovider => update failed: " + tmp;
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+		} else {
+			
+			// Log
+			msg_Log = "TA2: db update => failed";
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
 		// notify
 
 		////////////////////////////////
@@ -619,6 +661,124 @@ public class DB_OCL implements OnClickListener {
 //		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
 		
 	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
+
+	private boolean 
+	_update_ContentProvider_IFM11
+	(Activity actv, String tmp) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// get: id
+
+		////////////////////////////////
+		String id_str = null;
+		
+		String fmt_FileName_PhotoMemo = "^&(\\d+)?";	// => 39
+//		String fmt_FileName_PhotoMemo = "^&(\\d+?)";	// => 3
+		
+//		String text = "@2014-10-03_10-01-45-933.wav";
+		String text = tmp;
+		
+		Pattern p = Pattern.compile(fmt_FileName_PhotoMemo);
+		
+		Matcher m = p.matcher(text);
+		
+		if (m.find()) {
+//			if (m.matches()) {
+			
+			id_str = m.group(1);
+			
+			// Log
+			String msg_Log = "matches => " + id_str;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "doesn't match => " + tmp;
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		}
+
+		////////////////////////////////
+
+		// prep: text
+
+		////////////////////////////////
+		int tmp_len = id_str.length();
+		
+		String text_trimmed = tmp.substring(tmp_len + 3);
+//		String text_trimmed = tmp.substring(tmp_len + 2);
+//		String text_trimmed = tmp.substring(tmp_len);
+		
+		// Log
+		String msg_Log = String.format(
+						"text_trimmed => \"%s\" (len = %d)",
+						text_trimmed,
+						tmp_len);
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// update
+
+		////////////////////////////////
+		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri);
+
+		ContentValues cv = new ContentValues();
+		
+		cv.put("memos", tmp);
+		
+		String where = android.provider.BaseColumns._ID
+				+ " = ?";
+
+		String[] args = new String[]{
+				
+				id_str
+//				"312"
+				
+		};
+
+		int updatedCount = actv.getContentResolver()
+					.update(
+							contentUri, 
+//							ContentUris.withAppendedId(contentUri, 1), 
+							cv, 
+//							new ContentValues(), 
+							where, args);
+//		null, null);
+		
+		// Log
+		msg_Log = "updatedCount => " + updatedCount;
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		if (updatedCount > 0) {
+			
+			return true;
+			
+		} else {
+
+			return false;
+			
+		}
+		
+	}//DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK
 
 	private void 
 	case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK() {
