@@ -387,7 +387,13 @@ public class ImageActv extends Activity {
 		// get: TI
 
 		////////////////////////////////
-		this._Setup_Get_TI();
+		res = this._Setup_Get_TI();
+		
+		if (res == false) {
+			
+			return;
+			
+		}
 		
 		////////////////////////////////
 
@@ -546,8 +552,7 @@ public class ImageActv extends Activity {
 		
 	}//_test_Start_ImageActv
 	
-
-	private void 
+	private boolean 
 	_Setup_Get_TI() {
 		// TODO Auto-generated method stub
 		////////////////////////////////
@@ -563,7 +568,7 @@ public class ImageActv extends Activity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			return;
+			return true;
 			
 		}
 		
@@ -591,7 +596,7 @@ public class ImageActv extends Activity {
 			String msg = "Can't get intent";
 			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
 			
-			return;
+			return false;
 			
 		}
 		
@@ -620,6 +625,8 @@ public class ImageActv extends Activity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
+			return true;
+			
 		} else {
 
 			// Log
@@ -627,6 +634,8 @@ public class ImageActv extends Activity {
 			Log.d("ImageActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
+			
+			return false;
 			
 		}
 		
@@ -752,6 +761,19 @@ public class ImageActv extends Activity {
 					+ "]", msg_Log);
 			
 		}
+		
+		////////////////////////////////
+
+		// recycle
+
+		////////////////////////////////
+		CONS.IMageActv.bm.recycle();
+		
+		// Log
+		String msg_Log = "CONS.IMageActv.bm.recycle() => recycled";
+		Log.d("ImageActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 	}//onStop
 
