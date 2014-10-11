@@ -375,9 +375,12 @@ public class ImageActv extends Activity {
 	}
 
 	@Override
-	protected void onStart() {
+	protected void 
+	onStart() {
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		super.onStart();
+		
+		boolean res;
 		
 		////////////////////////////////
 
@@ -391,7 +394,13 @@ public class ImageActv extends Activity {
 		// set: image
 
 		////////////////////////////////
-		this._Setup_Set_Image();
+		res = this._Setup_Set_Image();
+		
+		if (res == false) {
+			
+			return;
+			
+		}
 		
 		////////////////////////////////
 
@@ -422,7 +431,7 @@ public class ImageActv extends Activity {
 		////////////////////////////////
 		do_test();
 		
-	}
+	}//onStart
 
 	private void 
 	_Setup_Listeners() {
@@ -445,7 +454,7 @@ public class ImageActv extends Activity {
 		
 	}//_Setup_Listeners
 
-	private void 
+	private boolean 
 	_Setup_Set_Image() {
 		// TODO Auto-generated method stub
 		
@@ -462,6 +471,22 @@ public class ImageActv extends Activity {
 		Log.d("ImageActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// validate: file exists
+
+		////////////////////////////////
+		File f = new File(fpath);
+		
+		if (!f.exists()) {
+			
+			String msg = "file => doesn't exist: " + fpath;
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		}
 		
 //		// Log
 //		Log.d("ImageActv.java" + "["
@@ -493,6 +518,13 @@ public class ImageActv extends Activity {
 		
 		LL.addView(v);
 
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return true;
+		
 	}//_Setup_Set_Image
 
 	
@@ -540,7 +572,31 @@ public class ImageActv extends Activity {
 		// build: TI
 
 		////////////////////////////////
-		Intent i = getIntent();
+		Intent i = null;
+		
+		try {
+			
+			i = getIntent();
+			
+		} catch (Exception e) {
+
+			// Log
+			String msg_Log = "Exception";
+			Log.e("ImageActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			e.printStackTrace();
+			
+			String msg = "Can't get intent";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		
+//		Intent i = getIntent();
 		
 		String file_path = i.getStringExtra("file_path");
 		file_Id = i.getLongExtra("file_id", -1);
