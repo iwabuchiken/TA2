@@ -117,7 +117,7 @@ public class Tags {
 		
 		DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK, 
 		
-		DLG_EDIT_MEMOS_BT_OK,
+		DLG_EDIT_MEMOS_BT_OK, DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK,
 		
 	}//public static enum DialogTags
 

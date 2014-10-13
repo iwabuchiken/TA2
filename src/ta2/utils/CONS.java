@@ -293,6 +293,44 @@ public class CONS {
 		};
 		
 		////////////////////////////////
+		
+		// table: filter_history
+		
+		////////////////////////////////
+		public static String tname_FilterHistory = "filter_history";
+		
+		public static String[] col_names_FilterHistory = {
+			
+			"keywords",							// 0
+			"operator",							// 1
+			
+		};
+		
+		public static String[] col_names_FilterHistory_full = {
+			
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			"keywords",									// 3
+			"operator",									// 4
+			
+		};
+		
+		public static String[] col_types_FilterHistory = {
+			
+			"TEXT", 			// 0
+			"TEXT", 			// 0
+			
+		};
+		
+		public static String[] col_types_FilterHistory_full = {
+			
+			"INTEGER", "TEXT", "TEXT",	// 0,1,2
+			"TEXT", 					// 3
+			"TEXT", 					// 3
+			
+		};
+		
+		////////////////////////////////
 
 		// Others
 

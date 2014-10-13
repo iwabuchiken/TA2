@@ -90,6 +90,11 @@
    		<string name="dlg_actvmain_ops_create_table_memos">
    		    							Create table: memos</string>
    		    							
+   		<string name="dlg_actvmain_ops_Drop_Create_table_filter_history">
+   		    										Drop/Create table: filter_history</string>
+   		<string name="dlg_actvmain_ops_create_table_filter_history">
+   		    							Create table: filter_history</string>
+   		    							
    		<string name="dlg_actvmain_ops_upload_db">
    		    							Upload DB</string>
 
