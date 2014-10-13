@@ -1923,7 +1923,7 @@ public class Methods_dlg {
 				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
 //		dlg_tmpl_confirm_simple_tv_message
 		
-		tv_ItemName.setText(CONS.DB.tname_Admin);
+		tv_ItemName.setText(CONS.DB.tname_FilterHistory);
 		
 		////////////////////////////////
 		

@@ -3900,6 +3900,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tableName);
 			
+			wdb.close();
+			
 			return -1;
 			
 		}//if (tempBool == true)
