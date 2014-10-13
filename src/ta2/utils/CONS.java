@@ -306,6 +306,7 @@ public class CONS {
 			
 			"keywords",							// 0
 			"operator",							// 1
+			"op_label",							// 1
 			
 		};
 		
@@ -315,13 +316,15 @@ public class CONS {
 			"created_at", "modified_at",			// 1,2
 			"keywords",									// 3
 			"operator",									// 4
+			"op_label",									// 5
 			
 		};
 		
 		public static String[] col_types_FilterHistory = {
 			
 			"TEXT", 			// 0
-			"TEXT", 			// 0
+			"INTEGER", 			// 1
+			"TEXT", 			// 2
 			
 		};
 		
@@ -329,7 +332,8 @@ public class CONS {
 			
 			"INTEGER", "TEXT", "TEXT",	// 0,1,2
 			"TEXT", 					// 3
-			"TEXT", 					// 3
+			"INTEGER", 					// 4
+			"TEXT", 					// 5
 			
 		};
 		
