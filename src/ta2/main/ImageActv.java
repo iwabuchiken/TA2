@@ -583,6 +583,12 @@ public class ImageActv extends Activity {
 			
 			i = getIntent();
 			
+			// Log
+			String msg_Log = "intent => not null";
+			Log.d("ImageActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
 		} catch (Exception e) {
 
 			// Log
