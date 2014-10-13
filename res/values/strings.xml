@@ -14,7 +14,9 @@
 	    <string name="generic_tv_delete">Delete</string>
 	    <string name="generic_tv_upload">Upload</string>
 	    <string name="generic_tv_quit_app">Quit app?</string>
+	    
 	    <string name="generic_tv_play">Play</string>
+	    <string name="generic_tv_view">View</string>
 	    
     	<string name="generic_notice">Notice</string>
     
@@ -135,5 +137,10 @@
     	    									Every 0 days</string>
     	<string name="prefs_db_auto_backup_title">
     	    									DB auto backup</string>
-	   	
+
+    <!-- image_actv_menu.xml -->
+	    <string name="image_actv_menu_add_memo">Memo</string>
+	    <string name="image_actv_menu_add_patterns">定型句登録</string>
+	    <string name="actv_image_menu_add_photo_memo">Photo memo</string>
+    			   	
 </resources>

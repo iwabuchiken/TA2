@@ -30,6 +30,7 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -188,10 +189,65 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
-		_test_Content_Provider();
+//		this._test_CV_update();
+//		_test_Content_Provider();
 //		_test_PrefVal_SoundEffect();
 		
 	}
+
+//	private void 
+//	_test_CV_update() {
+//		// TODO Auto-generated method stub
+//		
+//		// Log
+//		String msg_Log = "_test_CV_update";
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+////		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri + CONS.IFM11.tname_IFM11);
+//		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri);
+//
+////		// testテーブルの_idが1のレコードを取得する
+////		Cursor cursor = getContentResolver().query(ContentUris.withAppendedId(contentUri, 1), null, null, null, null);
+////
+////		// testテーブルの全レコードを取得する
+////		Cursor cursor2 = getContentResolver().query(contentUri, null, null, null, null);
+////
+////		// testテーブルにレコードを投入する
+////		// FIXME 本当はContentValuesに投入データを入れるが省略
+////		Uri newUri = getContentResolver().insert(contentUri, new ContentValues());
+//
+//		// testテーブルの_idが1のレコードを更新する
+//		// FIXME 本当はContentValuesに投入データを入れるが省略
+//		ContentValues cv = new ContentValues();
+//		
+//		cv.put("memos", ":m Σ　積分　MATH AAA");
+//		
+//		String where = android.provider.BaseColumns._ID
+//				+ " = ?";
+//
+//		String[] args = new String[]{
+//				
+//				""
+//				
+//		};
+//
+//		int updatedCount = getContentResolver()
+//					.update(
+//							contentUri, 
+////							ContentUris.withAppendedId(contentUri, 1), 
+//							cv, 
+////							new ContentValues(), 
+//							null, null);
+//		
+//		// Log
+//		msg_Log = "updatedCount => " + updatedCount;
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//	}//_test_CV_update
 
 
 	private void 
@@ -349,6 +405,20 @@ public class MainActv extends Activity {
 		bt_Voice.setOnTouchListener(new BO_TL(this));
 		
 		bt_Voice.setOnClickListener(new BO_CL(this));
+		
+		////////////////////////////////
+		
+		// IB: photo memo
+		
+		////////////////////////////////
+		ImageButton bt_Photo = 
+				(ImageButton) this.findViewById(R.id.actv_main_ib_photo);
+		
+		bt_Photo.setTag(Tags.ButtonTags.ACTV_MAIN_PHOTO);
+		
+		bt_Photo.setOnTouchListener(new BO_TL(this));
+		
+		bt_Photo.setOnClickListener(new BO_CL(this));
 		
 		////////////////////////////////
 

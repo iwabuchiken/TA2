@@ -1,5 +1,6 @@
 package ta2.listeners.button;
 
+import ta2.items.Memo;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
@@ -125,6 +126,8 @@ public class BO_CL implements OnClickListener {
 			break;
 			
 		case ACTV_SHOWLIST_BACK:
+		case ACTV_PHOTO_BACK:
+		case ACTV_IMAGE_BACK:
 			
 			case_ACTV_SHOWLIST_BACK();
 			
@@ -136,9 +139,21 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PHOTO_TOP:
+			
+			case_ACTV_PHOTO_TOP();
+			
+			break;
+			
 		case ACTV_SHOWLIST_UP:
 			
 			case_ACTV_SHOWLIST_UP();
+			
+			break;
+			
+		case ACTV_PHOTO_UP:
+			
+			case_ACTV_PHOTO_UP();
 			
 			break;
 			
@@ -148,9 +163,21 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PHOTO_DOWN:
+			
+			case_ACTV_PHOTO_DOWN();
+			
+			break;
+			
 		case ACTV_SHOWLIST_BOTTOM:
 			
 			case_ACTV_SHOWLIST_BOTTOM();
+			
+			break;
+			
+		case ACTV_PHOTO_BOTTOM:
+			
+			case_ACTV_PHOTO_BOTTOM();
 			
 			break;
 			
@@ -214,11 +241,26 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_MAIN_PHOTO: //------------------------------
+			
+			case_ACTV_MAIN_PHOTO();
+			
+			break;
+			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_MAIN_PHOTO() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_PhotoActv(actv);
+		
+		
+	}//case_ACTV_MAIN_PHOTO
 
 	private void 
 	case_ACTV_PLAY_TV() {
@@ -337,6 +379,8 @@ public class BO_CL implements OnClickListener {
 	case_ACTV_MEMO_EDIT_SAVE() {
 		// TODO Auto-generated method stub
 		
+		String msg_Log;
+		
 		////////////////////////////////
 
 		// validate: any text?
@@ -379,6 +423,37 @@ public class BO_CL implements OnClickListener {
 		
 		Methods.report_Update_Memos(actv, res_i);
 		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+//		Memo m = CONS.MemoEditActv.memo;
+		Memo m = Methods.find_Memo_from_ListView(actv, CONS.MemoEditActv.memo.getDb_Id());
+		
+		if (m != null) {
+			
+			m.setText(tmp);
+			
+		} else {
+
+			// Log
+			msg_Log = "memo => null";
+			Log.e("DB_OCL.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", msg_Log);
+			
+		}
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
 	}//case_ACTV_MEMO_EDIT_SAVE
 
 	private void 
@@ -420,6 +495,37 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void 
+	case_ACTV_PHOTO_BOTTOM() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.list_TIs == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+
+		////////////////////////////////
+
+		// set selection
+
+		////////////////////////////////
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int numOfGroups = CONS.PhotoActv.list_TIs.size() / lv.getChildCount();
+		
+		int indexOfLastChild = lv.getChildCount() * numOfGroups;
+		
+		lv.setSelection(indexOfLastChild);
+		
+	}//case_ACTV_PHOTO_BOTTOM
+	
 	private void case_ACTV_SHOWLIST_DOWN() {
 		// TODO Auto-generated method stub
 		/******************************
@@ -448,6 +554,36 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_ACTV_PHOTO_DOWN() {
+		// TODO Auto-generated method stub
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.list_TIs == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int new_Position = lv.getLastVisiblePosition();
+		
+		if((new_Position + lv.getChildCount()) 
+				> CONS.PhotoActv.list_TIs.size()) {
+			
+			new_Position = CONS.PhotoActv.list_TIs.size() - lv.getChildCount();
+			
+		}
+		
+		lv.setSelection(new_Position);
+		
+	}//case_ACTV_PHOTO_DOWN
+	
 	private void case_ACTV_SHOWLIST_UP() {
 		// TODO Auto-generated method stub
 		
@@ -484,6 +620,49 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_ACTV_PHOTO_UP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.list_TIs == null) {
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+				
+		}
+
+		////////////////////////////////
+
+		// set: position
+
+		////////////////////////////////
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int lastPos = lv.getLastVisiblePosition();
+		
+		int childCount = lv.getChildCount();
+		
+		int new_Position;
+		
+		if (lastPos - (childCount * 2) + 2 > 0) {
+			
+			new_Position = lastPos - (childCount * 2) + 2;
+			
+		} else {
+			
+			new_Position = 0;
+			
+		}
+		
+		lv.setSelection(new_Position);		
+		
+	}
+	
 	private void case_ACTV_SHOWLIST_TOP() {
 		// TODO Auto-generated method stub
 	
@@ -504,6 +683,31 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void case_ACTV_PHOTO_TOP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.PhotoActv.list_TIs == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+//			CONS.PhotoActv.ti_List = DBUtils.find_All_Memos(actv);
+			
+			String msg = "TI list  => null. Please go back to MainActv";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		lv.setSelection(0);
+		
+	}
+	
 	private void 
 	case_ACTV_SHOWLIST_BACK() {
 		// TODO Auto-generated method stub

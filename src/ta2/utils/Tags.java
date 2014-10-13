@@ -39,7 +39,20 @@ public class Tags {
 		ACTV_PLAT_STOP, 
 		ACTV_PLAY_BACK, 
 		ACTV_PLAY_SAVE, 
-		ACTV_PLAY_CLEAR, ACTV_PLAY_TV,
+		ACTV_PLAY_CLEAR, 
+		ACTV_PLAY_TV, 
+		
+		ACTV_MAIN_PHOTO, 
+		
+		image_activity_next, 
+		image_activity_back, 
+		image_activity_prev, 
+		
+		ACTV_PHOTO_BACK, 
+		ACTV_PHOTO_TOP, 
+		ACTV_PHOTO_UP, 
+		ACTV_PHOTO_DOWN, 
+		ACTV_PHOTO_BOTTOM, ACTV_IMAGE_BACK,
 		
 	}
 	
@@ -56,7 +69,7 @@ public class Tags {
 		ACTV_MEMO_LV_1, ACTV_MEMO_LV_2, ACTV_MEMO_LV_3,
 		
 		// ShowListActv
-		ACTV_SHOWLIST_LV, ACTV_REC_LV_1, ACTV_REC_LV_2, ACTV_REC_LV_3,
+		ACTV_SHOWLIST_LV, ACTV_REC_LV_1, ACTV_REC_LV_2, ACTV_REC_LV_3, ACTV_PHOTO_LV,
 		
 	}//public static enum ListTags
 
@@ -117,7 +130,11 @@ public class Tags {
 		
 		DLG_CONF_CLEAR_VIEW_PLAY_ACTV_OK, 
 		
-		DLG_EDIT_MEMOS_BT_OK, DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK,
+//<<<<<<< HEAD
+		DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK,
+//=======
+		DLG_EDIT_MEMOS_BT_OK, DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK, DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK,
+//>>>>>>> master
 		
 	}//public static enum DialogTags
 

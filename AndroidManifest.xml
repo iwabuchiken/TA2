@@ -39,6 +39,8 @@
         <activity android:name=".RecActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".PlayActv" android:screenOrientation="portrait"></activity>
         <service android:name="ta2.services.Service_ShowProgress"></service>
+        <activity android:name=".PhotoActv" android:screenOrientation="portrait"></activity>
+        <activity android:screenOrientation="portrait" android:name=".ImageActv"></activity>
         
         
     </application>

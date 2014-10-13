@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_MemoList;
+import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.ListItem;
 import ta2.items.Memo;
+import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.media.MediaPlayer;
@@ -431,10 +434,28 @@ public class CONS {
 		// ShowListActv
 
 		////////////////////////////////
+		public static String pname_ShowListActv = "pname_ShowListActv"; 
+		
+		
 		public static final String 
 		pkey_ShowListActv_Filter_String = 
 							"pkey_ShowListActv_Filter_String";
 
+		public static final String 
+		pkey_ShowListActv_Current_Position = 
+							"pkey_ShowListActv_Current_Position";
+		
+		////////////////////////////////
+		
+		// PhotoActv
+		
+		////////////////////////////////
+		public static String pname_PhotoActv = "pname_PhotoActv"; 
+		
+		public static final String 
+		pkey_PhotoActv_Current_Position = 
+							"pkey_PhotoActv_Current_Position";
+		
 		////////////////////////////////
 		
 		// PlayActv.java
@@ -487,7 +508,8 @@ public class CONS {
 		
 	}
 	
-	public static class ShowListActv {
+	public static class 
+	ShowListActv {
 		
 		public static List<Memo> list_Memos;
 		
@@ -497,7 +519,10 @@ public class CONS {
 
 		public static final int length_Conf_Message		= 20;
 		
-	}
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
+	}//ShowListActv
 	
 	public static class TNActv {
 		
@@ -537,6 +562,13 @@ public class CONS {
 	public static class IMageActv {
 		
 		public static ArrayAdapter<String> adp_ImageActv_GridView = null;
+
+		public static TI ti;
+		
+		public static Bitmap bm;
+
+		public static Memo memo;	// hold an instance of Memo for use in ImageActv
+									//		when ImageActv is called from ShowList 
 		
 //		public static List<String> patternList = null;
 		
@@ -754,7 +786,8 @@ public class CONS {
 		
 	}//Enums
 
-	public static class RecActv {
+	public static class 
+	RecActv {
 	
 		public static MediaRecorder mr;
 		
@@ -777,6 +810,12 @@ public class CONS {
 		// voice memo
 		public static final String fmt_FileName = "@%s %s";
 		
+		public static final String fmt_FileName_Photo = "&%d %s";
+		
+		// '?' => needs to be outside of "()"
+		public static final String fmt_FileName_PhotoMemo = "^&(\\d+)?";	
+//		public static final String fmt_FileName_PhotoMemo = "^&(\\d+?)";
+		
 		public static final String fmt_FileName_PlayMemo = "^@(\\d{4}.+wav)";
 //		public static final String fmt_FileName_PlayMemo = "^@\\d{4}.+wav";
 //		public static final String fmt_FileName_PlayMemo = "^@\\d{4}";
@@ -784,7 +823,7 @@ public class CONS {
 		
 		public static String fname_Generated_WavFile;
 		
-	}
+	}//RecActv
 	
 	public static class 
 	PlayActv {
@@ -813,5 +852,66 @@ public class CONS {
 		public static final int sp_NoSelection_value = -10;
 		
 	}
+
+	public static class
+	PhotoActv {
+		
+		public static final String content_Uri = "content://ifm11.main.CV/";
+		
+		public static List<TI> list_TIs;
+
+		public static Adp_TIList adp_List_TIs = null;
+		
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
+	}
+
+	public static class
+	IFM11 {
+	
+		////////////////////////////////
+		
+		// Table: ifm11
+		
+		////////////////////////////////
+		public static final String tname_IFM11 = "ifm11";
+
+		public static final String[] col_names_IFM11 = {
+			
+			"file_id", "file_path", "file_name",	// 0,1,2
+			"date_added", "date_modified",			// 3,4
+			"memos", "tags",						// 5,6
+			"last_viewed_at",						// 7
+			"table_name",							// 8
+			"uploaded_at",							// 9
+			
+		};
+		
+		public static final String[] col_names_IFM11_full = {
+			
+			//	0
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			"file_id", "file_path", "file_name",	// 3,4,5
+			"date_added", "date_modified",			// 6,7
+			"memos", "tags",						// 8,9
+			"last_viewed_at",						// 10
+			"table_name",							// 11
+			"uploaded_at",							// 12
+			
+		};
+
+		public static final String[] col_types_IFM11 = {
+			"INTEGER", "TEXT", "TEXT",	// 0,1,2
+			"TEXT", "TEXT",				// 3,4
+			"TEXT", "TEXT",				// 5,6
+			"TEXT",						// 7
+			"TEXT",						// 8
+			"TEXT",						// 9
+		};		
+		
+	}//IFM11
+
 	
 }//public class CONS

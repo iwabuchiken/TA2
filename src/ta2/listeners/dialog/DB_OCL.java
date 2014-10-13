@@ -2,6 +2,8 @@ package ta2.listeners.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -15,7 +17,9 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -423,6 +427,18 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK();
+			
+			break;
+			
+		case DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK();
+			
+			break;
+			
 			
 		default: // ----------------------------------------------------
 			break;
@@ -453,15 +469,13 @@ public class DB_OCL implements OnClickListener {
 			
 			String msg = "Table can't be dropped (SQLException): " + tname;
 			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
-			
+
 			return;
-			
 		}
 		
-		////////////////////////////////
-		
-		// create table
-		
+			//<<<<<<< HEAD
+			// create table
+			
 		////////////////////////////////
 		res = DBUtils.createTable_static(
 				actv, 
@@ -470,18 +484,13 @@ public class DB_OCL implements OnClickListener {
 				CONS.DB.col_types_FilterHistory);
 		
 		////////////////////////////////
-		
+			
 		// report
 		
 		////////////////////////////////
 		String msg = null;
 		int colorID = 0;
 		
-		////////////////////////////////
-		
-		// dispatch
-		
-		////////////////////////////////
 		switch(res) {
 		
 //		-1 Table exists
@@ -558,10 +567,480 @@ public class DB_OCL implements OnClickListener {
 			////////////////////////////////
 			if(d3 != null) d3.dismiss();
 			
+		}
+		
+			
+	}//case_DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK
+	
+//=======
+	private void
+	case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//>>>>>>> master
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+////<<<<<<< HEAD
+//		// create table
+//		
+//		////////////////////////////////
+//		res = DBUtils.createTable_static(
+//				actv, 
+//				tname, 
+//				CONS.DB.col_names_FilterHistory, 
+//				CONS.DB.col_types_FilterHistory);
+//		
+//		////////////////////////////////
+//		
+//		// report
+//		
+//=======
+		// save memo
+		
+		////////////////////////////////
+//		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
+////				String text = String.format("@%s %s", 
+//						 
+//						CONS.IMageActv.ti.getDb_Id(), 
+//						tmp);
+
+		String tname = CONS.DB.tname_TA2;
+		
+		String where = CONS.DB.col_names_TA2_full[0] + " = ?";
+		
+		String[] args = new String[]{
+				
+				String.valueOf(CONS.IMageActv.memo.getDb_Id())
+				
+		};
+		
+		ContentValues cv = new ContentValues();
+		
+		cv.put(CONS.DB.col_names_TA2_full[3], tmp);
+		
+		boolean res = DBUtils.updateData_generic_static(
+							actv, 
+							CONS.DB.tname_TA2, 
+							cv, 
+							where, 
+							args);
+		
+//		int res = DBUtils.save_Memo(actv, text);
+//		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
+		////////////////////////////////
+
+		// db: IFM11
+
+		////////////////////////////////
+		if (res == true) {
+			
+			res = _update_ContentProvider_IFM11(actv, tmp);
+
+			if (res == true) {
+				
+				// Log
+				msg_Log = "contentprovider => updated: " + tmp;
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} else {
+
+				// Log
+				msg_Log = "contentprovider => update failed: " + tmp;
+				Log.d("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+		} else {
+			
+			// Log
+			msg_Log = "TA2: db update => failed";
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// notify
+
+		////////////////////////////////
+		Memo m = Methods.find_Memo_from_ListView(actv, CONS.IMageActv.memo.getDb_Id());
+		
+		if (m != null) {
+			
+			m.setText(tmp);
+			
+		} else {
+
+			// Log
+			msg_Log = "memo => null";
+			Log.e("DB_OCL.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", msg_Log);
+			
+		}
+		
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		
+		////////////////////////////////
+
+		// report
+
+//>>>>>>> master
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+//<<<<<<< HEAD
+//=======
+		if (res == true) {
+
+			msg = "text => updated";
+			colorID = R.color.green4;
+
+			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage(
+//					Methods_dlg.dlg_ShowMessage_Duration(
+					actv, 
+					msg,
+					colorID);
+
+		} else {
+
+			msg = "text => can't update";
+			colorID = R.color.red;
+
+//			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+					
+		}
+//
+////		-1 Table doesnt exist
+////		-2 SQLException
+////		1 Table dropped
+//
+//		switch(res) {
+//
+//		case -1: 
+//			
+//			msg = "insertion => failed";
+//			colorID = R.color.red;
+//			
+//			break;
+//		
+//		case -2: 
+//			
+//			msg = "Exception";
+//			colorID = R.color.red;
+//			
+//			break;
+//			
+//		case 1: 
+//			
+//			msg = "text => inserted";
+//			colorID = R.color.green4;
+//
+//			d1.dismiss();
+//			
+//			Methods_dlg.dlg_ShowMessage(
+////					Methods_dlg.dlg_ShowMessage_Duration(
+//					actv, 
+//					msg,
+//					colorID);
+//
+//			return;
+////			break;
+//			
+//		default:
+//			
+//			msg = "Unknown result => " + res;
+//			colorID = R.color.gold2;
+//			
+//			break;
+//			
+//		}
+		
+//		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+		
+	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
+	
+	private boolean 
+	_update_ContentProvider_IFM11
+	(Activity actv, String tmp) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// get: id
+
+		////////////////////////////////
+		String id_str = null;
+		
+		String fmt_FileName_PhotoMemo = "^&(\\d+)?";	// => 39
+//		String fmt_FileName_PhotoMemo = "^&(\\d+?)";	// => 3
+		
+//		String text = "@2014-10-03_10-01-45-933.wav";
+		String text = tmp;
+		
+		Pattern p = Pattern.compile(fmt_FileName_PhotoMemo);
+		
+		Matcher m = p.matcher(text);
+		
+		if (m.find()) {
+//			if (m.matches()) {
+			
+			id_str = m.group(1);
+			
+			// Log
+			String msg_Log = "matches => " + id_str;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			String msg_Log = "doesn't match => " + tmp;
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		}
+
+		////////////////////////////////
+
+		// prep: text
+
+		////////////////////////////////
+		int tmp_len = id_str.length();
+		
+		String text_trimmed = tmp.substring(tmp_len + 3);
+//		String text_trimmed = tmp.substring(tmp_len + 2);
+//		String text_trimmed = tmp.substring(tmp_len);
+		
+		// Log
+		String msg_Log = String.format(
+						"text_trimmed => \"%s\" (len = %d)",
+						text_trimmed,
+						tmp_len);
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+
+		// update
+
+		////////////////////////////////
+		Uri contentUri = Uri.parse(CONS.PhotoActv.content_Uri);
+
+		ContentValues cv = new ContentValues();
+		
+		cv.put("memos", tmp);
+		
+		String where = android.provider.BaseColumns._ID
+				+ " = ?";
+
+		String[] args = new String[]{
+				
+				id_str
+//				"312"
+				
+		};
+
+		int updatedCount = actv.getContentResolver()
+					.update(
+							contentUri, 
+//							ContentUris.withAppendedId(contentUri, 1), 
+							cv, 
+//							new ContentValues(), 
+							where, args);
+//		null, null);
+		
+		// Log
+		msg_Log = "updatedCount => " + updatedCount;
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		if (updatedCount > 0) {
+			
+			return true;
+			
+		} else {
+
+			return false;
+			
+		}
+		
+	}//DLG_EDIT_MEMOS_ACTV_IMAGE_FROM_SHOWLIST_BT_OK
+
+	private void 
+	case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK() {
+		// TODO Auto-generated method stub
+		
+		// Log
+		String msg_Log = "case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK";
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// save memo
+		
+		////////////////////////////////
+		String text = String.format(CONS.RecActv.fmt_FileName_Photo, 
+//				String text = String.format("@%s %s", 
+				
+				CONS.IMageActv.ti.getDb_Id(), 
+				tmp);
+		
+		int res = DBUtils.save_Memo(actv, text);
+//		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
+		////////////////////////////////
+		
+		// report
+		
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+//		-1 Table doesnt exist
+//		-2 SQLException
+//		1 Table dropped
+		
+		switch(res) {
+		
+		case -1: 
+			
+			msg = "insertion => failed";
+			colorID = R.color.red;
+			
+			break;
+			
+		case -2: 
+			
+			msg = "Exception";
+			colorID = R.color.red;
+			
+			break;
+			
+		case 1: 
+			
+			msg = "text => inserted";
+			colorID = R.color.green4;
+			
+			d1.dismiss();
+			
+			Methods_dlg.dlg_ShowMessage(
+//					Methods_dlg.dlg_ShowMessage_Duration(
+					actv, 
+					msg,
+					colorID);
+			
+			return;
+//			break;
+			
+		default:
+			
+			msg = "Unknown result => " + res;
+			colorID = R.color.gold2;
+//>>>>>>> master
+			
 			break;
 			
 		}
 		
+//<<<<<<< HEAD
 		Methods_dlg.dlg_ShowMessage_ThirdDialog(
 				actv, 
 				msg,
@@ -571,6 +1050,12 @@ public class DB_OCL implements OnClickListener {
 	}//case DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK:
 	
 
+////=======
+//		Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//		
+//	}//case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK
+	
+//>>>>>>> master
 	private void 
 	case_DLG_EDIT_MEMOS_BT_OK() {
 		// TODO Auto-generated method stub
@@ -653,6 +1138,36 @@ public class DB_OCL implements OnClickListener {
 			////////////////////////////////
 			CONS.PlayActv.memo.setText(tmp);
 			
+			////////////////////////////////
+
+			// notify
+
+			////////////////////////////////
+			Memo m = Methods.find_Memo_from_ListView(actv, CONS.PlayActv.memo.getDb_Id());
+			
+			if (m != null) {
+				
+				m.setText(tmp);
+				
+			} else {
+
+				// Log
+				String msg_Log = "memo => null";
+				Log.e("DB_OCL.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+			CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+			
+			// Log
+			String msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
 		} else {
 			
 			String msg = "Can't save memo";
@@ -663,7 +1178,7 @@ public class DB_OCL implements OnClickListener {
 //		Methods.report_Save_Memos(actv, res);
 		
 	}//case_DLG_EDIT_MEMOS_BT_OK
-
+	
 	private void 
 	case_DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK() {
 		// TODO Auto-generated method stub

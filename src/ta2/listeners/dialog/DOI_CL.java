@@ -339,6 +339,23 @@ public class DOI_CL implements OnItemClickListener {
 			Methods.start_Activity_PlatyActv(actv, memo);
 //			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
 			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_view))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			d1.dismiss();
+			
+			Methods.start_Activity_ImageActv(actv, d1, memo);
+			
+//			// Log
+//			String msg_Log = "memo.getText() => " + memo.getText();
+//			Log.d("DOI_CL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+
+			
+//			Methods.start_Activity_PlatyActv(actv, memo);
+//			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
+			
 		} else {
 			
 		}
