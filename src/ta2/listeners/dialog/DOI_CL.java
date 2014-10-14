@@ -1,6 +1,7 @@
 package ta2.listeners.dialog;
 
 
+import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -144,12 +145,22 @@ public class DOI_CL implements OnItemClickListener {
 		ListItem li;
 		WordPattern	wp;
 		String item;
+		FilterHistory fh;
 		
 		/*----------------------------
 		 * 3. Switching
 			----------------------------*/
 		switch (tag) {
 		
+//		case dlg_db_admin_lv://----------------------------------------------
+		case ACTV_SHOWLIST_FILTER_HISTORY_LV://----------------------------------------------
+			
+			fh = (FilterHistory) parent.getItemAtPosition(position);
+			
+			case_ACTV_SHOWLIST_FILTER_HISTORY_LV(fh);
+			
+			break;// case dlg_add_memos_gv
+
 //		case dlg_db_admin_lv://----------------------------------------------
 		case ACTV_MAIN_ADMIN_LV://----------------------------------------------
 			
@@ -158,7 +169,7 @@ public class DOI_CL implements OnItemClickListener {
 			case_Admin_LV(li);
 			
 			break;// case dlg_add_memos_gv
-
+			
 		case ACTV_MAIN_ADMIN_LV_OPS://----------------------------------------------
 			
 			li = (ListItem) parent.getItemAtPosition(position);
@@ -215,6 +226,16 @@ public class DOI_CL implements OnItemClickListener {
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void 
+	case_ACTV_SHOWLIST_FILTER_HISTORY_LV
+	(FilterHistory fh) {
+		// TODO Auto-generated method stub
+		
+		Methods.filter_MemoList_History(actv, d1, fh);
+		
+		
+	}//case_ACTV_SHOWLIST_FILTER_HISTORY_LV
 
 	private void 
 	case_ACTV_PLAY_ADD_MEMO_LV_1

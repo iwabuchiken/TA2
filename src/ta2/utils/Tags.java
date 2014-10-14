@@ -172,7 +172,7 @@ public class Tags {
 		
 		ACTV_PLAY_ADD_MEMO_LV_1, 
 		ACTV_PLAY_ADD_MEMO_LV_2, 
-		ACTV_PLAY_ADD_MEMO_LV_3,
+		ACTV_PLAY_ADD_MEMO_LV_3, ACTV_SHOWLIST_FILTER_HISTORY_LV,
 		
 	}//public static enum DialogItemTags
 

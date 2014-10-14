@@ -35,6 +35,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,6 +56,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +79,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ta2.comps.Comp_WP;
+import ta2.items.FilterHistory;
 import ta2.items.Memo;
 import ta2.items.TI;
 import ta2.items.WordPattern;
@@ -5432,7 +5435,7 @@ public static String
 		
 //		// Log
 //		msg_Log = "where => " + where;
-//		Log.d("DB_OCL.java" + "["
+//		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
 		
@@ -5455,6 +5458,77 @@ public static String
 		
 	}//filter_MemoList
 
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
+	filter_MemoList_Single_KW
+	(Activity actv, int id_Checked, String kw) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+//		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+//		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					continue;
+					
+				}
+				
+				list_Memos.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList
+	
 	public static List<Memo> 
 	filter_MemoList_Multiple_KW
 	(Activity actv, int id_Checked, String[] tokens) {
@@ -5795,6 +5869,213 @@ public static String
 		return c;
 		
 	}//get_Content
+
+	public static void 
+	filter_MemoList_History
+	(Activity actv, 
+		Dialog d1, FilterHistory fh) {
+		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		boolean res;
+		
+		////////////////////////////////
+
+		// tokens
+
+		////////////////////////////////
+		String input = fh.getKeywords();
+		
+		input = input.trim();
+		
+		input = input.replaceAll("　", " ");
+		
+		input = input.replaceAll(" +", " ");
+		
+		String[] tokens = input.split(" ");
+		
+		if (tokens == null) {
+			
+			String msg = "Split the input => null: " + input;
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1, R.color.red);
+			
+			return;
+			
+		} else if (tokens.length == 0) {
+			
+			String msg = "tokens.length => 0: " + input;
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "tokens.length => " + tokens.length;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+		
+		// setup: where, args
+		
+		////////////////////////////////
+		String where = null;
+		
+		String[] args = null;
+		
+		List<Memo> list_Memos = null;
+
+		int RB_id_Checked = fh.getOperator();
+		
+		////////////////////////////////
+		
+		// dispatch
+		
+		////////////////////////////////
+		if (tokens.length <= 1) {
+			
+			// Log
+			msg_Log = "tokens.length <= 1";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
+			
+		} else {//if (tokens.length <= 1)
+			
+			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+			
+		}//if (tokens.length <= 1)
+
+		////////////////////////////////
+		
+		// update: list
+		
+		////////////////////////////////
+		if (list_Memos == null) {
+			
+			String msg = "Can't build memo list";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "list_Memos.size() => " + list_Memos.size();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		CONS.ShowListActv.list_Memos.clear();
+		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+		
+		////////////////////////////////
+		
+		// notify
+		
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+
+//		////////////////////////////////
+//		
+//		// store: string --> pref
+//		
+//		////////////////////////////////
+//		boolean res = Methods.set_Pref_String(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				CONS.Pref.pkey_ShowListActv_Filter_String, 
+//				input);
+//		
+//		if (res == true) {
+//			
+//			// Log
+//			msg_Log = "pref filter => set: " + input;
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		} else {
+//			
+//			// Log
+//			msg_Log = "pref filter => not set: " + input;
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
+
+		////////////////////////////////
+
+		// save: filter history
+
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"keywords",									// 3
+//		"operator",									// 4
+//		"op_label",									// 5
+		
+		ContentValues cv = new ContentValues();
+		
+		cv.put(CONS.DB.col_names_FilterHistory_full[1], 
+				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+		
+		cv.put(CONS.DB.col_names_FilterHistory_full[2], 
+				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+		
+		cv.put(CONS.DB.col_names_FilterHistory_full[3], input);
+		
+		cv.put(CONS.DB.col_names_FilterHistory_full[4], RB_id_Checked);
+		
+//		// operator label
+//		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//		
+//		if (rb != null) {
+//			
+//			String label = rb.getText().toString();
+//			
+//			if (label != null && !label.equals("")) {
+				
+				cv.put(CONS.DB.col_names_FilterHistory_full[5], fh.getOp_label());
+				
+//			}
+//			
+//		}
+		
+		res = DBUtils.insert_Data_generic(actv, CONS.DB.tname_FilterHistory, cv);
+		
+		if (res == true) {
+			
+			// Log
+			msg_Log = "filter history => saved: " + input;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+
+			// Log
+			msg_Log = "filter history => not saved: " + input;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+	}//filter_MemoList_History
 
 }//public class Methods
 
