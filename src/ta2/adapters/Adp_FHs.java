@@ -130,7 +130,23 @@ public class Adp_FHs extends ArrayAdapter<FilterHistory> {
 		// view: text
 		
 		////////////////////////////////
-		_Setup_Views__TV(v, fh);
+		_Setup_Views__TV_ModifiedAt_Date(v, fh);
+		
+		_Setup_Views__TV_ModifiedAt_Time(v, fh);
+		
+		////////////////////////////////
+
+		// keywords
+
+		////////////////////////////////
+		this._Setup_Views__TV_Keywords(v, fh);
+		
+		////////////////////////////////
+		
+		// op label
+		
+		////////////////////////////////
+		this._Setup_Views__TV_OpLabel(v, fh);
 		
 //		////////////////////////////////
 //		
@@ -142,7 +158,7 @@ public class Adp_FHs extends ArrayAdapter<FilterHistory> {
 	}//_Setup_Views
 
 	private void 
-	_Setup_Views__TV
+	_Setup_Views__TV_ModifiedAt_Date
 	(View v, FilterHistory fh) {
 		// TODO Auto-generated method stub
 
@@ -151,9 +167,10 @@ public class Adp_FHs extends ArrayAdapter<FilterHistory> {
 		// created at
 
 		////////////////////////////////
-		TextView tv_Created = (TextView) v.findViewById(R.id.list_row_filter_history_tv_created_at);
+		TextView tv_Created = 
+				(TextView) v.findViewById(R.id.list_row_filter_history_tv_created_at);
 
-		String[] tokens = fh.getCreated_at().split(" ");
+		String[] tokens = fh.getModified_at().split(" ");
 		
 		String[] tokens_Date = tokens[0].split("/");
 		
@@ -182,4 +199,98 @@ public class Adp_FHs extends ArrayAdapter<FilterHistory> {
 		
 	}//_Setup_Views__TV
 
+	private void 
+	_Setup_Views__TV_ModifiedAt_Time
+	(View v, FilterHistory fh) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// created at
+		
+		////////////////////////////////
+		TextView tv_Time = 
+				(TextView) v.findViewById(R.id.list_row_filter_history_tv_modified_at);
+		
+		String[] tokens = fh.getModified_at().split(" ");
+		
+		String[] tokens_Time = tokens[1].split("\\.");
+		
+		String new_TimeLabel = tokens_Time[0];
+
+		
+		tv_Time.setText(new_TimeLabel);
+		
+//		tv.setTextColor(((Activity)con).getResources().getColor(li.getTextColor_ID()));
+		
+//		LinearLayout.LayoutParams params =
+//				new LinearLayout.LayoutParams(
+//								LayoutParams.FILL_PARENT,
+//								LayoutParams.WRAP_CONTENT);
+//		
+//		//REF margin http://stackoverflow.com/questions/3416087/how-to-set-margin-of-imageview-using-code-not-xml answered Aug 5 '10 at 15:19
+//		params.setMargins(5, 10, 10, 10);
+//		
+//		tv_Created.setLayoutParams(params);
+		
+	}//_Setup_Views__TV_ModifiedAt_Time
+	
+	private void 
+	_Setup_Views__TV_Keywords
+	(View v, FilterHistory fh) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// created at
+		
+		////////////////////////////////
+		TextView tv_KWs = 
+				(TextView) v.findViewById(R.id.list_row_filter_history_tv_keywords);
+		
+		tv_KWs.setText(fh.getKeywords());
+		
+//		tv.setTextColor(((Activity)con).getResources().getColor(li.getTextColor_ID()));
+		
+//		LinearLayout.LayoutParams params =
+//				new LinearLayout.LayoutParams(
+//								LayoutParams.FILL_PARENT,
+//								LayoutParams.WRAP_CONTENT);
+//		
+//		//REF margin http://stackoverflow.com/questions/3416087/how-to-set-margin-of-imageview-using-code-not-xml answered Aug 5 '10 at 15:19
+//		params.setMargins(5, 10, 10, 10);
+//		
+//		tv_Created.setLayoutParams(params);
+		
+	}//_Setup_Views__TV_Keywords
+
+	private void
+	_Setup_Views__TV_OpLabel
+	(View v, FilterHistory fh) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// created at
+		
+		////////////////////////////////
+		TextView tv_OpLabel = 
+				(TextView) v.findViewById(R.id.list_row_filter_history_tv_operator);
+		
+		tv_OpLabel.setText(fh.getOp_label());
+		
+//		tv.setTextColor(((Activity)con).getResources().getColor(li.getTextColor_ID()));
+		
+//		LinearLayout.LayoutParams params =
+//				new LinearLayout.LayoutParams(
+//								LayoutParams.FILL_PARENT,
+//								LayoutParams.WRAP_CONTENT);
+//		
+//		//REF margin http://stackoverflow.com/questions/3416087/how-to-set-margin-of-imageview-using-code-not-xml answered Aug 5 '10 at 15:19
+//		params.setMargins(5, 10, 10, 10);
+//		
+//		tv_Created.setLayoutParams(params);
+		
+	}//_Setup_Views__TV_OpLabel
+	
 }//public class TIListAdapter extends ArrayAdapter<TI>

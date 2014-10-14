@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:id="@+id/dlg_tmpl_cancel_lv_ll_filepath"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 

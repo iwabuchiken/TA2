@@ -3957,6 +3957,12 @@ public class Methods_dlg {
 			
 		}
 		
+		// Log
+		msg_Log = "getOp_label() => " + CONS.ShowListActv.list_FS.get(0).getOp_label();
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		/****************************
 		* 4. Set adapter
 		****************************/
@@ -4011,7 +4017,7 @@ public class Methods_dlg {
 								LayoutParams.WRAP_CONTENT,
 								lv_Height);
 		
-//		params_LV.gravity = Gravity.CENTER_HORIZONTAL;
+		params_LV.gravity = Gravity.CENTER_HORIZONTAL;
 		
 		lv.setLayoutParams(params_LV);
 
@@ -4082,6 +4088,7 @@ public class Methods_dlg {
 
 		FrameLayout.LayoutParams params2 =
 				new FrameLayout.LayoutParams(
+//						LayoutParams.WRAP_CONTENT,
 						dialog_Width,
 						LayoutParams.WRAP_CONTENT);
 		

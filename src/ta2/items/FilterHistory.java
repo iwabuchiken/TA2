@@ -27,6 +27,8 @@ public class FilterHistory {
 		this.keywords	= builder.keywords;
 		
 		this.operator	= builder.operator;
+		
+		this.op_label	= builder.op_label;
 
 	}
 
