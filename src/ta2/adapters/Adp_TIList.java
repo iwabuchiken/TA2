@@ -305,7 +305,7 @@ public class Adp_TIList extends ArrayAdapter<TI> {
 			----------------------------*/
     	ImageView iv = (ImageView) v.findViewById(R.id.iv_thumbnail);
 
-    	TextView tv = (TextView) v.findViewById(R.id.textView1);
+    	TextView tv = (TextView) v.findViewById(R.id.list_row_filter_history_tv_operator);
 //    	TextView tv = (TextView) v.findViewById(R.id.textView1);
     	
     	/*----------------------------

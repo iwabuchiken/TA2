@@ -4,9 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ta2.adapters.Adp_FHs;
 import ta2.adapters.Adp_MemoList;
 import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
+import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.Memo;
 import ta2.items.TI;
@@ -517,14 +519,21 @@ public class CONS {
 		
 		public static List<Memo> list_Memos;
 		
+		public static List<FilterHistory> list_FS;
+		
 		public static Adp_MemoList adp_List_Memos = null;
 		
 		public static Adp_WordPatterns adp_List_WPs = null;
 
+		public static Adp_FHs adp_List_FHs = null;
+		
+		
 		public static final int length_Conf_Message		= 20;
 		
 		public static int list_Pos_Current = -1;
 		public static int list_Pos_Prev = -1;
+		
+		public final static int dialog_LV_Height_Ratio = 60;	// out of 100
 		
 	}//ShowListActv
 	

@@ -814,6 +814,13 @@ public class ShowListActv extends ListActivity {
 			
 			break;
 			
+		case R.id.menu_showlist_filter_history://--------------------
+			
+			case_OPT_FilterHistory();
+//			this.logoutFromTwitter();
+			
+			break;
+			
 		case R.id.menu_main_settings://--------------------
 			
 			case_OPT_Settings();
@@ -836,6 +843,14 @@ public class ShowListActv extends ListActivity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void 
+	case_OPT_FilterHistory() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_Filter_History(this);
+		
+	}
 
 	private void case_OPT_Settings() {
 		// TODO Auto-generated method stub

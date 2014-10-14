@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.adapters.Adp_FHs;
 import ta2.adapters.Adp_ListItems;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.comps.Comp_WP;
@@ -28,6 +29,7 @@ import ta2.listeners.dialog.DB_OCL;
 import ta2.listeners.dialog.DB_OTL;
 import ta2.listeners.dialog.DOI_CL;
 import ta2.main.R;
+import ta2.utils.CONS.Enums.SortOrder;
 import ta2.utils.Tags.DialogTags;
 
 import android.app.Activity;
@@ -3881,6 +3883,216 @@ public class Methods_dlg {
 		return dlg;
 		
 	}//_dlg_AddMemo_GetDialog_ImageActv_From_ShowList
+
+	public static void 
+	dlg_Filter_History
+	(Activity actv) {
+		// TODO Auto-generated method stub
+
+		////////////////////////////////
+
+		// dialog
+
+		////////////////////////////////
+		////////////////////////////////
+
+		// vars
+
+		////////////////////////////////
+		String msg_Log;
+		
+		
+		////////////////////////////////
+
+		// dlg
+
+		////////////////////////////////
+		Dialog d1 = Methods_dlg.dlg_Template_Cancel(
+						actv,
+						R.layout.dlg_tmpl_cancel_lv,
+						R.string.dlg_actvmain_admin_title,
+						
+						R.id.dlg_tmpl_cancel_lv_bt_cancel,
+						Tags.DialogTags.GENERIC_DISMISS);
+		
+		////////////////////////////////
+
+		// Prep => List
+
+		////////////////////////////////
+		int limit = 50;
+		
+		CONS.ShowListActv.list_FS = 
+					DBUtils.find_All_FS(actv, CONS.Enums.SortOrder.DESC, limit);
+		
+//		list.add(new ListItem.Builder()
+//						.setText(actv.getString(
+//								R.string.dlg_actvmain_admin_item_see_log))
+//								.setIconID(R.drawable.menu_icon_admin_32x32_yellow)
+//								.setTextColor_ID(R.color.yellow_dark)
+//								.build());
+		
+		////////////////////////////////
+
+		// Adapter
+
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_FHs = new Adp_FHs(
+							actv,
+							//R.layout.dlg_db_admin,
+							R.layout.list_row_filter_history,
+							//android.R.layout.simple_list_item_1,
+							CONS.ShowListActv.list_FS
+		);
+
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.ShowListActv.adp_List_FHs == null) {
+			
+			String msg = "can't build adapter";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		/****************************
+		* 4. Set adapter
+		****************************/
+		ListView lv = (ListView) d1.findViewById(R.id.dlg_tmpl_cancel_lv_lv);
+		
+		lv.setAdapter(CONS.ShowListActv.adp_List_FHs);
+		
+//		// Log
+//		msg_Log = "lv.getChildAt(0).getHeight() => "
+//					+ lv.getChildAt(0).getHeight();
+		
+//		Log.d("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		DisplayMetrics displayMetrics = 
+					actv.getResources().getDisplayMetrics();
+
+		int disp_Height = displayMetrics.heightPixels;
+
+		int max_LV_Height = disp_Height * CONS.MemoActv.layout_MemoActv_LV_Height / 100;
+		
+		int lv_Height;
+		
+		int min_Adp_Size = 4;
+		
+		// Log
+		msg_Log = "CONS.ShowListActv.adp_List_FHs.getCount() => "
+					+ CONS.ShowListActv.adp_List_FHs.getCount();
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (CONS.ShowListActv.adp_List_FHs.getCount() > min_Adp_Size) {
+			
+			// Log
+			msg_Log = "adapter => more than min";
+			Log.d("Methods_dlg.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			lv_Height = max_LV_Height;
+			
+		} else {
+
+			lv_Height = LayoutParams.WRAP_CONTENT;
+			
+		}
+		
+		LinearLayout.LayoutParams params_LV =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								lv_Height);
+		
+//		params_LV.gravity = Gravity.CENTER_HORIZONTAL;
+		
+		lv.setLayoutParams(params_LV);
+
+		
+//		
+		/****************************
+		* 5. Set listener to list
+		****************************/
+//		lv.setTag(Tags.DialogItemTags.ACTV_MAIN_ADMIN_LV);
+//		
+//		lv.setOnItemClickListener(new DOI_CL(actv, d1));
+		
+		/***************************************
+		* Modify the list view height
+		***************************************/
+//		lv.setLayoutParams(
+//				new LinearLayout.LayoutParams(
+//						300,	//	Width
+//						LayoutParams.WRAP_CONTENT	//	Height
+//				));
+		
+		/***************************************
+		* Modify: Button layout
+		***************************************/
+		LinearLayout llButton =
+					(LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_filepath);
+//		(LinearLayout) dlg1.findViewById(R.id.actv_imp_ll_filepath);
+		
+		LinearLayout.LayoutParams params =
+				new LinearLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								LayoutParams.WRAP_CONTENT);
+		
+		params.gravity = Gravity.CENTER_HORIZONTAL;
+		
+		llButton.setLayoutParams(params);
+
+		////////////////////////////////
+
+		// get: screen size
+
+		////////////////////////////////
+		//REF size http://stackoverflow.com/questions/19155559/how-to-get-android-device-screen-size answered Oct 3 '13 at 10:00
+//		DisplayMetrics displayMetrics = actv.getResources()
+//                			.getDisplayMetrics();
+		
+		int w = displayMetrics.widthPixels;
+		
+		int dialog_Width = w * CONS.Admin.ratio_Dialog_to_Screen_W / 100;
+		
+		////////////////////////////////
+
+		// linear layot: main
+
+		////////////////////////////////
+		LinearLayout ll_Main = (LinearLayout) d1.findViewById(R.id.dlg_tmpl_cancel_lv_ll_main);
+		
+		// Log
+		msg_Log = "ll_Main => created";
+		Log.d("Methods_dlg.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		//REF parent layout http://stackoverflow.com/questions/4631966/set-relativelayout-layout-params-programmatically-throws-classcastexception answered Jan 8 '11 at 5:42
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): java.lang.ClassCastException: android.widget.LinearLayout$LayoutParams
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.widget.FrameLayout.onLayout(FrameLayout.java:293)
+//		08-21 11:30:45.434: E/AndroidRuntime(20722): 	at android.view.View.layout(View.java:7184)
+
+		FrameLayout.LayoutParams params2 =
+				new FrameLayout.LayoutParams(
+						dialog_Width,
+						LayoutParams.WRAP_CONTENT);
+		
+		ll_Main.setLayoutParams(params2);
+		
+		/****************************
+		* 6. Show dialog
+		****************************/
+		d1.show();
+		
+	}//dlg_Filter_History
 	
 	
 }//public class Methods_dialog

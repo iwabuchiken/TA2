@@ -59,6 +59,7 @@
 
     <!-- Menu: showlist -->
     	<string name="menu_showlist_filter">Filter</string>
+    	<string name="menu_showlist_filter_history">Filter history</string>
     			
     <!-- dlg_actvmain_admin.xml -->
    		<string name="dlg_actvmain_admin_title">Admin</string>

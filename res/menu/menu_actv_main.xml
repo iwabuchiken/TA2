@@ -5,7 +5,7 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         
-        android:icon="@drawable/general_ib_ball_blue_48x48"
+        android:icon="@drawable/menu_icon_admin_32x32_brown"
         />
     
     <item 

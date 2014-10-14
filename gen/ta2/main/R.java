@@ -120,7 +120,7 @@ public final class R {
     }
     public static final class id {
         public static final int LL_main=0x7f0b006a;
-        public static final int LinearLayout01=0x7f0b007a;
+        public static final int LinearLayout01=0x7f0b007d;
         public static final int actv_image_with_myview_ib_back=0x7f0b0003;
         public static final int actv_image_with_myview_ib_next=0x7f0b0004;
         public static final int actv_image_with_myview_ib_prev=0x7f0b0002;
@@ -221,30 +221,34 @@ public final class R {
         public static final int dlg_tmpl_toast_ok_scrollview_tv_message=0x7f0b0068;
         public static final int dlg_tmpl_toast_ok_tv_message=0x7f0b0066;
         public static final int image_activity_LL_image=0x7f0b0000;
-        public static final int image_actv_menu_add_memo=0x7f0b007e;
-        public static final int image_actv_menu_add_patterns=0x7f0b007d;
+        public static final int image_actv_menu_add_memo=0x7f0b0081;
+        public static final int image_actv_menu_add_patterns=0x7f0b0080;
         public static final int iv_thumbnail=0x7f0b006b;
         public static final int list_row_checked_box_checkBox1=0x7f0b0071;
         public static final int list_row_checked_box_iv_thumbnail=0x7f0b006e;
         public static final int list_row_checked_box_textView1=0x7f0b006f;
         public static final int list_row_checked_box_textView2=0x7f0b0070;
-        public static final int list_row_gv_tv=0x7f0b0072;
-        public static final int list_row_showlist_tv_created_at=0x7f0b0073;
-        public static final int list_row_showlist_tv_modified_at=0x7f0b0074;
-        public static final int list_row_showlist_tv_text=0x7f0b0075;
-        public static final int list_row_slimple_1_tv=0x7f0b0076;
-        public static final int list_row_slimple_iv_1_iv=0x7f0b0078;
-        public static final int list_row_slimple_iv_1_ll=0x7f0b0077;
-        public static final int list_row_slimple_iv_1_tv=0x7f0b0079;
-        public static final int menu_main_admin=0x7f0b0081;
-        public static final int menu_main_horizontal_listview=0x7f0b0082;
-        public static final int menu_main_logout=0x7f0b0080;
-        public static final int menu_main_settings=0x7f0b007f;
-        public static final int menu_memo_admin_patterns=0x7f0b0083;
-        public static final int menu_showlist_filter=0x7f0b0084;
-        public static final int pref_dropdown_sp=0x7f0b007b;
-        public static final int pref_seekbar=0x7f0b007c;
-        public static final int textView1=0x7f0b006c;
+        public static final int list_row_filter_history_tv_created_at=0x7f0b0072;
+        public static final int list_row_filter_history_tv_keywords=0x7f0b0074;
+        public static final int list_row_filter_history_tv_modified_at=0x7f0b0073;
+        public static final int list_row_filter_history_tv_operator=0x7f0b006c;
+        public static final int list_row_gv_tv=0x7f0b0075;
+        public static final int list_row_showlist_tv_created_at=0x7f0b0076;
+        public static final int list_row_showlist_tv_modified_at=0x7f0b0077;
+        public static final int list_row_showlist_tv_text=0x7f0b0078;
+        public static final int list_row_slimple_1_tv=0x7f0b0079;
+        public static final int list_row_slimple_iv_1_iv=0x7f0b007b;
+        public static final int list_row_slimple_iv_1_ll=0x7f0b007a;
+        public static final int list_row_slimple_iv_1_tv=0x7f0b007c;
+        public static final int menu_main_admin=0x7f0b0084;
+        public static final int menu_main_horizontal_listview=0x7f0b0085;
+        public static final int menu_main_logout=0x7f0b0083;
+        public static final int menu_main_settings=0x7f0b0082;
+        public static final int menu_memo_admin_patterns=0x7f0b0086;
+        public static final int menu_showlist_filter=0x7f0b0087;
+        public static final int menu_showlist_filter_history=0x7f0b0088;
+        public static final int pref_dropdown_sp=0x7f0b007e;
+        public static final int pref_seekbar=0x7f0b007f;
         public static final int textView2=0x7f0b006d;
         public static final int thumb_activity_LL_buttons=0x7f0b0014;
         public static final int thumb_activity_ib_back=0x7f0b0017;
@@ -277,14 +281,15 @@ public final class R {
         public static final int dlg_tmpl_toast_ok_scrollview=0x7f030014;
         public static final int list_row=0x7f030015;
         public static final int list_row_checked_box=0x7f030016;
-        public static final int list_row_gv=0x7f030017;
-        public static final int list_row_showlist=0x7f030018;
-        public static final int list_row_simple_1=0x7f030019;
-        public static final int list_row_simple_iv_1=0x7f03001a;
-        public static final int main_pref=0x7f03001b;
-        public static final int pref_dropdown=0x7f03001c;
-        public static final int preference_widget_seekbar=0x7f03001d;
-        public static final int spinner_item_simple_1=0x7f03001e;
+        public static final int list_row_filter_history=0x7f030017;
+        public static final int list_row_gv=0x7f030018;
+        public static final int list_row_showlist=0x7f030019;
+        public static final int list_row_simple_1=0x7f03001a;
+        public static final int list_row_simple_iv_1=0x7f03001b;
+        public static final int main_pref=0x7f03001c;
+        public static final int pref_dropdown=0x7f03001d;
+        public static final int preference_widget_seekbar=0x7f03001e;
+        public static final int spinner_item_simple_1=0x7f03001f;
     }
     public static final class menu {
         public static final int menu_actv_image=0x7f0a0000;
@@ -305,7 +310,7 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
-        public static final int actv_image_menu_add_photo_memo=0x7f080049;
+        public static final int actv_image_menu_add_photo_memo=0x7f08004a;
         public static final int app_name=0x7f080000;
         public static final int btn_lbl_memo_patterns=0x7f08001e;
         /**  UI labels 
@@ -327,29 +332,29 @@ public final class R {
         public static final int commons_lbl_restore_db=0x7f080012;
         public static final int commons_lbl_stop=0x7f08001a;
         public static final int commons_lbl_word=0x7f080014;
-        public static final int dlg_actvmain_admin_item_backup_db=0x7f080028;
-        public static final int dlg_actvmain_admin_item_operations=0x7f08002c;
-        public static final int dlg_actvmain_admin_item_refresh_db=0x7f080029;
-        public static final int dlg_actvmain_admin_item_restore_db=0x7f08002a;
-        public static final int dlg_actvmain_admin_item_see_log=0x7f08002d;
-        public static final int dlg_actvmain_admin_item_upload_db=0x7f08002b;
+        public static final int dlg_actvmain_admin_item_backup_db=0x7f080029;
+        public static final int dlg_actvmain_admin_item_operations=0x7f08002d;
+        public static final int dlg_actvmain_admin_item_refresh_db=0x7f08002a;
+        public static final int dlg_actvmain_admin_item_restore_db=0x7f08002b;
+        public static final int dlg_actvmain_admin_item_see_log=0x7f08002e;
+        public static final int dlg_actvmain_admin_item_upload_db=0x7f08002c;
         /**  dlg_actvmain_admin.xml 
          */
-        public static final int dlg_actvmain_admin_title=0x7f080027;
-        public static final int dlg_actvmain_ops_Drop_Create_table_filter_history=0x7f080035;
-        public static final int dlg_actvmain_ops_create_table_filter_history=0x7f080036;
-        public static final int dlg_actvmain_ops_create_table_memos=0x7f080034;
-        public static final int dlg_actvmain_ops_create_table_patterns=0x7f080032;
-        public static final int dlg_actvmain_ops_drop_table_memos=0x7f080033;
-        public static final int dlg_actvmain_ops_drop_table_patterns=0x7f080031;
-        public static final int dlg_actvmain_ops_import_db=0x7f08002f;
-        public static final int dlg_actvmain_ops_import_patterns=0x7f080030;
-        public static final int dlg_actvmain_ops_sql_add_col_used=0x7f080038;
+        public static final int dlg_actvmain_admin_title=0x7f080028;
+        public static final int dlg_actvmain_ops_Drop_Create_table_filter_history=0x7f080036;
+        public static final int dlg_actvmain_ops_create_table_filter_history=0x7f080037;
+        public static final int dlg_actvmain_ops_create_table_memos=0x7f080035;
+        public static final int dlg_actvmain_ops_create_table_patterns=0x7f080033;
+        public static final int dlg_actvmain_ops_drop_table_memos=0x7f080034;
+        public static final int dlg_actvmain_ops_drop_table_patterns=0x7f080032;
+        public static final int dlg_actvmain_ops_import_db=0x7f080030;
+        public static final int dlg_actvmain_ops_import_patterns=0x7f080031;
+        public static final int dlg_actvmain_ops_sql_add_col_used=0x7f080039;
         /**  dlg_actvmain_operations.xml 
          */
-        public static final int dlg_actvmain_ops_title=0x7f08002e;
-        public static final int dlg_actvmain_ops_upload_db=0x7f080037;
-        public static final int dlg_db_ops_item_drop_create_tbl_admin=0x7f080039;
+        public static final int dlg_actvmain_ops_title=0x7f08002f;
+        public static final int dlg_actvmain_ops_upload_db=0x7f080038;
+        public static final int dlg_db_ops_item_drop_create_tbl_admin=0x7f08003a;
         /**  labels for templates 
          */
         public static final int dlg_tmpl_confirm_simple_msg_delete_file=0x7f08001c;
@@ -369,8 +374,8 @@ public final class R {
         public static final int generic_tv_view=0x7f08000c;
         /**  image_actv_menu.xml 
          */
-        public static final int image_actv_menu_add_memo=0x7f080047;
-        public static final int image_actv_menu_add_patterns=0x7f080048;
+        public static final int image_actv_menu_add_memo=0x7f080048;
+        public static final int image_actv_menu_add_patterns=0x7f080049;
         public static final int menu_main_admin=0x7f080024;
         public static final int menu_main_horizontal_listview=0x7f080025;
         /**  Menu: main 
@@ -383,21 +388,22 @@ public final class R {
         /**  Menu: showlist 
          */
         public static final int menu_showlist_filter=0x7f080026;
-        public static final int prefs_ClearView_WhenSaved_key=0x7f080041;
-        public static final int prefs_ClearView_WhenSaved_summary=0x7f080042;
-        public static final int prefs_ClearView_WhenSaved_titile=0x7f080040;
-        public static final int prefs_MemoList_Size_ListPref_key=0x7f080043;
-        public static final int prefs_MemoList_Size_key=0x7f08003e;
-        public static final int prefs_MemoList_Size_summary=0x7f08003f;
-        public static final int prefs_MemoList_Size_titile=0x7f08003d;
-        public static final int prefs_db_auto_backup_key=0x7f080044;
-        public static final int prefs_db_auto_backup_summary=0x7f080045;
-        public static final int prefs_db_auto_backup_title=0x7f080046;
-        public static final int prefs_sound_effect_key=0x7f08003b;
-        public static final int prefs_sound_effect_summary=0x7f08003c;
+        public static final int menu_showlist_filter_history=0x7f080027;
+        public static final int prefs_ClearView_WhenSaved_key=0x7f080042;
+        public static final int prefs_ClearView_WhenSaved_summary=0x7f080043;
+        public static final int prefs_ClearView_WhenSaved_titile=0x7f080041;
+        public static final int prefs_MemoList_Size_ListPref_key=0x7f080044;
+        public static final int prefs_MemoList_Size_key=0x7f08003f;
+        public static final int prefs_MemoList_Size_summary=0x7f080040;
+        public static final int prefs_MemoList_Size_titile=0x7f08003e;
+        public static final int prefs_db_auto_backup_key=0x7f080045;
+        public static final int prefs_db_auto_backup_summary=0x7f080046;
+        public static final int prefs_db_auto_backup_title=0x7f080047;
+        public static final int prefs_sound_effect_key=0x7f08003c;
+        public static final int prefs_sound_effect_summary=0x7f08003d;
         /**  pref: MainActv 
          */
-        public static final int prefs_sound_effect_titile=0x7f08003a;
+        public static final int prefs_sound_effect_titile=0x7f08003b;
     }
     public static final class style {
         /** 

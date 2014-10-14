@@ -11,7 +11,9 @@ public class FilterHistory {
 
 	String keywords;
 	
-	String operator;
+	int operator;
+	
+	String op_label;
 
 	public FilterHistory(Builder builder) {
 		// TODO Auto-generated constructor stub
@@ -26,6 +28,14 @@ public class FilterHistory {
 		
 		this.operator	= builder.operator;
 
+	}
+
+	public String getOp_label() {
+		return op_label;
+	}
+
+	public void setOp_label(String op_label) {
+		this.op_label = op_label;
 	}
 
 	public long getDb_Id() {
@@ -44,7 +54,7 @@ public class FilterHistory {
 		return keywords;
 	}
 
-	public String getOperator() {
+	public int getOperator() {
 		return operator;
 	}
 
@@ -64,7 +74,7 @@ public class FilterHistory {
 		this.keywords = keywords;
 	}
 
-	public void setOperator(String operator) {
+	public void setOperator(int operator) {
 		this.operator = operator;
 	}
 	
@@ -79,13 +89,19 @@ public class FilterHistory {
 
 		String keywords;
 		
-		String operator;
+		int operator;
 
+		String op_label;
+		
 		public FilterHistory build() {
 			
 			return new FilterHistory(this);
 		}
 		
+		public Builder setOp_label(String op_label) {
+			this.op_label = op_label; return this;
+		}
+
 		public Builder setDb_Id(long db_Id) {
 			this.db_Id = db_Id; return this;
 		}
@@ -102,7 +118,7 @@ public class FilterHistory {
 			this.keywords = keywords; return this;
 		}
 
-		public Builder setOperator(String operator) {
+		public Builder setOperator(int operator) {
 			this.operator = operator; return this;
 		}
 
