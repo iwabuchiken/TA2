@@ -4789,5 +4789,141 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//find_LastBK
 
+	/******************************
+	 * return the latest-entered record<br>
+	 * "latest" by db id
+		@return
+		null<bt>
+		1. query exception<br>
+	 ******************************/
+	public static FilterHistory 
+	find_FH_latest
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+
+		// db
+
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();		
+		
+		Cursor c = null;
+		
+		String tname = CONS.DB.tname_FilterHistory;
+		
+//		String where = CONS.DB.col_names_FilterHistory_full[3] + " = ?"
+//					+ " AND "
+//					+ CONS.DB.col_names_FilterHistory_full[4] + " = ?"
+//					;
+//		String[] args = new String[]{
+//				
+//							fh.getKeywords(),
+//							String.valueOf(fh.getOperator())
+//							
+//						};
+		
+		String order = CONS.DB.col_names_FilterHistory_full[0] + " DESC";
+		
+		String limit = "1";
+		
+		////////////////////////////////
+
+		// query
+
+		////////////////////////////////
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_FilterHistory_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					order,			// 7
+					limit);
+//			null,			// 7
+//			null);
+			
+		} catch (Exception e) {
+
+			// Log
+			String msg_Log = "Exception";
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			String msg = "Query exception";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query => null";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			return null;
+			
+		} else if (c.getCount() == 0) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			return null;
+			
+		}//if (c == null)
+
+		////////////////////////////////
+
+		// build: fh
+
+		////////////////////////////////
+		c.moveToFirst();
+
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"keywords",									// 3
+//		"operator",									// 4
+//		"op_label",									// 5
+
+//		FilterHistory fh = new FilterHistory.Builder()
+		return new FilterHistory.Builder()
+					
+					.setDb_Id(c.getLong(0))
+					.setCreated_at(c.getString(1))
+					.setModified_at(c.getString(2))
+					.setKeywords(c.getString(3))
+					.setOperator(c.getInt(4))
+					.setOp_label(c.getString(5))
+		
+					.build();
+		
+//		return null;
+		
+	}//find_FH_latest
+
 }//public class DBUtils
 

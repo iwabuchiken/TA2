@@ -4037,9 +4037,12 @@ public class Methods_dlg {
 			
 		}
 		
+		int lv_Width = 300;
+		
 		LinearLayout.LayoutParams params_LV =
 				new LinearLayout.LayoutParams(
-								LayoutParams.WRAP_CONTENT,
+						lv_Width,
+//								LayoutParams.WRAP_CONTENT,
 								lv_Height);
 		
 		params_LV.gravity = Gravity.CENTER_HORIZONTAL;

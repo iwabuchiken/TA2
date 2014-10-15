@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ta2.items.FilterHistory;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
@@ -1522,12 +1523,24 @@ public class DB_OCL implements OnClickListener {
 
 		////////////////////////////////
 
+		// list size
+
+		////////////////////////////////
+		String pref_MemoList_Size = Methods.get_Pref_String(
+							actv, 
+							CONS.Pref.pname_MainActv, 
+							actv.getString(R.string.prefs_MemoList_Size_key), 
+							null);
+
+		////////////////////////////////
+
 		// get: list
 
 		////////////////////////////////
 		List<Memo> list_Memos = DBUtils.find_All_Memos(
 						actv, 
-						CONS.Enums.SortOrder.DESC);
+						CONS.Enums.SortOrder.DESC, 
+						Integer.parseInt(pref_MemoList_Size));
 		
 		////////////////////////////////
 
@@ -1567,7 +1580,7 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		d1.dismiss();
 		
-	}
+	}//case_DLG_FILTER_SHOWLIST_RESET
 
 	@SuppressWarnings("unused")
 	private void 
@@ -1985,58 +1998,91 @@ public class DB_OCL implements OnClickListener {
 		// save: filter history
 
 		////////////////////////////////
-//		android.provider.BaseColumns._ID,		// 0
-//		"created_at", "modified_at",			// 1,2
-//		"keywords",									// 3
-//		"operator",									// 4
-//		"op_label",									// 5
-		
-		ContentValues cv = new ContentValues();
-		
-		cv.put(CONS.DB.col_names_FilterHistory_full[1], 
-				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-		
-		cv.put(CONS.DB.col_names_FilterHistory_full[2], 
-				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-		
-		cv.put(CONS.DB.col_names_FilterHistory_full[3], input);
-		
-		cv.put(CONS.DB.col_names_FilterHistory_full[4], RB_id_Checked);
-		
-		// operator label
-		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
-		
-		if (rb != null) {
-			
-			String label = rb.getText().toString();
-			
-			if (label != null && !label.equals("")) {
-				
-				cv.put(CONS.DB.col_names_FilterHistory_full[5], label);
-				
-			}
-			
-		}
-		
-		res = DBUtils.insert_Data_generic(actv, CONS.DB.tname_FilterHistory, cv);
-		
-		if (res == true) {
-			
-			// Log
-			msg_Log = "filter history => saved: " + input;
-			Log.d("DB_OCL.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-		} else {
+		////////////////////////////////
 
+		// validate: same filter
+
+		////////////////////////////////
+		FilterHistory fh_Prev = DBUtils.find_FH_latest(actv);
+		
+		if (input.equals(fh_Prev.getKeywords())
+				&& RB_id_Checked == fh_Prev.getOperator()
+					) {
+				
+				// Log
+				msg_Log = "same filter. not saving";
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+		} else {
+			
 			// Log
-			msg_Log = "filter history => not saved: " + input;
-			Log.d("DB_OCL.java" + "["
+			msg_Log = "saving filter...";
+			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
+			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+			
+			Methods.save_Filter(actv, input, RB_id_Checked, rb.getText().toString());
+//				_filter_MemoList_History__SaveFilter(actv, input, RB_id_Checked, fh);
+			
 		}
+
+		
+		
+////		android.provider.BaseColumns._ID,		// 0
+////		"created_at", "modified_at",			// 1,2
+////		"keywords",									// 3
+////		"operator",									// 4
+////		"op_label",									// 5
+//		
+//		ContentValues cv = new ContentValues();
+//		
+//		cv.put(CONS.DB.col_names_FilterHistory_full[1], 
+//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+//		
+//		cv.put(CONS.DB.col_names_FilterHistory_full[2], 
+//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
+//		
+//		cv.put(CONS.DB.col_names_FilterHistory_full[3], input);
+//		
+//		cv.put(CONS.DB.col_names_FilterHistory_full[4], RB_id_Checked);
+//		
+//		// operator label
+//		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//		
+//		if (rb != null) {
+//			
+//			String label = rb.getText().toString();
+//			
+//			if (label != null && !label.equals("")) {
+//				
+//				cv.put(CONS.DB.col_names_FilterHistory_full[5], label);
+//				
+//			}
+//			
+//		}
+//		
+//		res = DBUtils.insert_Data_generic(actv, CONS.DB.tname_FilterHistory, cv);
+//		
+//		if (res == true) {
+//			
+//			// Log
+//			msg_Log = "filter history => saved: " + input;
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		} else {
+//
+//			// Log
+//			msg_Log = "filter history => not saved: " + input;
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
 		
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
