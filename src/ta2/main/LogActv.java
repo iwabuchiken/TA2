@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_LogFileList;
+import ta2.listeners.button.BO_CL;
+import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
+import ta2.utils.Tags;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -266,7 +269,32 @@ public class LogActv extends ListActivity {
 		////////////////////////////////
 		_Setup_Adapter();
 		
+		////////////////////////////////
+
+		// listener
+
+		////////////////////////////////
+		this._Setup_Set_Listener();
+		
 	}//protected void onStart()
+
+	private void _Setup_Set_Listener() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// Back
+		
+		////////////////////////////////
+		ImageButton ib_Back = (ImageButton) findViewById(R.id.actv_log_ib_back);
+		
+//		ib_Back.setTag(Tags.ButtonTags.thumb_activity_ib_back);
+		ib_Back.setTag(Tags.ButtonTags.ACTV_SHOWLOG_IB_BACK);
+		
+		ib_Back.setOnTouchListener(new BO_TL(this));
+		ib_Back.setOnClickListener(new BO_CL(this));
+
+	}
 
 	private boolean
 	_Setup_Adapter() {

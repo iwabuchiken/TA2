@@ -45,7 +45,42 @@ public class BO_TL implements OnTouchListener {
 			ImageButton ib;
 			
 			switch (tag) {
-			
+
+			case ACTV_SHOWLOG_IB_BACK:
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_back_50x50_disenabled);
+				
+				break;// case image_activity_next
+
+			case ACTV_SHOWLOG_IB_TOP://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_top_50x50_disenabled);
+				
+				break;// case image_activity_next
+				
+			case ACTV_SHOWLOG_IB_BOTTOM://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_bottom_50x50_disenabled);
+						
+				break;// case thumb_activity_ib_bottom
+
+			case ACTV_SHOWLOG_IB_DOWN://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_down_50x50_disenabled);
+				
+				break;// case image_activity_next
+
+			case ACTV_SHOWLOG_IB_UP://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_up_50x50_disenabled);
+				
+				break;// case image_activity_next
+
 			case ACTV_REC_BACK://----------------------------------------------------
 				
 				ib = (ImageButton) v;
@@ -209,7 +244,41 @@ public class BO_TL implements OnTouchListener {
 			
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
-			
+
+			case ACTV_SHOWLOG_IB_UP://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_up_50x50);
+				
+				break;// case image_activity_next
+
+			case ACTV_SHOWLOG_IB_DOWN://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_down_50x50);
+				
+				break;// case image_activity_next
+
+			case ACTV_SHOWLOG_IB_BOTTOM://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_tn_bt_bottom_45x45);
+
+				break;// case thumb_activity_ib_bottom
+
+			case ACTV_SHOWLOG_IB_TOP://----------------------------------------------------
+				
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.actv_tn_bt_top_45x45);
+				
+				break;// case thumb_activity_ib_top
+
+			case ACTV_SHOWLOG_IB_BACK://----------------------------------------------------
+				ib = (ImageButton) v;
+				ib.setImageResource(R.drawable.ifm8_thumb_back_50x50);
+				
+				break;// case image_activity_next
+
 			case ACTV_REC_BACK://----------------------------------------------------
 				
 				ib = (ImageButton) v;

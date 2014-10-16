@@ -2326,6 +2326,10 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
+		String log_msg = "backup db => done (save date => " + res + ")";
+		Methods.write_Log(actv, log_msg,
+				Thread.currentThread().getStackTrace()[2].getFileName(), Thread
+						.currentThread().getStackTrace()[2].getLineNumber());
 		
 		return true;
 		
