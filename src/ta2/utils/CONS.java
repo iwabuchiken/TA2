@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_FHs;
+import ta2.adapters.Adp_LogFileList;
 import ta2.adapters.Adp_MemoList;
 import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
@@ -475,6 +476,13 @@ public class CONS {
 		public static final String pkey_PlayActv_CurrentFileName = 
 											"pkey_PlayActv_CurrentFileName";
 
+		////////////////////////////////
+
+		// LogActv
+
+		////////////////////////////////
+		public static String pkey_CurrentPosition_LogActv = 
+									"pkey_CurrentPosition_LogActv";
 		
 	}//Pref
 
@@ -926,5 +934,14 @@ public class CONS {
 		
 	}//IFM11
 
+	public static class LogActv {
+		
+		public static List<String> list_LogFiles = null;
+		
+//		public static ArrayAdapter<String> adp_LogFile_List = null;
+		
+		public static Adp_LogFileList adp_LogFile_List;
+		
+	}
 	
 }//public class CONS

@@ -91,6 +91,7 @@ import ta2.main.MemoEditActv;
 import ta2.main.PhotoActv;
 import ta2.main.PlayActv;
 import ta2.main.PrefActv;
+import ta2.main.LogActv;
 import ta2.main.R;
 import ta2.main.RecActv;
 import ta2.main.ShowListActv;
@@ -963,6 +964,27 @@ public static String
 		actv.startActivity(i);
 		
 	}//start_Activity_PrefActv
+	
+	public static void 
+	start_Activity_LogActv
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, LogActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//start_Activity_LogActv
 	
 	public static void 
 	start_Activity_PhotoActv
@@ -6233,6 +6255,7 @@ public static String
 		}
 		
 	}//_filter_MemoList_History__SaveFilter
+
 	
 }//public class Methods
 

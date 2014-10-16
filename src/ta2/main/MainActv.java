@@ -1,7 +1,5 @@
 package ta2.main;
 
-import java.util.List;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -16,40 +14,12 @@ import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
-import twitter4j.Paging;
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.User;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-import twitter4j.conf.Configuration;
-import twitter4j.conf.ConfigurationBuilder;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Vibrator;
-import android.text.Html;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActv extends Activity {
 
