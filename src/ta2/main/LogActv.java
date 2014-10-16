@@ -123,7 +123,7 @@ public class LogActv extends ListActivity {
 		// start activity
 
 		////////////////////////////////
-//		Methods.start_Activity_ShowLogActv(this, itemName);
+		Methods.start_Activity_ShowLogActv(this, itemName);
 		
 		////////////////////////////////
 
