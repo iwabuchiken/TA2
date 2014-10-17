@@ -5560,6 +5560,75 @@ public static String
 		
 	}//filter_MemoList
 	
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
+	filter_MemoList_Single_KW
+	(Activity actv, String op_Label, String kw) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+//		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					continue;
+					
+				}
+				
+				list_Memos.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList
+	
 	public static List<Memo> 
 	filter_MemoList_Multiple_KW
 	(Activity actv, int id_Checked, String[] tokens) {
@@ -5633,24 +5702,24 @@ public static String
 				
 				text = memo.getText();
 					
-				// Log
-				msg_Log = "text => " + text;
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", msg_Log);
+//				// Log
+//				msg_Log = "text => " + text;
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
 				
 				// reset value
 				contained = true;
 				
 				for (String token : tokens) {
 				
-					// Log
-					msg_Log = "token => " + token;
-					Log.d("Methods.java"
-							+ "["
-							+ Thread.currentThread().getStackTrace()[2]
-									.getLineNumber() + "]", msg_Log);
+//					// Log
+//					msg_Log = "token => " + token;
+//					Log.d("Methods.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
 					
 //					text = memo.getText();
 					
@@ -5658,15 +5727,15 @@ public static String
 						
 						contained = false;
 						
-						// Log
-						msg_Log = String.format(
-									"!text.contains(token) => %s, %s", 
-									text, token);
-						
-						Log.d("Methods.java"
-								+ "["
-								+ Thread.currentThread().getStackTrace()[2]
-										.getLineNumber() + "]", msg_Log);
+//						// Log
+//						msg_Log = String.format(
+//									"!text.contains(token) => %s, %s", 
+//									text, token);
+//						
+//						Log.d("Methods.java"
+//								+ "["
+//								+ Thread.currentThread().getStackTrace()[2]
+//										.getLineNumber() + "]", msg_Log);
 						
 						break;
 						
@@ -5740,6 +5809,189 @@ public static String
 		
 	}//filter_MemoList_Multiple_KW
 
+	public static List<Memo> 
+	filter_MemoList_Multiple_KW
+	(Activity actv, String op_Label, String[] tokens) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+//		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
+//			if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+			msg_Log = "filter => not";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				for (String token : tokens) {
+					
+					text = memo.getText();
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == false) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_and))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_and) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "filter => and";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = true;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+//				// Log
+//				msg_Log = "text => " + text;
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+				
+				// reset value
+				contained = true;
+				
+				for (String token : tokens) {
+					
+//					// Log
+//					msg_Log = "token => " + token;
+//					Log.d("Methods.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
+					
+//					text = memo.getText();
+					
+					if (!text.contains(token)) {
+						
+						contained = false;
+						
+//						// Log
+//						msg_Log = String.format(
+//									"!text.contains(token) => %s, %s", 
+//									text, token);
+//						
+//						Log.d("Methods.java"
+//								+ "["
+//								+ Thread.currentThread().getStackTrace()[2]
+//										.getLineNumber() + "]", msg_Log);
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_or))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "filter => or";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				// reset
+				contained = false;
+				
+				text = memo.getText();
+				
+				for (String token : tokens) {
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "unknown radio button label => " + op_Label;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList_Multiple_KW
+	
 	public static Memo 
 	find_Memo_from_ListView
 	(Activity actv, long db_Id) {
@@ -5959,6 +6211,7 @@ public static String
 		List<Memo> list_Memos = null;
 
 		int RB_id_Checked = fh.getOperator();
+		String op_Label = fh.getOp_label();
 		
 		////////////////////////////////
 		
@@ -5973,11 +6226,12 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
+			list_Memos = Methods.filter_MemoList_Single_KW(actv, op_Label, tokens[0]);
+//			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
 			
 		} else {//if (tokens.length <= 1)
 			
-			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, op_Label, tokens);
 			
 		}//if (tokens.length <= 1)
 

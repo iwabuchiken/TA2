@@ -4859,6 +4859,8 @@ public class DBUtils extends SQLiteOpenHelper{
 //			String msg = "Query exception";
 //			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
 			
+			rdb.close();
+			
 			return null;
 			
 		}//try
@@ -4879,6 +4881,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", msg);
 
+			rdb.close();
+			
 			return null;
 			
 		} else if (c.getCount() == 0) {//if (c == null)
@@ -4892,6 +4896,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", msg);
 
+			rdb.close();
+			
 			return null;
 			
 		}//if (c == null)
@@ -4909,8 +4915,8 @@ public class DBUtils extends SQLiteOpenHelper{
 //		"operator",									// 4
 //		"op_label",									// 5
 
-//		FilterHistory fh = new FilterHistory.Builder()
-		return new FilterHistory.Builder()
+		FilterHistory fh = new FilterHistory.Builder()
+//		return new FilterHistory.Builder()
 					
 					.setDb_Id(c.getLong(0))
 					.setCreated_at(c.getString(1))
@@ -4920,6 +4926,20 @@ public class DBUtils extends SQLiteOpenHelper{
 					.setOp_label(c.getString(5))
 		
 					.build();
+		
+		////////////////////////////////
+
+		// close
+
+		////////////////////////////////
+		rdb.close();
+
+		////////////////////////////////
+
+		// return
+
+		////////////////////////////////
+		return fh;
 		
 //		return null;
 		
