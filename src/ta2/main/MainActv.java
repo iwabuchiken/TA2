@@ -1,5 +1,7 @@
 package ta2.main;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -129,7 +131,21 @@ public class MainActv extends Activity {
 		// comp
 
 		////////////////////////////////
-		int res = schedule.compareToIgnoreCase(last_bk);
+//		int res = last_bk.compareToIgnoreCase(schedule);
+		String now = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		int res = schedule.compareToIgnoreCase(now);
+//		int res = schedule.compareToIgnoreCase(last_bk);
+
+		// Log
+		msg_Log = String.format(
+						Locale.JAPAN,
+						"schedule = %s / now = %s / res => %d", 
+						schedule, now, res
+						);
+		
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		if (res <= 0) {
 //			if (res > 0) {

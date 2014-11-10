@@ -361,7 +361,13 @@ public class CONS {
 		public static int pastXDays		= -10;
 
 		public final static String fname_Log = "log.txt";
+		
+		public final static String fname_Log_Trunk = "log";
+		
+		public final static String fname_Log_ext = ".txt";
 
+		public static final long logFile_MaxSize = 40000;
+		
 		////////////////////////////////
 
 		// FileFilter

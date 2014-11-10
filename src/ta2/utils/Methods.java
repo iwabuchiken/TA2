@@ -2,6 +2,7 @@
 package ta2.utils;
 
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -3922,6 +3923,57 @@ public static String
 		
 		////////////////////////////////
 
+		// validate: size
+
+		////////////////////////////////
+		long len = fpath_Log.length();
+		
+		if (len > CONS.DB.logFile_MaxSize) {
+		
+			fpath_Log.renameTo(new File(
+						fpath_Log.getParent(), 
+						CONS.DB.fname_Log_Trunk
+						+ "_"
+//						+ Methods.get_TimeLabel(Methods.getMillSeconds_now())
+						+ Methods.get_TimeLabel(fpath_Log.lastModified())
+						+ CONS.DB.fname_Log_ext
+						));
+			
+			// new log.txt
+			try {
+				
+				fpath_Log = new File(fpath_Log.getParent(), CONS.DB.fname_Log);
+//				File f = new File(fpath_Log.getParent(), CONS.DB.fname_Log);
+				
+				fpath_Log.createNewFile();
+				
+				// Log
+				String msg_Log = "new log.txt => created";
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				
+				// Log
+				String msg_Log = "log.txt => can't create!";
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				e.printStackTrace();
+				
+				return;
+				
+			}
+			
+		}//if (len > CONS.DB.logFile_MaxSize)
+
+		////////////////////////////////
+
 		// write
 
 		////////////////////////////////
@@ -5425,10 +5477,31 @@ public static String
 		// filter
 
 		////////////////////////////////
+//		List<Memo> list_Memos_tmp = DBUtils.find_All_Memos(
+//							actv, 
+//							CONS.DB.col_names_TA2_full[0], 
+//							CONS.Enums.SortOrder.DESC.toString());
+		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (list_Memos_tmp == null) {
+//			
+//			// Log
+//			msg_Log = "list_Memos_tmp => null";
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return null;
+//			
+//		}
+		
 		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
 			
 			String text = null;
 			
+//			for (Memo memo : list_Memos_tmp) {
 			for (Memo memo : CONS.ShowListActv.list_Memos) {
 				
 				text = memo.getText();
@@ -5449,6 +5522,7 @@ public static String
 			
 			String text = null;
 			
+//			for (Memo memo : list_Memos_tmp) {
 			for (Memo memo : CONS.ShowListActv.list_Memos) {
 				
 				text = memo.getText();
@@ -5463,22 +5537,6 @@ public static String
 //			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
 			
 		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
-		
-//		// Log
-//		msg_Log = "where => " + where;
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-		
-		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
-//		where = CONS.DB.col_names_TA2[0] + " like ?";
-//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
-		
-//		args = new String[]{
-//				
-//				"%" + et.getText().toString() + "%"
-//				
-//		};
 		
 		////////////////////////////////
 

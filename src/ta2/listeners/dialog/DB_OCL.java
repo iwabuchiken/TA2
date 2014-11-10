@@ -1883,48 +1883,7 @@ public class DB_OCL implements OnClickListener {
 			
 			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
 			
-//			//test
-//			where = this._Filter_ShowList_Build_Conditions_where(actv, d1);
-//			
-////			this._Filter_ShowList_Build_Conditions(actv, d1, where, args);
-////			Object[] objects = this._Filter_ShowList_Build_Conditions(actv, d1);
-//			
-//			// Log
-//			msg_Log = "where => " + where;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-////			args = this._Filter_ShowList_Build_Conditions_args(actv, d1);
-//			args = tokens;
-//			
-//			for (int i = 0; i < args.length; i++) {
-//				
-//				args[i] = "%" + args[i] + "%";
-//				
-//				// Log
-//				msg_Log = "args => " + args[i];
-//				Log.d("DB_OCL.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-//			}
-//			
-//			list_Memos = DBUtils.find_All_Memos_conditions(
-////					List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
-//					actv, 
-//					CONS.Enums.SortOrder.DESC, 
-//					where, 
-//					args);
-			
 		}//if (tokens.length <= 1)
-		
-//		list_Memos = DBUtils.find_All_Memos_conditions(
-////				List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
-//				actv, 
-//				CONS.Enums.SortOrder.DESC, 
-//				where, 
-//				args);
 		
 		////////////////////////////////
 		
@@ -2025,65 +1984,9 @@ public class DB_OCL implements OnClickListener {
 			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
 			
 			Methods.save_Filter(actv, input, RB_id_Checked, rb.getText().toString());
-//				_filter_MemoList_History__SaveFilter(actv, input, RB_id_Checked, fh);
 			
 		}
 
-		
-		
-////		android.provider.BaseColumns._ID,		// 0
-////		"created_at", "modified_at",			// 1,2
-////		"keywords",									// 3
-////		"operator",									// 4
-////		"op_label",									// 5
-//		
-//		ContentValues cv = new ContentValues();
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[1], 
-//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[2], 
-//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[3], input);
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[4], RB_id_Checked);
-//		
-//		// operator label
-//		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
-//		
-//		if (rb != null) {
-//			
-//			String label = rb.getText().toString();
-//			
-//			if (label != null && !label.equals("")) {
-//				
-//				cv.put(CONS.DB.col_names_FilterHistory_full[5], label);
-//				
-//			}
-//			
-//		}
-//		
-//		res = DBUtils.insert_Data_generic(actv, CONS.DB.tname_FilterHistory, cv);
-//		
-//		if (res == true) {
-//			
-//			// Log
-//			msg_Log = "filter history => saved: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		} else {
-//
-//			// Log
-//			msg_Log = "filter history => not saved: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}
-		
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
 

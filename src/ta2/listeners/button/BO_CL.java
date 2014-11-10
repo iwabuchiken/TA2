@@ -37,7 +37,7 @@ public class BO_CL implements OnClickListener {
 		this.position = position;
 		
 		//
-//		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 		
 		
 		
@@ -69,7 +69,7 @@ public class BO_CL implements OnClickListener {
 		}
 		
 		//
-//		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+		CONS.Admin.vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 
 	}
 
