@@ -1883,48 +1883,7 @@ public class DB_OCL implements OnClickListener {
 			
 			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
 			
-//			//test
-//			where = this._Filter_ShowList_Build_Conditions_where(actv, d1);
-//			
-////			this._Filter_ShowList_Build_Conditions(actv, d1, where, args);
-////			Object[] objects = this._Filter_ShowList_Build_Conditions(actv, d1);
-//			
-//			// Log
-//			msg_Log = "where => " + where;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-////			args = this._Filter_ShowList_Build_Conditions_args(actv, d1);
-//			args = tokens;
-//			
-//			for (int i = 0; i < args.length; i++) {
-//				
-//				args[i] = "%" + args[i] + "%";
-//				
-//				// Log
-//				msg_Log = "args => " + args[i];
-//				Log.d("DB_OCL.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-//			}
-//			
-//			list_Memos = DBUtils.find_All_Memos_conditions(
-////					List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
-//					actv, 
-//					CONS.Enums.SortOrder.DESC, 
-//					where, 
-//					args);
-			
 		}//if (tokens.length <= 1)
-		
-//		list_Memos = DBUtils.find_All_Memos_conditions(
-////				List<Memo> list_Memos = DBUtils.find_All_Memos_conditions(
-//				actv, 
-//				CONS.Enums.SortOrder.DESC, 
-//				where, 
-//				args);
 		
 		////////////////////////////////
 		
