@@ -279,6 +279,17 @@ public class Adp_FHs extends ArrayAdapter<FilterHistory> {
 		
 		tv_OpLabel.setText(fh.getOp_label());
 		
+		// Log
+		String msg_Log = "op_label => " + fh.getOp_label()
+						+ "("
+						+ fh.getKeywords()
+						+ ")"
+						;
+		
+		Log.d("Adp_FHs.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 //		tv.setTextColor(((Activity)con).getResources().getColor(li.getTextColor_ID()));
 		
 //		LinearLayout.LayoutParams params =

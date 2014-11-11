@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_FHs;
+import ta2.adapters.Adp_LogFileList;
 import ta2.adapters.Adp_MemoList;
+import ta2.adapters.Adp_ShowLogFile_List;
 import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.FilterHistory;
 import ta2.items.ListItem;
+import ta2.items.LogItem;
 import ta2.items.Memo;
 import ta2.items.TI;
 import ta2.items.WordPattern;
@@ -84,6 +87,15 @@ public class CONS {
 											= "iKey_PlayActv_TaskPeriod";
 
 		
+		////////////////////////////////
+
+		// ShowLogActv
+
+		////////////////////////////////
+		public static final String iKey_LogActv_LogFileName =
+													"iKey_LogActv_LogFileName";
+		
+
 	}//public static class Intent
 	
 	public static class DB {
@@ -349,7 +361,13 @@ public class CONS {
 		public static int pastXDays		= -10;
 
 		public final static String fname_Log = "log.txt";
+		
+		public final static String fname_Log_Trunk = "log";
+		
+		public final static String fname_Log_ext = ".txt";
 
+		public static final long logFile_MaxSize = 40000;
+		
 		////////////////////////////////
 
 		// FileFilter
@@ -475,6 +493,13 @@ public class CONS {
 		public static final String pkey_PlayActv_CurrentFileName = 
 											"pkey_PlayActv_CurrentFileName";
 
+		////////////////////////////////
+
+		// LogActv
+
+		////////////////////////////////
+		public static String pkey_CurrentPosition_LogActv = 
+									"pkey_CurrentPosition_LogActv";
 		
 	}//Pref
 
@@ -926,5 +951,28 @@ public class CONS {
 		
 	}//IFM11
 
-	
+	public static class LogActv {
+		
+		public static List<String> list_LogFiles = null;
+		
+//		public static ArrayAdapter<String> adp_LogFile_List = null;
+		
+		public static Adp_LogFileList adp_LogFile_List;
+		
+	}
+
+	public static class ShowLogActv {
+		
+		public static List<LogItem> list_ShowLog_Files = null;
+		
+//		public static ArrayAdapter<String> adp_LogFile_List = null;
+		
+		public static Adp_ShowLogFile_List adp_ShowLog_File_List;
+		
+		public static String fname_Target_LogFile = null;
+		
+		public static List<String> list_RawLines = null;
+		
+	}
+
 }//public class CONS

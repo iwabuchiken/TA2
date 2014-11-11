@@ -1984,65 +1984,9 @@ public class DB_OCL implements OnClickListener {
 			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
 			
 			Methods.save_Filter(actv, input, RB_id_Checked, rb.getText().toString());
-//				_filter_MemoList_History__SaveFilter(actv, input, RB_id_Checked, fh);
 			
 		}
 
-		
-		
-////		android.provider.BaseColumns._ID,		// 0
-////		"created_at", "modified_at",			// 1,2
-////		"keywords",									// 3
-////		"operator",									// 4
-////		"op_label",									// 5
-//		
-//		ContentValues cv = new ContentValues();
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[1], 
-//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[2], 
-//				Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now()));
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[3], input);
-//		
-//		cv.put(CONS.DB.col_names_FilterHistory_full[4], RB_id_Checked);
-//		
-//		// operator label
-//		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
-//		
-//		if (rb != null) {
-//			
-//			String label = rb.getText().toString();
-//			
-//			if (label != null && !label.equals("")) {
-//				
-//				cv.put(CONS.DB.col_names_FilterHistory_full[5], label);
-//				
-//			}
-//			
-//		}
-//		
-//		res = DBUtils.insert_Data_generic(actv, CONS.DB.tname_FilterHistory, cv);
-//		
-//		if (res == true) {
-//			
-//			// Log
-//			msg_Log = "filter history => saved: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		} else {
-//
-//			// Log
-//			msg_Log = "filter history => not saved: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}
-		
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
 

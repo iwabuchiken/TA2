@@ -275,7 +275,8 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		// log
 
 		////////////////////////////////
-		String log_msg = "Upload result => " + res.intValue();
+		String log_msg = "Upload DB: result => " + res.intValue();
+//		String log_msg = "Upload result => " + res.intValue();
 		Methods.write_Log(actv, log_msg,
 				Thread.currentThread().getStackTrace()[2].getFileName(), Thread
 						.currentThread().getStackTrace()[2].getLineNumber());

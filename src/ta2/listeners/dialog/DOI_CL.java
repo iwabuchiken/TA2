@@ -600,6 +600,13 @@ public class DOI_CL implements OnItemClickListener {
 			
 			return;
 			
+		} else if (item.getText().equals(actv.getString(
+				R.string.dlg_actvmain_admin_item_see_log))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods.start_Activity_LogActv(actv, d1);
+			
+			return;
+			
 		} else {
 			
 //			////////////////////////////////

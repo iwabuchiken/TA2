@@ -1,6 +1,9 @@
 
 package ta2.utils;
 
+
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -8,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
@@ -80,6 +84,7 @@ import org.json.JSONObject;
 
 import ta2.comps.Comp_WP;
 import ta2.items.FilterHistory;
+import ta2.items.LogItem;
 import ta2.items.Memo;
 import ta2.items.TI;
 import ta2.items.WordPattern;
@@ -91,9 +96,11 @@ import ta2.main.MemoEditActv;
 import ta2.main.PhotoActv;
 import ta2.main.PlayActv;
 import ta2.main.PrefActv;
+import ta2.main.LogActv;
 import ta2.main.R;
 import ta2.main.RecActv;
 import ta2.main.ShowListActv;
+import ta2.main.ShowLogActv;
 import ta2.services.Service_ShowProgress;
 import ta2.tasks.Task_AudioTrack;
 
@@ -963,6 +970,27 @@ public static String
 		actv.startActivity(i);
 		
 	}//start_Activity_PrefActv
+	
+	public static void 
+	start_Activity_LogActv
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, LogActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+		////////////////////////////////
+
+		// dismiss
+
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//start_Activity_LogActv
 	
 	public static void 
 	start_Activity_PhotoActv
@@ -2299,6 +2327,10 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
+		String log_msg = "backup db => done (save date => " + res + ")";
+		Methods.write_Log(actv, log_msg,
+				Thread.currentThread().getStackTrace()[2].getFileName(), Thread
+						.currentThread().getStackTrace()[2].getLineNumber());
 		
 		return true;
 		
@@ -3891,6 +3923,57 @@ public static String
 		
 		////////////////////////////////
 
+		// validate: size
+
+		////////////////////////////////
+		long len = fpath_Log.length();
+		
+		if (len > CONS.DB.logFile_MaxSize) {
+		
+			fpath_Log.renameTo(new File(
+						fpath_Log.getParent(), 
+						CONS.DB.fname_Log_Trunk
+						+ "_"
+//						+ Methods.get_TimeLabel(Methods.getMillSeconds_now())
+						+ Methods.get_TimeLabel(fpath_Log.lastModified())
+						+ CONS.DB.fname_Log_ext
+						));
+			
+			// new log.txt
+			try {
+				
+				fpath_Log = new File(fpath_Log.getParent(), CONS.DB.fname_Log);
+//				File f = new File(fpath_Log.getParent(), CONS.DB.fname_Log);
+				
+				fpath_Log.createNewFile();
+				
+				// Log
+				String msg_Log = "new log.txt => created";
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				
+				// Log
+				String msg_Log = "log.txt => can't create!";
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+				e.printStackTrace();
+				
+				return;
+				
+			}
+			
+		}//if (len > CONS.DB.logFile_MaxSize)
+
+		////////////////////////////////
+
 		// write
 
 		////////////////////////////////
@@ -5394,10 +5477,31 @@ public static String
 		// filter
 
 		////////////////////////////////
+//		List<Memo> list_Memos_tmp = DBUtils.find_All_Memos(
+//							actv, 
+//							CONS.DB.col_names_TA2_full[0], 
+//							CONS.Enums.SortOrder.DESC.toString());
+		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (list_Memos_tmp == null) {
+//			
+//			// Log
+//			msg_Log = "list_Memos_tmp => null";
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return null;
+//			
+//		}
+		
 		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
 			
 			String text = null;
 			
+//			for (Memo memo : list_Memos_tmp) {
 			for (Memo memo : CONS.ShowListActv.list_Memos) {
 				
 				text = memo.getText();
@@ -5418,6 +5522,7 @@ public static String
 			
 			String text = null;
 			
+//			for (Memo memo : list_Memos_tmp) {
 			for (Memo memo : CONS.ShowListActv.list_Memos) {
 				
 				text = memo.getText();
@@ -5432,22 +5537,6 @@ public static String
 //			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
 			
 		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
-		
-//		// Log
-//		msg_Log = "where => " + where;
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-		
-		//REF http://monoist.atmarkit.co.jp/mn/articles/1209/21/news003.html "正しく動作する記述を以下に"
-//		where = CONS.DB.col_names_TA2[0] + " like ?";
-//		String where = CONS.DB.col_names_IFM11[11] + " = ?";
-		
-//		args = new String[]{
-//				
-//				"%" + et.getText().toString() + "%"
-//				
-//		};
 		
 		////////////////////////////////
 
@@ -5483,6 +5572,75 @@ public static String
 		
 		////////////////////////////////
 		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					continue;
+					
+				}
+				
+				list_Memos.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+				if (text.contains(kw)) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList
+	
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
+	filter_MemoList_Single_KW
+	(Activity actv, String op_Label, String kw) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+//		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
 			
 			String text = null;
 			
@@ -5602,24 +5760,24 @@ public static String
 				
 				text = memo.getText();
 					
-				// Log
-				msg_Log = "text => " + text;
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", msg_Log);
+//				// Log
+//				msg_Log = "text => " + text;
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
 				
 				// reset value
 				contained = true;
 				
 				for (String token : tokens) {
 				
-					// Log
-					msg_Log = "token => " + token;
-					Log.d("Methods.java"
-							+ "["
-							+ Thread.currentThread().getStackTrace()[2]
-									.getLineNumber() + "]", msg_Log);
+//					// Log
+//					msg_Log = "token => " + token;
+//					Log.d("Methods.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
 					
 //					text = memo.getText();
 					
@@ -5627,15 +5785,15 @@ public static String
 						
 						contained = false;
 						
-						// Log
-						msg_Log = String.format(
-									"!text.contains(token) => %s, %s", 
-									text, token);
-						
-						Log.d("Methods.java"
-								+ "["
-								+ Thread.currentThread().getStackTrace()[2]
-										.getLineNumber() + "]", msg_Log);
+//						// Log
+//						msg_Log = String.format(
+//									"!text.contains(token) => %s, %s", 
+//									text, token);
+//						
+//						Log.d("Methods.java"
+//								+ "["
+//								+ Thread.currentThread().getStackTrace()[2]
+//										.getLineNumber() + "]", msg_Log);
 						
 						break;
 						
@@ -5709,6 +5867,189 @@ public static String
 		
 	}//filter_MemoList_Multiple_KW
 
+	public static List<Memo> 
+	filter_MemoList_Multiple_KW
+	(Activity actv, String op_Label, String[] tokens) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+//		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+		if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
+//			if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+			msg_Log = "filter => not";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				for (String token : tokens) {
+					
+					text = memo.getText();
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == false) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_and))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_and) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "filter => and";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = true;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				text = memo.getText();
+				
+//				// Log
+//				msg_Log = "text => " + text;
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+				
+				// reset value
+				contained = true;
+				
+				for (String token : tokens) {
+					
+//					// Log
+//					msg_Log = "token => " + token;
+//					Log.d("Methods.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", msg_Log);
+					
+//					text = memo.getText();
+					
+					if (!text.contains(token)) {
+						
+						contained = false;
+						
+//						// Log
+//						msg_Log = String.format(
+//									"!text.contains(token) => %s, %s", 
+//									text, token);
+//						
+//						Log.d("Methods.java"
+//								+ "["
+//								+ Thread.currentThread().getStackTrace()[2]
+//										.getLineNumber() + "]", msg_Log);
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_or))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "filter => or";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+			boolean contained = false;
+			
+			for (Memo memo : CONS.ShowListActv.list_Memos) {
+				
+				// reset
+				contained = false;
+				
+				text = memo.getText();
+				
+				for (String token : tokens) {
+					
+					if (text.contains(token)) {
+						
+						contained = true;
+						
+						break;
+						
+					}
+					
+				}//for (String token : tokens)
+				
+				if (contained == true) {
+					
+					list_Memos.add(memo);
+					
+				}
+				
+			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			// Log
+			msg_Log = "unknown radio button label => " + op_Label;
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList_Multiple_KW
+	
 	public static Memo 
 	find_Memo_from_ListView
 	(Activity actv, long db_Id) {
@@ -5928,6 +6269,7 @@ public static String
 		List<Memo> list_Memos = null;
 
 		int RB_id_Checked = fh.getOperator();
+		String op_Label = fh.getOp_label();
 		
 		////////////////////////////////
 		
@@ -5942,11 +6284,12 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
+			list_Memos = Methods.filter_MemoList_Single_KW(actv, op_Label, tokens[0]);
+//			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
 			
 		} else {//if (tokens.length <= 1)
 			
-			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, op_Label, tokens);
 			
 		}//if (tokens.length <= 1)
 
@@ -6233,6 +6576,316 @@ public static String
 		}
 		
 	}//_filter_MemoList_History__SaveFilter
+
+	public static void 
+	start_Activity_ShowLogActv
+	(Activity actv, String itemName) {
+		
+		
+		// Log
+		String msg_Log = "itemName => " + itemName;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, ShowLogActv.class);
+
+		i.putExtra(CONS.Intent.iKey_LogActv_LogFileName, itemName);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+		
+	}//start_Activity_LogActv
 	
+	public static List<String> 
+	get_LogLines
+	(Activity actv, String fpath_LogFile) {
+		
+		
+		int count_Lines = 0;
+		int count_Read = 0;
+		
+		List<String> list = new ArrayList<String>();
+		
+//		File f = new File(fpath_LogFile);
+		
+		try {
+			
+//			fis = new FileInputStream(fpath_Log);
+
+			//REF BufferedReader http://stackoverflow.com/questions/7537833/filereader-for-text-file-in-android answered Sep 24 '11 at 8:29
+			BufferedReader br = new BufferedReader(
+						new InputStreamReader(new FileInputStream(fpath_LogFile)));
+//			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+			
+			String line = null;
+			
+			line = br.readLine();
+					
+			while(line != null) {
+				
+				list.add(line);
+				
+				count_Lines += 1;
+				count_Read += 1;
+				
+				line = br.readLine();
+				
+			}
+			
+			////////////////////////////////
+
+			// close
+
+			////////////////////////////////
+			br.close();
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+			
+			String msg = "FileNotFoundException";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return null;
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+			count_Lines += 1;
+			
+		}
+
+		// Log
+		String msg_Log = String.format(
+							Locale.JAPAN,
+							"count_Lines => %d / count_Read => %d", 
+							count_Lines, count_Read);
+		
+		Log.d("ShowLogActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		
+		return list;
+		
+	}//get_LogLines
+
+	public static List<LogItem> 
+	conv_LogLinesList_to_LogItemList
+	(Activity actv, List<String> list_RawLines) {
+		
+		String msg_Log;
+		
+		List<LogItem> list_LogItems = new ArrayList<LogItem>();
+		
+		String reg = "\\[(.+?)\\] \\[(.+?)\\] (.+)";
+//		String reg = "\\[(.+)\\] \\[(.+)\\] (.+)";
+		
+		Pattern p = Pattern.compile(reg);
+		
+		Matcher m = null;
+		
+		LogItem loi = null;
+		
+		for (String string : list_RawLines) {
+			
+			m = p.matcher(string);
+			
+			if (m.find()) {
+
+				loi = _build_LogItem_from_Matcher(actv, m);
+				
+				if (loi != null) {
+					
+					list_LogItems.add(loi);
+					
+				}
+				
+			}//if (m.find())
+			
+		}//for (String string : list_RawLines)
+		
+		/******************************
+			validate
+		 ******************************/
+		if (list_LogItems.size() < 1) {
+			
+			// Log
+			msg_Log = "list_LogItems.size() => " + list_LogItems.size();
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+		}
+		
+		return list_LogItems;
+		
+	}//conv_LogLinesList_to_LogItemList
+
+	/******************************
+		@return
+			null => Matcher.groupCount() != 3
+	 ******************************/
+	private static LogItem 
+	_build_LogItem_from_Matcher
+	(Activity actv, Matcher m) {
+		
+	
+		////////////////////////////////
+	
+		// validate
+	
+		////////////////////////////////
+		if (m.groupCount() != 3) {
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+	
+		// prep: data
+	
+		////////////////////////////////
+		String[] tokens_TimeLabel = m.group(1).split(" ");
+		
+		String[] tokens_FileInfo = m.group(2).split(" : ");
+		
+		String text = m.group(3);
+		
+		String date = tokens_TimeLabel[0];
+		
+		String time = tokens_TimeLabel[1].split("\\.")[0];
+		
+		String fileName = tokens_FileInfo[0];
+		
+		String line = tokens_FileInfo[1];
+		
+		////////////////////////////////
+	
+		// LogItem
+	
+		////////////////////////////////
+		LogItem loi = new LogItem.Builder()
+					
+					.setDate(date)
+					.setTime(time)
+					.setMethod(fileName)
+					.setLine(Integer.parseInt(line))
+					.setText(text)
+					.build();
+		
+		return loi;
+		
+	}//_build_LogItem_from_Matcher
+
+	/******************************
+		@return
+			null => 1. Log file => doesn't exist<br>
+			//REF http://stackoverflow.com/questions/2290757/how-can-you-escape-the-character-in-javadoc answered Dec 11 '11 at 11:11<br>
+			2. {@literal List<String>} list => null<br>
+			3. list_LogItem => null<br>
+	 ******************************/
+	public static List<LogItem> 
+	get_LogItem_List
+	(Activity actv) {
+		
+		
+		String msg_Log;
+		
+		////////////////////////////////
+	
+		// validate: files exists
+	
+		////////////////////////////////
+		File fpath_Log = new File(
+				CONS.DB.dPath_Log,
+				CONS.ShowLogActv.fname_Target_LogFile);
+		
+		if (!fpath_Log.exists()) {
+			
+			String msg = "Log file => doesn't exist";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+	
+		// read file
+	
+		List<String> list = 
+						Methods.get_LogLines(actv, fpath_Log.getAbsolutePath());
+		
+		/******************************
+			validate
+		 ******************************/
+		if (list == null) {
+			
+			return null;
+			
+		} else {
+			
+			////////////////////////////////
+			
+			// list => reverse
+			
+			////////////////////////////////
+			Collections.reverse(list);
+			
+			////////////////////////////////
+	
+			// add all
+	
+			////////////////////////////////
+			CONS.ShowLogActv.list_RawLines.addAll(list);
+			
+		}
+	
+		////////////////////////////////
+	
+		// build: LogItem list
+	
+		////////////////////////////////
+		List<LogItem> list_LogItem = 
+				Methods.conv_LogLinesList_to_LogItemList(
+									actv, CONS.ShowLogActv.list_RawLines);
+	
+		/******************************
+			validate
+		 ******************************/
+		if (list_LogItem == null) {
+			
+			// Log
+			msg_Log = "list_LogItem => null";
+			Log.e("ShowLogActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return null;
+			
+		} else {
+	
+			// Log
+			msg_Log = "list_LogItem => not null"
+						+ "(" + list_LogItem.size() + ")";
+			Log.d("ShowLogActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+	//		CONS.ShowLogActv.list_ShowLog_Files.addAll(list_LogItem);
+			
+			return list_LogItem;
+			
+		}
+		
+	}//get_LogItem_List
+
 }//public class Methods
 
