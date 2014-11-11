@@ -1863,6 +1863,26 @@ public class DB_OCL implements OnClickListener {
 		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
 		
 		int RB_id_Checked = rg.getCheckedRadioButtonId();
+
+		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//		RadioButton rb = (RadioButton) actv.findViewById(RB_id_Checked);
+
+		/******************************
+			validate
+		 ******************************/
+		if (rb == null) {
+			
+			// Log
+			msg_Log = "radio button => null";
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		String rb_Label = rb.getText().toString();
 		
 		////////////////////////////////
 		
@@ -1881,7 +1901,8 @@ public class DB_OCL implements OnClickListener {
 			
 		} else {//if (tokens.length <= 1)
 			
-			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, rb_Label, tokens);
+//			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
 			
 		}//if (tokens.length <= 1)
 		
@@ -1981,7 +2002,8 @@ public class DB_OCL implements OnClickListener {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+			rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
 			
 			Methods.save_Filter(actv, input, RB_id_Checked, rb.getText().toString());
 			

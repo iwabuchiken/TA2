@@ -5690,7 +5690,6 @@ public static String
 	public static List<Memo> 
 	filter_MemoList_Multiple_KW
 	(Activity actv, int id_Checked, String[] tokens) {
-		// TODO Auto-generated method stub
 		
 		////////////////////////////////
 
@@ -5760,40 +5759,48 @@ public static String
 				
 				text = memo.getText();
 					
-//				// Log
-//				msg_Log = "text => " + text;
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-				
 				// reset value
 				contained = true;
 				
+				String token_NOT_Directive = null;
+				
 				for (String token : tokens) {
 				
-//					// Log
-//					msg_Log = "token => " + token;
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-					
-//					text = memo.getText();
+					// "-" directive
+					if (token.startsWith("-")) {
+						
+						token_NOT_Directive = token.substring(1, token.length());
+						
+						// Log
+						msg_Log = String.format(
+								Locale.JAPAN,
+								"token = %s // NOT directive = %s", 
+								token, token_NOT_Directive);
+
+						Log.d("Methods.java"
+								+ "["
+								+ Thread.currentThread().getStackTrace()[2]
+										.getLineNumber() + "]", msg_Log);
+						
+						if (text.contains(token_NOT_Directive)) {
+							
+							// Log
+							msg_Log = "NOT contains => " + text;
+							Log.d("Methods.java"
+									+ "["
+									+ Thread.currentThread().getStackTrace()[2]
+											.getLineNumber() + "]", msg_Log);
+							contained = false;
+							
+							break;
+							
+						}
+						
+					}//if (token.startsWith("-"))
 					
 					if (!text.contains(token)) {
 						
 						contained = false;
-						
-//						// Log
-//						msg_Log = String.format(
-//									"!text.contains(token) => %s, %s", 
-//									text, token);
-//						
-//						Log.d("Methods.java"
-//								+ "["
-//								+ Thread.currentThread().getStackTrace()[2]
-//										.getLineNumber() + "]", msg_Log);
 						
 						break;
 						
@@ -5870,7 +5877,6 @@ public static String
 	public static List<Memo> 
 	filter_MemoList_Multiple_KW
 	(Activity actv, String op_Label, String[] tokens) {
-		// TODO Auto-generated method stub
 		
 		////////////////////////////////
 		
@@ -5934,62 +5940,84 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			String text = null;
+			list_Memos.addAll(Methods._filter_MemoList_Multiple_KW__AND(actv, tokens));
 			
-			boolean contained = true;
-			
-			for (Memo memo : CONS.ShowListActv.list_Memos) {
-				
-				text = memo.getText();
-				
-//				// Log
-//				msg_Log = "text => " + text;
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-				
-				// reset value
-				contained = true;
-				
-				for (String token : tokens) {
-					
-//					// Log
-//					msg_Log = "token => " + token;
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-					
-//					text = memo.getText();
-					
-					if (!text.contains(token)) {
-						
-						contained = false;
-						
+//			String text = null;
+//			
+//			boolean contained = true;
+//			
+//			for (Memo memo : CONS.ShowListActv.list_Memos) {
+//				
+//				text = memo.getText();
+//				
+//				// reset value
+//				contained = true;
+//
+//				String token_NOT_Directive = null;
+//				
+//				for (String token : tokens) {
+//					
+//					// "-" directive
+//					if (token.startsWith("-")) {
+//						
+//						token_NOT_Directive = token.substring(1, token.length());
+//						
 //						// Log
 //						msg_Log = String.format(
-//									"!text.contains(token) => %s, %s", 
-//									text, token);
+//								Locale.JAPAN,
+//								"token = %s // NOT directive = %s", 
+//								token, token_NOT_Directive);
+//
+//						Log.d("Methods.java"
+//								+ "["
+//								+ Thread.currentThread().getStackTrace()[2]
+//										.getLineNumber() + "]", msg_Log);
+//						
+//						if (text.contains(token_NOT_Directive)) {
+//							
+//							// Log
+//							msg_Log = "'NOT' contained => " + text;
+//							Log.d("Methods.java"
+//									+ "["
+//									+ Thread.currentThread().getStackTrace()[2]
+//											.getLineNumber() + "]", msg_Log);
+//							contained = false;
+//							
+//							break;
+//							
+//						}
+//						
+//					}//if (token.startsWith("-"))
+//
+//					else if (!text.contains(token)) {
+////						if (!text.contains(token)) {
+//						
+//						// Log
+//						msg_Log = String.format(
+//								Locale.JAPAN,
+//								"text doesn't contain => %s (%s)", 
+//								token, text);
 //						
 //						Log.d("Methods.java"
 //								+ "["
 //								+ Thread.currentThread().getStackTrace()[2]
 //										.getLineNumber() + "]", msg_Log);
-						
-						break;
-						
-					}
-					
-				}//for (String token : tokens)
-				
-				if (contained == true) {
-					
-					list_Memos.add(memo);
-					
-				}
-				
-			}//for (Memo memo : CONS.ShowListActv.list_Memos)
+//						
+//						contained = false;
+//						
+//						break;
+//						
+//					}
+//					
+//				}//for (String token : tokens)
+//				
+//				if (contained == true) {
+//					
+//					list_Memos.add(memo);
+//					
+//				}
+//				
+//			}//for (Memo memo : CONS.ShowListActv.list_Memos)
 			
 		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_or))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
 //		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
@@ -6050,6 +6078,100 @@ public static String
 		
 	}//filter_MemoList_Multiple_KW
 	
+	private static List<Memo> 
+	_filter_MemoList_Multiple_KW__AND
+	(Activity actv, String[] tokens) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+				
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();		
+		
+		String text = null;
+		
+		boolean contained = true;
+		
+		for (Memo memo : CONS.ShowListActv.list_Memos) {
+			
+			text = memo.getText();
+			
+			// reset value
+			contained = true;
+
+			String token_NOT_Directive = null;
+			
+			for (String token : tokens) {
+				
+				// "-" directive
+				if (token.startsWith("-")) {
+					
+					token_NOT_Directive = token.substring(1, token.length());
+					
+					// Log
+					msg_Log = String.format(
+							Locale.JAPAN,
+							"token = %s // NOT directive = %s", 
+							token, token_NOT_Directive);
+
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					if (text.contains(token_NOT_Directive)) {
+						
+						// Log
+						msg_Log = "'NOT' contained => " + text;
+						Log.d("Methods.java"
+								+ "["
+								+ Thread.currentThread().getStackTrace()[2]
+										.getLineNumber() + "]", msg_Log);
+						contained = false;
+						
+						break;
+						
+					}
+					
+				}//if (token.startsWith("-"))
+
+				else if (!text.contains(token)) {
+//					if (!text.contains(token)) {
+					
+					// Log
+					msg_Log = String.format(
+							Locale.JAPAN,
+							"text doesn't contain => %s (%s)", 
+							token, text);
+					
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber() + "]", msg_Log);
+					
+					contained = false;
+					
+					break;
+					
+				}
+				
+			}//for (String token : tokens)
+			
+			if (contained == true) {
+				
+				list_Memos.add(memo);
+				
+			}
+			
+		}//for (Memo memo : CONS.ShowListActv.list_Memos)
+
+		return list_Memos;
+		
+	}//_filter_MemoList_Multiple_KW__AND
+
 	public static Memo 
 	find_Memo_from_ListView
 	(Activity actv, long db_Id) {
