@@ -790,17 +790,17 @@ public class CONS {
 		
 		public static float dflt_Audio_Volume = 1.0f;
 		
-		public static class Clip {
-			
-			public static int dialog_Item		= R.raw.tap_select04_x0_183;
-			
-//			public static int dialog_Item_UnderConstruction	= 
-//													R.raw.tap_select04_x0_183;
-			
-			public static int dialog_Cancel		= R.raw.tap_hightlight_x0_362;
-//			public static int dialog_Cancel		= R.raw.tap_x0_094;
-			
-		}
+//		public static class Clip {
+//			
+//			public static int dialog_Item		= R.raw.tap_select04_x0_183;
+//			
+////			public static int dialog_Item_UnderConstruction	= 
+////													R.raw.tap_select04_x0_183;
+//			
+//			public static int dialog_Cancel		= R.raw.tap_hightlight_x0_362;
+////			public static int dialog_Cancel		= R.raw.tap_x0_094;
+//			
+//		}
 		
 	}
 	

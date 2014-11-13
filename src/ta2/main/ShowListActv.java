@@ -270,6 +270,13 @@ public class ShowListActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
+			////////////////////////////////
+
+			// reset
+
+			////////////////////////////////
+			CONS.ShowListActv.BACK_FROM_X_ACTV = CONS.Intent.dflt_IntExtra_value;
+			
 			return true;
 			
 		} else if (CONS.ShowListActv.BACK_FROM_X_ACTV ==
@@ -280,8 +287,40 @@ public class ShowListActv extends ListActivity {
 			Log.d("ShowListActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
+
+			////////////////////////////////
+
+			// reset
+
+			////////////////////////////////
+			CONS.ShowListActv.BACK_FROM_X_ACTV = CONS.Intent.dflt_IntExtra_value;
+
+			return true;
+
+		}
+
+		////////////////////////////////
+
+		// keep the existing list
+
+		////////////////////////////////
+		if (CONS.ShowListActv.list_Memos != null) {
+			
+			// Log
+			msg_Log = "list already exists => kept";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 			
 			return true;
+			
+		} else {
+			
+			// Log
+			msg_Log = "list doesn't exist => building a new one...";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 
 		}
 		

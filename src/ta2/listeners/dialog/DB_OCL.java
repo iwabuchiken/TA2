@@ -244,7 +244,7 @@ public class DB_OCL implements OnClickListener {
 
 			if (val == true) {
 				
-				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+//				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
 				
 			}
 
@@ -270,7 +270,7 @@ public class DB_OCL implements OnClickListener {
 
 			if (val == true) {
 				
-				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+//				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
 				
 			}
 			
@@ -293,7 +293,7 @@ public class DB_OCL implements OnClickListener {
 
 			if (val == true) {
 				
-				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+//				Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
 				
 			}
 

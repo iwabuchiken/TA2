@@ -571,7 +571,7 @@ public class DOI_CL implements OnItemClickListener {
 		//		at a time
 		if (val == true) {
 			
-			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Item);
+//			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Item);
 			
 		}
 		

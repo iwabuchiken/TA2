@@ -990,7 +990,7 @@ public class BO_CL implements OnClickListener {
 		//		at a time
 		if (val == true) {
 			
-			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
+//			Methods.start_SE_new(actv, CONS.Audio.Clip.dialog_Cancel);
 			
 		}
 		
