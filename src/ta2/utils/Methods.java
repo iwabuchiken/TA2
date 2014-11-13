@@ -958,6 +958,21 @@ public static String
 	}//start_Activity_PrefActv
 
 	public static void 
+	start_Activity_PrefActv__ForResult
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, PrefActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivityForResult(i, 0);
+//		actv.startActivity(i);
+		
+	}//start_Activity_PrefActv
+	
+	public static void 
 	start_Activity_MemoActv
 	(Activity actv) {
 		// TODO Auto-generated method stub
@@ -3230,6 +3245,35 @@ public static String
 		
 	}//start_Activity_MemoEditActv
 
+	public static void 
+	start_Activity_MemoEditActv__ForResult
+	(Activity actv, Dialog d1, Memo memo) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// setup: intent
+		
+		////////////////////////////////
+		Intent i = new Intent();
+		
+		i.setClass(actv, MemoEditActv.class);
+		
+		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivityForResult(i, 0);
+//		actv.startActivity(i);
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//start_Activity_MemoEditActv
+	
 	/******************************
 		Used from ShowListActv
 	 ******************************/

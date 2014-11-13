@@ -2,6 +2,7 @@ package ta2.main;
 
 import ta2.utils.CONS;
 import ta2.utils.Methods;
+//import ta2.utils.CONS.Intent;
 import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.content.Intent;
 
 public class PrefActv extends PreferenceActivity 
 					implements OnSharedPreferenceChangeListener{
@@ -255,7 +257,18 @@ public class PrefActv extends PreferenceActivity
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		super.onBackPressed();
+//		super.onBackPressed();
+		
+//		Intent i = new Intent();
+//		
+//		this.setResult(CONS.Intent.RESULT_CODE_PREF_ACTIVE, i);
+		this.setResult(CONS.Intent.RESULT_CODE_PREF_ACTIVE);
+		
+		// Log
+		String msg_Log = "result set => " + CONS.Intent.RESULT_CODE_PREF_ACTIVE;
+		Log.d("PrefActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		this.finish();
 		

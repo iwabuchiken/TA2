@@ -495,7 +495,15 @@ public class BO_CL implements OnClickListener {
 		// finish
 
 		////////////////////////////////
+		actv.setResult(CONS.Intent.RESULT_CODE_MEMO_EDIT_ACTIVE);
+		
 		actv.finish();
+		
+		// Log
+		String msg_Log = "result => set: " + CONS.Intent.RESULT_CODE_MEMO_EDIT_ACTIVE;
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		actv.overridePendingTransition(0, 0);
 

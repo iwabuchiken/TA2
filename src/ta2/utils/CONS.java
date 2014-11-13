@@ -75,6 +75,10 @@ public class CONS {
 		
 		public final static int RESULT_CODE_SEE_BOOKMARKS_CANCEL = 0;
 		
+		public final static int RESULT_CODE_PREF_ACTIVE = 2;
+		
+		public final static int RESULT_CODE_MEMO_EDIT_ACTIVE = 3;
+		
 		////////////////////////////////
 
 		// PlayActv
@@ -559,6 +563,13 @@ public class CONS {
 		public static int list_Pos_Prev = -1;
 		
 		public final static int dialog_LV_Height_Ratio = 60;	// out of 100
+		
+		////////////////////////////////
+
+		// intent-related
+
+		////////////////////////////////
+		public static int BACK_FROM_X_ACTV;
 		
 	}//ShowListActv
 	
