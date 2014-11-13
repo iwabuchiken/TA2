@@ -264,7 +264,8 @@ public class Adp_MemoList extends ArrayAdapter<Memo> {
 			if (pref_Pos == inList_Pos) {
 				
 				tv_Memo.setBackgroundColor(
-							((Activity)con).getResources().getColor(R.color.gold2));
+							((Activity)con).getResources().getColor(R.color.yellow_pale_dark));
+//				((Activity)con).getResources().getColor(R.color.gold2));
 				
 			} else {
 				

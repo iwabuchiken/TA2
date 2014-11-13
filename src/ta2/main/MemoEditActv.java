@@ -64,7 +64,7 @@ public class MemoEditActv extends Activity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		super.onBackPressed();
+//		super.onBackPressed();
 
 //		////////////////////////////////
 //
@@ -78,6 +78,8 @@ public class MemoEditActv extends Activity {
 		// finish
 
 		////////////////////////////////
+		this.setResult(CONS.Intent.RESULT_CODE_MEMO_EDIT_ACTIVE);
+		
 		this.finish();
 		
 		overridePendingTransition(0, 0);

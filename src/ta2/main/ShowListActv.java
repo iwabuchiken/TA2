@@ -20,6 +20,7 @@ import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -254,6 +255,35 @@ public class ShowListActv extends ListActivity {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
+		
+		////////////////////////////////
+
+		// back from X actv
+
+		////////////////////////////////
+		if (CONS.ShowListActv.BACK_FROM_X_ACTV ==
+				CONS.Intent.RESULT_CODE_PREF_ACTIVE) {
+	
+			// Log
+			msg_Log = "back from PrefActv => list kept";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+			
+		} else if (CONS.ShowListActv.BACK_FROM_X_ACTV ==
+				CONS.Intent.RESULT_CODE_MEMO_EDIT_ACTIVE) {
+
+			// Log
+			msg_Log = "back from MemoEditActv => list kept";
+			Log.d("ShowListActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return true;
+
+		}
 		
 		////////////////////////////////
 
@@ -855,7 +885,8 @@ public class ShowListActv extends ListActivity {
 	private void case_OPT_Settings() {
 		// TODO Auto-generated method stub
 		
-		Methods.start_Activity_PrefActv(this);
+		Methods.start_Activity_PrefActv__ForResult(this);
+//		Methods.start_Activity_PrefActv(this);
 		
 	}
 
@@ -881,6 +912,36 @@ public class ShowListActv extends ListActivity {
 //		overridePendingTransition(0, 0);
 		
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected void 
+	onActivityResult
+	(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		// Log
+		String msg_Log = "onActivityResult";
+		Log.i("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		// Log
+		msg_Log = "resultCode => " + resultCode
+				+ "/"
+				+ "requestCode => " + requestCode;
+		Log.d("ShowListActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		////////////////////////////////
+
+		// set: result code
+
+		////////////////////////////////
+		CONS.ShowListActv.BACK_FROM_X_ACTV = resultCode;
+		
 	}
 
 }
