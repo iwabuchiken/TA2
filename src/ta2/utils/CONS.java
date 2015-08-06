@@ -130,15 +130,23 @@ public class CONS {
 		// Do not hardcode "/data/"; use Context.getFilesDir().getPath()
 //		public static String dPath_dbFile = "/data/data/cm7.main/databases";
 		
-		public final static String dPath_Data_Root = "/mnt/sdcard-ext/ta2_data";
+		public static String dPath_Data_Root = "/mnt/sdcard-ext/ta2_data";
+//		public final static String dPath_Data_Root = "/mnt/sdcard-ext/ta2_data";
+		
+		public final static String modelname_IS13SH = "IS13SH";
 		
 		public static String dPath_dbFile_Backup = dPath_Data_Root + "/ta2_backup";
 		
-		public final static String dPath_Data = dPath_Data_Root + "/data";
+		public static String dPath_Data = dPath_Data_Root + "/data";
 		
-		public final static String dPath_Log = dPath_Data_Root + "/log";
+		public static String dPath_Log = dPath_Data_Root + "/log";
 		
-		public final static String dPath_Audio = dPath_Data_Root + "/audio";
+		public static String dPath_Audio = dPath_Data_Root + "/audio";
+//		public final static String dPath_Data = dPath_Data_Root + "/data";
+//		
+//		public final static String dPath_Log = dPath_Data_Root + "/log";
+//		
+//		public final static String dPath_Audio = dPath_Data_Root + "/audio";
 		
 		public final static String fname_Audio_Ext = ".wav";
 		

@@ -3,11 +3,11 @@ package ta2.main;
 import java.util.Locale;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -40,26 +40,26 @@ public class MainActv extends Activity {
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", log_msg);
 		
-		////////////////////////////////
-
-		// setup: listeners
-
-		////////////////////////////////
-		_Setup_Listeners();
-		
-		////////////////////////////////
-
-		// auto bk
-
-		////////////////////////////////
-		this._Setup_AutoBK();
-		
-		////////////////////////////////
-
-		// tests
-
-		////////////////////////////////
-		do_test();
+//		////////////////////////////////
+//
+//		// setup: listeners
+//
+//		////////////////////////////////
+//		_Setup_Listeners();
+//		
+//		////////////////////////////////
+//
+//		// auto bk
+//
+//		////////////////////////////////
+//		this._Setup_AutoBK();
+//		
+//		////////////////////////////////
+//
+//		// tests
+//
+//		////////////////////////////////
+//		do_test();
 		
 	}//onStart
 
@@ -489,8 +489,74 @@ public class MainActv extends Activity {
 				+ "]", log_msg);
 		
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-         
         
+        ///////////////////////////////////
+		//
+		// test
+		//
+		///////////////////////////////////
+        // Log
+		String msg_Log;
+		
+		//REF model name http://stackoverflow.com/questions/7071281/get-android-device-name answered Aug 15 '11 at 22:07
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"model name => %s", android.os.Build.MODEL
+				);
+		
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+        
+		///////////////////////////////////
+		//
+		// adjust: adjust paths by model names
+		//
+		///////////////////////////////////
+		// data root path
+		if (android.os.Build.MODEL.equals(CONS.DB.modelname_IS13SH)) {
+//			if (android.os.Build.MODEL == CONS.DB.modelname_IS13SH) {
+
+			CONS.DB.dPath_Data_Root = Environment.getExternalStorageDirectory().getPath()
+										+ "/ta2_data";
+			
+			CONS.DB.dPath_dbFile_Backup = CONS.DB.dPath_Data_Root + "/ta2_backup";
+			
+			CONS.DB.dPath_Data = CONS.DB.dPath_Data_Root + "/data";
+			
+			CONS.DB.dPath_Log = CONS.DB.dPath_Data_Root + "/log";
+			
+			CONS.DB.dPath_Audio = CONS.DB.dPath_Data_Root + "/audio";
+ 
+					
+//			CONS.DB.dPath_Data_Root = "/mnt/sdcard/ta2_data";
+
+			// Log
+			//String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"data root path => modified: %s", CONS.DB.dPath_Data_Root
+					);
+			
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			// Log
+			//String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"Environment.getExternalStorageDirectory().getPath()  => %s", Environment.getExternalStorageDirectory().getPath() 
+					);
+			
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (android.os.Build.MODEL == "")
+		
 	}//protected void onCreate(Bundle savedInstanceState)
 
 	@Override

@@ -2368,6 +2368,25 @@ public static String
 		
 		File f_dir = new File(src_dir);
 		
+		// validate exist
+		if (!f_dir.exists()) {
+
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"dir => doesn't exist: %s", f_dir.getAbsolutePath()
+					);
+			
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+
+		}//if (!f_dir.exists())
+		
 		File[] src_dir_files = f_dir.listFiles();
 		
 		// If no files in the src dir, quit the method
