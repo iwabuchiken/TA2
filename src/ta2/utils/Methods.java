@@ -5614,6 +5614,69 @@ public static String
 		filter memo list with a single keyword
 	 ******************************/
 	public static List<Memo>
+	filter_MemoList_Single_KW__Audio_NoMemo
+	(Activity actv, int id_Checked, EditText et) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<Memo> list_Memos = new ArrayList<Memo>();
+		
+		String regex = "^@[\\d-_]+\\.wav$";
+//		String regex = "@[\\d-_]+\\.wav";
+		
+		Pattern p = Pattern.compile(regex);
+		
+		Matcher m = null;
+//		Matcher m = p.matcher(fname);
+			
+		String text = null;
+			
+		for (Memo memo : CONS.ShowListActv.list_Memos) {
+			
+			text = memo.getText();
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"text = '%s'", text
+					);
+			
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			m = p.matcher(text);
+			
+			if (m.find()) {
+//				if (text.contains(keyword)) {
+				
+				list_Memos.add(memo);
+				
+			}
+			
+		}//for (Memo memo : CONS.ShowListActv.list_Memos)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Memos;
+		
+	}//filter_MemoList_Single_KW__Audio_NoMemo
+	
+	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<Memo>
 	filter_MemoList_Single_KW
 	(Activity actv, int id_Checked, String kw) {
 		// TODO Auto-generated method stub

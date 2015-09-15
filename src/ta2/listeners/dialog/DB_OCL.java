@@ -2,6 +2,7 @@ package ta2.listeners.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1891,13 +1892,49 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		if (tokens.length <= 1) {
 			
-			// Log
-			msg_Log = "tokens.length <= 1";
-			Log.d("DB_OCL.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+			///////////////////////////////////
+			//
+			// autio files, no-memo
+			//
+			///////////////////////////////////
+			if (tokens[0].equals(CONS.ShowListActv.AUDIO_NO_MEMO)) {
+//				if (tokens[0].equals("@-")) {
+				
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"tokens[0] => %s", CONS.ShowListActv.AUDIO_NO_MEMO
+						);
+				
+				Log.i("DB_OCL.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				list_Memos = Methods.filter_MemoList_Single_KW__Audio_NoMemo(
+								actv, RB_id_Checked, et);
+
+			} else {//if (tokens[0].equals("@-"))
+				
+				// Log
+				msg_Log = "tokens.length <= 1";
+				Log.d("DB_OCL.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+				
+			}//if (tokens[0].equals("@-"))
 			
-			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+//			// Log
+//			msg_Log = "tokens.length <= 1";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+			
 			
 		} else {//if (tokens.length <= 1)
 			

@@ -37,10 +37,15 @@ svn co http://techbooster.googlecode.com/svn/trunk/audioTrack/
 git svn clone -s http://server:port/repo/project
 
 [sqlite3]
+sqlite3 C:\WORKS\WS\Eclipse_Luna\TA2\ta2_backup_20150905_155341.bk
+
 .explain on
 .tables
 
-pragma table_info(shopping_item);
-pragma table_info(stores);
+pragma table_info(ta2);
 
 SELECT 
+
+[console]
+javac Test.java
+java Test

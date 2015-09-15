@@ -18,7 +18,6 @@ import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.main.R;
 import ta2.tasks.Task_AudioTrack;
-
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.AudioFormat;
@@ -571,6 +570,8 @@ public class CONS {
 		public static int list_Pos_Prev = -1;
 		
 		public final static int dialog_LV_Height_Ratio = 60;	// out of 100
+
+		public static final String AUDIO_NO_MEMO = "@-";
 		
 		////////////////////////////////
 
