@@ -64,6 +64,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -5615,7 +5616,8 @@ public static String
 	 ******************************/
 	public static List<Memo>
 	filter_MemoList_Single_KW__Audio_NoMemo
-	(Activity actv, int id_Checked, EditText et) {
+	(Activity actv, int id_Checked) {
+//		(Activity actv, int id_Checked, EditText et) {
 		// TODO Auto-generated method stub
 		
 		////////////////////////////////
@@ -5627,7 +5629,8 @@ public static String
 		
 		List<Memo> list_Memos = new ArrayList<Memo>();
 		
-		String regex = "^@[\\d-_]+\\.wav$";
+		String regex = "^@[\\d-_]+\\.wav $";
+//		String regex = "^@[\\d-_]+\\.wav$";
 //		String regex = "@[\\d-_]+\\.wav";
 		
 		Pattern p = Pattern.compile(regex);
@@ -6654,15 +6657,49 @@ public static String
 		
 		////////////////////////////////
 		if (tokens.length <= 1) {
+
+			if (tokens[0].equals(CONS.ShowListActv.AUDIO_NO_MEMO)) {
+//				if (tokens[0].equals("@-")) {
+				
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"tokens[0] => %s", CONS.ShowListActv.AUDIO_NO_MEMO
+						);
+				
+				Log.i("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				list_Memos = Methods.filter_MemoList_Single_KW__Audio_NoMemo(
+								actv, RB_id_Checked);
+//				actv, RB_id_Checked, tokens[0]);
+//				actv, RB_id_Checked, et);
+
+			} else {//if (tokens[0].equals("@-"))
+				
+				// Log
+				msg_Log = "tokens.length <= 1";
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				list_Memos = Methods.filter_MemoList_Single_KW(
+										actv, RB_id_Checked, tokens[0]);
+//				list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+				
+			}//if (tokens[0].equals("@-"))
 			
-			// Log
-			msg_Log = "tokens.length <= 1";
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			list_Memos = Methods.filter_MemoList_Single_KW(actv, op_Label, tokens[0]);
-//			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
+//			// Log
+//			msg_Log = "tokens.length <= 1";
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			list_Memos = Methods.filter_MemoList_Single_KW(actv, op_Label, tokens[0]);
+////			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, tokens[0]);
 			
 		} else {//if (tokens.length <= 1)
 			

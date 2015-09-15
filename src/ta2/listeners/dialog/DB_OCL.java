@@ -1913,7 +1913,8 @@ public class DB_OCL implements OnClickListener {
 						+ "]", msg_Log);
 				
 				list_Memos = Methods.filter_MemoList_Single_KW__Audio_NoMemo(
-								actv, RB_id_Checked, et);
+								actv, RB_id_Checked);
+//				actv, RB_id_Checked, et);
 
 			} else {//if (tokens[0].equals("@-"))
 				
