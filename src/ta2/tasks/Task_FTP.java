@@ -22,9 +22,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import ta2.main.R;
 import ta2.utils.CONS;
+import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -331,6 +331,18 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 			if(d2 != null) d2.dismiss();
 			if(d1 != null) d1.dismiss();
 			
+			///////////////////////////////////
+			//
+			// save record
+			//
+			///////////////////////////////////
+			Methods.save_UploadHistory(actv);
+//			String tname = CONS.DB.tname_UploadHistory;
+//			
+//			
+//			
+//			DBUtils.insert_Data_generic(actv, tname, val);
+
 			break;
 
 		case 0:
@@ -383,10 +395,10 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 //				colorID,
 //				CONS.Admin.dflt_MessageDialog_Length);
 		
-		// Log
-		Log.d("Task_FTP.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg);
+//		// Log
+//		Log.d("Task_FTP.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg);
 
 	}//_onPostExecute__Upload_DB
 
