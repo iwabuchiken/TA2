@@ -4381,16 +4381,43 @@ public class DBUtils extends SQLiteOpenHelper{
 				" INTEGER PRIMARY KEY AUTOINCREMENT, ");
 		
 		// created_at, modified_at
-		sb.append("created_at TEXT, modified_at TEXT, ");
-	//	sb.append("created_at INTEGER, modified_at INTEGER, ");
+		if (columns != null && (columns.length > 0)) {
+			
+			sb.append("created_at TEXT, modified_at TEXT, ");
+			
+		} else {
 		
-		int i = 0;
-		for (i = 0; i < columns.length - 1; i++) {
-			sb.append(columns[i] + " " + types[i] + ", ");
-		}//for (int i = 0; i < columns.length - 1; i++)
+			sb.append("created_at TEXT, modified_at TEXT ");
+			
+		}
 		
-		sb.append(columns[i] + " " + types[i]);
+//		sb.append("created_at TEXT, modified_at TEXT, ");
+//	//	sb.append("created_at INTEGER, modified_at INTEGER, ");
 		
+		///////////////////////////////////
+		//
+		// build: string
+		//
+		///////////////////////////////////
+		if (columns != null && (columns.length > 0)) {
+
+			int i = 0;
+			for (i = 0; i < columns.length - 1; i++) {
+				sb.append(columns[i] + " " + types[i] + ", ");
+			}//for (int i = 0; i < columns.length - 1; i++)
+			
+			sb.append(columns[i] + " " + types[i]);
+			
+//			sb.append(");");
+
+		}//if (columns != null && (columns.length > 0))
+//		int i = 0;
+//		for (i = 0; i < columns.length - 1; i++) {
+//			sb.append(columns[i] + " " + types[i] + ", ");
+//		}//for (int i = 0; i < columns.length - 1; i++)
+//		
+//		sb.append(columns[i] + " " + types[i]);
+//		
 		sb.append(");");
 		
 		// Log
@@ -4407,7 +4434,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			wdb.execSQL(sb.toString());
 			
 			// Log
-			Log.d(actv.getClass().getName() + 
+			Log.d("DBUtils.java" + 
 					"["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table created => " + tableName);
@@ -4419,7 +4446,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		} catch (SQLException e) {
 			
 			// Log
-			Log.e(actv.getClass().getName() + 
+			Log.e("DBUtils.java" + 
 					"[" + Thread.currentThread().getStackTrace()[2].getLineNumber() + "]", 
 					"Exception => " + e.toString());
 			

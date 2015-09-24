@@ -217,13 +217,19 @@ public class DB_OCL implements OnClickListener {
 		boolean val;
 		
 		// Log
-		Log.d("DialogButtonOnClickListener.java" + "["
+		Log.d("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "tag_name.name()=" + tag_name.name());
 		
 		//
 		switch (tag_name) {
 		
+		case DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK://-------------------
+			
+			case_DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK();
+			
+			break;
+			
 		case DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK://-------------------
 		
 			case_DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK();
@@ -573,6 +579,153 @@ public class DB_OCL implements OnClickListener {
 		
 			
 	}//case_DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK
+	
+	private void 
+	case_DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK() {
+		// TODO Auto-generated method stub
+		
+		int res;
+//		boolean res_b;
+		
+		////////////////////////////////
+		
+		// drop table
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_UploadHistory;
+		
+		res = DBUtils.dropTable_2(actv, tname);
+		
+//		-1 Table doesn't exist
+//		-2 SQLException
+//		1 Table dropped
+		
+		if (res == -2) {
+
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+
+			///////////////////////////////////
+			//
+			// message
+			//
+			///////////////////////////////////
+			String msg = "Table can't be dropped (SQLException): " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+		}
+		
+		//<<<<<<< HEAD
+		// create table
+		
+		////////////////////////////////
+		res = DBUtils.createTable_static(
+				actv, 
+				tname, 
+				new String[]{}, 
+				new String[]{});
+//		CONS.DB.col_names_FilterHistory, 
+//		CONS.DB.col_types_FilterHistory);
+		
+		////////////////////////////////
+		
+		// report
+		
+		////////////////////////////////
+		String msg = null;
+		int colorID = 0;
+		
+		switch(res) {
+		
+//		-1 Table exists
+//		-2 SQLException
+//		1 Table created
+		
+		case 1:
+			
+			msg = "Table created: " + tname
+			;
+			colorID = R.color.green4;
+			
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+			
+			break;
+			
+		case -1:
+			
+			msg = "Table exists: " + tname;
+			colorID = R.color.gold2;
+			
+//			if(d2 != null) d2.dismiss();
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			
+			////////////////////////////////
+			
+			// message
+			
+			////////////////////////////////
+			Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID);
+			
+			return;
+//			break;
+			
+		case -2:
+			
+			msg = "SQLException: " + tname;
+			colorID = R.color.red;
+			
+//			if(d2 != null) d2.dismiss();
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			
+			break;
+			
+		default:
+			
+			msg = "Unknown result in creating a table => " + res;
+			colorID = R.color.gold2;
+			
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			
+		}
+
+//		String msg = "Table can't be dropped (SQLException): " + tname;
+		Methods_dlg.dlg_ShowMessage(actv, msg, colorID);
+//		Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+
+		
+	}//case_DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK
 	
 //=======
 	private void
