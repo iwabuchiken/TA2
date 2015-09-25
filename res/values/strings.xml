@@ -39,6 +39,8 @@
     	
     	<string name="commons_lbl_edit_memo">Edit memo</string>
     
+    	<string name="commons_lbl_copy_to_clipboard">Copy to clipboard</string>
+    
     <!-- labels for templates -->
 	    <string name="dlg_tmpl_confirm_simple_msg_delete_file">
        									Delete file, too</string>

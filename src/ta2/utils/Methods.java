@@ -53,7 +53,9 @@ import android.media.MediaRecorder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -63,6 +65,9 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+
 
 
 
@@ -7351,6 +7356,43 @@ public static String
 				+ "]", msg_Log);
 
 	}//save_UploadHistory
+
+	public static void 
+	copy_2_Clipboard(Activity actv, Memo memo) {
+		// TODO Auto-generated method stub
+		
+		//ref http://stackoverflow.com/questions/9027629/android-clipboard-code-that-works-on-all-api-levels answered Jan 27 '12 at 0:58
+		//ref https://github.com/commonsguy/cw-advandroid/blob/master/SystemServices/ClipIP/src/com/commonsware/android/clipip/IPClipper.java "cm.setText(addr);"
+		ClipboardManager clipboard = 
+					(ClipboardManager) ((Context)actv).getSystemService(
+													Context.CLIPBOARD_SERVICE); 
+		
+		clipboard.setText(memo.getText());
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"clipped"
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// vibrate
+		//
+		///////////////////////////////////
+		Vibrator vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+		
+		vib.vibrate(CONS.Admin.vibLength_click);
+		
+//		ClipData clip = ClipData.newPlainText("label", "Text to copy");
+		
+	}//copy_2_Clipboard
 
 }//public class Methods
 

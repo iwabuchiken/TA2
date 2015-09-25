@@ -1,6 +1,8 @@
 package ta2.listeners.dialog;
 
 
+import java.util.Locale;
+
 import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.Memo;
@@ -360,6 +362,13 @@ public class DOI_CL implements OnItemClickListener {
 			
 			Methods.start_Activity_PlatyActv(actv, memo);
 //			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.commons_lbl_copy_to_clipboard))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			d1.dismiss();
+
+			Methods.copy_2_Clipboard(actv, memo);
 			
 		} else if (li.getText().equals(actv.getString(
 				R.string.generic_tv_view))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))

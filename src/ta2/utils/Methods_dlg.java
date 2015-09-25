@@ -2622,11 +2622,19 @@ public class Methods_dlg {
 						.setIconID(R.drawable.menu_icon_admin_32x32)
 						.setTextColor_ID(R.color.blue1)
 						.build());
+		
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
 								R.string.generic_tv_delete))
 						.setIconID(R.drawable.menu_icon_admin_32x32_brown)
 						.setTextColor_ID(R.color.black)
+						.build());
+		
+		list.add(new ListItem.Builder()
+				.setText(actv.getString(
+						R.string.commons_lbl_copy_to_clipboard))
+						.setIconID(R.drawable.menu_icon_admin_32x32_purple)
+						.setTextColor_ID(R.color.purple4)
 						.build());
 		
 		////////////////////////////////
