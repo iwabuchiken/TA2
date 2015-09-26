@@ -72,6 +72,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -111,6 +112,7 @@ import ta2.main.ShowListActv;
 import ta2.main.ShowLogActv;
 import ta2.services.Service_ShowProgress;
 import ta2.tasks.Task_AudioTrack;
+import ta2.tasks.Task_FTP;
 
 // REF=> http://commons.apache.org/net/download_net.cgi
 //REF=> http://www.searchman.info/tips/2640.html
@@ -7417,14 +7419,14 @@ public static String
 		// Log
 		String msg_Log;
 		
-		msg_Log = String.format(
-				Locale.JAPAN,
-				"latest_str = %s", latest_str
-				);
-		
-		Log.i("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"latest_str = %s", latest_str
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 
 		///////////////////////////////////
 		//
@@ -7438,21 +7440,21 @@ public static String
 		// Log
 //		String msg_Log;
 		
-		msg_Log = String.format(
-				Locale.JAPAN,
-				"time is => %d / %d / %d -- %d : %d : %d . %d", 
-				time_Tokens[0],
-				time_Tokens[1],
-				time_Tokens[2],
-				time_Tokens[3],
-				time_Tokens[4],
-				time_Tokens[5],
-				time_Tokens[6]
-				);
-		
-		Log.i("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"time is => %d / %d / %d -- %d : %d : %d . %d", 
+//				time_Tokens[0],
+//				time_Tokens[1],
+//				time_Tokens[2],
+//				time_Tokens[3],
+//				time_Tokens[4],
+//				time_Tokens[5],
+//				time_Tokens[6]
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 
 		///////////////////////////////////
 		//
@@ -7482,6 +7484,7 @@ public static String
 		int schedule_span = 1;	// auto-uplad every 1 day
 //		int schedule_span = 3;	// auto-uplad every 3 days
 		
+		//ref http://stackoverflow.com/questions/912762/get-previous-day answered May 26 '09 at 21:10
 		sch.add(Calendar.DATE, schedule_span);
 //		sch.add(Calendar.DATE, 3);
 		
@@ -7505,7 +7508,7 @@ public static String
 				"latest = %s | schedule = %s | now = %s", latest_str, sch_str, now_str
 				);
 		
-		Log.i("Methods.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
@@ -7514,20 +7517,37 @@ public static String
 		// compare
 		//
 		///////////////////////////////////
-		if (now_str.compareToIgnoreCase(sch_str) >= 0) {
+		boolean judge_Upload = (now_str.compareToIgnoreCase(sch_str) >= 0);
+		
+		if (judge_Upload == true) {
+//			if (now_str.compareToIgnoreCase(sch_str) >= 0) {
 			
 			// Log
 //			String msg_Log;
 			
 			msg_Log = String.format(
 					Locale.JAPAN,
-					"auto => yes: now is larger than schedule"
+					"auto => yes: now is larger than schedule; auto upload starts..."
 					);
 			
 			Log.i("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
+
+			///////////////////////////////////
+			//
+			// upload
+			//
+			///////////////////////////////////
+			Task_FTP task = new Task_FTP(
+							actv,
+							CONS.Remote.FtpType.DB_FILE.toString(),
+							false
+							);
+			//cb.isChecked());
 			
+			task.execute(CONS.Remote.FtpType.DB_FILE.toString());
+
 		} else {//if (latest_str.compareToIgnoreCase(sch_str))
 			
 			// Log
@@ -7535,7 +7555,7 @@ public static String
 			
 			msg_Log = String.format(
 					Locale.JAPAN,
-					"auto => no"
+					"auto => no; auto-upload --> not starting"
 					);
 			
 			Log.i("Methods.java" + "["
@@ -7543,29 +7563,22 @@ public static String
 					+ "]", msg_Log);
 			
 		}//if (latest_str.compareToIgnoreCase(sch_str))
-		
-		
-//		Calendar cal = Calendar.getInstance();
-//	//    cal.setTime(date);
-//	    cal.add(Calendar.DAY_OF_MONTH, -1);
-//		
-//	    String now = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
-//	    
-//	    String prev = Methods.conv_MillSec_to_TimeLabel(cal.getTime().getTime());
-//	    
-//	    // Log
-//		String msg_Log;
-//		
-//		msg_Log = String.format(
-//				Locale.JAPAN,
-//				"now = %s | prev = %s", now, prev
-//				);
-//		
-//		Log.i("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
 
-	}
+//		///////////////////////////////////
+//		//
+//		// upload
+//		//
+//		///////////////////////////////////
+//		Task_FTP task = new Task_FTP(
+//						actv,
+//						CONS.Remote.FtpType.DB_FILE.toString()
+//						);
+//		//cb.isChecked());
+//		
+//		task.execute(CONS.Remote.FtpType.DB_FILE.toString());
+
+		
+	}//auto_Uplad_DB
 
 	private static int[] 
 	conv_TimeLabel_2_TimeTokens

@@ -52,6 +52,8 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 	private Dialog d2;
 
 	private Dialog d3;
+
+	private boolean messaging = true;
 	
 	public Task_FTP(Activity actv) {
 		
@@ -116,6 +118,22 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		this.ftp_Type	= ftp_Type;
 		
 	}
+
+	/*******************************
+	 * @param messaging => set <b><i>false</i></b> NOT to show messages<br>
+	 * 						==> default is <b><i>true</i></b>
+	 *******************************/
+	public Task_FTP(Activity actv, String ftp_Type, boolean messaging) {
+		// TODO Auto-generated constructor stub
+
+		this.actv	= actv;
+		
+		this.ftp_Type	= ftp_Type;
+
+		this.messaging 	= messaging;
+		
+	}//Task_FTP(Activity actv, String ftp_Type)
+	
 
 	/******************************
 		Used when: Uploading DB file
@@ -385,10 +403,20 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		Log.d("Task_FTP.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-		Methods_dlg.dlg_ShowMessage(
-						actv, 
-						msg,
-						colorID);
+		
+		if (this.messaging == true) {
+
+			Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID);
+
+		}//if (this.messaging == true)
+		
+//		Methods_dlg.dlg_ShowMessage(
+//				actv, 
+//				msg,
+//				colorID);
 //		Methods_dlg.dlg_ShowMessage_Duration(
 //				actv, 
 //				msg,
@@ -418,33 +446,37 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		
 		////////////////////////////////
 
-		// dispatch
+		// dispatch: show message
 
 		////////////////////////////////
-		if (this.ftp_Type.equals(CONS.Remote.FtpType.IMAGE.toString())) {
-//			if (ftp_Type[0].equals(CONS.Remote.FtpType.IMAGE.toString())) {
-			
-//			msg = "Uploading... " + ti.getFile_name();
-//			colorID = R.color.green4;
-			
-		} else if (this.ftp_Type.equals(CONS.Remote.FtpType.DB_FILE.toString())) {
-//		} else if (ftp_Type[0].equals(CONS.Remote.FtpType.DB_FILE.toString())) {
-			
-			msg = "Uploading db file... ";
-			colorID = R.color.green4;
-			
-		} else {
+		if (this.messaging == true) {
 
-			// Log
-			msg = "Unknown ftp type => " + this.ftp_Type;
-			colorID = R.color.red;
+			if (this.ftp_Type.equals(CONS.Remote.FtpType.IMAGE.toString())) {
+				//			if (ftp_Type[0].equals(CONS.Remote.FtpType.IMAGE.toString())) {
+				
+				//			msg = "Uploading... " + ti.getFile_name();
+				//			colorID = R.color.green4;
+				
+			} else if (this.ftp_Type.equals(CONS.Remote.FtpType.DB_FILE.toString())) {
+				//		} else if (ftp_Type[0].equals(CONS.Remote.FtpType.DB_FILE.toString())) {
+				
+				msg = "Uploading db file... ";
+				colorID = R.color.green4;
+				
+			} else {
+				
+				// Log
+				msg = "Unknown ftp type => " + this.ftp_Type;
+				colorID = R.color.red;
+				
+			}
 			
-		}
-
-		Methods_dlg.dlg_ShowMessage_Duration(
-						actv, msg, 
-						colorID,
-						CONS.Admin.dflt_MessageDialog_Length);
+			Methods_dlg.dlg_ShowMessage_Duration(
+					actv, msg, 
+					colorID,
+					CONS.Admin.dflt_MessageDialog_Length);
+			
+		}//if (this.messaging == true)
 		
 	}//onPreExecute
 	
