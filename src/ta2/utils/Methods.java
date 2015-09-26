@@ -71,6 +71,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -7393,6 +7394,233 @@ public static String
 //		ClipData clip = ClipData.newPlainText("label", "Text to copy");
 		
 	}//copy_2_Clipboard
+
+	public static void 
+	auto_Uplad_DB(Activity actv) {
+		// TODO Auto-generated method stub
+	
+		///////////////////////////////////
+		//
+		// now
+		//
+		///////////////////////////////////
+		String now_str = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+		///////////////////////////////////
+		//
+		// latest upload
+		//
+		///////////////////////////////////
+//		HistoryUpload hu = DBUtils.find_UploadHistory_Latest(actv);
+		String latest_str = DBUtils.find_UploadHistory_Latest(actv);
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"latest_str = %s", latest_str
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		///////////////////////////////////
+		//
+		// prep: time tokens
+		//
+		///////////////////////////////////
+//		latest_str = 2015/09/25 08:50:26.361
+
+		int[] time_Tokens = Methods.conv_TimeLabel_2_TimeTokens(actv, latest_str);
+
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"time is => %d / %d / %d -- %d : %d : %d . %d", 
+				time_Tokens[0],
+				time_Tokens[1],
+				time_Tokens[2],
+				time_Tokens[3],
+				time_Tokens[4],
+				time_Tokens[5],
+				time_Tokens[6]
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		///////////////////////////////////
+		//
+		// prep: scheduled date
+		//
+		///////////////////////////////////
+		Calendar sch = Calendar.getInstance();
+		
+		sch.set(Calendar.YEAR, time_Tokens[0]);
+		sch.set(Calendar.MONTH, time_Tokens[1] - 1);
+//		sch.set(Calendar.MONTH, time_Tokens[1]);
+		sch.set(Calendar.DATE, time_Tokens[2]);
+		
+		sch.set(Calendar.HOUR_OF_DAY, 0);
+//		sch.set(Calendar.HOUR, 0);
+		sch.set(Calendar.MINUTE, 0);
+		sch.set(Calendar.SECOND, 0);
+		
+		sch.set(Calendar.MILLISECOND, 0);
+//		sch.set(Calendar.HOUR, time_Tokens[3]);
+//		sch.set(Calendar.MINUTE, time_Tokens[4]);
+//		sch.set(Calendar.SECOND, time_Tokens[5]);
+//		
+//		sch.set(Calendar.MILLISECOND, time_Tokens[6]);
+		
+		// add dates
+		int schedule_span = 1;	// auto-uplad every 1 day
+//		int schedule_span = 3;	// auto-uplad every 3 days
+		
+		sch.add(Calendar.DATE, schedule_span);
+//		sch.add(Calendar.DATE, 3);
+		
+//		sch.set(Calendar.HOUR_OF_DAY, 0);
+////		sch.set(Calendar.HOUR, 0);
+//		sch.set(Calendar.MINUTE, 0);
+//		sch.set(Calendar.SECOND, 0);
+//		
+//		sch.set(Calendar.MILLISECOND, 0);
+
+		
+		long sch_long = sch.getTime().getTime();
+		
+		String sch_str = Methods.conv_MillSec_to_TimeLabel(sch_long);
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"latest = %s | schedule = %s | now = %s", latest_str, sch_str, now_str
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// compare
+		//
+		///////////////////////////////////
+		if (now_str.compareToIgnoreCase(sch_str) >= 0) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"auto => yes: now is larger than schedule"
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {//if (latest_str.compareToIgnoreCase(sch_str))
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"auto => no"
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (latest_str.compareToIgnoreCase(sch_str))
+		
+		
+//		Calendar cal = Calendar.getInstance();
+//	//    cal.setTime(date);
+//	    cal.add(Calendar.DAY_OF_MONTH, -1);
+//		
+//	    String now = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+//	    
+//	    String prev = Methods.conv_MillSec_to_TimeLabel(cal.getTime().getTime());
+//	    
+//	    // Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"now = %s | prev = %s", now, prev
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+
+	}
+
+	private static int[] 
+	conv_TimeLabel_2_TimeTokens
+	(Activity actv, String latest_str) {
+		// TODO Auto-generated method stub
+		String[] tokens = latest_str.split(" ");
+		
+		String[] tokens_Date = tokens[0].split("/");
+		String[] tokens_Time_full = tokens[1].split("\\.");
+		String[] tokens_Time = tokens_Time_full[0].split(":");
+		
+		String millsec = tokens_Time_full[1];
+		
+		int millsec_i = Integer.parseInt(millsec);
+		
+		int year_i = Integer.parseInt(tokens_Date[0]);
+		int month_i = Integer.parseInt(tokens_Date[1]);
+		int day_i = Integer.parseInt(tokens_Date[2]);
+		
+		int hour = Integer.parseInt(tokens_Time[0]);
+		int min = Integer.parseInt(tokens_Time[1]);
+		int sec = Integer.parseInt(tokens_Time[2]);
+		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"%d / %d / %d -- %d : %d : %d . %d", year_i, month_i, day_i, hour, min, sec, millsec_i
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+
+		///////////////////////////////////
+		//
+		// build: array
+		//
+		///////////////////////////////////
+		int[] time_Tokens = new int[7];
+		
+		time_Tokens[0] = year_i;
+		time_Tokens[1] = month_i;
+		time_Tokens[2] = day_i;
+		
+		time_Tokens[3] = hour;
+		time_Tokens[4] = min;
+		time_Tokens[5] = sec;
+		
+		time_Tokens[6] = millsec_i;
+		
+		return time_Tokens;
+		
+	}//auto_Uplad_DB
 
 }//public class Methods
 

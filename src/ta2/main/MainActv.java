@@ -1,5 +1,6 @@
 package ta2.main;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -54,12 +55,12 @@ public class MainActv extends Activity {
 		////////////////////////////////
 		this._Setup_AutoBK();
 		
-//		////////////////////////////////
-//
-//		// tests
-//
-//		////////////////////////////////
-//		do_test();
+		////////////////////////////////
+
+		// tests
+
+		////////////////////////////////
+		do_test();
 		
 	}//onStart
 
@@ -175,6 +176,7 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+		this._test_D_24_V_2_1_PreviousDate();
 //		this._test_CV_update();
 //		_test_Content_Provider();
 //		_test_PrefVal_SoundEffect();
@@ -235,6 +237,34 @@ public class MainActv extends Activity {
 //		
 //	}//_test_CV_update
 
+
+	private void 
+	_test_D_24_V_2_1_PreviousDate() {
+		// TODO Auto-generated method stub
+
+		Methods.auto_Uplad_DB(this);
+		
+//		Calendar cal = Calendar.getInstance();
+////	    cal.setTime(date);
+//	    cal.add(Calendar.DAY_OF_MONTH, -1);
+//		
+//	    String now = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+//	    
+//	    String prev = Methods.conv_MillSec_to_TimeLabel(cal.getTime().getTime());
+//	    
+//	    // Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"now = %s | prev = %s", now, prev
+//				);
+//		
+//		Log.i("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+	    
+	}//_test_D_24_V_2_1_PreviousDate
 
 	private void 
 	_test_Content_Provider() {

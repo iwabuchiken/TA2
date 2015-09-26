@@ -10,7 +10,6 @@ import ta2.items.FilterHistory;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -5157,6 +5156,213 @@ public class DBUtils extends SQLiteOpenHelper{
 //		return null;
 		
 	}//find_FH_latest
+
+	public static String 
+	find_UploadHistory_Latest(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_UploadHistory;
+//		String tname = CONS.DB.tname_FilterHistory;
+		
+		boolean res = dbu.tableExists(rdb, tname);
+//		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String orderBy = null;
+		
+//		if (order == CONS.Enums.SortOrder.ASC) {
+			
+			orderBy = CONS.DB.col_names_Upload_History_full[0] 
+							+ " " + CONS.DB.sortOrder_DESC;
+//			orderBy = CONS.DB.col_names_FilterHistory_full[0] 
+//					+ " " + CONS.DB.sortOrder_ASC;
+			
+//		} else if (order == CONS.Enums.SortOrder.DESC) {
+//			
+//			orderBy = CONS.DB.col_names_FilterHistory_full[0] + " " + CONS.DB.sortOrder_DESC;
+//			
+//		} else {
+//			
+//			orderBy = CONS.DB.col_names_FilterHistory_full[0] + " " + CONS.DB.sortOrder_ASC;
+//			
+//		}
+		
+		int limit = 1;
+			
+		String limit_FS = String.valueOf(limit);
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_Upload_History_full,	// 2
+//					CONS.DB.col_names_FilterHistory_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					orderBy,
+					limit_FS);		// 7
+//			orderBy);		// 7
+//			orderBy,			// 7
+//			null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		///////////////////////////////////
+		//
+		// get: latest
+		//
+		///////////////////////////////////
+		// cursor => to the first
+		c.moveToFirst();
+		
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"db_id",								// 3
+//		"file_name", "file_path"				// 4,5
+
+		String latest_str = c.getString(1);
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"keywords",									// 3
+//		"operator",									// 4
+//		"op_label",									// 5		
+		
+//		List<FilterHistory> list_FH = new ArrayList<FilterHistory>();
+//		
+//		while(c.moveToNext()) {
+//			
+//			FilterHistory wp = new FilterHistory.Builder()
+//			
+//			.setDb_Id(c.getLong(0))
+//			.setCreated_at(c.getString(1))
+//			.setModified_at(c.getString(2))
+//			
+//			.setKeywords(c.getString(3))
+//			.setOperator(c.getInt(4))
+//			.setOp_label(c.getString(5))
+//			
+//			.build();
+//			
+//			list_FH.add(wp);
+//			
+//		}
+		
+		rdb.close();
+		
+//		return list_FH;
+		return latest_str;
+//		return null;
+		
+	}//find_UploadHistory_Latest
 
 }//public class DBUtils
 
