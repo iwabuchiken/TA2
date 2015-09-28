@@ -322,7 +322,7 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int actv_image_menu_add_photo_memo=0x7f07004c;
+        public static final int actv_image_menu_add_photo_memo=0x7f07004f;
         public static final int app_name=0x7f070000;
         public static final int btn_lbl_memo_patterns=0x7f07001f;
         /**  UI labels 
@@ -388,8 +388,8 @@ public final class R {
         public static final int generic_tv_view=0x7f07000c;
         /**  image_actv_menu.xml 
          */
-        public static final int image_actv_menu_add_memo=0x7f07004a;
-        public static final int image_actv_menu_add_patterns=0x7f07004b;
+        public static final int image_actv_menu_add_memo=0x7f07004d;
+        public static final int image_actv_menu_add_patterns=0x7f07004e;
         public static final int menu_main_admin=0x7f070025;
         public static final int menu_main_horizontal_listview=0x7f070026;
         /**  Menu: main 
@@ -413,6 +413,9 @@ public final class R {
         public static final int prefs_db_auto_backup_key=0x7f070047;
         public static final int prefs_db_auto_backup_summary=0x7f070048;
         public static final int prefs_db_auto_backup_title=0x7f070049;
+        public static final int prefs_db_auto_upload_schedule_span_key=0x7f07004a;
+        public static final int prefs_db_auto_upload_schedule_span_summary=0x7f07004b;
+        public static final int prefs_db_auto_upload_schedule_span_title=0x7f07004c;
         public static final int prefs_sound_effect_key=0x7f07003e;
         public static final int prefs_sound_effect_summary=0x7f07003f;
         /**  pref: MainActv 

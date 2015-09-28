@@ -73,6 +73,10 @@ import android.widget.Toast;
 
 
 
+
+
+
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -385,6 +389,53 @@ public class Methods {
 		/****************************
 		 * Return
 			****************************/
+//		//debug
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"pref key => %s / defValue => %d", pref_key, defValue
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		
+//		int tmp_i = -10;
+//		
+//		try {
+//			
+//			tmp_i = prefs.getInt(pref_key, defValue);
+//			
+//		} catch (Exception e) {
+//			
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			
+//		}
+//		
+//		// Log
+////		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"tmp_i => %d", tmp_i
+//				);
+//		
+//		Log.i("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		if (tmp_i == -10) {
+//
+//			tmp_i = defValue;
+//
+//		}//if (tmp_i == -10)
+//		
+//		return tmp_i;
+		
 		return prefs.getInt(pref_key, defValue);
 
 	}//public static boolean set_pref(String pref_name, String value)
@@ -7413,48 +7464,17 @@ public static String
 		// latest upload
 		//
 		///////////////////////////////////
-//		HistoryUpload hu = DBUtils.find_UploadHistory_Latest(actv);
 		String latest_str = DBUtils.find_UploadHistory_Latest(actv);
 		
 		// Log
 		String msg_Log;
 		
-//		msg_Log = String.format(
-//				Locale.JAPAN,
-//				"latest_str = %s", latest_str
-//				);
-//		
-//		Log.i("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-
 		///////////////////////////////////
 		//
 		// prep: time tokens
 		//
 		///////////////////////////////////
-//		latest_str = 2015/09/25 08:50:26.361
-
 		int[] time_Tokens = Methods.conv_TimeLabel_2_TimeTokens(actv, latest_str);
-
-		// Log
-//		String msg_Log;
-		
-//		msg_Log = String.format(
-//				Locale.JAPAN,
-//				"time is => %d / %d / %d -- %d : %d : %d . %d", 
-//				time_Tokens[0],
-//				time_Tokens[1],
-//				time_Tokens[2],
-//				time_Tokens[3],
-//				time_Tokens[4],
-//				time_Tokens[5],
-//				time_Tokens[6]
-//				);
-//		
-//		Log.i("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
 
 		///////////////////////////////////
 		//
@@ -7465,36 +7485,108 @@ public static String
 		
 		sch.set(Calendar.YEAR, time_Tokens[0]);
 		sch.set(Calendar.MONTH, time_Tokens[1] - 1);
-//		sch.set(Calendar.MONTH, time_Tokens[1]);
 		sch.set(Calendar.DATE, time_Tokens[2]);
 		
 		sch.set(Calendar.HOUR_OF_DAY, 0);
-//		sch.set(Calendar.HOUR, 0);
 		sch.set(Calendar.MINUTE, 0);
 		sch.set(Calendar.SECOND, 0);
 		
 		sch.set(Calendar.MILLISECOND, 0);
-//		sch.set(Calendar.HOUR, time_Tokens[3]);
-//		sch.set(Calendar.MINUTE, time_Tokens[4]);
-//		sch.set(Calendar.SECOND, time_Tokens[5]);
-//		
-//		sch.set(Calendar.MILLISECOND, time_Tokens[6]);
 		
+		///////////////////////////////////
+		//
+		// get: schedule span
+		//
+		///////////////////////////////////
+//		int pref_AutoUpload_ScheduleSpan = Methods.get_Pref_Int(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				CONS.Pref.pkey_AutoUpload_ScheduleSpan, 
+//				CONS.Pref.dflt_IntExtra_value);
+
+		String auto = Methods.get_Pref_String(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_db_auto_upload_schedule_span_key),
+//				actv.getString(R.string.prefs_db_auto_backup_key),
+//				"prefs_tnactv_db_auto_backup_key", 
+				null);
+
+		///////////////////////////////////
+		//
+		// validate: null or ''
+		//
+		///////////////////////////////////
+		if (auto == null) {
+			
+			// Log
+//			String msg_Log;
+			msg_Log = "pref_AutoUpload_ScheduleSpan => null; auto upload not executed";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			auto = "-1";	// default schedule span => -1, i.e. no auto-upload
+			
+			return;		// no span set => auto-upload not executed
+			
+		} else if (auto.equals("")) {//if (auto == null)
+			
+			msg_Log = "pref_AutoUpload_ScheduleSpan => ''; auto upload not executed";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			auto = "-1";	// default schedule span => -1, i.e. no auto-upload
+			
+			return;		// no span set => auto-upload not executed
+			
+		}//if (auto == null)
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"pref_AutoUpload_ScheduleSpan => %s", auto
+//				"pref_AutoUpload_ScheduleSpan => %d", pref_AutoUpload_ScheduleSpan
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		
+		//
+		int auto_days = Integer.parseInt(auto);
+
+		///////////////////////////////////
+		//
+		// validate: equal or less than zero
+		//
+		///////////////////////////////////
+		if (auto_days <= 0) {
+			
+			// Log
+//			String msg_Log;
+			msg_Log = "pref_AutoUpload_ScheduleSpan => 0 or less; auto upload not executed";
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			auto = "-1";	// default schedule span => -1, i.e. no auto-upload
+			
+			return;		// no span set => auto-upload not executed
+			
+		}//if (auto == null)
+
 		// add dates
-		int schedule_span = 1;	// auto-uplad every 1 day
+		int schedule_span = auto_days;	// auto-uplad every 1 day
+//		int schedule_span = 1;	// auto-uplad every 1 day
 //		int schedule_span = 3;	// auto-uplad every 3 days
 		
 		//ref http://stackoverflow.com/questions/912762/get-previous-day answered May 26 '09 at 21:10
 		sch.add(Calendar.DATE, schedule_span);
-//		sch.add(Calendar.DATE, 3);
-		
-//		sch.set(Calendar.HOUR_OF_DAY, 0);
-////		sch.set(Calendar.HOUR, 0);
-//		sch.set(Calendar.MINUTE, 0);
-//		sch.set(Calendar.SECOND, 0);
-//		
-//		sch.set(Calendar.MILLISECOND, 0);
-
 		
 		long sch_long = sch.getTime().getTime();
 		
@@ -7536,6 +7628,17 @@ public static String
 
 			///////////////////////////////////
 			//
+			// write log
+			//
+			///////////////////////////////////
+			String log_msg = "auto-upload => starting...";
+			
+			Methods.write_Log(actv, log_msg,
+					Thread.currentThread().getStackTrace()[2].getFileName(), Thread
+							.currentThread().getStackTrace()[2].getLineNumber());
+			
+			///////////////////////////////////
+			//
 			// upload
 			//
 			///////////////////////////////////
@@ -7564,20 +7667,6 @@ public static String
 			
 		}//if (latest_str.compareToIgnoreCase(sch_str))
 
-//		///////////////////////////////////
-//		//
-//		// upload
-//		//
-//		///////////////////////////////////
-//		Task_FTP task = new Task_FTP(
-//						actv,
-//						CONS.Remote.FtpType.DB_FILE.toString()
-//						);
-//		//cb.isChecked());
-//		
-//		task.execute(CONS.Remote.FtpType.DB_FILE.toString());
-
-		
 	}//auto_Uplad_DB
 
 	private static int[] 

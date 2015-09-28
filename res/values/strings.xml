@@ -145,6 +145,13 @@
     	<string name="prefs_db_auto_backup_title">
     	    									DB auto backup</string>
 
+	   	<string name="prefs_db_auto_upload_schedule_span_key">
+    	    									pkey_AutoUpload_ScheduleSpan</string>
+    	<string name="prefs_db_auto_upload_schedule_span_summary">
+    	    									Every 0 days</string>
+    	<string name="prefs_db_auto_upload_schedule_span_title">
+    	    									DB auto upload schedule</string>
+
     <!-- image_actv_menu.xml -->
 	    <string name="image_actv_menu_add_memo">Memo</string>
 	    <string name="image_actv_menu_add_patterns">定型句登録</string>

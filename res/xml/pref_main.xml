@@ -51,7 +51,16 @@
     >
         
     </EditTextPreference>
+
+	<EditTextPreference
+        android:title="@string/prefs_db_auto_upload_schedule_span_title"
+        android:key="@string/prefs_db_auto_upload_schedule_span_key"
+        android:summary="@string/prefs_db_auto_upload_schedule_span_summary"
+        android:defaultValue="0"
+        
+    >
 	
+	</EditTextPreference>	
 	
 	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
 <!-- <ListPreference

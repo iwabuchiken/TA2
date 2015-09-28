@@ -403,7 +403,12 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		Log.d("Task_FTP.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-		
+
+		///////////////////////////////////
+		//
+		// show message => if not auto-uploading
+		//
+		///////////////////////////////////
 		if (this.messaging == true) {
 
 			Methods_dlg.dlg_ShowMessage(
@@ -413,21 +418,6 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 
 		}//if (this.messaging == true)
 		
-//		Methods_dlg.dlg_ShowMessage(
-//				actv, 
-//				msg,
-//				colorID);
-//		Methods_dlg.dlg_ShowMessage_Duration(
-//				actv, 
-//				msg,
-//				colorID,
-//				CONS.Admin.dflt_MessageDialog_Length);
-		
-//		// Log
-//		Log.d("Task_FTP.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg);
-
 	}//_onPostExecute__Upload_DB
 
 	@Override
