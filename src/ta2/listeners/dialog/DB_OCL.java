@@ -475,52 +475,44 @@ public class DB_OCL implements OnClickListener {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 		
-//		////////////////////////////////
-//
-//		// validate: network status
-//
-//		////////////////////////////////
-//		boolean res = Methods.isOnline(actv);
-//		
-//		if (res == false) {
-//			
-//			String msg = "Sorry. Network is not ready";
-//			Methods_dlg.dlg_ShowMessage_4thDialog(
-//							actv, d1, d2, d3,
-//							msg, R.color.gold2);
-//			
-//			return;
-//			
-//		} else {
-//			
-//			// Log
-//			String msg_Log = "Network is ready";
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}
-//		
-////		////////////////////////////////
-////
-////		// get view: checkbox
-////
-////		////////////////////////////////
-////		CheckBox cb = (CheckBox) dlg2.findViewById(
-////							R.id.dlg_tmpl_confirm_simple_cb_delete_file);
-//
-//		////////////////////////////////
-//
-//		// task
-//
-//		////////////////////////////////
-//		Task_FTP task = new Task_FTP(
-//							actv, d1, d2, d3,
-//							CONS.Remote.FtpType.DB_FILE.toString()
-//							);
-////		cb.isChecked());
-//		
-//		task.execute(CONS.Remote.FtpType.DB_FILE.toString());
+		////////////////////////////////
+
+		// validate: network status
+
+		////////////////////////////////
+		boolean res = Methods.isOnline(actv);
+		
+		if (res == false) {
+			
+			String msg = "Sorry. Network is not ready";
+			Methods_dlg.dlg_ShowMessage_4thDialog(
+							actv, d1, d2, d3,
+							msg, R.color.gold2);
+			
+			return;
+			
+		} else {
+			
+			// Log
+//			String msg_Log
+			msg_Log = "Network is ready";
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
+		////////////////////////////////
+
+		// task
+
+		////////////////////////////////
+		Task_FTP task = new Task_FTP(
+							actv, d1, d2, d3,
+							CONS.Remote.FtpType.AUDIO_FILE.toString()
+							);
+		
+		task.execute(CONS.Remote.FtpType.AUDIO_FILE.toString());
 
 	}//case_DLG_CONF_UPLOAD_AUDIO_OK
 

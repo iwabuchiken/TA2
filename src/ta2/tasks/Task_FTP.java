@@ -198,9 +198,12 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 ////			res = Methods.ftp_MulipleImages_to_Remote(actv, delete);
 			
 		} else if (this.ftp_Type.equals(CONS.Remote.FtpType.DB_FILE.toString())) {
-//		} else if (ftp_Type[0].equals(CONS.Remote.FtpType.DB_FILE.toString())) {
 			
 			res = Methods.ftp_Remote_DB(actv);
+			
+		} else if (this.ftp_Type.equals(CONS.Remote.FtpType.AUDIO_FILE.toString())) {
+			
+			res = Methods.ftp_Remote_AUDIO(actv);
 			
 		} else {
 
@@ -262,6 +265,10 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		} else if (ftp_Type.equals(CONS.Remote.FtpType.DB_FILE.toString())) {
 			
 			_onPostExecute__Upload_DB(res);
+			
+		} else if (ftp_Type.equals(CONS.Remote.FtpType.AUDIO_FILE.toString())) {
+			
+			_onPostExecute__Upload_AUDIO(res);
 			
 		} else {
 
@@ -420,6 +427,137 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 		
 	}//_onPostExecute__Upload_DB
 
+	private void 
+	_onPostExecute__Upload_AUDIO
+	(Integer res) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// log
+		
+		////////////////////////////////
+//		String log_msg = "Upload Audio: result => " + res.intValue();
+//		Methods.write_Log(actv, log_msg,
+//				Thread.currentThread().getStackTrace()[2].getFileName(), Thread
+//				.currentThread().getStackTrace()[2].getLineNumber());
+		
+		////////////////////////////////
+		
+		// setup
+		
+		////////////////////////////////
+		int res_i = res.intValue();
+		
+		String msg = null;
+		int colorID = 0;
+		
+		////////////////////////////////
+		
+		// dispatch
+		
+		////////////////////////////////
+		switch(res_i) {
+		
+		case 220:
+			
+			msg = "Upload result => " + res_i
+			+ "\n"
+			+ "-1	=> SocketException\n"
+			+ "-2 => IOException\n"
+			+ "-3 => IOException in disconnecting\n"
+			+ "-4 => Login failed\n"
+			+ "-5 => IOException in logging-in\n"
+			
+				+ "-6 => storeFile returned false\n"
+				+ "-7 => can't find the source file\n"
+				+ "-8 => can't find the source file; can't disconnect FTP client\n"
+				+ "-9 => storeFile ---> IOException\n"
+				+ "-10 => storeFile ---> IOException; can't disconnect FTP client\n"
+				
+				+ "-11 => set file type ---> failed\n"
+				+ "-12 => IOException in logging-in; can't disconnect FTP client\n"
+				
+				+ "-2 => Log in failed\n"
+				+ ">0	=> Reply code"
+				;
+			colorID = R.color.green4;
+			
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+			
+//			///////////////////////////////////
+//			//
+//			// save record
+//			//
+//			///////////////////////////////////
+//			Methods.save_UploadHistory(actv);
+			
+			break;
+			
+		case 0:
+			
+			msg = "Sorry. Uploading DB is not ready yet";
+			colorID = R.color.gold2;
+			
+//			if(d2 != null) d2.dismiss();
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+			
+			break;
+			
+		default:
+			
+			msg = "Upload result => " + res_i;
+			colorID = R.color.red;
+			
+			////////////////////////////////
+			
+			// dismiss
+			
+			////////////////////////////////
+			if(d3 != null) d3.dismiss();
+			if(d2 != null) d2.dismiss();
+			if(d1 != null) d1.dismiss();
+			
+			break;
+			
+		}
+		
+		// Log
+		String msg_Log = "colorID => " + colorID;
+		Log.d("Task_FTP.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// show message => if not auto-uploading
+		//
+		///////////////////////////////////
+		if (this.messaging == true) {
+			
+			Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID);
+			
+		}//if (this.messaging == true)
+		
+	}//_onPostExecute__Upload_AUDIO
+	
+	
 	@Override
 	protected void 
 	onPreExecute() {
@@ -451,6 +589,12 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 				//		} else if (ftp_Type[0].equals(CONS.Remote.FtpType.DB_FILE.toString())) {
 				
 				msg = "Uploading db file... ";
+				colorID = R.color.green4;
+				
+			} else if (this.ftp_Type.equals(
+								CONS.Remote.FtpType.AUDIO_FILE.toString())) {
+				
+				msg = "Uploading audio file... ";
 				colorID = R.color.green4;
 				
 			} else {

@@ -784,7 +784,7 @@ public class CONS {
 		
 		public static enum FtpType {
 			
-			IMAGE, DB_FILE,
+			IMAGE, DB_FILE, AUDIO_FILE,
 			
 		}
 		
