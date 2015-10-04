@@ -322,7 +322,7 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int actv_image_menu_add_photo_memo=0x7f07004f;
+        public static final int actv_image_menu_add_photo_memo=0x7f070050;
         public static final int app_name=0x7f070000;
         public static final int btn_lbl_memo_patterns=0x7f07001f;
         /**  UI labels 
@@ -356,6 +356,7 @@ public final class R {
         public static final int dlg_actvmain_admin_title=0x7f070029;
         public static final int dlg_actvmain_ops_Drop_Create_table_Upload_History=0x7f070039;
         public static final int dlg_actvmain_ops_Drop_Create_table_filter_history=0x7f070037;
+        public static final int dlg_actvmain_ops_Upload_Audio=0x7f07003b;
         public static final int dlg_actvmain_ops_create_table_filter_history=0x7f070038;
         public static final int dlg_actvmain_ops_create_table_memos=0x7f070036;
         public static final int dlg_actvmain_ops_create_table_patterns=0x7f070034;
@@ -363,12 +364,12 @@ public final class R {
         public static final int dlg_actvmain_ops_drop_table_patterns=0x7f070033;
         public static final int dlg_actvmain_ops_import_db=0x7f070031;
         public static final int dlg_actvmain_ops_import_patterns=0x7f070032;
-        public static final int dlg_actvmain_ops_sql_add_col_used=0x7f07003b;
+        public static final int dlg_actvmain_ops_sql_add_col_used=0x7f07003c;
         /**  dlg_actvmain_operations.xml 
          */
         public static final int dlg_actvmain_ops_title=0x7f070030;
         public static final int dlg_actvmain_ops_upload_db=0x7f07003a;
-        public static final int dlg_db_ops_item_drop_create_tbl_admin=0x7f07003c;
+        public static final int dlg_db_ops_item_drop_create_tbl_admin=0x7f07003d;
         /**  labels for templates 
          */
         public static final int dlg_tmpl_confirm_simple_msg_delete_file=0x7f07001d;
@@ -388,8 +389,8 @@ public final class R {
         public static final int generic_tv_view=0x7f07000c;
         /**  image_actv_menu.xml 
          */
-        public static final int image_actv_menu_add_memo=0x7f07004d;
-        public static final int image_actv_menu_add_patterns=0x7f07004e;
+        public static final int image_actv_menu_add_memo=0x7f07004e;
+        public static final int image_actv_menu_add_patterns=0x7f07004f;
         public static final int menu_main_admin=0x7f070025;
         public static final int menu_main_horizontal_listview=0x7f070026;
         /**  Menu: main 
@@ -403,24 +404,24 @@ public final class R {
          */
         public static final int menu_showlist_filter=0x7f070027;
         public static final int menu_showlist_filter_history=0x7f070028;
-        public static final int prefs_ClearView_WhenSaved_key=0x7f070044;
-        public static final int prefs_ClearView_WhenSaved_summary=0x7f070045;
-        public static final int prefs_ClearView_WhenSaved_titile=0x7f070043;
-        public static final int prefs_MemoList_Size_ListPref_key=0x7f070046;
-        public static final int prefs_MemoList_Size_key=0x7f070041;
-        public static final int prefs_MemoList_Size_summary=0x7f070042;
-        public static final int prefs_MemoList_Size_titile=0x7f070040;
-        public static final int prefs_db_auto_backup_key=0x7f070047;
-        public static final int prefs_db_auto_backup_summary=0x7f070048;
-        public static final int prefs_db_auto_backup_title=0x7f070049;
-        public static final int prefs_db_auto_upload_schedule_span_key=0x7f07004a;
-        public static final int prefs_db_auto_upload_schedule_span_summary=0x7f07004b;
-        public static final int prefs_db_auto_upload_schedule_span_title=0x7f07004c;
-        public static final int prefs_sound_effect_key=0x7f07003e;
-        public static final int prefs_sound_effect_summary=0x7f07003f;
+        public static final int prefs_ClearView_WhenSaved_key=0x7f070045;
+        public static final int prefs_ClearView_WhenSaved_summary=0x7f070046;
+        public static final int prefs_ClearView_WhenSaved_titile=0x7f070044;
+        public static final int prefs_MemoList_Size_ListPref_key=0x7f070047;
+        public static final int prefs_MemoList_Size_key=0x7f070042;
+        public static final int prefs_MemoList_Size_summary=0x7f070043;
+        public static final int prefs_MemoList_Size_titile=0x7f070041;
+        public static final int prefs_db_auto_backup_key=0x7f070048;
+        public static final int prefs_db_auto_backup_summary=0x7f070049;
+        public static final int prefs_db_auto_backup_title=0x7f07004a;
+        public static final int prefs_db_auto_upload_schedule_span_key=0x7f07004b;
+        public static final int prefs_db_auto_upload_schedule_span_summary=0x7f07004c;
+        public static final int prefs_db_auto_upload_schedule_span_title=0x7f07004d;
+        public static final int prefs_sound_effect_key=0x7f07003f;
+        public static final int prefs_sound_effect_summary=0x7f070040;
         /**  pref: MainActv 
          */
-        public static final int prefs_sound_effect_titile=0x7f07003d;
+        public static final int prefs_sound_effect_titile=0x7f07003e;
     }
     public static final class style {
         /** 

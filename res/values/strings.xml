@@ -107,6 +107,9 @@
    		<string name="dlg_actvmain_ops_upload_db">
    		    							Upload DB</string>
 
+   		<string name="dlg_actvmain_ops_Upload_Audio">
+   		    							Upload Audio</string>
+
    		<string name="dlg_actvmain_ops_sql_add_col_used">
    		    							Add column: used</string>
    		

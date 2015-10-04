@@ -224,6 +224,12 @@ public class DB_OCL implements OnClickListener {
 		//
 		switch (tag_name) {
 		
+		case DLG_CONF_UPLOAD_AUDIO_OK://-------------------
+			
+			case_DLG_CONF_UPLOAD_AUDIO_OK();
+			
+			break;
+			
 		case DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK://-------------------
 			
 			case_DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK();
@@ -452,6 +458,71 @@ public class DB_OCL implements OnClickListener {
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void 
+	case_DLG_CONF_UPLOAD_AUDIO_OK() {
+		// TODO Auto-generated method stub
+
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"case_DLG_CONF_UPLOAD_AUDIO_OK"
+				);
+		
+		Log.i("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		////////////////////////////////
+//
+//		// validate: network status
+//
+//		////////////////////////////////
+//		boolean res = Methods.isOnline(actv);
+//		
+//		if (res == false) {
+//			
+//			String msg = "Sorry. Network is not ready";
+//			Methods_dlg.dlg_ShowMessage_4thDialog(
+//							actv, d1, d2, d3,
+//							msg, R.color.gold2);
+//			
+//			return;
+//			
+//		} else {
+//			
+//			// Log
+//			String msg_Log = "Network is ready";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
+//		
+////		////////////////////////////////
+////
+////		// get view: checkbox
+////
+////		////////////////////////////////
+////		CheckBox cb = (CheckBox) dlg2.findViewById(
+////							R.id.dlg_tmpl_confirm_simple_cb_delete_file);
+//
+//		////////////////////////////////
+//
+//		// task
+//
+//		////////////////////////////////
+//		Task_FTP task = new Task_FTP(
+//							actv, d1, d2, d3,
+//							CONS.Remote.FtpType.DB_FILE.toString()
+//							);
+////		cb.isChecked());
+//		
+//		task.execute(CONS.Remote.FtpType.DB_FILE.toString());
+
+	}//case_DLG_CONF_UPLOAD_AUDIO_OK
 
 	private void 
 	case_DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_OK() {

@@ -252,7 +252,7 @@ public class Methods_dlg {
 //		 * 2. Add listeners => OnTouch
 //		 * 3. Add listeners => OnClick
 //		 ****************************/
-//		aa
+//		
 //		// 
 //		Dialog d4 = new Dialog(actv);
 //		
@@ -1337,6 +1337,14 @@ public class Methods_dlg {
 								.setTextColor_ID(R.color.green4)
 								.build());
 		
+		// Upload audio files
+		list.add(new ListItem.Builder()
+					.setText(actv.getString(
+							R.string.dlg_actvmain_ops_Upload_Audio))
+							.setIconID(R.drawable.menu_icon_admin_32x32_green)
+							.setTextColor_ID(R.color.green4)
+							.build());
+		
 		list.add(new ListItem.Builder()
 						.setText(actv.getString(
 									R.string.dlg_actvmain_ops_import_db))
@@ -1551,6 +1559,59 @@ public class Methods_dlg {
 		dlg3.show();
 		
 	}//conf_Import_DB
+	
+	public static void 
+	conf_Upload_Audio
+	(Activity actv, Dialog d1, Dialog d2) {
+		// TODO Auto-generated method stub
+		
+		Dialog dlg3 = 
+				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
+						actv, 
+						R.layout.dlg_tmpl_confirm_simple, 
+						R.string.generic_tv_confirm, 
+						
+						R.id.dlg_tmpl_confirm_simple_btn_ok, 
+						R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+						
+						Tags.DialogTags.DLG_CONF_UPLOAD_AUDIO_OK, 
+//						Tags.DialogTags.DLG_CONF_UPLOAD_DB_OK, 
+						Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+						
+						d1, d2);
+		
+		////////////////////////////////
+		
+		// view: message
+		
+		////////////////////////////////
+		TextView tv_Msg = 
+				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_message);
+		
+		tv_Msg.setText(actv.getString(
+				R.string.dlg_actvmain_ops_Upload_Audio)
+				+ "?");
+		
+		////////////////////////////////
+		
+		// view: item name
+		
+		////////////////////////////////
+//		TextView tv_ItemName = 
+//				(TextView) dlg3.findViewById(R.id.dlg_tmpl_confirm_simple_tv_item_name);
+////		dlg_tmpl_confirm_simple_tv_message
+//		
+//		tv_ItemName.setText(CONS.DB.dbName);
+////		tv_ItemName.setText(actv.getString(R.string.commons_import_db_name));
+		
+		////////////////////////////////
+		
+		// show
+		
+		////////////////////////////////
+		dlg3.show();
+		
+	}//conf_Upload_Audio
 	
 	public static void 
 	conf_Import_Patterns

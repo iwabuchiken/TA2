@@ -498,10 +498,15 @@ public class DOI_CL implements OnItemClickListener {
 			Methods_dlg.conf_Upload_DB(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
-					R.string.dlg_actvmain_ops_import_db))) {
+					R.string.dlg_actvmain_ops_Upload_Audio))) {
 				
-				Methods_dlg.conf_Import_DB(actv, d1, d2);
+				Methods_dlg.conf_Upload_Audio(actv, d1, d2);
 				
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_ops_import_db))) {
+			
+			Methods_dlg.conf_Import_DB(actv, d1, d2);
+			
 		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_ops_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 		
