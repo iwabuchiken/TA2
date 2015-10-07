@@ -809,6 +809,8 @@ public class CONS {
 
 		public static String remote_Root_DBFile = "./android_app_data/TA2/db";
 		
+		public static String remote_Root_AudioFile = "./android_app_data/TA2/audio";
+		
 		// initialize res:int in Task_FTP.doInBackground()
 		public static int initial_IntValue = -100;
 		
