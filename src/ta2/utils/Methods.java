@@ -4194,7 +4194,11 @@ public static String
 		};
 		
 		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
-								actv, fpaths_Src, fpath_Remote, fp);
+								actv, 
+								fpaths_Src, 
+								CONS.Remote.remote_Root_AudioFile, 
+								fp);
+//		actv, fpaths_Src, fpath_Remote, fp);
 //		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files(actv, fpath_Src, fpath_Remote, fp);
 
 		// validate
@@ -4653,7 +4657,8 @@ public static String
 						+ "]", msg_Log);
 				
 //				fp.storeFile("./" + MainActv.fileName_db, is);// �T�[�o�[��
-				res = fp.storeFile(fpath_Remote, is);// �T�[�o�[��
+				res = fp.storeFile(fpath_Remote + "/" + fname, is);// �T�[�o�[��
+//				res = fp.storeFile(fpath_Remote, is);// �T�[�o�[��
 				
 //				fp.makeDirectory("./ABC");
 				

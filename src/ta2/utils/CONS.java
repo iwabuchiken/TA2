@@ -403,6 +403,28 @@ public class CONS {
 		
 
 		////////////////////////////////
+		
+		// Table: upload history
+		
+		////////////////////////////////
+		public static final String tname_UploadHistory_Audio = "upload_history_audio";
+		
+		public static final String[] col_names_Upload_History_Audio_full = {
+			
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			
+		};
+		
+		public static final String[] col_types_Upload_History_Audio_full = {
+			
+			"INTEGER",						// 0
+			"TEXT", "TEXT",					// 1,2
+			
+		};
+		
+		
+		////////////////////////////////
 
 		// Others
 

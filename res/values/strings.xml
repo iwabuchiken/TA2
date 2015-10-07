@@ -104,6 +104,9 @@
    		<string name="dlg_actvmain_ops_Drop_Create_table_Upload_History">
    		    							Drop/Create table: upload_history</string>
    		    							
+   		<string name="dlg_actvmain_ops_Drop_Create_table_Upload_History_Audio">
+   		    							Drop/Create table: upload_history_audio</string>
+   		    							
    		<string name="dlg_actvmain_ops_upload_db">
    		    							Upload DB</string>
 
