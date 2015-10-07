@@ -8390,6 +8390,56 @@ public static String
 	}//save_UploadHistory
 
 	public static void 
+	save_UploadHistory_Audio(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		///////////////////////////////////
+		//
+		// table
+		//
+		///////////////////////////////////
+		String tname = CONS.DB.tname_UploadHistory_Audio;
+		
+		///////////////////////////////////
+		//
+		// content values
+		//
+		///////////////////////////////////
+		ContentValues val = new ContentValues();
+		
+		String time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"db_id",								// 3
+//		"file_name", "file_path"				// 4,5
+		
+		val.put(CONS.DB.col_names_Upload_History_Audio_full[1], time);
+		
+		val.put(CONS.DB.col_names_Upload_History_Audio_full[2], time);
+		
+		///////////////////////////////////
+		//
+		// insert data
+		//
+		///////////////////////////////////
+		boolean res = DBUtils.insert_Data_generic(actv, tname, val);
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"insert upload audio history => %s", res
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//save_UploadHistory_Audio
+	
+	public static void 
 	copy_2_Clipboard(Activity actv, Memo memo) {
 		// TODO Auto-generated method stub
 		
