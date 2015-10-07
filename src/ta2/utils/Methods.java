@@ -1,8 +1,6 @@
 
 package ta2.utils;
 
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -66,6 +64,9 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+
 
 
 
@@ -8751,6 +8752,176 @@ public static String
 		return time_Tokens;
 		
 	}//auto_Uplad_DB
+
+	
+	/*******************************
+	 * convert: '2015/10/08 06:31:53.862' => '2015-10-08_06-31-53-862.wav'
+	 *******************************/
+	public static String 
+	conv_TimeLabel_2_FileName
+	(Activity actv, String timeLabel) {
+		// TODO Auto-generated method stub
+
+		String[] tokens_1 = timeLabel.split(" ");
+		
+		///////////////////////////////////
+		//
+		// tokens: dates
+		//
+		///////////////////////////////////
+		String[] tokens_Dates = tokens_1[0].split("/");
+
+		String date_Year = tokens_Dates[0];
+		String date_Month = tokens_Dates[1];
+		String date_Date = tokens_Dates[2];
+		
+		///////////////////////////////////
+		//
+		// tokens: times
+		//
+		///////////////////////////////////
+		String[] tokens_Times_Seconds = tokens_1[1].split("\\.");
+		
+		String[] tokens_Times = tokens_Times_Seconds[0].split(":");
+		
+		String time_Hour = tokens_Times[0];
+		String time_Min = tokens_Times[1];
+		String time_Sec = tokens_Times[2];
+		
+		String time_MillSec = tokens_Times_Seconds[1];
+		
+		///////////////////////////////////
+		//
+		// convert: '2015/10/08 06:31:53.862' => '2015-10-08_06-31-53-862.wav'
+		//
+		///////////////////////////////////
+//		String fileName;
+		
+//		fileName = String.format(
+		return String.format(
+				Locale.JAPAN,
+				"%s-%s-%s_%s-%s-%s-%s.wav",
+				date_Year, date_Month, date_Date,
+				time_Hour, time_Min, time_Sec, time_MillSec
+				);
+
+//		return null;
+		
+	}//conv_TimeLabel_2_FileName
+
+	public static int 
+	validate_New_AudioFiles(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		///////////////////////////////////
+		//
+		// threshold
+		//
+		///////////////////////////////////
+		String last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
+		
+		String fname_Threshold = 
+						Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"last_update_Str => %s | fname_Threshold => %s", 
+				last_update_Str, fname_Threshold
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		///////////////////////////////////
+		//
+		// filter
+		//
+		///////////////////////////////////
+		File dpath_Audio = new File(CONS.DB.dPath_Audio);
+		
+		///////////////////////////////////
+		//
+		// validate: Audio folder exists
+		//
+		///////////////////////////////////
+		if (!dpath_Audio.exists()) {
+
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"audio folder => doesn't exist: %s", dpath_Audio.getAbsolutePath()
+					);
+			
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+
+		}//if (!dpath_Audio.exists())
+
+		///////////////////////////////////
+		//
+		// get: list
+		//
+		///////////////////////////////////
+		String[] fnames = dpath_Audio.list(
+								new FF(actv, CONS.Enums.FilterType.UPLOAD_AUDIO));
+
+		///////////////////////////////////
+		//
+		// report
+		//
+		///////////////////////////////////
+		if (fnames.length == 0) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"no new files"
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {//if (fnames.length == 0)
+
+			// sort
+			Arrays.sort(fnames);
+			
+			for (String name : fnames) {
+				
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"new audio file => %s", name
+						);
+				
+				Log.i("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);;
+				
+			}//for (String name : fnames)
+			
+			
+		}//if (fnames.length == 0)
+		
+		
+		return fnames.length;
+//		return -1;
+		
+	}//validate_New_AudioFiles
 
 }//public class Methods
 

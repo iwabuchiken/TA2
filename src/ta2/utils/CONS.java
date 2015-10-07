@@ -433,6 +433,8 @@ public class CONS {
 		
 		public static int pastXDays		= -10;
 
+		public static String uploadAudio_Threshold = "2015/10/01 00:00:00.000";
+
 		public final static String fname_Log = "log.txt";
 		
 		public final static String fname_Log_Trunk = "log";
@@ -906,6 +908,12 @@ public class CONS {
 		public static enum ListType {
 			
 			STANDARD, SEARCH, HISTORY, ANY,
+			
+		}
+		
+		public static enum FilterType {
+			
+			UPLOAD_AUDIO
 			
 		}
 		

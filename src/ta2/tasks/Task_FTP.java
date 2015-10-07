@@ -203,8 +203,8 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 			
 		} else if (this.ftp_Type.equals(CONS.Remote.FtpType.AUDIO_FILE.toString())) {
 			
-			res = 220;
-//			res = Methods.ftp_Remote_AUDIO(actv);
+//			res = 220;
+			res = Methods.ftp_Remote_AUDIO(actv);
 			
 		} else {
 

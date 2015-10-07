@@ -1572,6 +1572,77 @@ public class Methods_dlg {
 	(Activity actv, Dialog d1, Dialog d2) {
 		// TODO Auto-generated method stub
 		
+		///////////////////////////////////
+		//
+		// validate: any new audio files?
+		//
+		///////////////////////////////////
+		int res_Int = Methods.validate_New_AudioFiles(actv);
+		
+		if (res_Int == 0) {
+
+			Dialog dlg3 = 
+					Methods_dlg.dlg_Template_Cancel_ThirdDialog(
+							actv, 
+							d1, d2, 
+							
+							R.layout.dlg_tmpl_toast_ok, 
+							R.string.generic_tv_confirm, 
+							
+							R.id.dlg_tmpl_toast_ok_bt_cancel, 
+							Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG);
+			
+			TextView tv_Message = 
+					(TextView) dlg3.findViewById(R.id.dlg_tmpl_toast_ok_tv_message);
+			
+			String message = "No new audio files";
+			
+			tv_Message.setText(message);
+			
+			dlg3.show();
+			
+			return;
+			
+//					Methods_dlg.dlg_tmpl_ok
+//							actv, 
+//							R.layout.dlg_tmpl_confirm_simple, 
+//							R.string.generic_tv_confirm, 
+//							
+//							R.id.dlg_tmpl_confirm_simple_btn_ok, 
+//							R.id.dlg_tmpl_confirm_simple_btn_cancel, 
+//							
+//							Tags.DialogTags.DLG_CONF_UPLOAD_AUDIO_OK, 
+////							Tags.DialogTags.DLG_CONF_UPLOAD_DB_OK, 
+//							Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG, 
+//							
+//							d1, d2);
+			
+
+		}//if (res_Int == 0)
+		
+//		String last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
+//		
+//		String fname_Threshold = 
+//						Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);
+//		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"last_update_Str => %s | fname_Threshold => %s", 
+//				last_update_Str, fname_Threshold
+//				);
+//		
+//		Log.i("Methods_dlg.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+		///////////////////////////////////
+		//
+		// dialog
+		//
+		///////////////////////////////////
 		Dialog dlg3 = 
 				Methods_dlg.dlg_Tmpl_OkCancel_ThirdDialog(
 						actv, 
@@ -1597,7 +1668,12 @@ public class Methods_dlg {
 		
 		tv_Msg.setText(actv.getString(
 				R.string.dlg_actvmain_ops_Upload_Audio)
-				+ "?");
+//				+ "?");
+				+ "?"
+				+ " ("
+				+ String.valueOf(res_Int)
+				+ " files)"
+				);
 		
 		////////////////////////////////
 		

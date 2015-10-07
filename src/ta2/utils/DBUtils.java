@@ -5364,5 +5364,176 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//find_UploadHistory_Latest
 
+	public static String 
+	find_UploadHistory_Audio_Latest(Activity actv) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_UploadHistory_Audio;
+		
+		boolean res = dbu.tableExists(rdb, tname);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+		
+		String orderBy = null;
+		
+//		if (order == CONS.Enums.SortOrder.ASC) {
+		
+		orderBy = CONS.DB.col_names_Upload_History_Audio_full[0] 
+//				orderBy = CONS.DB.col_names_Upload_History_full[0] 
+				+ " " + CONS.DB.sortOrder_DESC;
+		
+		int limit = 1;
+		
+		String limit_FS = String.valueOf(limit);
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_Upload_History_Audio_full,	// 2
+//					CONS.DB.col_names_FilterHistory_full,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					orderBy,
+					limit_FS);		// 7
+//			orderBy);		// 7
+//			orderBy,			// 7
+//			null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			String msg = "Query exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query failed";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		///////////////////////////////////
+		//
+		// get: latest
+		//
+		///////////////////////////////////
+		// cursor => to the first
+		c.moveToFirst();
+		
+		//		android.provider.BaseColumns._ID,		// 0
+		//		"created_at", "modified_at",			// 1,2		
+		
+		String latest_str = c.getString(1);
+
+		///////////////////////////////////
+		//
+		// close db
+		//
+		///////////////////////////////////
+		rdb.close();
+
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+		return latest_str;
+		
+	}//find_UploadHistory_Audio_Latest
+	
 }//public class DBUtils
 
