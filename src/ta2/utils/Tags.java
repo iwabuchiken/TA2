@@ -139,7 +139,7 @@ public class Tags {
 		
 		DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_OK, 
 		
-		DLG_CONF_UPLOAD_AUDIO_OK,
+		DLG_CONF_UPLOAD_AUDIO_OK, DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_AUDIO_OK,
 //>>>>>>> master
 		
 	}//public static enum DialogTags
