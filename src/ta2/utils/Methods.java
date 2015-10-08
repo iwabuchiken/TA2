@@ -4015,6 +4015,116 @@ public static String
 		// FTP client
 		FTPClient fp = new FTPClient();
 		
+		int reply_code = _ftp_Remote_AUDIO__Setup_FTP(actv, fp);
+
+		// validate
+		if (reply_code < 0) {
+//			if (reply_code != 0) {
+
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"reply_code => %d", reply_code
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return reply_code;
+
+		}//if (tmp_Int != 0)
+		
+		/*********************************
+		 * FTP files
+		 *********************************/
+		String dpath_Src = StringUtils.join(
+								new String[]{
+										CONS.DB.dPath_Audio,
+						//				dbName_backup
+								}, File.separator
+							);
+
+		String[] fnames = new File(dpath_Src).list(new FilenameFilter(){
+
+			@Override
+			public boolean accept(File dir, String filename) {
+				// TODO Auto-generated method stub
+				
+				return new File(dir, filename).isFile();
+//				return false;
+				
+			}});
+//		String[] fnames = new File(dpath_Src).list();
+		
+		String tmp_Str = Methods.get_Largest(fnames);
+
+		String fpath_Src = StringUtils.join(
+							new String[]{
+									CONS.DB.dPath_Audio,
+									tmp_Str
+							}, 
+							File.separator
+		);
+
+		String[] fpaths_Src = {
+				
+				fpath_Src,
+				CONS.DB.dPath_Audio + "/" + "2015-08-01_20-57-19-271.wav"
+		};
+		
+//		tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
+		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
+								actv, 
+								fpaths_Src, 
+								CONS.Remote.remote_Root_AudioFile, 
+								fp);
+//		actv, fpaths_Src, fpath_Remote, fp);
+		
+		/*********************************
+		 * Disconnect
+		 *********************************/
+		try {
+			
+			// Log
+			String msg_Log;
+			
+			msg_Log = "disconnecting...";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			fp.disconnect();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "fp => Disconnected");
+			
+			return reply_code;
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Error: " + e.toString());
+			
+			return -3;
+			
+		}
+		
+		//debug
+//		return -1;
+		
+	}//ftp_Remote_AUDIO
+	
+	private static int 
+	_ftp_Remote_AUDIO__Setup_FTP
+	(Activity actv, FTPClient fp) {
+		// TODO Auto-generated method stub
 		int reply_code;
 		
 		///////////////////////////////////
@@ -4181,218 +4291,20 @@ public static String
 				
 				return -12;
 				
-			}
+			}//try
 			
-		}
-		
-		/*********************************
-		 * FTP files
-		 *********************************/
-		String[] fpaths_Src = {
-				
-				fpath_Src,
-				CONS.DB.dPath_Audio + "/" + "2015-08-01_20-57-19-271.wav"
-		};
-		
-		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
-								actv, 
-								fpaths_Src, 
-								CONS.Remote.remote_Root_AudioFile, 
-								fp);
-//		actv, fpaths_Src, fpath_Remote, fp);
-//		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files(actv, fpath_Src, fpath_Remote, fp);
+		}//try
 
-		// validate
-		if (tmp_Int != 1) {
-
-			return tmp_Int;
-
-		} else {//if (tmp_Int != 1)
-			
-			String log_msg;
-			
-			log_msg = "upload audio => done: " + tmp_Str;
-			
-			Methods.write_Log(actv, log_msg,
-					Thread.currentThread().getStackTrace()[2].getFileName(), Thread
-							.currentThread().getStackTrace()[2].getLineNumber());
-
-			
-		}//if (tmp_Int != 1)
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+		return reply_code;
+//		return 0;
 		
-//		// �t�@�C�����M
-//		FileInputStream is;
-//		
-//		try {
-//			
-//			// Log
-////			String msg_Log;
-//			
-//			msg_Log = "fpath_Src => " + fpath_Src;
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			is = new FileInputStream(fpath_Src);
-////			is = new FileInputStream(fpath_audio);
-//			
-//			// Log
-//			msg_Log = "Input stream => created";
-////			String msg_Log = "Input stream => created";
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			////////*////////////////////////
-//			
-//			// set: file type
-//			
-//			////////////////////////////////
-//			// REF http://stackoverflow.com/questions/7740817/how-to-upload-an-image-to-ftp-using-ftpclient answered Oct 12 '11 at 13:52
-//			res = fp.setFileType(FTP.BINARY_FILE_TYPE);
-//			
-//			/******************************
-//				validate
-//			 ******************************/
-//			if (res == false) {
-//				
-//				// Log
-//				msg_Log = "set file type => failed";
-//				Log.e("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-//				
-//				is.close();
-//				
-//				fp.disconnect();
-//				
-//				return -11;
-//				
-//			}
-//			
-//			////////////////////////////////
-//			
-//			// store
-//			
-//			////////////////////////////////
-//			// Log
-//			msg_Log = "Stroing file to remote... => "
-//					+ fpath_Remote;
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-////			fp.storeFile("./" + MainActv.fileName_db, is);// �T�[�o�[��
-//			res = fp.storeFile(fpath_Remote, is);// �T�[�o�[��
-//			
-////			fp.makeDirectory("./ABC");
-//			
-//			if (res == true) {
-//				
-//				// Log
-//				Log.d("Methods.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "File => Stored");
-//				 
-//			} else {//if (res == true)
-//				
-//				// Log
-//				Log.d("Methods.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "Store file => Failed");
-//				
-//				fp.disconnect();
-//				
-//				return -6;
-//				
-//			}//if (res == true)
-//			
-//			is.close();
-//			
-//		} catch (FileNotFoundException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//			
-//			try {
-//				
-//				fp.disconnect();
-//				
-//				return -7;
-//				
-//			} catch (IOException e1) {
-//				
-//				e1.printStackTrace();
-//				
-//				return -8;
-//				
-//			}
-//			
-//			
-//		} catch (IOException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//			
-//			try {
-//				fp.disconnect();
-//				
-//				return -9;
-//				
-//			} catch (IOException e1) {
-//				
-//				
-//				e1.printStackTrace();
-//				
-//				return -10;
-//				
-//			}
-//			
-//		}
-//		
-		/*********************************
-		 * Disconnect
-		 *********************************/
-		try {
-			
-			// Log
-//			String msg_Log;
-			
-			msg_Log = "disconnecting...";
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			fp.disconnect();
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "fp => Disconnected");
-			
-			return reply_code;
-			
-		} catch (IOException e) {
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Error: " + e.toString());
-			
-			return -3;
-			
-		}
-		
-		//debug
-//		return -1;
-		
-	}//ftp_Remote_AUDIO
-	
+	}//_ftp_Remote_AUDIO__Setup_FTP
+
 	/*******************************
 	 * @return
 	 * 1	=> FTP successful
