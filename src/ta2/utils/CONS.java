@@ -415,6 +415,7 @@ public class CONS {
 			
 			android.provider.BaseColumns._ID,		// 0
 			"created_at", "modified_at",			// 1,2
+			"file_name",							// 3
 			
 		};
 		
@@ -422,6 +423,7 @@ public class CONS {
 			
 			"INTEGER",						// 0
 			"TEXT", "TEXT",					// 1,2
+			"TEXT",							// 3
 			
 		};
 		

@@ -846,8 +846,10 @@ public class DB_OCL implements OnClickListener {
 		res = DBUtils.createTable_static(
 				actv, 
 				tname, 
-				new String[]{}, 
-				new String[]{});
+				new String[]{CONS.DB.col_names_Upload_History_Audio_full[3]}, 
+				new String[]{CONS.DB.col_types_Upload_History_Audio_full[3]});
+//		new String[]{}, 
+//		new String[]{});
 //		CONS.DB.col_names_FilterHistory, 
 //		CONS.DB.col_types_FilterHistory);
 		
