@@ -113,7 +113,9 @@ public class CONS {
 		//REF spelling http://stackoverflow.com/questions/8948435/how-do-i-order-my-sqlite-database-in-descending-order-for-an-android-app answered Jan 20 '12 at 22:06
 		public static final String sortOrder_DESC = "DESC";
 		
-		public static final String last_update_Str = "2015/10/07 00:00:00.671";
+		public static final String last_update_Str = "2015/10/01 00:00:00.671";
+//		public static final String last_update_Str = "2015/10/03 00:00:00.671";
+//		public static final String last_update_Str = "2015/10/07 00:00:00.671";
 		
 		////////////////////////////////
 

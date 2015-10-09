@@ -28,7 +28,7 @@ public class FF implements FilenameFilter {
 	private Pattern p;
 	private Matcher m;
 
-	private List<String> listOf_Uploaded_Audio_Files;
+	private List<String> listOf_Uploaded_Audio_FileNames;
 	private List<String> list_TMP_Str;
 
 	private String msg_Log;
@@ -87,36 +87,76 @@ public class FF implements FilenameFilter {
 		// history data
 		//
 		///////////////////////////////////
-		this.list_TMP_Str = DBUtils.find_All_UploadHistory_Audio(this.actv);
+//		// list
+//		this.listOf_Uploaded_Audio_FileNames = new ArrayList<String>();
+
+		this.listOf_Uploaded_Audio_FileNames = 
+						DBUtils.find_All_UploadHistory_Audio__FileNames(this.actv);
+//		this.list_TMP_Str = DBUtils.find_All_UploadHistory_Audio__FileNames(this.actv);
 //		this.listOf_Uploaded_Audio_Files = DBUtils.find_All_UploadHistory_Audio(this.actv);
-		
-		// list
-		this.listOf_Uploaded_Audio_Files = new ArrayList<String>();
-		
-		String tmp_Str;
-		
-		for (String string : list_TMP_Str) {
+
+		// validate
+		if (this.listOf_Uploaded_Audio_FileNames == null) {
+//			if (this.list_TMP_Str == null) {
 			
-			tmp_Str = Methods.conv_TimeLabel_2_FileName(actv, string);
+			// initialize
+			this.listOf_Uploaded_Audio_FileNames = new ArrayList<String>();
 			
-//			// Log
-//			String msg_Log;
+			// Log
+			String msg_Log;
 			
-			this.msg_Log = String.format(
+			msg_Log = String.format(
 					Locale.JAPAN,
-					"converted => %s", tmp_Str
+					"upload history list => null"
 					);
 			
-			Log.i("FF.java" + "["
+			Log.e("FF.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			this.listOf_Uploaded_Audio_Files.add(tmp_Str);
-//			Methods.conv_TimeLabel_2_FileName(actv, string));
+			return;
 			
-		}//for (String string : list_TMP_Str)
+		} else if (this.listOf_Uploaded_Audio_FileNames.size() < 1) {
+//		} else if (this.list_TMP_Str.size() < 1) {
+
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"no upload history for audio"
+					);
+			
+			Log.e("FF.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+
+		}//if (this.list_TMP_Str.size() < 1)
 		
-		
+//		String tmp_Str;
+//		
+//		for (String string : list_TMP_Str) {
+//			
+//			tmp_Str = Methods.conv_TimeLabel_2_FileName(actv, string);
+//			
+////			// Log
+////			String msg_Log;
+//			
+//			this.msg_Log = String.format(
+//					Locale.JAPAN,
+//					"converted => %s", tmp_Str
+//					);
+//			
+//			Log.i("FF.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			this.listOf_Uploaded_Audio_FileNames.add(tmp_Str);
+////			Methods.conv_TimeLabel_2_FileName(actv, string));
+//			
+//		}//for (String string : list_TMP_Str)
 		
 	}//case_UPLOAD_AUDIO__Setup
 	
@@ -190,7 +230,7 @@ public class FF implements FilenameFilter {
 		// filter: already uploaded
 		//
 		///////////////////////////////////
-		if (this.listOf_Uploaded_Audio_Files.contains(filename)) {
+		if (this.listOf_Uploaded_Audio_FileNames.contains(filename)) {
 
 			// Log
 //			String msg_Log;

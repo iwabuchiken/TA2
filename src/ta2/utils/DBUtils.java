@@ -5538,11 +5538,11 @@ public class DBUtils extends SQLiteOpenHelper{
 	//ref javadoc escape http://stackoverflow.com/questions/2898897/how-can-i-use-and-in-javadoc-without-formating
 	/*******************************
 	 * @return
-	 * ArrayList&lt;String&gt;{file name 1, file name 2, ...}<br>
+	 * ArrayList&lt;String&gt;{2015-10-10_...wav, 2015-10-11_...wav, ...}<br>
 	 * {@literal<abc>}
 	 *******************************/
 	public static List<String> 
-	find_All_UploadHistory_Audio(Activity actv) {
+	find_All_UploadHistory_Audio__FileNames(Activity actv) {
 		// TODO Auto-generated method stub
 		
 		// UHA: upload history audio
@@ -5589,6 +5589,9 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
+			// close db
+			rdb.close();
+			
 			return null;
 			
 		}//try
@@ -5609,6 +5612,9 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", msg);
 
+			// close db
+			rdb.close();
+			
 			return null;
 			
 		} else if (c.getCount() < 1) {//if (c == null)
@@ -5622,6 +5628,9 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", msg);
 
+			// close db
+			rdb.close();			
+			
 			return null;
 			
 //		} else if (c.getCount() >= 1) {//if (c == null)
@@ -5655,7 +5664,12 @@ public class DBUtils extends SQLiteOpenHelper{
 		///////////////////////////////////
 		while(c.moveToNext()) {
 
-			list_UHAs.add(c.getString(1));
+//			android.provider.BaseColumns._ID,		// 0
+//			"created_at", "modified_at",			// 1,2
+//			"file_name",							// 3
+
+			list_UHAs.add(c.getString(3));
+//			list_UHAs.add(c.getString(1));
 			
 //			WordPattern wp = new WordPattern.Builder()
 //

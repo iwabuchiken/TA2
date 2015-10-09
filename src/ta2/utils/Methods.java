@@ -84,6 +84,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -4062,15 +4063,15 @@ public static String
 //			}});
 //		String[] fnames = new File(dpath_Src).list();
 		
-		String tmp_Str = Methods.get_Largest(fnames);
-
-		String fpath_Src = StringUtils.join(
-							new String[]{
-									CONS.DB.dPath_Audio,
-									tmp_Str
-							}, 
-							File.separator
-		);
+//		String tmp_Str = Methods.get_Largest(fnames);
+//
+//		String fpath_Src = StringUtils.join(
+//							new String[]{
+//									CONS.DB.dPath_Audio,
+//									tmp_Str
+//							}, 
+//							File.separator
+//		);
 
 		///////////////////////////////////
 		//
@@ -4608,6 +4609,14 @@ public static String
 							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 							+ "]", "File => Stored");
 					
+					///////////////////////////////////
+					//
+					// save record
+					//
+					///////////////////////////////////
+					Methods.save_UploadHistory_Audio(actv, fname);
+					
+					
 				} else {//if (res == true)
 					
 					// Log
@@ -4735,6 +4744,60 @@ public static String
 		
 	}//_ftp_Remote_AUDIO__FTP_Files_Multiple
 	
+	private static void 
+	save_UploadHistory_Audio
+	(Activity actv, String fname) {
+		// TODO Auto-generated method stub
+	
+		///////////////////////////////////
+		//
+		// table
+		//
+		///////////////////////////////////
+		String tname = CONS.DB.tname_UploadHistory_Audio;
+		
+		///////////////////////////////////
+		//
+		// content values
+		//
+		///////////////////////////////////
+		ContentValues val = new ContentValues();
+		
+		String time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"db_id",								// 3
+//		"file_name", "file_path"				// 4,5
+		
+		val.put(CONS.DB.col_names_Upload_History_Audio_full[1], time);
+		
+		val.put(CONS.DB.col_names_Upload_History_Audio_full[2], time);
+		
+		val.put(CONS.DB.col_names_Upload_History_Audio_full[3], fname);
+		
+		///////////////////////////////////
+		//
+		// insert data
+		//
+		///////////////////////////////////
+		boolean res = DBUtils.insert_Data_generic(actv, tname, val);
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"insert upload audio history => %s (file = %s)", 
+				res, fname
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+	}//save_UploadHistory_Audio
+
 	private static String get_Largest(String[] fnames) {
 		// TODO Auto-generated method stub
 		
