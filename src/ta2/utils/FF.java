@@ -2,11 +2,15 @@ package ta2.utils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ta2.utils.CONS.Enums.FilterType;
 import android.app.Activity;
+import android.util.Log;
 
 public class FF implements FilenameFilter {
 
@@ -16,11 +20,18 @@ public class FF implements FilenameFilter {
 	private FilterType type;
 
 	boolean filter_Result;
-	private String last_update_Str;
+	
+	private String last_update_Str = "2015/10/07 06:31:53.862";
+	
 	private String fname_Threshold;
 	private String regex;
 	private Pattern p;
 	private Matcher m;
+
+	private List<String> listOf_Uploaded_Audio_Files;
+	private List<String> list_TMP_Str;
+
+	private String msg_Log;
 	
 	public FF(Activity actv, FilterType type) {
 		// TODO Auto-generated constructor stub
@@ -32,15 +43,16 @@ public class FF implements FilenameFilter {
 		
 		case UPLOAD_AUDIO:
 			
-			this.last_update_Str = "2015/10/05 06:31:53.862";;
-//			this.last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
-
-			this.fname_Threshold = 
-					Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);
-
-			this.regex = "^\\d\\d\\d\\d";
-			
-			this.p = Pattern.compile(regex);
+			case_UPLOAD_AUDIO__Setup();
+////			this.last_update_Str = "2015/10/05 06:31:53.862";;
+////			this.last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
+//
+//			this.fname_Threshold = 
+//					Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);
+//
+//			this.regex = "^\\d\\d\\d\\d";
+//			
+//			this.p = Pattern.compile(regex);
 			
 			break;
 
@@ -49,6 +61,65 @@ public class FF implements FilenameFilter {
 		}
 		
 	}//public FF(Activity actv, FilterType type)
+
+	private void 
+	case_UPLOAD_AUDIO__Setup() {
+		// TODO Auto-generated method stub
+		
+		///////////////////////////////////
+		//
+		// regex
+		//
+		///////////////////////////////////
+//		this.last_update_Str = "2015/10/05 06:31:53.862";;
+//		this.last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
+		this.last_update_Str = CONS.DB.last_update_Str;
+
+		this.fname_Threshold = 
+				Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);
+
+		this.regex = "^\\d\\d\\d\\d";
+		
+		this.p = Pattern.compile(regex);
+
+		///////////////////////////////////
+		//
+		// history data
+		//
+		///////////////////////////////////
+		this.list_TMP_Str = DBUtils.find_All_UploadHistory_Audio(this.actv);
+//		this.listOf_Uploaded_Audio_Files = DBUtils.find_All_UploadHistory_Audio(this.actv);
+		
+		// list
+		this.listOf_Uploaded_Audio_Files = new ArrayList<String>();
+		
+		String tmp_Str;
+		
+		for (String string : list_TMP_Str) {
+			
+			tmp_Str = Methods.conv_TimeLabel_2_FileName(actv, string);
+			
+//			// Log
+//			String msg_Log;
+			
+			this.msg_Log = String.format(
+					Locale.JAPAN,
+					"converted => %s", tmp_Str
+					);
+			
+			Log.i("FF.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			this.listOf_Uploaded_Audio_Files.add(tmp_Str);
+//			Methods.conv_TimeLabel_2_FileName(actv, string));
+			
+		}//for (String string : list_TMP_Str)
+		
+		
+		
+	}//case_UPLOAD_AUDIO__Setup
+	
 
 	@Override
 	public boolean 
@@ -75,6 +146,18 @@ public class FF implements FilenameFilter {
 	private boolean 
 	case_UPLOAD_AUDIO(String filename) {
 
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"filtering => %s", filename
+				);
+		
+		Log.i("FF.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		///////////////////////////////////
 		//
 		// threshold
@@ -102,6 +185,29 @@ public class FF implements FilenameFilter {
 			
 		}
 
+		///////////////////////////////////
+		//
+		// filter: already uploaded
+		//
+		///////////////////////////////////
+		if (this.listOf_Uploaded_Audio_Files.contains(filename)) {
+
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"already uploaded: %s", filename
+					);
+			
+			Log.i("FF.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+
+		}//if (this.listOf_Uploaded_Audio_Files.contains(filename))
+		
 		///////////////////////////////////
 		//
 		// compare

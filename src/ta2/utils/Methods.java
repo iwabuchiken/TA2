@@ -4047,16 +4047,19 @@ public static String
 								}, File.separator
 							);
 
-		String[] fnames = new File(dpath_Src).list(new FilenameFilter(){
-
-			@Override
-			public boolean accept(File dir, String filename) {
-				// TODO Auto-generated method stub
-				
-				return new File(dir, filename).isFile();
-//				return false;
-				
-			}});
+		String[] fnames = new File(dpath_Src).list(
+				new FF(actv, CONS.Enums.FilterType.UPLOAD_AUDIO));
+		
+//			String[] fnames = new File(dpath_Src).list(new FilenameFilter(){
+//
+//			@Override
+//			public boolean accept(File dir, String filename) {
+//				// TODO Auto-generated method stub
+//				
+//				return new File(dir, filename).isFile();
+////				return false;
+//				
+//			}});
 //		String[] fnames = new File(dpath_Src).list();
 		
 		String tmp_Str = Methods.get_Largest(fnames);
@@ -4069,11 +4072,33 @@ public static String
 							File.separator
 		);
 
-		String[] fpaths_Src = {
-				
-				fpath_Src,
-				CONS.DB.dPath_Audio + "/" + "2015-08-01_20-57-19-271.wav"
-		};
+		///////////////////////////////////
+		//
+		// prep: source files
+		//
+		///////////////////////////////////
+		int tmp_len = fnames.length;
+		
+		String[] fpaths_Src = new String[tmp_len];
+		
+		for (int i = 0; i < tmp_len; i++) {
+			
+			fpaths_Src[i] = StringUtils.join(
+							new String[]{
+									CONS.DB.dPath_Audio,
+									fnames[i]
+							}, 
+							File.separator
+			);
+			
+		}//for (int i = 0; i < tmp_len; i++)
+		
+		
+//		String[] fpaths_Src = {
+//				
+//				fpath_Src,
+//				CONS.DB.dPath_Audio + "/" + "2015-08-01_20-57-19-271.wav"
+//		};
 		
 //		tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
 		int tmp_Int = _ftp_Remote_AUDIO__FTP_Files_Multiple(
@@ -4511,7 +4536,8 @@ public static String
 				Log.d("Methods.java" + "["
 						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 						+ "]", msg_Log);
-				
+			
+				// input stream
 				is = new FileInputStream(fpath);
 //				is = new FileInputStream(fpath_audio);
 				
@@ -4691,139 +4717,6 @@ public static String
 		Log.i("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-		
-		
-//		try {
-//			
-//			// Log
-//			String msg_Log;
-//			
-//			msg_Log = "fpath_Src => " + fpaths_Src;
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			is = new FileInputStream(fpaths_Src);
-////			is = new FileInputStream(fpath_audio);
-//			
-//			// Log
-//			msg_Log = "Input stream => created";
-////			String msg_Log = "Input stream => created";
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//			////////*////////////////////////
-//			
-//			// set: file type
-//			
-//			////////////////////////////////
-//			// REF http://stackoverflow.com/questions/7740817/how-to-upload-an-image-to-ftp-using-ftpclient answered Oct 12 '11 at 13:52
-//			res = fp.setFileType(FTP.BINARY_FILE_TYPE);
-//			
-//			/******************************
-//				validate
-//			 ******************************/
-//			if (res == false) {
-//				
-//				// Log
-//				msg_Log = "set file type => failed";
-//				Log.e("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", msg_Log);
-//				
-//				is.close();
-//				
-//				fp.disconnect();
-//				
-//				return -11;
-//				
-//			}
-//			
-//			////////////////////////////////
-//			
-//			// store
-//			
-//			////////////////////////////////
-//			// Log
-//			msg_Log = "Stroing file to remote... => "
-//					+ fpath_Remote;
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-////			fp.storeFile("./" + MainActv.fileName_db, is);// �T�[�o�[��
-//			res = fp.storeFile(fpath_Remote, is);// �T�[�o�[��
-//			
-////			fp.makeDirectory("./ABC");
-//			
-//			if (res == true) {
-//				
-//				// Log
-//				Log.d("Methods.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "File => Stored");
-//				
-//			} else {//if (res == true)
-//				
-//				// Log
-//				Log.d("Methods.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "Store file => Failed");
-//				
-//				fp.disconnect();
-//				
-//				return -6;
-//				
-//			}//if (res == true)
-//			
-//			is.close();
-//			
-//		} catch (FileNotFoundException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//			
-//			try {
-//				
-//				fp.disconnect();
-//				
-//				return -7;
-//				
-//			} catch (IOException e1) {
-//				
-//				e1.printStackTrace();
-//				
-//				return -8;
-//				
-//			}
-//			
-//			
-//		} catch (IOException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//			
-//			try {
-//				fp.disconnect();
-//				
-//				return -9;
-//				
-//			} catch (IOException e1) {
-//				
-//				
-//				e1.printStackTrace();
-//				
-//				return -10;
-//				
-//			}
-//			
-//		}
 		
 		///////////////////////////////////
 		//
@@ -8730,7 +8623,10 @@ public static String
 		// threshold
 		//
 		///////////////////////////////////
-		String last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
+//		last_update_Str => 2015/10/09 08:27:53.671 | fname_Threshold => 2015-10-09_08-27-53-671.wav
+
+		String last_update_Str = CONS.DB.last_update_Str;
+//		String last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
 		
 		String fname_Threshold = 
 						Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);

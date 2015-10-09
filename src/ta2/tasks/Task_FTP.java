@@ -492,12 +492,12 @@ public class Task_FTP extends AsyncTask<String, Integer, Integer> {
 			if(d2 != null) d2.dismiss();
 			if(d1 != null) d1.dismiss();
 			
-//			///////////////////////////////////
-//			//
-//			// save record
-//			//
-//			///////////////////////////////////
-			Methods.save_UploadHistory_Audio(actv);
+////			///////////////////////////////////
+////			//
+////			// save record
+////			//
+////			///////////////////////////////////
+//			Methods.save_UploadHistory_Audio(actv);
 			
 			break;
 			

@@ -5534,6 +5534,154 @@ public class DBUtils extends SQLiteOpenHelper{
 		return latest_str;
 		
 	}//find_UploadHistory_Audio_Latest
+
+	//ref javadoc escape http://stackoverflow.com/questions/2898897/how-can-i-use-and-in-javadoc-without-formating
+	/*******************************
+	 * @return
+	 * ArrayList&lt;String&gt;{file name 1, file name 2, ...}<br>
+	 * {@literal<abc>}
+	 *******************************/
+	public static List<String> 
+	find_All_UploadHistory_Audio(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		// UHA: upload history audio
+		List<String> list_UHAs = new ArrayList<String>();
+		
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		///////////////////////////////////
+		//
+		// query
+		//
+		///////////////////////////////////
+		Cursor c = null;
+		
+//		String where = CONS.DB.col_names_Patterns[0] + " = ?";
+//		String[] args = new String[]{
+//				
+//							word
+//							
+//						};
+		
+		try {
+			
+			c = rdb.query(
+					
+					CONS.DB.tname_UploadHistory_Audio,			// 1
+					CONS.DB.col_names_Upload_History_Audio_full,	// 2
+//					CONS.DB.tname_Patterns,			// 1
+//					CONS.DB.col_names_Patterns,	// 2
+					null, null,		// 3,4
+//					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+
+			// Log
+			String msg_Log = "Exception";
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query => null";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+
+			return null;
+			
+//		} else if (c.getCount() >= 1) {//if (c == null)
+//			
+//			// Log
+//			String msg_Log = "Entry exists => " + c.getCount();
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return 1;
+//			
+		}//if (c == null)
+		
+//		} else {//if (c == null)
+//			
+//			// Log
+//			String msg_Log = "Unknown result";
+//			Log.e("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return -4;
+//			
+//		}//if (c == null)
+		
+		///////////////////////////////////
+		//
+		// build list
+		//
+		///////////////////////////////////
+		while(c.moveToNext()) {
+
+			list_UHAs.add(c.getString(1));
+			
+//			WordPattern wp = new WordPattern.Builder()
+//
+//					.setDb_Id(c.getLong(0))
+//					.setCreated_at(c.getString(1))
+//					.setModified_at(c.getString(2))
+//					
+//					.setWord(c.getString(3))
+//					.setUsed(c.getInt(4))
+//					
+//					.build();
+//			
+//			list_WP.add(wp);
+			
+		}//while(c.moveToNext())
+		
+		///////////////////////////////////
+		//
+		// close db
+		//
+		///////////////////////////////////
+		rdb.close();
+		
+		return list_UHAs;
+		
+	}//find_All_UploadHistory_Audio
 	
 }//public class DBUtils
 
