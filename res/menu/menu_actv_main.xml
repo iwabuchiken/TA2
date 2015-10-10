@@ -1,24 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/menu_main_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        
-        android:icon="@drawable/menu_icon_admin_32x32_brown"
-        />
-    
     <item 
         android:id="@+id/menu_main_logout"
         android:title="@string/menu_main_logout"
         android:icon="@drawable/menu_icon_logout_32x32"
-        >
-    </item>
-    
-    <item 
-        android:id="@+id/menu_main_admin"
-        android:title="@string/menu_main_admin"
-        android:icon="@drawable/menu_icon_admin_32x32"
         >
     </item>
     
@@ -29,4 +14,20 @@
         >
     </item>
     
+    <item 
+        android:id="@+id/menu_main_admin"
+        android:title="@string/menu_main_admin"
+        android:icon="@drawable/menu_icon_admin_32x32"
+        >
+    </item>
+
+        <item
+        android:id="@+id/menu_main_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        
+        android:icon="@drawable/menu_icon_admin_32x32_brown"
+        />
+    
 </menu>
+

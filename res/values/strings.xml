@@ -158,6 +158,13 @@
     	<string name="prefs_db_auto_upload_schedule_span_title">
     	    									DB auto upload schedule</string>
 
+	   	<string name="prefs_Audio_Upload_Since_key">
+    	    									prefs_Audio_Upload_Since</string>
+    	<string name="prefs_Audio_Upload_Since_summary">
+    	    									Files since</string>
+    	<string name="prefs_Audio_Upload_Since_title">
+    	    									Audio upload since</string>
+
     <!-- image_actv_menu.xml -->
 	    <string name="image_actv_menu_add_memo">Memo</string>
 	    <string name="image_actv_menu_add_patterns">定型句登録</string>

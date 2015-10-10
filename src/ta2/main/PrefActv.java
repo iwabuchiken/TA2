@@ -86,6 +86,8 @@ public class PrefActv extends PreferenceActivity
 		
 		_Setup_Pref_AutoUpload();
 		
+		_Setup_Pref_AudioUpload_Since();
+		
 		_Setup_Listeners();
 		
 		super.onStart();
@@ -206,6 +208,81 @@ public class PrefActv extends PreferenceActivity
 		
 	}//_Setup_Pref_AutoUpload
 	
+	private void _Setup_Pref_AudioUpload_Since() {
+		// TODO Auto-generated method stub
+//		String msg_Log;
+		
+		////////////////////////////////
+		
+		// pref: auto backup
+		
+		////////////////////////////////
+		EditTextPreference pref_AudioUpload_Since = 
+				(EditTextPreference) findPreference(
+						this.getString(R.string.prefs_Audio_Upload_Since_key));
+//		this.getString(R.string.prefs_db_auto_backup_key));
+		
+		pref_AudioUpload_Since.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+		
+		////////////////////////////////
+		
+		// show: current
+		
+		////////////////////////////////
+		String current = pref_AudioUpload_Since.getText();
+		
+		String summary = pref_AudioUpload_Since.getSummary().toString();
+//		
+		// Log
+		String msg_Log = String.format("summary = %s, current = %s", summary, current);
+		Log.d("PrefActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		if (current == null) {
+//			if (summary == null || current == null) {
+			
+			summary = this.getString(R.string.prefs_Audio_Upload_Since_summary);
+//			summary = this.getString(R.string.prefs_db_auto_backup_summary);
+			
+		} else {
+			
+			String pref_CurrentValue = Methods.get_Pref_String(
+							this, 
+							CONS.Pref.pname_MainActv, 
+							this.getString(R.string.prefs_Audio_Upload_Since_key), 
+							null);
+			
+			if (pref_CurrentValue == null) {
+				
+				summary = "No data set";
+				
+			} else {//if (pref_CurrentValue == null)
+				
+				summary = pref_CurrentValue;
+				
+			}//if (pref_CurrentValue == null)
+			
+			
+//			//REF http://stackoverflow.com/questions/12377838/android-replace-with-regex answered Sep 11 '12 at 21:01
+//			summary = summary.replaceAll("\\d{1,}", current);
+////			summary = summary.replaceAll("\\d+?", current);	// every digit gets replaced with "current"
+////			summary = summary.replace("\\d+?", current);	// no replacement
+////			summary = summary.replaceAll("\\d+?", current);
+////			summary = summary.replaceAll("(\\d+?|X)", current);
+////			summary = summary.replaceAll("[\\d+?X]", current);
+//			
+//			// Log
+//			msg_Log = "summary(replaced) => " + summary;
+//			Log.d("PrefActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+		}
+		
+		pref_AudioUpload_Since.setSummary(summary);
+		
+	}//_Setup_Pref_AudioUpload_Since
+	
 	private void _Setup_Listeners() {
 		// TODO Auto-generated method stub
 		
@@ -311,6 +388,8 @@ public class PrefActv extends PreferenceActivity
 		_Setup_FontSize();
 		
 		this._Setup_Pref_AutoBk();
+		
+		this._Setup_Pref_AudioUpload_Since();
 		
 	}
 

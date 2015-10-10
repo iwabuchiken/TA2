@@ -20,20 +20,22 @@
         
     </EditTextPreference>
     
-	<ta2.items.SeekBarPreference
+<!-- 	<ta2.items.SeekBarPreference
 	    android:key="calligraphy_diameter"
         android:title="@string/prefs_MemoList_Size_titile"
         android:summary="@string/prefs_MemoList_Size_summary"
         android:defaultValue="50"
         />
-	
-	<ta2.items.Pref_Dropdown
+ -->
+ 	
+<!-- 	<ta2.items.Pref_Dropdown
 	    android:key="calligraphy_diameter"
         android:title="@string/prefs_MemoList_Size_titile"
         android:summary="@string/prefs_MemoList_Size_summary"
         android:defaultValue="50"
         />
-	
+ -->
+ 
 	<CheckBoxPreference
         android:title="@string/prefs_ClearView_WhenSaved_titile"
         android:key="@string/prefs_ClearView_WhenSaved_key"
@@ -61,6 +63,17 @@
     >
 	
 	</EditTextPreference>	
+	
+	<EditTextPreference
+        android:title="@string/prefs_Audio_Upload_Since_title"
+        android:key="@string/prefs_Audio_Upload_Since_key"
+        android:summary="@string/prefs_Audio_Upload_Since_summary"
+        android:defaultValue="0"
+        
+    >
+        
+    </EditTextPreference>
+	
 	
 	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
 <!-- <ListPreference

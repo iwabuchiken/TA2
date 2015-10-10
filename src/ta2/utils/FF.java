@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ta2.main.R;
 import ta2.utils.CONS.Enums.FilterType;
 import android.app.Activity;
 import android.util.Log;
@@ -73,7 +74,75 @@ public class FF implements FilenameFilter {
 		///////////////////////////////////
 //		this.last_update_Str = "2015/10/05 06:31:53.862";;
 //		this.last_update_Str = DBUtils.find_UploadHistory_Audio_Latest(actv);
-		this.last_update_Str = CONS.DB.last_update_Str;
+		String tmp_Str = Methods.get_Pref_String(
+								actv, 
+								CONS.Pref.pname_MainActv, 
+								actv.getString(R.string.prefs_Audio_Upload_Since_key), 
+								null);
+		
+		if (tmp_Str == null) {
+			
+			this.last_update_Str = CONS.DB.last_update_Str;
+			
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"pref value => null"
+					);
+			
+			Log.i("FF.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		} else {//if (tmp_Str == null)
+			
+			String regex = "^\\d\\d\\d\\d/\\d\\d/\\d\\d \\d\\d:\\d\\d:\\d\\d.\\d+";
+			
+			Pattern p = Pattern.compile(regex);
+//			Pattern p = Pattern.compile("^\\d\\d\\d\\d/\\d\\d/\\d\\d \\d\\d:\\d\\d:\\d\\d.\\d+");
+			
+			Matcher m = p.matcher(tmp_Str);
+			
+			if (m.matches() == true) {
+				
+				this.last_update_Str = tmp_Str;
+
+				// Log
+				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"pref value => matches: %s", tmp_Str
+						);
+				
+				Log.i("FF.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+
+			} else {//if (m.matches() == true)
+				
+				this.last_update_Str = CONS.DB.last_update_Str;
+				
+				// Log
+				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"pref value => doesn't match: %s", tmp_Str
+						);
+				
+				Log.i("FF.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			}//if (m.matches() == true)
+			
+			
+		}//if (tmp_Str == null)
+		
+//		this.last_update_Str = CONS.DB.last_update_Str;
 
 		this.fname_Threshold = 
 				Methods.conv_TimeLabel_2_FileName(actv, last_update_Str);

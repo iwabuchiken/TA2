@@ -590,6 +590,8 @@ public class CONS {
 	public static class MainActv {
 		
 		public static ArrayAdapter<ListItem> adp_Item_List = null;
+		
+		public static Menu menu;
 
 	}
 

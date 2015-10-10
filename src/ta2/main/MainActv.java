@@ -1,6 +1,8 @@
 package ta2.main;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import ta2.items.MI;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
@@ -590,14 +593,93 @@ public class MainActv extends Activity {
 	}//protected void onCreate(Bundle savedInstanceState)
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean 
+	onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_actv_main, menu);
+		
+		///////////////////////////////////
+		//
+		// init
+		//
+		///////////////////////////////////
+		CONS.MainActv.menu = menu;
+		
+		////////////////////////////////
+
+		// prep: data
+
+		////////////////////////////////
+		_onCreateOptionsMenu__Build_Data(menu);
+		
+//		List<MI> list_MIs = new ArrayList<MI>();
+//		
+//		list_MIs.add(new MI.Builder()
+//					.setId_Item(R.id.menu_main_logout)
+//					.setId_Title(R.string.menu_main_logout)
+//					.setId_Icon(R.drawable.general_ib_ball_blue_48x48)
+//					.build()
+//				);
+		
+
 		return true;
 		
-	}
+	}//onCreateOptionsMenu
 
 	
+	private void 
+	_onCreateOptionsMenu__Build_Data(Menu menu) {
+		// TODO Auto-generated method stub
+		List<MI> list_MIs = new ArrayList<MI>();
+		
+		///////////////////////////////////
+		//
+		// add items
+		//
+		///////////////////////////////////
+//		list_MIs.add(new MI.Builder()
+//					.setId_Item(R.id.menu_main_logout)
+//					.setId_Title(R.string.menu_main_logout)
+//					.setId_Icon(R.drawable.general_ib_ball_blue_48x48)
+//					.build()
+//		);
+
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_admin)
+				.setId_Title(R.string.menu_main_admin)
+				.setId_Icon(R.drawable.general_ib_ball_green_48x48)
+				.build()
+				);
+		
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_settings)
+				.setId_Title(R.string.action_settings)
+				.setId_Icon(R.drawable.general_ib_ball_yellow_48x48)
+				.build()
+				);
+		
+		///////////////////////////////////
+		//
+		// clear menu
+		//
+		///////////////////////////////////
+		CONS.MainActv.menu.clear();
+		
+		for (int i = 0; i < list_MIs.size(); i++) {
+//			for (int i = 0; i < list_Icons.size(); i++) {
+			
+			CONS.MainActv.menu
+				.add(
+					0, 
+					list_MIs.get(i).getId_Item(), 
+					2, 
+					list_MIs.get(i).getId_Title())
+				.setIcon(list_MIs.get(i).getId_Icon());
+			
+		}
+
+	}//_onCreateOptionsMenu__Build_Data
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub

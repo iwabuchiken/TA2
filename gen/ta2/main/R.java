@@ -260,9 +260,9 @@ public final class R {
         public static final int list_row_slimple_iv_1_ll=0x7f0a008d;
         public static final int list_row_slimple_iv_1_tv=0x7f0a008f;
         public static final int menu_main_admin=0x7f0a0097;
-        public static final int menu_main_horizontal_listview=0x7f0a0098;
-        public static final int menu_main_logout=0x7f0a0096;
-        public static final int menu_main_settings=0x7f0a0095;
+        public static final int menu_main_horizontal_listview=0x7f0a0096;
+        public static final int menu_main_logout=0x7f0a0095;
+        public static final int menu_main_settings=0x7f0a0098;
         public static final int menu_memo_admin_patterns=0x7f0a0099;
         public static final int menu_showlist_filter=0x7f0a009a;
         public static final int menu_showlist_filter_history=0x7f0a009b;
@@ -322,7 +322,7 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int actv_image_menu_add_photo_memo=0x7f070051;
+        public static final int actv_image_menu_add_photo_memo=0x7f070054;
         public static final int app_name=0x7f070000;
         public static final int btn_lbl_memo_patterns=0x7f07001f;
         /**  UI labels 
@@ -390,8 +390,8 @@ public final class R {
         public static final int generic_tv_view=0x7f07000c;
         /**  image_actv_menu.xml 
          */
-        public static final int image_actv_menu_add_memo=0x7f07004f;
-        public static final int image_actv_menu_add_patterns=0x7f070050;
+        public static final int image_actv_menu_add_memo=0x7f070052;
+        public static final int image_actv_menu_add_patterns=0x7f070053;
         public static final int menu_main_admin=0x7f070025;
         public static final int menu_main_horizontal_listview=0x7f070026;
         /**  Menu: main 
@@ -405,6 +405,9 @@ public final class R {
          */
         public static final int menu_showlist_filter=0x7f070027;
         public static final int menu_showlist_filter_history=0x7f070028;
+        public static final int prefs_Audio_Upload_Since_key=0x7f07004f;
+        public static final int prefs_Audio_Upload_Since_summary=0x7f070050;
+        public static final int prefs_Audio_Upload_Since_title=0x7f070051;
         public static final int prefs_ClearView_WhenSaved_key=0x7f070046;
         public static final int prefs_ClearView_WhenSaved_summary=0x7f070047;
         public static final int prefs_ClearView_WhenSaved_titile=0x7f070045;
