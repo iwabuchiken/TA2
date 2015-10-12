@@ -585,6 +585,9 @@ public class CONS {
 		public static String pkey_CurrentPosition_LogActv = 
 									"pkey_CurrentPosition_LogActv";
 
+		public static String pkey_ShowListActv_Filter_String__ShowLogActv
+								= "pkey_ShowListActv_Filter_String__ShowLogActv";
+
 	}//Pref
 
 	public static class MainActv {

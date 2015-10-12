@@ -19,6 +19,7 @@
 	    <string name="generic_tv_view">View</string>
 	    
     	<string name="generic_notice">Notice</string>
+    	<string name="generic_Reset">Reset</string>
     
     <!-- commmons　-->
     	<string name="commons_import_db_name">ifm11.db</string>
