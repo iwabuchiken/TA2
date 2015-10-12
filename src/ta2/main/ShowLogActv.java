@@ -19,7 +19,6 @@ import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -157,13 +156,39 @@ public class ShowLogActv extends ListActivity {
 //		MenuInflater mi = getMenuInflater();
 //		mi.inflate(R.menu.menu_main, menu);
 		
-		return super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.menu_actv_showlist, menu);
+		return true;
+
+		
+//		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean 
+	onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
+
+		case R.id.menu_showlist_filter://--------------------
+			
+			case_OPT_Filter();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		case R.id.menu_showlist_filter_history://--------------------
+			
+			case_OPT_FilterHistory();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		case R.id.menu_main_settings://--------------------
+			
+			case_OPT_Settings();
+//			this.logoutFromTwitter();
+			
+			break;
+
 //		case R.id.opt_menu_main_db://------------------------
 //			
 //			Methods_dlg.dlg_Db_Actv(this);
@@ -178,6 +203,30 @@ public class ShowLogActv extends ListActivity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_OPT_Settings() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_PrefActv__ForResult(this);
+//		Methods.start_Activity_PrefActv(this);
+		
+	}
+
+	private void 
+	case_OPT_FilterHistory() {
+		// TODO Auto-generated method stub
+		
+//		Methods_dlg.dlg_Filter_History(this);
+		
+	}
+
+	private void 
+	case_OPT_Filter() {
+		// TODO Auto-generated method stub
+	
+//		Methods_dlg.dlg_filter_ShowList(this);
+		
+	}
 
 	@Override
 	protected void onPause() {

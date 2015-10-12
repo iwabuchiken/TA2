@@ -464,7 +464,55 @@ public class MainActv extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-	}
+		
+		////////////////////////////////////////////////////
+		//
+		// reset variables
+		//
+		////////////////////////////////////////////////////
+		///////////////////////////////////
+		//
+		// ShowListActv: filtering string
+		//
+		///////////////////////////////////
+		boolean res_B = Methods.set_Pref_String(
+							this, 
+							CONS.Pref.pname_MainActv, 
+							CONS.Pref.pkey_ShowListActv_Filter_String, 
+							null);
+		
+		if (res_B == true) {
+			
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"filtering string => set null (ShowListActv)"
+					);
+			
+			Log.i("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {//if (res_B == true)
+			
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"filtering string => set null (ShowListActv) ~~> returned false"
+					);
+			
+			Log.e("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (res_B == true)
+		
+		
+	}//protected void onDestroy()
 
 
 	@Override
