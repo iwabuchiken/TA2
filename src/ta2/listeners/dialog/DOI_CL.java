@@ -154,6 +154,14 @@ public class DOI_CL implements OnItemClickListener {
 			----------------------------*/
 		switch (tag) {
 		
+		case GV_FILTER_SHOWLOG://----------------------------------------------
+			
+			wp = (WordPattern) parent.getItemAtPosition(position);
+			
+			case_GV_FILTER_SHOWLOG(wp);
+			
+			break;// case dlg_add_memos_gv
+			
 //		case dlg_db_admin_lv://----------------------------------------------
 		case ACTV_SHOWLIST_FILTER_HISTORY_LV://----------------------------------------------
 			
@@ -487,6 +495,67 @@ public class DOI_CL implements OnItemClickListener {
 		
 	}//case_GV_FILTER_SHOWLIST
 
+	private void 
+	case_GV_FILTER_SHOWLOG
+	(WordPattern wp) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// get view
+		
+		////////////////////////////////
+		EditText et = 
+//				(EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+				(EditText) d1.findViewById(R.id.dlg_filter_showlogactv_ET_content);
+		
+		////////////////////////////////
+		
+		// get pattern
+		
+		////////////////////////////////
+		String pattern = wp.getWord();
+		
+		////////////////////////////////
+		
+		// add pattern
+		
+		////////////////////////////////
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Input => null";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1, colorID);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() > 0) {
+			
+			tmp = tmp + " " + pattern;
+			
+		} else {
+			
+			tmp = pattern;
+			
+		}
+		
+		et.setText(tmp);
+		
+		////////////////////////////////
+		
+		// set: selection
+		
+		////////////////////////////////
+		et.setSelection(tmp.length());
+		
+	}//case_GV_FILTER_SHOWLOG
+	
 	private void 
 	case_ACTV_MAIN_ADMIN_LV_OPS
 	(ListItem li) {

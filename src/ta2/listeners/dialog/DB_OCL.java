@@ -224,6 +224,12 @@ public class DB_OCL implements OnClickListener {
 		//
 		switch (tag_name) {
 		
+		case DLG_FILTER_SHOWLIST_SHOWLOGACTV_OK://-------------------
+			
+			case_DLG_FILTER_SHOWLOGACTV_OK();
+			
+			break;
+			
 		case DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_AUDIO_OK://-------------------
 			
 			case_DLG_CONF_DROP_CREATE_TABLE_UPLOAD_HISTORY_AUDIO_OK();
@@ -464,6 +470,7 @@ public class DB_OCL implements OnClickListener {
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
 
 	private void 
 	case_DLG_CONF_UPLOAD_AUDIO_OK() {
@@ -2164,14 +2171,14 @@ public class DB_OCL implements OnClickListener {
 //				input
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	private void 
 	case_DLG_FILTER_SHOWLIST_OK_2() {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
 		
-		int res_i;
+//		int res_i;
 		
 		////////////////////////////////
 		
@@ -2186,6 +2193,32 @@ public class DB_OCL implements OnClickListener {
 		
 		////////////////////////////////
 		String input = et.getText().toString();
+		
+		///////////////////////////////////
+		//
+		// valid: null, blank
+		//
+		///////////////////////////////////
+		if (input == null) {
+			
+			String message = "input is null";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, message, d1, colorID);
+			
+			return;
+			
+		} else if (input.equals("")) {
+			
+			String message = "input is blank";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, message, d1, colorID);
+			
+			return;
+
+		}//if (input == null)
+		
 		
 		input = input.trim();
 		
@@ -2420,6 +2453,296 @@ public class DB_OCL implements OnClickListener {
 		}
 
 	}//case_DLG_FILTER_SHOWLIST_OK
+	
+	private void 
+	case_DLG_FILTER_SHOWLOGACTV_OK() {
+		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
+//		int res_i;
+		
+		////////////////////////////////
+		
+		// get view
+		
+		////////////////////////////////
+//		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		EditText et = (EditText) d1.findViewById(
+							R.id.dlg_filter_showlogactv_ET_content);
+		
+		////////////////////////////////
+		
+		// validate: multiple keywords
+		
+		////////////////////////////////
+		String input = et.getText().toString();
+		
+		///////////////////////////////////
+		//
+		// valid: null, blank
+		//
+		///////////////////////////////////
+		if (input == null) {
+			
+			String message = "input is null";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, message, d1, colorID);
+			
+			return;
+			
+		} else if (input.equals("")) {
+			
+			String message = "input is blank";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, message, d1, colorID);
+			
+			return;
+			
+		}//if (input == null)
+		
+		
+		input = input.trim();
+		
+		input = input.replaceAll("　", " ");
+		
+		input = input.replaceAll(" +", " ");
+		
+		// Log
+		msg_Log = "input is now => " + input;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		String[] tokens = input.split(" +");
+		String[] tokens = input.split(" ");
+		
+		if (tokens == null) {
+			
+//			String msg = "Split the input => null";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			String message = "Split the input => null";
+			int colorID = R.color.red;
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, message, d1, colorID);
+
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "tokens.length => " + tokens.length;
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// setup: where, args
+		
+		////////////////////////////////
+		String where = null;
+		
+		String[] args = null;
+		
+		List<Memo> list_Memos = null;
+		
+		////////////////////////////////
+		
+		// condition: NOT
+		
+		////////////////////////////////
+//		RadioGroup rg = (RadioGroup) d1.findViewById(R.id.dlg_filter_showlist_rg);
+		RadioGroup rg = (RadioGroup) d1.findViewById(
+							R.id.dlg_filter_showlogactv_RG);
+		
+		int RB_id_Checked = rg.getCheckedRadioButtonId();
+		
+		RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//		RadioButton rb = (RadioButton) actv.findViewById(RB_id_Checked);
+		
+		/******************************
+			validate
+		 ******************************/
+		if (rb == null) {
+			
+			// Log
+			msg_Log = "radio button => null";
+			Log.e("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		String rb_Label = rb.getText().toString();
+		
+//		////////////////////////////////
+//		
+//		// dispatch
+//		
+//		////////////////////////////////
+//		if (tokens.length <= 1) {
+//			
+//			///////////////////////////////////
+//			//
+//			// autio files, no-memo
+//			//
+//			///////////////////////////////////
+//			if (tokens[0].equals(CONS.ShowListActv.AUDIO_NO_MEMO)) {
+////				if (tokens[0].equals("@-")) {
+//				
+//				// Log
+////				String msg_Log;
+//				
+//				msg_Log = String.format(
+//						Locale.JAPAN,
+//						"tokens[0] => %s", CONS.ShowListActv.AUDIO_NO_MEMO
+//						);
+//				
+//				Log.i("DB_OCL.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", msg_Log);
+//				
+//				list_Memos = Methods.filter_MemoList_Single_KW__Audio_NoMemo(
+//						actv, RB_id_Checked);
+////				actv, RB_id_Checked, et);
+//				
+//			} else {//if (tokens[0].equals("@-"))
+//				
+//				// Log
+//				msg_Log = "tokens.length <= 1";
+//				Log.d("DB_OCL.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", msg_Log);
+//				
+//				list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+//				
+//			}//if (tokens[0].equals("@-"))
+//			
+////			// Log
+////			msg_Log = "tokens.length <= 1";
+////			Log.d("DB_OCL.java" + "["
+////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////					+ "]", msg_Log);
+////			
+////			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+//			
+//			
+//		} else {//if (tokens.length <= 1)
+//			
+//			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, rb_Label, tokens);
+////			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+//			
+//		}//if (tokens.length <= 1)
+//		
+//		////////////////////////////////
+//		
+//		// update: list
+//		
+//		////////////////////////////////
+//		if (list_Memos == null) {
+//			
+//			String msg = "Can't build list";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+//			
+//			return;
+//			
+//		}
+//		
+//		// Log
+//		msg_Log = "list_Memos.size() => " + list_Memos.size();
+//		Log.d("DB_OCL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		
+//		CONS.ShowListActv.list_Memos.clear();
+//		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+//		
+//		////////////////////////////////
+//		
+//		// notify
+//		
+//		////////////////////////////////
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+//		
+//		////////////////////////////////
+//		
+//		// dismiss
+//		
+//		////////////////////////////////
+//		d1.dismiss();
+//		
+//		////////////////////////////////
+//		
+//		// store: string --> pref
+//		
+//		////////////////////////////////
+//		boolean res = Methods.set_Pref_String(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				CONS.Pref.pkey_ShowListActv_Filter_String, 
+//				input);
+//		
+//		if (res == true) {
+//			
+//			// Log
+//			msg_Log = "pref filter => set: " + input;
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		} else {
+//			
+//			// Log
+//			msg_Log = "pref filter => not set: " + input;
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//		}
+//		
+//		////////////////////////////////
+//		
+//		// save: filter history
+//		
+//		////////////////////////////////
+//		////////////////////////////////
+//		
+//		// validate: same filter
+//		
+//		////////////////////////////////
+//		FilterHistory fh_Prev = DBUtils.find_FH_latest(actv);
+//		
+//		if (input.equals(fh_Prev.getKeywords())
+//				&& RB_id_Checked == fh_Prev.getOperator()
+//				) {
+//			
+//			// Log
+//			msg_Log = "same filter. not saving";
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//		} else {
+//			
+//			// Log
+//			msg_Log = "saving filter...";
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			rb = (RadioButton) rg.findViewById(RB_id_Checked);
+////			RadioButton rb = (RadioButton) rg.findViewById(RB_id_Checked);
+//			
+//			Methods.save_Filter(actv, input, RB_id_Checked, rb.getText().toString());
+//			
+//		}
+		
+	}//case_DLG_FILTER_SHOWLOGACTV_OK
 	
 
 	private void 

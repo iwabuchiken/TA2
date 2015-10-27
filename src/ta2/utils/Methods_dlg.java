@@ -1567,6 +1567,9 @@ public class Methods_dlg {
 		
 	}//conf_Import_DB
 	
+	/*******************************
+	 * upload => since the date (set in a pref var) until now
+	 *******************************/
 	public static void 
 	conf_Upload_Audio
 	(Activity actv, Dialog d1, Dialog d2) {
@@ -2413,7 +2416,7 @@ public class Methods_dlg {
 		// get dialog
 		
 		////////////////////////////////
-		Dialog d = Methods_dlg._filter_ShowList__GetDialog__ShowLogActv(actv);
+		Dialog d = Methods_dlg._filter_ShowLog__GetDialog(actv);
 //		Dialog d = _filter_ShowList__GetDialog(actv);
 		
 		////////////////////////////////
@@ -2421,6 +2424,7 @@ public class Methods_dlg {
 		// gridview
 		
 		////////////////////////////////
+		res = Methods_dlg._filter_ShowLog__GridView(actv, d);
 //		res = _filter_ShowList__GridView(actv, d);
 		
 		////////////////////////////////
@@ -2428,7 +2432,7 @@ public class Methods_dlg {
 		// set previous string
 		
 		////////////////////////////////
-		res = _filter_ShowList__SetString__ShowLogActv(actv, d);
+		res = _filter_ShowLog__SetString(actv, d);
 //		res = _filter_ShowList__SetString(actv, d);
 		
 		////////////////////////////////
@@ -2497,7 +2501,7 @@ public class Methods_dlg {
 			false => pref val is null<br>
 	 ******************************/
 	private static boolean 
-	_filter_ShowList__SetString__ShowLogActv
+	_filter_ShowLog__SetString
 	(Activity actv, Dialog d) {
 		// TODO Auto-generated method stub
 		
@@ -2561,7 +2565,7 @@ public class Methods_dlg {
 
 		////////////////////////////////
 		GridView gv_Patterns =
-				(GridView) d.findViewById(R.id.dlg_filter_showlist_gv);
+				(GridView) d.findViewById(R.id.dlg_filter_showlogactv_GV);
 
 		////////////////////////////////
 
@@ -2648,6 +2652,106 @@ public class Methods_dlg {
 		
 	}//_filter_ShowList__GridView
 	
+	private static boolean 
+	_filter_ShowLog__GridView
+	(Activity actv, Dialog d) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// Get: GV
+		
+		////////////////////////////////
+		GridView gv_Patterns =
+				(GridView) d.findViewById(R.id.dlg_filter_showlogactv_GV);
+//		(GridView) d.findViewById(R.id.dlg_filter_showlist_gv);
+		
+		////////////////////////////////
+		
+		// get list
+		
+		////////////////////////////////
+		List<WordPattern> list_WPs = DBUtils.find_All_WP(actv);
+		
+		if (list_WPs == null) {
+			
+			String msg = "Can't get list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// sort
+		
+		////////////////////////////////
+		Collections.sort(
+				list_WPs, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.WORD,
+						CONS.Enums.SortOrder.ASC
+						));
+		
+		Collections.sort(
+				list_WPs, 
+				new Comp_WP(
+						
+						CONS.Enums.SortType.USED,
+						CONS.Enums.SortOrder.DESC
+						));
+		
+		
+		////////////////////////////////
+		
+		// Adapter
+		
+		////////////////////////////////
+		CONS.ShowListActv.adp_List_WPs = new Adp_WordPatterns(
+				actv,
+				R.layout.list_row_gv,
+				list_WPs
+				);
+		
+		if (CONS.ShowListActv.adp_List_WPs == null) {
+			
+			String msg = "Can't build adapter";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return false;
+			
+		}
+		
+		////////////////////////////////
+		
+		// set: adapter
+		
+		////////////////////////////////
+		gv_Patterns.setAdapter(CONS.ShowListActv.adp_List_WPs);
+//		gv.setAdapter(adapter);
+		
+		////////////////////////////////
+		
+		// Listener
+		
+		////////////////////////////////
+		gv_Patterns.setTag(Tags.DialogItemTags.GV_FILTER_SHOWLOG);
+//		gv_Patterns.setTag(Tags.DialogItemTags.GV_FILTER_SHOWLIST);
+		
+		// OnClick
+		gv_Patterns.setOnItemClickListener(new DOI_CL(actv, d));
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return true;
+		
+	}//_filter_ShowLog__GridView
+	
 
 	private static Dialog 
 	_filter_ShowList__GetDialog
@@ -2715,7 +2819,7 @@ public class Methods_dlg {
 	}//_filter_ShowList__GetDialog
 
 	private static Dialog 
-	_filter_ShowList__GetDialog__ShowLogActv
+	_filter_ShowLog__GetDialog
 	(Activity actv) {
 		// TODO Auto-generated method stub
 		
@@ -2740,16 +2844,16 @@ public class Methods_dlg {
 		////////////////////////////////
 		ImageButton bt_OK	= 
 				(ImageButton) dlg.findViewById(
-									R.id.dlg_filter_showlist_showlogactv_bt_ok);
+									R.id.dlg_filter_showlogactv_BT_ok);
 		ImageButton bt_Cancel =
 				(ImageButton) dlg.findViewById(
-									R.id.dlg_filter_showlist_showlogactv_bt_cancel);
+									R.id.dlg_filter_showlogactv_BT_cancel);
 		ImageButton bt_Clear	=
 				(ImageButton) dlg.findViewById(
-									R.id.dlg_filter_showlist_showlogactv_bt_clear);
+									R.id.dlg_filter_showlogactv_BT_clear);
 		ImageButton bt_Reset =
 				(ImageButton) dlg.findViewById(
-									R.id.dlg_filter_showlist_showlogactv_bt_reset);
+									R.id.dlg_filter_showlogactv_BT_reset);
 		
 		
 		////////////////////////////////
@@ -4373,7 +4477,6 @@ public class Methods_dlg {
 		
 		CONS.ShowListActv.list_FS = 
 					DBUtils.find_All_FS(actv, CONS.Enums.SortOrder.DESC, limit);
-//		aa
 //		list.add(new ListItem.Builder()
 //						.setText(actv.getString(
 //								R.string.dlg_actvmain_admin_item_see_log))

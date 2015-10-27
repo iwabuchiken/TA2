@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/dlg_filter_showlist_showlogactv_et_content"
+        android:id="@+id/dlg_filter_showlogactv_ET_content"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
@@ -17,13 +17,26 @@
 
     <!-- REF Spacing http://stackoverflow.com/questions/12047369/how-to-set-border-of-gridview-on-android -->
 
+    <GridView
+        android:id="@+id/dlg_filter_showlogactv_GV"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@color/blue1"
+        android:gravity="center_vertical"
+        android:horizontalSpacing="5dp"
+        android:numColumns="4"
+        android:padding="5dp"
+        android:verticalSpacing="5dp" >
+    </GridView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal" >
 
         <RadioGroup
-            android:id="@+id/dlg_filter_showlist_showlogactv_rg"
+            android:id="@+id/dlg_filter_showlogactv_RG"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -32,7 +45,7 @@
 
             <!-- REF textcolor http://stackoverflow.com/questions/6819700/android-radio-button-not-showing-its-text answered Jul 25 '11 at 17:10 -->
             <RadioButton
-                android:id="@+id/dlg_filter_showlist_showlogactv_rb_and"
+                android:id="@+id/dlg_filter_showlogactv_RB_and"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -41,7 +54,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/dlg_filter_showlist_showlogactv_rb_or"
+                android:id="@+id/dlg_filter_showlogactv_RB_or"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
@@ -50,7 +63,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/dlg_filter_showlist_showlogactv_rb_not"
+                android:id="@+id/dlg_filter_showlogactv_RB_not"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/commons_lbl_rb_not"
@@ -70,7 +83,7 @@
         android:gravity="center_vertical|center_horizontal" >
 
         <ImageButton
-            android:id="@+id/dlg_filter_showlist_showlogactv_bt_ok"
+            android:id="@+id/dlg_filter_showlogactv_BT_ok"
             style="@style/ib_basic_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +94,7 @@
             />
 
         <ImageButton
-            android:id="@+id/dlg_filter_showlist_showlogactv_bt_cancel"
+            android:id="@+id/dlg_filter_showlogactv_BT_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -91,7 +104,7 @@
             />
 
         <ImageButton
-            android:id="@+id/dlg_filter_showlist_showlogactv_bt_reset"
+            android:id="@+id/dlg_filter_showlogactv_BT_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -101,7 +114,7 @@
             />
 
         <ImageButton
-            android:id="@+id/dlg_filter_showlist_showlogactv_bt_clear"
+            android:id="@+id/dlg_filter_showlogactv_BT_clear"
             style="@style/ib_basic_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
