@@ -104,4 +104,10 @@
 		<item name="android:layout_marginRight">10dp</item>
 		
 	</style>	
+	
+    <style name="CustomTheme" parent="android:Theme">
+        <item name="android:windowTitleSize">50dip</item>
+        <item name="android:textSize">20dip</item>
+    </style>
+    
 </resources>

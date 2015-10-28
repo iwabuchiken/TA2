@@ -2879,35 +2879,48 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		d1.dismiss();
 		
-//		////////////////////////////////
-//		
-//		// store: string --> pref
-//		
-//		////////////////////////////////
-//		boolean res = Methods.set_Pref_String(
-//				actv, 
-//				CONS.Pref.pname_MainActv, 
+		////////////////////////////////
+		
+		// store: string --> pref
+		
+		////////////////////////////////
+		boolean res = Methods.set_Pref_String(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				CONS.Pref.pkey_ShowLogActv_Filter_String, 
 //				CONS.Pref.pkey_ShowListActv_Filter_String, 
-//				input);
-//		
-//		if (res == true) {
-//			
-//			// Log
-//			msg_Log = "pref filter => set: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		} else {
-//			
-//			// Log
-//			msg_Log = "pref filter => not set: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}
-//		
+				input);
+		
+		if (res == true) {
+			
+			// Log
+			msg_Log = "pref filter => set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			msg_Log = "pref filter => not set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+
+		///////////////////////////////////
+		//
+		// update: title
+		//
+		///////////////////////////////////
+		String title = String.format(
+				Locale.JAPAN,
+				"ShowLog (%d)", list_Logs.size()
+				);
+
+		actv.setTitle(title);
+		
 //		////////////////////////////////
 //		
 //		// save: filter history

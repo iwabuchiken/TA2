@@ -456,6 +456,7 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int CustomTheme=0x7f08000b;
         /**  REF http://stackoverflow.com/questions/3551169/change-background-color-of-preference answered May 11 '11 at 14:05 
          */
         public static final int PrefTheme=0x7f080002;

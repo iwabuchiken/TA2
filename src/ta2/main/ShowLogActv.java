@@ -289,6 +289,13 @@ public class ShowLogActv extends ListActivity {
 		
 		if (res == false) return;
 
+		///////////////////////////////////
+		//
+		// set: title
+		//
+		///////////////////////////////////
+		this._Setup_Title();
+		
 		////////////////////////////////
 
 		// listeners
@@ -299,6 +306,48 @@ public class ShowLogActv extends ListActivity {
 		if (res == false) return;
 		
 	}//protected void onStart()
+
+	private void _Setup_Title() {
+		// TODO Auto-generated method stub
+		
+		///////////////////////////////////
+		//
+		// valid: adapter is null
+		//
+		///////////////////////////////////
+		if (CONS.ShowLogActv.adp_ShowLog_File_List == null) {
+
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"adapter => null"
+					);
+			
+			Log.e("ShowLogActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+
+		}//if (CONS.ShowLogActv.adp_ShowLog_File_List == null)
+		
+		///////////////////////////////////
+		//
+		// title
+		//
+		///////////////////////////////////
+		String title;
+		
+		title = String.format(
+				Locale.JAPAN,
+				"ShowLog (%d)", CONS.ShowLogActv.adp_ShowLog_File_List.getCount()
+				);
+
+		this.setTitle(title);
+		
+	}//_Setup_Title
 
 	private boolean
 	_Setup_SetListeners_Navigation() {

@@ -2579,7 +2579,9 @@ public class Methods_dlg {
 		String pref_FilterString__ShowLogActv = Methods.get_Pref_String(
 				actv, 
 				CONS.Pref.pname_MainActv, 
-				CONS.Pref.pkey_ShowListActv_Filter_String__ShowLogActv, 
+				CONS.Pref.pkey_ShowLogActv_Filter_String, 
+//				CONS.Pref.pkey_ShowListActv_Filter_String__ShowLogActv, 
+//				CONS.Pref.pkey_ShowListActv_Filter_String__ShowLogActv, 
 //				CONS.Pref.pkey_ShowListActv_Filter_String, 
 				null);
 		
@@ -2600,7 +2602,8 @@ public class Methods_dlg {
 		// set: text
 		
 		////////////////////////////////
-		EditText et = (EditText) d.findViewById(R.id.dlg_filter_showlist_et_content);
+		EditText et = (EditText) d.findViewById(R.id.dlg_filter_showlogactv_ET_content);
+//		EditText et = (EditText) d.findViewById(R.id.dlg_filter_showlist_et_content);
 		
 		et.setText(pref_FilterString__ShowLogActv);
 		

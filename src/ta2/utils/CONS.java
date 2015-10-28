@@ -629,6 +629,9 @@ public class CONS {
 		public static String pkey_ShowListActv_Filter_String__ShowLogActv
 								= "pkey_ShowListActv_Filter_String__ShowLogActv";
 
+		public static String pkey_ShowLogActv_Filter_String =
+									"pkey_ShowLogActv_Filter_String";
+
 	}//Pref
 
 	public static class MainActv {
