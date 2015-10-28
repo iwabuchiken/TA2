@@ -2428,6 +2428,30 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		FilterHistory fh_Prev = DBUtils.find_FH_latest(actv);
 		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"filter history => %s", (fh_Prev == null ? "null" : "not null")
+				);
+		
+		Log.i("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		// Log
+////		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"input => %s", input
+//				);
+//		
+//		Log.i("DB_OCL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
 		if (input.equals(fh_Prev.getKeywords())
 				&& RB_id_Checked == fh_Prev.getOperator()
 					) {

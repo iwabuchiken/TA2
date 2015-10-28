@@ -2565,7 +2565,8 @@ public class Methods_dlg {
 
 		////////////////////////////////
 		GridView gv_Patterns =
-				(GridView) d.findViewById(R.id.dlg_filter_showlogactv_GV);
+				(GridView) d.findViewById(R.id.dlg_filter_showlist_gv);
+//		(GridView) d.findViewById(R.id.dlg_filter_showlogactv_GV);
 
 		////////////////////////////////
 

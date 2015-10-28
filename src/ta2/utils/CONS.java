@@ -365,6 +365,47 @@ public class CONS {
 		};
 		
 		////////////////////////////////
+		
+		
+		// table: filter_history_ShowLog
+		
+		////////////////////////////////
+		public static String tname_FilterHistory_ShowLog = "filter_history_ShowLog";
+		
+		public static String[] col_names_FilterHistory_ShowLog = {
+			
+			"keywords",							// 0
+			"type",								// 1	=> AND, OR, NOT
+			
+		};
+		
+		public static String[] col_names_FilterHistory_ShowLog_full = {
+			
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			"keywords",								// 3
+			"type",									// 4	=> AND, OR, NOT
+			
+		};
+		
+		public static String[] col_types_FilterHistory_ShowLog = {
+			
+			"TEXT", 			// 0
+			"INTEGER", 			// 1
+//			"TEXT", 			// 2
+			
+		};
+		
+		public static String[] col_types_FilterHistory_ShowLog_full = {
+			
+			"INTEGER", "TEXT", "TEXT",	// 0,1,2
+			"TEXT", 					// 3
+			"INTEGER", 					// 4
+//			"TEXT", 					// 5
+			
+		};
+		
+		////////////////////////////////
 
 		// Table: upload history
 
