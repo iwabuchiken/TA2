@@ -2767,7 +2767,7 @@ public class DB_OCL implements OnClickListener {
 		
 		////////////////////////////////
 		if (tokens.length <= 1) {
-//			aa
+//			
 //			///////////////////////////////////
 //			//
 //			// autio files, no-memo
@@ -2832,44 +2832,53 @@ public class DB_OCL implements OnClickListener {
 		Log.i("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);		
-//		////////////////////////////////
-//		
-//		// update: list
-//		
-//		////////////////////////////////
-//		if (list_Memos == null) {
-//			
-//			String msg = "Can't build list";
+		
+		
+		
+		////////////////////////////////
+		
+		// update: list
+		
+		////////////////////////////////
+		if (list_Logs == null) {
+			
+			String msg = "Can't build list";
+			
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1, R.color.red);
 //			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
-//			
-//			return;
-//			
-//		}
-//		
-//		// Log
-//		msg_Log = "list_Memos.size() => " + list_Memos.size();
-//		Log.d("DB_OCL.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-//		
-//		
-//		CONS.ShowListActv.list_Memos.clear();
-//		CONS.ShowListActv.list_Memos.addAll(list_Memos);
-//		
-//		////////////////////////////////
-//		
-//		// notify
-//		
-//		////////////////////////////////
+			
+			return;
+			
+		}
+		
+		// Log
+		msg_Log = "list_Logs.size() => " + list_Logs.size();
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		CONS.ShowLogActv.list_ShowLog_Files.clear();
+		CONS.ShowLogActv.list_ShowLog_Files.addAll(list_Logs);
+		
+//		CONS.ShowListActv.list_Logs.clear();
+//		CONS.ShowListActv.list_Memos.addAll(list_Logs);
+		
+		////////////////////////////////
+		
+		// notify
+		
+		////////////////////////////////
+		CONS.ShowLogActv.adp_ShowLog_File_List.notifyDataSetChanged();
 //		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
-//		
-//		////////////////////////////////
-//		
-//		// dismiss
-//		
-//		////////////////////////////////
-//		d1.dismiss();
-//		
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
 //		////////////////////////////////
 //		
 //		// store: string --> pref
