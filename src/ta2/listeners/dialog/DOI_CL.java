@@ -627,6 +627,16 @@ public class DOI_CL implements OnItemClickListener {
 			Methods_dlg.conf_DropCreate_Table_FilterHistory(actv, d1, d2);
 			
 		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_ops_Drop_Create_Table_FilterHistory_ShowLog))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_DropCreate_Table_Generic(
+					actv, d1, d2,
+					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_SHOWLOG_OK,
+					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
+					R.string.dlg_actvmain_ops_Drop_Create_table_filter_history, 
+					CONS.DB.tname_FilterHistory_ShowLog);
+			
+		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_ops_Drop_Create_table_Upload_History))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			
 			Methods_dlg.conf_DropCreate_Table_UploadHistory(actv, d1, d2);
