@@ -2929,7 +2929,7 @@ public class Methods_dlg {
 		
 		////////////////////////////////
 		// set tags
-		bt_OK.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_SHOWLOGACTV_OK);
+		bt_OK.setTag(Tags.DialogTags.DLG_FILTER_SHOWLOGACTV_OK);
 		bt_Clear.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_SHOWLOGACTV_CLEAR);
 		bt_Reset.setTag(Tags.DialogTags.DLG_FILTER_SHOWLIST_SHOWLOGACTV_RESET);
 		

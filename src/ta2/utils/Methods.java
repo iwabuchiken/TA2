@@ -6519,6 +6519,102 @@ public static String
 	}//filter_MemoList
 
 	/******************************
+		filter ShowLog list with a single keyword
+	 ******************************/
+	public static List<LogItem>
+	filter_LogList_Single_KW
+	(Activity actv, String rb_Label, EditText et) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<LogItem> list_LogItems = new ArrayList<LogItem>();
+		
+		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+//		List<Memo> list_Memos_tmp = DBUtils.find_All_Memos(
+//							actv, 
+//							CONS.DB.col_names_TA2_full[0], 
+//							CONS.Enums.SortOrder.DESC.toString());
+		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (list_Memos_tmp == null) {
+//			
+//			// Log
+//			msg_Log = "list_Memos_tmp => null";
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return null;
+//			
+//		}
+		
+		if (rb_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
+//			if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			String text = null;
+			
+//			for (Memo memo : list_Memos_tmp) {
+			for (LogItem memo : CONS.ShowLogActv.list_ShowLog_Files) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					continue;
+					
+				}
+				
+				list_LogItems.add(memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+//			for (Memo memo : list_Memos_tmp) {
+			for (LogItem memo : CONS.ShowLogActv.list_ShowLog_Files) {
+				
+				text = memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					list_LogItems.add(memo);
+					
+				}
+				
+			}//for (LogItem memo : CONS.ShowLogActv.list_ShowLog_Files)
+			
+//			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_LogItems;
+		
+	}//filter_LogList_Single_KW
+	
+	/******************************
 		filter memo list with a single keyword
 	 ******************************/
 	public static List<Memo>

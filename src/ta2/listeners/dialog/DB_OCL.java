@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ta2.items.FilterHistory;
+import ta2.items.LogItem;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.main.R;
@@ -235,7 +236,7 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
-		case DLG_FILTER_SHOWLIST_SHOWLOGACTV_OK://-------------------
+		case DLG_FILTER_SHOWLOGACTV_OK://-------------------
 			
 			case_DLG_FILTER_SHOWLOGACTV_OK();
 			
@@ -2620,6 +2621,7 @@ public class DB_OCL implements OnClickListener {
 
 	}//case_DLG_FILTER_SHOWLIST_OK
 	
+	
 	private void 
 	case_DLG_FILTER_SHOWLOGACTV_OK() {
 		// TODO Auto-generated method stub
@@ -2713,7 +2715,8 @@ public class DB_OCL implements OnClickListener {
 		
 		String[] args = null;
 		
-		List<Memo> list_Memos = null;
+		List<LogItem> list_Logs = null;
+//		List<Memo> list_Logs = null;
 		
 		////////////////////////////////
 		
@@ -2746,13 +2749,25 @@ public class DB_OCL implements OnClickListener {
 		
 		String rb_Label = rb.getText().toString();
 		
-//		////////////////////////////////
-//		
-//		// dispatch
-//		
-//		////////////////////////////////
-//		if (tokens.length <= 1) {
-//			
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"RB.label => %s", rb_Label
+				);
+		
+		Log.i("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		////////////////////////////////
+		
+		// dispatch
+		
+		////////////////////////////////
+		if (tokens.length <= 1) {
+//			aa
 //			///////////////////////////////////
 //			//
 //			// autio files, no-memo
@@ -2784,27 +2799,39 @@ public class DB_OCL implements OnClickListener {
 //				Log.d("DB_OCL.java" + "["
 //						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //						+ "]", msg_Log);
-//				
+				
+				list_Logs = Methods.filter_LogList_Single_KW(actv, rb_Label, et);
 //				list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
-//				
+				
 //			}//if (tokens[0].equals("@-"))
+			
+//			// Log
+//			msg_Log = "tokens.length <= 1";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
 //			
-////			// Log
-////			msg_Log = "tokens.length <= 1";
-////			Log.d("DB_OCL.java" + "["
-////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////					+ "]", msg_Log);
-////			
-////			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
-//			
-//			
-//		} else {//if (tokens.length <= 1)
-//			
-//			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, rb_Label, tokens);
-////			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
-//			
-//		}//if (tokens.length <= 1)
-//		
+//			list_Memos = Methods.filter_MemoList_Single_KW(actv, RB_id_Checked, et);
+			
+			
+		} else {//if (tokens.length <= 1)
+			
+//			list_Logs = Methods.filter_MemoList_Multiple_KW(actv, rb_Label, tokens);
+//			list_Memos = Methods.filter_MemoList_Multiple_KW(actv, RB_id_Checked, tokens);
+			
+		}//if (tokens.length <= 1)
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"list_Logs => %d", list_Logs.size()
+				);
+		
+		Log.i("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);		
 //		////////////////////////////////
 //		
 //		// update: list
