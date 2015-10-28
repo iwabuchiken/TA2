@@ -334,7 +334,8 @@ public class CONS {
 		public static String[] col_names_FilterHistory = {
 			
 			"keywords",							// 0
-			"type",								// 1	=> AND, OR, NOT
+			"operator",							// 1
+			"op_label",							// 1
 			
 		};
 		
@@ -342,8 +343,9 @@ public class CONS {
 			
 			android.provider.BaseColumns._ID,		// 0
 			"created_at", "modified_at",			// 1,2
-			"keywords",								// 3
-			"type",									// 4	=> AND, OR, NOT
+			"keywords",									// 3
+			"operator",									// 4
+			"op_label",									// 5
 			
 		};
 		
@@ -351,7 +353,7 @@ public class CONS {
 			
 			"TEXT", 			// 0
 			"INTEGER", 			// 1
-//			"TEXT", 			// 2
+			"TEXT", 			// 2
 			
 		};
 		
@@ -360,7 +362,7 @@ public class CONS {
 			"INTEGER", "TEXT", "TEXT",	// 0,1,2
 			"TEXT", 					// 3
 			"INTEGER", 					// 4
-//			"TEXT", 					// 5
+			"TEXT", 					// 5
 			
 		};
 		

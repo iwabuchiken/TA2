@@ -5068,6 +5068,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
+			e.printStackTrace();
+			
 //			String msg = "Query exception";
 //			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
 			
