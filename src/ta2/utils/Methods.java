@@ -85,6 +85,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -7017,7 +7018,7 @@ public static String
 		////////////////////////////////
 		String msg_Log;
 		
-		List<Memo> list_Memos = new ArrayList<Memo>();
+		List<Memo> list_Memos_new = new ArrayList<Memo>();
 		
 //		String keyword = et.getText().toString();
 		
@@ -7026,7 +7027,8 @@ public static String
 		// filter
 		
 		////////////////////////////////
-		if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_not))) {
+		if (op_Label.equals(actv.getString(
+						R.string.commons_lbl_rb_not))) {
 //			if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
 			
 			// Log
@@ -7057,14 +7059,14 @@ public static String
 				
 				if (contained == false) {
 					
-					list_Memos.add(memo);
+					list_Memos_new.add(memo);
 					
 				}
 				
 			}//for (Memo memo : CONS.ShowListActv.list_Memos)
 			
-		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_and))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
-//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_and) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		} else if (op_Label.equals(actv.getString(
+						R.string.commons_lbl_rb_and))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
 			
 			// Log
 			msg_Log = "filter => and";
@@ -7072,10 +7074,10 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-			list_Memos.addAll(Methods._filter_MemoList_Multiple_KW__AND(actv, tokens));
+			list_Memos_new.addAll(Methods._filter_MemoList_Multiple_KW__AND(actv, tokens));
 			
-		} else if (op_Label.equals(actv.getString(R.string.commons_lbl_rb_or))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
-//		} else if (id_Checked == R.id.dlg_filter_showlist_rb_or) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		} else if (op_Label.equals(actv.getString(
+						R.string.commons_lbl_rb_or))) {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
 			
 			// Log
 			msg_Log = "filter => or";
@@ -7087,7 +7089,7 @@ public static String
 			
 			if (tmp_List != null) {
 				
-				list_Memos.addAll(tmp_List);
+				list_Memos_new.addAll(tmp_List);
 				
 			} else {
 
@@ -7101,38 +7103,6 @@ public static String
 				return null;
 				
 			}
-			
-			
-//			String text = null;
-//			
-//			boolean contained = false;
-//			
-//			for (Memo memo : CONS.ShowListActv.list_Memos) {
-//				
-//				// reset
-//				contained = false;
-//				
-//				text = memo.getText();
-//				
-//				for (String token : tokens) {
-//					
-//					if (text.contains(token)) {
-//						
-//						contained = true;
-//						
-//						break;
-//						
-//					}
-//					
-//				}//for (String token : tokens)
-//				
-//				if (contained == true) {
-//					
-//					list_Memos.add(memo);
-//					
-//				}
-//				
-//			}//for (Memo memo : CONS.ShowListActv.list_Memos)
 			
 		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
 			
@@ -7149,7 +7119,7 @@ public static String
 		// return
 		
 		////////////////////////////////
-		return list_Memos;
+		return list_Memos_new;
 		
 	}//filter_MemoList_Multiple_KW
 	
@@ -7174,6 +7144,8 @@ public static String
 		
 		boolean contained = false;
 
+		String token_NOT = null;
+		
 		for (Memo memo : CONS.ShowListActv.list_Memos) {
 			
 			// reset
@@ -7185,61 +7157,80 @@ public static String
 			
 			for (String token : tokens) {
 
-//				// "-" directive
-//				if (token.startsWith("-")) {
-//					
-//					token_NOT_Directive = token.substring(1, token.length());
-//					
-//					// Log
-//					msg_Log = String.format(
-//							Locale.JAPAN,
-//							"token = %s // NOT directive = %s", 
-//							token, token_NOT_Directive);
-//
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-//
-//					list_NOTs.add(token);
-//					
-////					if (text.contains(token_NOT_Directive)) {
-////						
-////						// Log
-////						msg_Log = "'NOT' contained => " + text;
-////						Log.d("Methods.java"
-////								+ "["
-////								+ Thread.currentThread().getStackTrace()[2]
-////										.getLineNumber() + "]", msg_Log);
-////						contained = false;
-////						
-////						break;
-////						
-////					} else {
-////						
-////						// Log
-////						msg_Log = "'NOT' contained => no: " + text;
-////						Log.d("Methods.java"
-////								+ "["
-////								+ Thread.currentThread().getStackTrace()[2]
-////										.getLineNumber() + "]", msg_Log);
-////						
-////					}
-//					
-//				}//if (token.startsWith("-"))
+				///////////////////////////////////
+				//
+				// omit: NOT-containing memos
+				//
+				///////////////////////////////////
+				if (token.startsWith("-")) {
+					
+					// Log
+//					String msg_Log;
+					
+					msg_Log = String.format(
+							Locale.JAPAN,
+							"token starts with '-' => %s", token
+							);
+					
+					Log.i("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", msg_Log);
+					
+					token_NOT = token.substring(1, token.length());
+					
+					msg_Log = String.format(
+							Locale.JAPAN,
+							"token_NOT = %s", token_NOT
+							);
+					
+					Log.i("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", msg_Log);
+					
+					if (text.contains(token_NOT)) {
+						
+						msg_Log = String.format(
+								Locale.JAPAN,
+								"text contains NOT: text = %s | token_NOT = %s", text, token_NOT
+//								"text = %s | token_NOT = %s", text, token_NOT
+								);
+						
+						Log.i("Methods.java" + "["
+								+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+								+ "]", msg_Log);
+						
+						contained = false;
+						
+						break;
+						
+					}
+					
+				}//if (token.startsWith("-"))
 				
-				if (text.contains(token)) {
+				else if (text.contains(token)) {
 //					else if (text.contains(token)) {
 					
 					contained = true;
 					
-					break;
+//					break;
 					
-				}
+				}//else if (text.contains(token))
 				
 			}//for (String token : tokens)
 			
 			if (contained == true) {
+				
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"contained => true: %s(%s)", text, memo.getCreated_at()
+						);
+				
+				Log.i("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
 				
 				list_Memos.add(memo);
 				
@@ -7247,95 +7238,96 @@ public static String
 			
 		}//for (Memo memo : CONS.ShowListActv.list_Memos)
 
-		////////////////////////////////
-
-		// omit: NOT-containing memos
-
-		////////////////////////////////
-		String token_NOT_Directive = null;
-		
-		for (String token : tokens) {
-			
-			// "-" directive
-			if (token.startsWith("-")) {
-				
-				token_NOT_Directive = token.substring(1, token.length());
-				
-				// Log
-				msg_Log = String.format(
-						Locale.JAPAN,
-						"token = %s // NOT directive = %s", 
-						token, token_NOT_Directive);
-
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", msg_Log);
-
-				list_NOTs.add(token_NOT_Directive);
-//				list_NOTs.add(token);
-				
-//				if (text.contains(token_NOT_Directive)) {
+//		////////////////////////////////
+//
+//		// omit: NOT-containing memos
+//
+//		////////////////////////////////
+//		String token_NOT_Directive = null;
+//		
+//		for (String token : tokens) {
+//			
+//			// "-" directive
+//			if (token.startsWith("-")) {
+//				
+//				token_NOT_Directive = token.substring(1, token.length());
+//				
+//				// Log
+//				msg_Log = String.format(
+//						Locale.JAPAN,
+//						"token = %s // NOT directive = %s", 
+//						token, token_NOT_Directive);
+//
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+//
+//				list_NOTs.add(token_NOT_Directive);
+////				list_NOTs.add(token);
+//				
+////				if (text.contains(token_NOT_Directive)) {
+////					
+////					// Log
+////					msg_Log = "'NOT' contained => " + text;
+////					Log.d("Methods.java"
+////							+ "["
+////							+ Thread.currentThread().getStackTrace()[2]
+////									.getLineNumber() + "]", msg_Log);
+////					contained = false;
+////					
+////					break;
+////					
+////				} else {
+////					
+////					// Log
+////					msg_Log = "'NOT' contained => no: " + text;
+////					Log.d("Methods.java"
+////							+ "["
+////							+ Thread.currentThread().getStackTrace()[2]
+////									.getLineNumber() + "]", msg_Log);
+////					
+////				}
+//				
+//			}//if (token.startsWith("-"))
+//
+//		}
+//		
+//		for (Memo memo : list_Memos) {
+////			for (Memo memo : CONS.ShowListActv.list_Memos) {
+//		
+//			contained = false;
+//			
+//			for (String token : list_NOTs) {
+//				
+//				if (memo.getText().contains(token)) {
 //					
-//					// Log
-//					msg_Log = "'NOT' contained => " + text;
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
-//					contained = false;
+//					contained = true;
 //					
 //					break;
-//					
-//				} else {
-//					
-//					// Log
-//					msg_Log = "'NOT' contained => no: " + text;
-//					Log.d("Methods.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", msg_Log);
+////					list_Memos_final.add(memo);
 //					
 //				}
-				
-			}//if (token.startsWith("-"))
-
-		}
+//				
+//			}//for (String token : list_NOTs)
+//			
+//			/*
+//			 * contained => false
+//			 * 	--> this means: the memo doesn't contain
+//			 * 			the NOT token
+//			 * 	--> hence, add to the final list
+//			 */
+//			if (contained == false) {
+//				
+//				list_Memos_final.add(memo);
+//				
+//			}
+//			
+//		}//for (Memo memo : CONS.ShowListActv.list_Memos)
+//		
+//		return list_Memos_final;
 		
-		for (Memo memo : list_Memos) {
-//			for (Memo memo : CONS.ShowListActv.list_Memos) {
-		
-			contained = false;
-			
-			for (String token : list_NOTs) {
-				
-				if (memo.getText().contains(token)) {
-					
-					contained = true;
-					
-					break;
-//					list_Memos_final.add(memo);
-					
-				}
-				
-			}//for (String token : list_NOTs)
-			
-			/*
-			 * contained => false
-			 * 	--> this means: the memo doesn't contain
-			 * 			the NOT token
-			 * 	--> hence, add to the final list
-			 */
-			if (contained == false) {
-				
-				list_Memos_final.add(memo);
-				
-			}
-			
-		}//for (Memo memo : CONS.ShowListActv.list_Memos)
-		
-		return list_Memos_final;
-//		return list_Memos;
+		return list_Memos;
 		
 	}//_filter_MemoList_Multiple_KW__OR
 
@@ -7740,6 +7732,20 @@ public static String
 		
 		////////////////////////////////
 		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len_List = list_Memos.size();
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"ShowListActv (%d)", len_List
+				);
+
+		actv.setTitle(title);
 		
 		////////////////////////////////
 		

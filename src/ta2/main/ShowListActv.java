@@ -83,6 +83,8 @@ public class ShowListActv extends ListActivity {
 		////////////////////////////////
 		res = _Setup_Adapter();
 
+		this._Setup_Set_Title();
+		
 		////////////////////////////////
 		
 		// selection
@@ -102,6 +104,37 @@ public class ShowListActv extends ListActivity {
 //		do_test();
 		
 	}//onStart
+
+	private void 
+	_Setup_Set_Title() {
+		
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len = 0;
+		
+		if (CONS.ShowListActv.list_Memos != null) {
+
+			len = CONS.ShowListActv.list_Memos.size();
+
+		} else {//if (CONS.ShowListActv.list_Memos != null)
+			
+			len = -1;
+			
+		}//if (CONS.ShowListActv.list_Memos != null)
+		
+//		int len_List = list_Memos.size();
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"ShowListActv (%d)", len
+				);
+
+		this.setTitle(title);
+		
+	}//_Setup_Set_Title
 
 	private void 
 	_Setup_SetSelection() {

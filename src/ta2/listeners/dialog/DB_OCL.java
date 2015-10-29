@@ -2096,6 +2096,20 @@ public class DB_OCL implements OnClickListener {
 		////////////////////////////////
 		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
 		
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len_List = list_Memos.size();
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"ShowListActv (%d)", len_List
+				);
+
+		actv.setTitle(title);
+		
 		////////////////////////////////
 
 		// dismiss
@@ -2207,7 +2221,7 @@ public class DB_OCL implements OnClickListener {
 					
 					};
 			
-		} else {
+		} else {//if (tokens.length <= 1)
 			
 			//test
 			where = this._Filter_ShowList_Build_Conditions_where(actv, d1);
@@ -2224,7 +2238,10 @@ public class DB_OCL implements OnClickListener {
 //			args = this._Filter_ShowList_Build_Conditions_args(actv, d1);
 			args = tokens;
 			
-			for (int i = 0; i < args.length; i++) {
+			int len_args = args.length;
+			
+			for (int i = 0; i < len_args; i++) {
+//				for (int i = 0; i < args.length; i++) {
 				
 				args[i] = "%" + args[i] + "%";
 				
@@ -2443,7 +2460,7 @@ public class DB_OCL implements OnClickListener {
 			///////////////////////////////////
 			//
 			// autio files, no-memo
-			//
+			//	=> "@-"
 			///////////////////////////////////
 			if (tokens[0].equals(CONS.ShowListActv.AUDIO_NO_MEMO)) {
 //				if (tokens[0].equals("@-")) {
@@ -2522,6 +2539,20 @@ public class DB_OCL implements OnClickListener {
 		
 		////////////////////////////////
 		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len_List = list_Memos.size();
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"ShowListActv (%d)", len_List
+				);
+
+		actv.setTitle(title);
 		
 		////////////////////////////////
 		
