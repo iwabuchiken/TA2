@@ -1,9 +1,12 @@
 package ta2.main;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import org.apache.commons.lang.StringUtils;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -179,12 +182,35 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
-		this._test_D_24_V_2_1_PreviousDate();
+		this._test_D_30_V_1_0__PlayOtherFile();
+//		this._test_D_24_V_2_1_PreviousDate();
 //		this._test_CV_update();
 //		_test_Content_Provider();
 //		_test_PrefVal_SoundEffect();
 		
 	}
+
+	private void _test_D_30_V_1_0__PlayOtherFile() {
+		// TODO Auto-generated method stub
+		
+		String dpath = "/mnt/sdcard/AllVoiceRecords";
+		
+		String fname = "レコード_2015-11-29_16-29-18.mp3";
+		
+		String file_full_path = StringUtils.join(
+						new String[]{
+								dpath,
+								fname
+//								CONS.DB.dPath_Audio,
+//								CONS.PlayActv.fname_Audio
+						},
+						File.separator);
+
+		Methods.play_File(this, file_full_path);
+		
+		
+	}
+
 
 //	private void 
 //	_test_CV_update() {

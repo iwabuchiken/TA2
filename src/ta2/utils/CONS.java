@@ -145,6 +145,7 @@ public class CONS {
 		public static String dPath_Log = dPath_Data_Root + "/log";
 		
 		public static String dPath_Audio = dPath_Data_Root + "/audio";
+		public static String dPath_Audio__VoiceChanger = "/mnt/sdcard/VoxFx";
 //		public final static String dPath_Data = dPath_Data_Root + "/data";
 //		
 //		public final static String dPath_Log = dPath_Data_Root + "/log";

@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_WordPatterns;
 import ta2.comps.Comp_WP;
+import ta2.items.ListItem;
 import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
@@ -21,7 +22,6 @@ import ta2.utils.DBUtils;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -416,13 +416,45 @@ public class PlayActv extends Activity {
 			
 		} else {
 			
-			// Log
-			String msg_Log = "no match";
-			Log.e("PlayActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+			///////////////////////////////////
+			//
+			// other pattern
+			//
+			///////////////////////////////////
+			p = Pattern.compile("^@(recorded_\\d{4}.+wav)");
+//			p = Pattern.compile("^(@recorded_\\d{4}.+wav)");
+//			p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
+			m = p.matcher(text);
+//			"^@(\\d{4}.+wav)"
 			
-			return;
+			if (m.find()) {
+//				if (m.matches()) {
+
+				file_full_path = StringUtils.join(
+						new String[]{
+								CONS.DB.dPath_Audio,
+								m.group(1)
+						},
+						File.separator);
+				
+				// Log
+				String msg_Log = "file_full_path => " + file_full_path;
+				Log.d("PlayActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			} else {
+
+			
+				// Log
+				String msg_Log = "no match";
+				Log.e("PlayActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				return;
+			
+			}
 			
 		}
 		
@@ -642,19 +674,43 @@ public class PlayActv extends Activity {
 			CONS.PlayActv.fname_Audio = m.group(1);
 //			CONS.PlayActv.fname_Audio = m.group(0);
 			
+			// reset audio path value
+			CONS.DB.dPath_Audio = CONS.DB.dPath_Data_Root + "/audio";
+			
 			return true;
 			
 		} else {
 			
-			// Log
-			String msg_Log = "can't get file name => " + text;
-			Log.e("PlayActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+			///////////////////////////////////
+			//
+			// other pattern
+			//
+			///////////////////////////////////
+			p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
+			m = p.matcher(text);
+//			"^@(\\d{4}.+wav)"
 			
-			Methods_dlg.dlg_ShowMessage(this, msg_Log, R.color.red);
+			if (m.find()) {
+//				if (m.matches()) {
+
+				CONS.PlayActv.fname_Audio = m.group(1);
 			
-			return false;
+				CONS.DB.dPath_Audio = CONS.DB.dPath_Audio__VoiceChanger;
+				
+				return true;
+				
+			} else {
+			
+				// Log
+				String msg_Log = "can't get file name => " + text;
+				Log.e("PlayActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				Methods_dlg.dlg_ShowMessage(this, msg_Log, R.color.red);
+				
+				return false;
+			}			
 						
 		}
 		

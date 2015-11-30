@@ -101,7 +101,7 @@ public class ShowListActv extends ListActivity {
 		
 		this._Setup_Listeners_IBs();
 		
-//		do_test();
+		do_test();
 		
 	}//onStart
 

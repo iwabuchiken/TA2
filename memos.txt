@@ -46,6 +46,9 @@ pragma table_info(ta2);
 
 SELECT 
 
+UPDATE ta2 SET text = '@recorded_2015-1128-1249.wav' WHERE _id = 2997;
+
+
 [console]
 javac Test.java
 java Test

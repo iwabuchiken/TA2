@@ -3202,11 +3202,40 @@ public class Methods_dlg {
 			
 		} else {
 			
+			///////////////////////////////////
+			//
+			// other pattern
+			//
+			///////////////////////////////////
+			p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
+			m = p.matcher(text);
+//			"^@(\\d{4}.+wav)"
+			
+			if (m.find()) {
+//				if (m.matches()) {
+				
+				list.add(new ListItem.Builder()
+						.setText(actv.getString(
+								R.string.generic_tv_play))
+						.setIconID(R.drawable.menu_icon_admin_32x32_green)
+						.setTextColor_ID(R.color.green4)
+						.build());
+				
+			} else {
+
+			
+			///////////////////////////////////
+			//
+			// no matchi
+			//
+			///////////////////////////////////
 			// Log
 			msg_Log = "text => no match";
 			Log.d("Methods_dlg.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
+			}
+			
 		}
 		
 		////////////////////////////////
