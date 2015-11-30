@@ -21,13 +21,21 @@
         >
     </item>
 
-        <item
+    <item
         android:id="@+id/menu_main_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         
         android:icon="@drawable/menu_icon_admin_32x32_brown"
-        />
+    />
+    
+    <item
+        android:id="@+id/menu_main_import_actv"
+        android:orderInCategory="100"
+        android:title="@string/menu_main_Start_ImportActv"
+        
+        android:icon="@drawable/menu_icon_admin_32x32_purple"
+    />
     
 </menu>
 

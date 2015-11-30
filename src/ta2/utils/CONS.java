@@ -471,6 +471,36 @@ public class CONS {
 			
 		};
 		
+		////////////////////////////////
+		
+		// Table: audio_files
+		
+		////////////////////////////////
+		public static final String tname_Audio_Files = "audio_files";
+
+		public static final String[] col_names_Audio_Files = {
+			
+			"text",				// 0
+			"dir",		// 1
+			
+		};
+		
+		public static final String[] col_names_Audio_Files_full = {
+			
+			//	0
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			
+			"text",									// 3
+			"dir",							// 4
+			
+		};
+
+		public static final String[] col_types_Audio_Files = {
+			
+			"TEXT", "TEXT"	// 0,1,2
+			
+		};
 		
 		////////////////////////////////
 

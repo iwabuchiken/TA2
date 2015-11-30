@@ -59,6 +59,8 @@
     	<string name="menu_main_refresh_screen">Refresh screen</string>
     	<string name="menu_main_admin">Admin</string>
     	<string name="menu_main_horizontal_listview">Horizontal LV</string>
+    	
+    	<string name="menu_main_Start_ImportActv">Import Actv</string>
 
     <!-- Menu: showlist -->
     	<string name="menu_showlist_filter">Filter</string>

@@ -86,6 +86,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -113,6 +114,7 @@ import ta2.items.WordPattern;
 import ta2.listeners.MP_OCmpL;
 import ta2.listeners.dialog.DL;
 import ta2.main.ImageActv;
+import ta2.main.ImportActv;
 import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
 import ta2.main.PhotoActv;
@@ -1027,6 +1029,20 @@ public static String
 
 	}//start_Activity_PrefActv
 
+	public static void 
+	start_Activity_ImportActv
+	(Activity actv) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent();
+		
+		i.setClass(actv, ImportActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_ImportActv
+	
 	public static void 
 	start_Activity_PrefActv__ForResult
 	(Activity actv) {

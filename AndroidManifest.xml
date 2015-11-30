@@ -84,6 +84,12 @@
             >
             
         </activity>
+        <activity 
+            android:name=".ImportActv" 
+            android:theme="@style/CustomTheme"
+            android:screenOrientation="portrait">
+            
+        </activity>
         
         
     </application>

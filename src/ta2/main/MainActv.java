@@ -182,7 +182,7 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
-		this._test_D_30_V_1_0__PlayOtherFile();
+//		this._test_D_30_V_1_0__PlayOtherFile();
 //		this._test_D_24_V_2_1_PreviousDate();
 //		this._test_CV_update();
 //		_test_Content_Provider();
@@ -732,6 +732,13 @@ public class MainActv extends Activity {
 				.build()
 				);
 		
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_import_actv)
+				.setId_Title(R.string.menu_main_Start_ImportActv)
+				.setId_Icon(R.drawable.general_ib_ball_purple_48x48)
+				.build()
+				);
+		
 		///////////////////////////////////
 		//
 		// clear menu
@@ -773,6 +780,13 @@ public class MainActv extends Activity {
 			
 			break;
 			
+		case R.id.menu_main_import_actv://--------------------
+			
+			case_OPT_Import_Actv();
+//			this.logoutFromTwitter();
+			
+			break;
+			
 		default://-------------------------------------
 			break;
 	
@@ -781,6 +795,13 @@ public class MainActv extends Activity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_OPT_Import_Actv() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_ImportActv(this);
+		
+	}//case_OPT_Import_Actv
 
 	private void case_OPT_Settings() {
 		// TODO Auto-generated method stub
