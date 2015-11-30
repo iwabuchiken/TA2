@@ -646,6 +646,11 @@ public class DOI_CL implements OnItemClickListener {
 			
 			Methods_dlg.conf_DropCreate_Table_UploadHistory_Audio(actv, d1, d2);
 			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_ops_Drop_Create_table_Audio_Files))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			Methods_dlg.conf_DropCreate_Table_Audio_Files(actv, d1, d2);
+			
 		}
 
 		// Log

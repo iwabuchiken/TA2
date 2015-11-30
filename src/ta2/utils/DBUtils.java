@@ -1122,6 +1122,137 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public static boolean isInDB_long_ai
 	
+	/******************************
+		@return
+			-1	Query exception<br>
+			-2	Query => null<br>
+			-3	No entry in the table<br>
+			-4	Unknown result<br>
+			1	Entry exists<br>
+	 ******************************/
+	public static int 
+	isInDB_Audio_File
+	(Activity actv, String file_Name) {
+		
+		///////////////////////////////////
+		//
+		// db
+		//
+		///////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		///////////////////////////////////
+		//
+		// cursor
+		//
+		///////////////////////////////////
+		Cursor c = null;
+		
+		String where = CONS.DB.col_names_Audio_Files[0] + " LIKE ?";
+//		String where = CONS.DB.col_names_Audio_Files[0] + " = ?";
+		String[] args = new String[]{
+				
+				file_Name
+				
+		};
+		
+		try {
+			
+			c = rdb.query(
+					
+					CONS.DB.tname_Audio_Files,			// 1
+					CONS.DB.col_names_Audio_Files_full,	// 2
+//					CONS.DB.tname_Patterns,			// 1
+//					CONS.DB.col_names_Patterns,	// 2
+//					null, null,		// 3,4
+					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			String msg_Log = "Exception";
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			String msg = "Query exception";
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			rdb.close();
+			
+			return -1;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			String msg = "Query => null";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			rdb.close();
+			
+			return -2;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			String msg = "No entry in the table";
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", msg);
+			
+			rdb.close();
+			
+			return -3;
+			
+		} else if (c.getCount() >= 1) {//if (c == null)
+			
+			// Log
+			String msg_Log = "Entry exists => " + c.getCount();
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			rdb.close();
+			
+			return 1;
+			
+		} else {//if (c == null)
+			
+			// Log
+			String msg_Log = "Unknown result";
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			rdb.close();
+			
+			return -4;
+			
+		}//if (c == null)
+		
+	}//isInDB_Audio_File
+	
 	public boolean insert_data_refresh_history(SQLiteDatabase wdb,
 			String tableName, long[] data) {
 		/*----------------------------
@@ -4771,6 +4902,8 @@ public class DBUtils extends SQLiteOpenHelper{
 	}//count_Entry
 
 	/******************************
+	 * @param val needs 'created_at' and 'modified_at'
+	 * 
 		@return false => 1. Insertion failed<br>
 						2. Exception
 	 ******************************/

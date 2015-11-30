@@ -20,6 +20,7 @@ import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -112,7 +113,7 @@ public class ImportActv extends ListActivity {
 		//
 		///////////////////////////////////
 		_Setup_Insert_Audio_Files();
-		aa
+		
 //		////////////////////////////////
 //
 //		// adapter
@@ -243,7 +244,54 @@ public class ImportActv extends ListActivity {
 		// insert data
 		//
 		///////////////////////////////////
-		aa
+		boolean res_B;
+		int res_i;
+		
+		String tmp_S = null;
+		
+		// ContentValues
+		ContentValues val = new ContentValues();
+		
+		// Put values
+		String time = null;
+//		String time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+				
+		for (int i = 0; i < lenOf_AudioFiles; i++) {
+			
+			tmp_S = listOf_AudioFile_Names[i];
+		
+			/*******************************
+			 * valid: data exists
+			 *******************************/
+			res_i = DBUtils.isInDB_Audio_File(this, tmp_S);
+			
+			// if 1 => record exists; next record
+			if (res_i == 1) {
+
+				continue;
+
+			}//if (res_i == 1)
+			
+			time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+
+//			android.provider.BaseColumns._ID,		// 0
+//			"created_at", "modified_at",			// 1,2
+//			
+//			"text",									// 3
+//			"dir",							// 4
+
+			val.put(CONS.DB.col_names_Audio_Files_full[1], time);
+			val.put(CONS.DB.col_names_Audio_Files_full[2], time);
+			
+			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_S);
+			val.put(CONS.DB.col_names_Audio_Files_full[4], dpath);
+
+			// insert
+			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+			
+		}//for (int i = 0; i < listOf_AudioFile_Names; i++)
+		
+//		DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
 		
 		///////////////////////////////////
 		//
