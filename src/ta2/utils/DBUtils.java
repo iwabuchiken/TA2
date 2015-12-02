@@ -1212,7 +1212,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} else if (c.getCount() < 1) {//if (c == null)
 			
-			String msg = "No entry in the table";
+			String msg = "No entry in the table => " + file_Name;
 			
 			// Log
 			Log.e("DBUtils.java" + "["
@@ -4495,6 +4495,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			String msg_Toast = "Table exists => " + tableName;
 			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
 			
+
+			wdb.close();
 			
 			return -1;
 	//		return false;
