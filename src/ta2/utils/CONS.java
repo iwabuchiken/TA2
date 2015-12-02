@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ta2.adapters.Adp_AudioMemoList;
 import ta2.adapters.Adp_FHs;
 import ta2.adapters.Adp_LogFileList;
 import ta2.adapters.Adp_MemoList;
@@ -743,7 +744,7 @@ public class CONS {
 		
 		public static List<FilterHistory> list_FS;
 		
-		public static Adp_MemoList adp_List_Memos = null;
+		public static Adp_AudioMemoList adp_List_Memos = null;
 		
 		public static Adp_WordPatterns adp_List_WPs = null;
 		

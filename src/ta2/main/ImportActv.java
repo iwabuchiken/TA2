@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
+import ta2.adapters.Adp_AudioMemoList;
 import ta2.adapters.Adp_MemoList;
 import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
@@ -122,12 +123,12 @@ public class ImportActv extends ListActivity {
 			
 		}
 		
-//		////////////////////////////////
-//
-//		// adapter
-//
-//		////////////////////////////////
-//		res = _Setup_Adapter();
+		////////////////////////////////
+
+		// adapter
+
+		////////////////////////////////
+		res = _Setup_Adapter();
 
 //		////////////////////////////////
 //		
@@ -515,21 +516,21 @@ public class ImportActv extends ListActivity {
 		// get adapter
 
 		////////////////////////////////
-		CONS.ShowListActv.adp_List_Memos = new Adp_MemoList(
+		CONS.ImportActv.adp_List_Memos = new Adp_AudioMemoList(
 				
 						this,
 						R.layout.list_row_showlist,
-						CONS.ShowListActv.list_Memos
+						CONS.ImportActv.list_Memos
 				
 		);
 		
 		/******************************
 			validate
 		 ******************************/
-		if (CONS.ShowListActv.adp_List_Memos == null) {
+		if (CONS.ImportActv.adp_List_Memos == null) {
 			
 			// Log
-			String msg_Log = "CONS.ShowListActv.adp_List_Memos => null";
+			String msg_Log = "CONS.ImportActv.adp_List_Memos => null";
 			Log.e("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -546,7 +547,7 @@ public class ImportActv extends ListActivity {
 		// set
 
 		////////////////////////////////
-		this.getListView().setAdapter(CONS.ShowListActv.adp_List_Memos);
+		this.getListView().setAdapter(CONS.ImportActv.adp_List_Memos);
 		
 		return true;
 		
