@@ -87,6 +87,9 @@ import android.widget.Toast;
 
 
 
+
+
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -105,7 +108,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ta2.comps.Comp_AudioMemos;
 import ta2.comps.Comp_WP;
+import ta2.items.AudioMemo;
 import ta2.items.FilterHistory;
 import ta2.items.LogItem;
 import ta2.items.Memo;
@@ -9160,6 +9165,22 @@ public static String
 //		return -1;
 		
 	}//validate_New_AudioFiles
+
+	public static List<AudioMemo>
+	sort_List__AudioMemos
+	(List<AudioMemo> list_AudioMemos, 
+			final CONS.Enums.SortType sortType, 
+			final CONS.Enums.SortOrder sortOrder) {
+		
+		Comp_AudioMemos comp_AM = new Comp_AudioMemos(
+							list_AudioMemos, 
+							sortType, sortOrder);
+		
+		Collections.sort(list_AudioMemos, comp_AM);
+		
+		return list_AudioMemos;
+		
+	}//sort_List__AudioMemos
 
 }//public class Methods
 

@@ -130,6 +130,7 @@ public class ImportActv extends ListActivity {
 		////////////////////////////////
 		res = _Setup_Adapter();
 
+		
 //		////////////////////////////////
 //		
 //		// selection
@@ -510,6 +511,28 @@ public class ImportActv extends ListActivity {
 	private boolean 
 	_Setup_Adapter() {
 		// TODO Auto-generated method stub
+
+		///////////////////////////////////
+		//
+		// sort list
+		//
+		///////////////////////////////////
+		Methods.sort_List__AudioMemos(
+				CONS.ImportActv.list_Memos, 
+				CONS.Enums.SortType.TEXT, 
+				CONS.Enums.SortOrder.DESC);
+
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"audio memos => sorted: by %s, %s", CONS.Enums.SortType.TEXT, CONS.Enums.SortOrder.DESC
+				);
+		
+		Log.d("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		////////////////////////////////
 
@@ -530,7 +553,8 @@ public class ImportActv extends ListActivity {
 		if (CONS.ImportActv.adp_List_Memos == null) {
 			
 			// Log
-			String msg_Log = "CONS.ImportActv.adp_List_Memos => null";
+//			String 
+			msg_Log = "CONS.ImportActv.adp_List_Memos => null";
 			Log.e("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
