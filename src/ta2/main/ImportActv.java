@@ -50,26 +50,13 @@ public class ImportActv extends ListActivity {
 				msg_Log);		
 		
 		boolean res;
-		
-		////////////////////////////////
 
-		// init vars
-
-		////////////////////////////////
-		this._Setup_InitVars();
-		
-		////////////////////////////////
-
-		// build list
-
-		////////////////////////////////
-		res = _Setup_List();
-
-		if (res == false) {
-			
-			return;
-			
-		}
+		///////////////////////////////////
+		//
+		// title
+		//
+		///////////////////////////////////
+		this._Setup_Set_Title();
 		
 		///////////////////////////////////
 		//
@@ -107,6 +94,13 @@ public class ImportActv extends ListActivity {
 
 		}//if (res_i == -2)
 		
+		////////////////////////////////
+
+		// init vars
+
+		////////////////////////////////
+		this._Setup_InitVars();
+
 		///////////////////////////////////
 		//
 		// insert data: audio files
@@ -115,6 +109,19 @@ public class ImportActv extends ListActivity {
 		_Setup_Update_Audio_Files_List();
 //		_Setup_Insert_Audio_Files();
 		
+		////////////////////////////////
+
+		// build list: TA2 list => after: _Setup_Update_Audio_Files_List() 
+
+		////////////////////////////////
+		res = _Setup_List();
+
+		if (res == false) {
+			
+			return;
+			
+		}
+		
 //		////////////////////////////////
 //
 //		// adapter
@@ -122,13 +129,6 @@ public class ImportActv extends ListActivity {
 //		////////////////////////////////
 //		res = _Setup_Adapter();
 
-		///////////////////////////////////
-		//
-		// title
-		//
-		///////////////////////////////////
-		this._Setup_Set_Title();
-		
 //		////////////////////////////////
 //		
 //		// selection
@@ -552,109 +552,105 @@ public class ImportActv extends ListActivity {
 		
 	}//_Setup_Adapter
 	
-
-
 	private boolean 
 	_Setup_List() {
 		// TODO Auto-generated method stub
 		
 		String msg_Log;
+		
+		////////////////////////////////
 
-		String dpath = "/mnt/sdcard/AllVoiceRecords";
-		
-		File f = new File(dpath);
-		
-		/*******************************
-		 * validate: dir exists
-		 *******************************/
-		if (!f.exists()) {
+		// keep the existing list
 
-			// Log
-//			String msg_Log;
-			
-			msg_Log = String.format(
-					Locale.JAPAN,
-					"dir doesn't exist => %s", f.getAbsolutePath()
-					);
-			
-			Log.e("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-
-			return false;
-			
-		}//if (!f.exists())
-		
-		///////////////////////////////////
-		//
-		// get: file name list
-		//
-		///////////////////////////////////
-		String[] listOf_AudioFile_Names = f.list();
-		
-		// Log
-//		String msg_Log;
-		
-		msg_Log = String.format(
-				Locale.JAPAN,
-				"audio files => %d", listOf_AudioFile_Names.length
-				);
-		
-		Log.d("ImportActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
-
-		/*******************************
-		 * valid: any entry
-		 *******************************/
-		int lenOf_AudioFiles = listOf_AudioFile_Names.length;
-		
-		if (lenOf_AudioFiles < 1) {
-
-			// Log
-//			String msg_Log;
-			
-			msg_Log = String.format(
-					Locale.JAPAN,
-					"no audio files in => %s", f.getAbsolutePath()
-					);
-			
-			Log.e("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-
-			return false;
-			
-		}//if (lenOf_AudioFiles < 1)
-		
-		/*******************************
-		 * report
-		 *******************************/
-		for (int i = 0; i < lenOf_AudioFiles; i++) {
+		////////////////////////////////
+		if (CONS.ImportActv.list_Memos != null) {
 			
 			// Log
-//			String msg_Log;
-			
-			msg_Log = String.format(
-					Locale.JAPAN,
-					"audio file => %s", listOf_AudioFile_Names[i]
-					);
-			
+			msg_Log = "list already exists => kept";
 			Log.d("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);;
+					+ "]", msg_Log);
 			
-		}//for (int i = 0; i < lenOf_AudioFiles; i++)
+			return true;
+			
+		} else {
+			
+			// Log
+			msg_Log = "list doesn't exist => building a new one...";
+			Log.d("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		}
 		
+		////////////////////////////////
+
+		// list size
+
+		////////////////////////////////
+		String pref_MemoList_Size = Methods.get_Pref_String(
+							this, 
+							CONS.Pref.pname_MainActv, 
+							this.getString(R.string.prefs_MemoList_Size_key), 
+							null);
+
+		////////////////////////////////
+
+		// list
+
+		////////////////////////////////
+		if (pref_MemoList_Size != null) {
+			
+			CONS.ImportActv.list_Memos = 
+					DBUtils.find_All_Memos__ExternalAudios(
+								this, 
+								CONS.Enums.SortOrder.DESC, 
+								Integer.parseInt(pref_MemoList_Size));
+//			DBUtils.find_All_Memos(
+//					this, 
+//					CONS.Enums.SortOrder.DESC, 
+//					Integer.parseInt(pref_MemoList_Size));
+			
+		} else {
+
+			CONS.ImportActv.list_Memos = 
+					DBUtils.find_All_Memos__ExternalAudios(this, CONS.Enums.SortOrder.DESC);
+			
+		}
 		
-		///////////////////////////////////
-		//
-		// return
-		//
-		///////////////////////////////////
-		return true;
+		/******************************
+			validate
+		 ******************************/
+		if (CONS.ImportActv.list_Memos == null) {
+			
+			// Log
+			msg_Log = "CONS.ImportActv.list_Memos => null";
+			Log.e("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "Can't get memo list";
+			Methods_dlg.dlg_ShowMessage(this, msg, R.color.red);
+			
+			return false;
+			
+		} else {
+
+			// Log
+			msg_Log = "memo size => " + CONS.ImportActv.list_Memos.size();
+			Log.d("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+//			//test
+//			do_test();
+			
+			return true;
+			
+		}
 		
 	}//_Setup_List
+
 
 	/*******************************
 	 * Initialize<br>

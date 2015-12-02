@@ -10,6 +10,7 @@ import ta2.adapters.Adp_MemoList;
 import ta2.adapters.Adp_ShowLogFile_List;
 import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
+import ta2.items.AudioMemo;
 import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.LogItem;
@@ -734,6 +735,38 @@ public class CONS {
 		public static int BACK_FROM_X_ACTV;
 		
 	}//ShowListActv
+	
+	public static class 
+	ImportActv {
+		
+		public static List<AudioMemo> list_Memos;
+		
+		public static List<FilterHistory> list_FS;
+		
+		public static Adp_MemoList adp_List_Memos = null;
+		
+		public static Adp_WordPatterns adp_List_WPs = null;
+		
+		public static Adp_FHs adp_List_FHs = null;
+		
+		
+		public static final int length_Conf_Message		= 20;
+		
+		public static int list_Pos_Current = -1;
+		public static int list_Pos_Prev = -1;
+		
+		public final static int dialog_LV_Height_Ratio = 60;	// out of 100
+		
+		public static final String AUDIO_NO_MEMO = "@-";
+		
+		////////////////////////////////
+		
+		// intent-related
+		
+		////////////////////////////////
+		public static int BACK_FROM_X_ACTV;
+		
+	}//ImportActv
 	
 	public static class TNActv {
 		
