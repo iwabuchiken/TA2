@@ -112,7 +112,8 @@ public class ImportActv extends ListActivity {
 		// insert data: audio files
 		//
 		///////////////////////////////////
-		_Setup_Insert_Audio_Files();
+		_Setup_Update_Audio_Files_List();
+//		_Setup_Insert_Audio_Files();
 		
 //		////////////////////////////////
 //
@@ -148,10 +149,79 @@ public class ImportActv extends ListActivity {
 		
 	}//onStart
 
-	private boolean _Setup_Insert_Audio_Files() {
+	private boolean _Setup_Update_Audio_Files_List() {
 		// TODO Auto-generated method stub
 	
 		String msg_Log;
+		
+		///////////////////////////////////
+		//
+		// auto-update
+		//
+		///////////////////////////////////
+		///////////////////////////////////
+		//
+		// get: pref value
+		//
+		///////////////////////////////////
+		boolean pref = Methods.get_Pref_Boolean(
+				this, 
+				CONS.Pref.pname_MainActv, 
+				this.getString(R.string.prefs_AudioFiles_From_RecorderApp_List_Auto_Update_key), 
+				false);
+
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"audio files, auto-update => %s", pref
+//				);
+//		
+//		Log.i("ImportActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// judge
+		//
+		///////////////////////////////////
+		if (pref == true) {
+
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"audio files => auto-updating..."
+					);
+			
+			Log.i("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+		} else {//if (pref == true)
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"audio files => NOT auto-updating"
+					);
+			
+			Log.i("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+			
+		}//if (pref == true)
+		
+		///////////////////////////////////
+		//
+		// update
+		//
+		///////////////////////////////////
+//		String msg_Log;
 
 		String dpath = "/mnt/sdcard/AllVoiceRecords";
 		
@@ -193,7 +263,7 @@ public class ImportActv extends ListActivity {
 				"audio files => %d", listOf_AudioFile_Names.length
 				);
 		
-		Log.i("ImportActv.java" + "["
+		Log.d("ImportActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
@@ -233,7 +303,7 @@ public class ImportActv extends ListActivity {
 					"audio file => %s", listOf_AudioFile_Names[i]
 					);
 			
-			Log.i("ImportActv.java" + "["
+			Log.d("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);;
 			
@@ -530,7 +600,7 @@ public class ImportActv extends ListActivity {
 				"audio files => %d", listOf_AudioFile_Names.length
 				);
 		
-		Log.i("ImportActv.java" + "["
+		Log.d("ImportActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
@@ -570,7 +640,7 @@ public class ImportActv extends ListActivity {
 					"audio file => %s", listOf_AudioFile_Names[i]
 					);
 			
-			Log.i("ImportActv.java" + "["
+			Log.d("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);;
 			

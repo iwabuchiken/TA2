@@ -174,6 +174,15 @@
     	<string name="prefs_Audio_Upload_Since_title">
     	    									Audio upload since</string>
 
+ 		<string name="prefs_AudioFiles_From_RecorderApp_List_Auto_Update_title">
+							File list => auto-update</string>
+
+ 		<string name="prefs_AudioFiles_From_RecorderApp_List_Auto_Update_key">
+							prefs_AudioFiles_From_RecorderApp_List_Auto_Update</string>
+
+ 		<string name="prefs_AudioFiles_From_RecorderApp_List_Auto_Update_summary">
+							ImportActv</string>
+
     <!-- image_actv_menu.xml -->
 	    <string name="image_actv_menu_add_memo">Memo</string>
 	    <string name="image_actv_menu_add_patterns">定型句登録</string>

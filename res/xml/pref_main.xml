@@ -75,6 +75,14 @@
     </EditTextPreference>
 	
 	
+	<CheckBoxPreference
+        android:title="@string/prefs_AudioFiles_From_RecorderApp_List_Auto_Update_title"
+        android:key="@string/prefs_AudioFiles_From_RecorderApp_List_Auto_Update_key"
+        android:summary="@string/prefs_AudioFiles_From_RecorderApp_List_Auto_Update_summary"
+        android:defaultValue="false"
+        
+        />
+	
 	<!-- REF http://mobile.dzone.com/news/android-development-%E2%80%93 -->
 <!-- <ListPreference
 	    android:title="Size of memo list"
