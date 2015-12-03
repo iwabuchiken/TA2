@@ -219,6 +219,14 @@ public class DOI_CL implements OnItemClickListener {
 			
 			break;// case dlg_add_memos_gv
 			
+		case ACTV_IMPORT_LV://----------------------------------------------
+			
+			li = (ListItem) parent.getItemAtPosition(position);
+			
+			case_ACTV_IMPORT_LV(li);
+			
+			break;// case dlg_add_memos_gv
+			
 		case ACTV_SHOWLIST_LV://----------------------------------------------
 			
 			li = (ListItem) parent.getItemAtPosition(position);
@@ -416,6 +424,52 @@ public class DOI_CL implements OnItemClickListener {
 
 	}//case_ACTV_SHOWLIST_LV
 
+	private void 
+	case_ACTV_IMPORT_LV
+	(ListItem li) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// dispatch
+		
+		////////////////////////////////
+		if (li.getText().equals(actv.getString(
+				R.string.generic_tv_edit))) {
+			
+//			Methods.start_Activity_MemoEditActv__ForResult(actv, d1, memo);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_delete))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			Methods_dlg.conf_Delete_Memo(actv, d1, memo);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_play))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+			d1.dismiss();
+			
+			Methods.start_Activity_PlayerActv(actv, this.audio_item);
+//			Methods.start_Activity_PlayActv(actv, memo);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.commons_lbl_copy_to_clipboard))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			d1.dismiss();
+//			
+//			Methods.copy_2_Clipboard(actv, memo);
+			
+		} else if (li.getText().equals(actv.getString(
+				R.string.generic_tv_view))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+			
+//			Methods.start_Activity_ImageActv(actv, d1, memo);
+			
+		} else {
+			
+		}
+		
+	}//case_ACTV_IMPORT_LV
+	
 	private void 
 	case_ACTV_MEMO_ADMIN_PATTERNS
 	(ListItem li) {

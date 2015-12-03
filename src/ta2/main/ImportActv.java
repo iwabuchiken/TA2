@@ -297,24 +297,24 @@ public class ImportActv extends ListActivity {
 			
 		}//if (lenOf_AudioFiles < 1)
 		
-		/*******************************
-		 * report
-		 *******************************/
-		for (int i = 0; i < lenOf_AudioFiles; i++) {
-			
-			// Log
-//			String msg_Log;
-			
-			msg_Log = String.format(
-					Locale.JAPAN,
-					"audio file => %s", listOf_AudioFile_Names[i]
-					);
-			
-			Log.d("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);;
-			
-		}//for (int i = 0; i < lenOf_AudioFiles; i++)
+//		/*******************************
+//		 * report
+//		 *******************************/
+//		for (int i = 0; i < lenOf_AudioFiles; i++) {
+//			
+//			// Log
+////			String msg_Log;
+//			
+//			msg_Log = String.format(
+//					Locale.JAPAN,
+//					"audio file => %s", listOf_AudioFile_Names[i]
+//					);
+//			
+//			Log.d("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);;
+//			
+//		}//for (int i = 0; i < lenOf_AudioFiles; i++)
 
 		///////////////////////////////////
 		//

@@ -1228,11 +1228,11 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} else if (c.getCount() >= 1) {//if (c == null)
 			
-			// Log
-			String msg_Log = "Entry exists => " + c.getCount();
-			Log.d("DBUtils.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+//			// Log
+//			String msg_Log = "Entry exists => " + c.getCount();
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
 			
 			rdb.close();
 			

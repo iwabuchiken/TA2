@@ -90,6 +90,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -124,6 +125,7 @@ import ta2.main.MemoActv;
 import ta2.main.MemoEditActv;
 import ta2.main.PhotoActv;
 import ta2.main.PlayActv;
+import ta2.main.PlayerActv;
 import ta2.main.PrefActv;
 import ta2.main.LogActv;
 import ta2.main.R;
@@ -5792,6 +5794,24 @@ public static String
 		
 	}//start_Activity_PlatyActv
 
+	public static void 
+	start_Activity_PlayerActv
+	(Activity actv, AudioMemo memo) {
+		// TODO Auto-generated method stub
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, PlayerActv.class);
+//		i.setClass(actv, PlayActv.class);
+		
+		i.putExtra(CONS.Intent.iKey_Memo_Id, memo.getDb_Id());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//start_Activity_PlayerActv
+	
 	public static void
 	play_File(Activity actv) {
 		
