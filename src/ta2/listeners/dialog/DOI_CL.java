@@ -3,6 +3,7 @@ package ta2.listeners.dialog;
 
 import java.util.Locale;
 
+import ta2.items.AudioMemo;
 import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.Memo;
@@ -40,6 +41,7 @@ public class DOI_CL implements OnItemClickListener {
 	private String file_Name;
 	private Memo memo;
 	private WordPattern wp;
+	private AudioMemo audio_item;
 	
 	
 	//
@@ -125,6 +127,19 @@ public class DOI_CL implements OnItemClickListener {
 		
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 
+	}
+
+	public DOI_CL(Activity actv, Dialog d1, AudioMemo audio_item) {
+		// TODO Auto-generated constructor stub
+		
+		this.actv = actv;
+		this.d1 = d1;
+		
+		this.audio_item	= audio_item;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
+		
 	}
 
 	//	@Override

@@ -935,7 +935,8 @@ public class ImportActv extends ListActivity {
 		////////////////////////////////
 		ListView lv = (ListView) this.getListView();
 		
-		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
+		lv.setTag(Tags.ListTags.ACTV_IMPORTACTV_LV);
+//		lv.setTag(Tags.ListTags.ACTV_SHOWLIST_LV);
 		
 		lv.setOnItemLongClickListener(new LOI_LCL(this));
 		

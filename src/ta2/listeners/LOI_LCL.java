@@ -4,13 +4,13 @@ package ta2.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
+import ta2.items.AudioMemo;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
 import ta2.utils.Methods_dlg;
 import ta2.utils.Tags;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -70,9 +70,20 @@ LOI_LCL implements OnItemLongClickListener {
 //		vib.vibrate(CONS.Admin.vibLength_click);
 		
 		Memo item;
+		
+		AudioMemo audio_item;
+		
 		WordPattern wp;
 		
 		switch (tag) {
+			
+		case ACTV_IMPORTACTV_LV://----------------------------------------------------
+			
+			audio_item = (AudioMemo) parent.getItemAtPosition(position);
+			
+			case_ACTV_IMPORTACTV_LV(audio_item, position);
+			
+			break;// case actv_bm_lv
 			
 		case ACTV_SHOWLIST_LV://----------------------------------------------------
 
@@ -164,4 +175,48 @@ LOI_LCL implements OnItemLongClickListener {
 		
 	}//case_ACTV_SHOWLIST_LV
 
+	private void 
+	case_ACTV_IMPORTACTV_LV
+	(AudioMemo audio_item, int inList_Pos) {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// pref: position
+		
+		////////////////////////////////
+		Methods.set_Pref_Int(
+				actv,
+				CONS.Pref.pname_ImportActv,
+				CONS.Pref.pkey_ImportActv_Current_Position,
+//				CONS.Pref.pname_ShowListActv,
+//				CONS.Pref.pkey_ShowListActv_Current_Position,
+//				CONS.Pref.pkey_CurrentPosition,
+				inList_Pos);
+		
+		// Log
+//		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
+		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+				+ " => "
+				+ "Set to: " + inList_Pos;
+		
+		Log.d("LOI_LCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_log);
+		
+		CONS.ImportActv.adp_List_AudioMemos.notifyDataSetChanged();
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		
+		////////////////////////////////
+		
+		// dialog
+		
+		////////////////////////////////
+		Methods_dlg.dlg_ImportActv_LongClick(actv, audio_item);
+//		Methods_dlg.dlg_ShowListActv_LongClick(actv, memo);
+		
+		
+		
+	}//case_ACTV_IMPORTACTV_LV
+	
 }//public class ListOnItemLongClickListener implements OnItemLongClickListener
