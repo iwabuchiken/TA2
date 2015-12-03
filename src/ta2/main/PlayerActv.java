@@ -358,13 +358,19 @@ public class PlayerActv extends Activity {
 			
 		}
 		
-//		////////////////////////////////
-//
-//		// audio length
-//
-//		////////////////////////////////
-//		_Setup_AudioLen();
-//		
+		////////////////////////////////
+
+		// audio length
+
+		////////////////////////////////
+		res = _Setup_AudioLen();
+
+		if (res == false) {
+			
+			return;
+			
+		}
+
 //		////////////////////////////////
 //		
 //		// views
@@ -444,7 +450,7 @@ public class PlayerActv extends Activity {
 		
 	}//_Setup_Views
 
-	private void 
+	private boolean 
 	_Setup_AudioLen() {
 		// TODO Auto-generated method stub
 		
@@ -453,9 +459,10 @@ public class PlayerActv extends Activity {
 		// get file name
 
 		////////////////////////////////
-		String text = CONS.PlayActv.memo.getText();
+		String text = CONS.PlayerActv.audio_memo.getText();
 		
-		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayerMemo);
+//		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
 		Matcher m = p.matcher(text);
 
 		String file_full_path = null;
@@ -477,45 +484,13 @@ public class PlayerActv extends Activity {
 			
 		} else {
 			
-			///////////////////////////////////
-			//
-			// other pattern
-			//
-			///////////////////////////////////
-			p = Pattern.compile("^@(recorded_\\d{4}.+wav)");
-//			p = Pattern.compile("^(@recorded_\\d{4}.+wav)");
-//			p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
-			m = p.matcher(text);
-//			"^@(\\d{4}.+wav)"
-			
-			if (m.find()) {
-//				if (m.matches()) {
-
-				file_full_path = StringUtils.join(
-						new String[]{
-								CONS.DB.dPath_Audio,
-								m.group(1)
-						},
-						File.separator);
-				
-				// Log
-				String msg_Log = "file_full_path => " + file_full_path;
-				Log.d("PlayerActv.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", msg_Log);
-				
-			} else {
-
-			
 				// Log
 				String msg_Log = "no match";
 				Log.e("PlayerActv.java" + "["
 						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 						+ "]", msg_Log);
 				
-				return;
-			
-			}
+				return false;
 			
 		}
 		
@@ -528,7 +503,8 @@ public class PlayerActv extends Activity {
 		
 		if (tmp > 0) {
 			
-			CONS.PlayActv.len_Audio = Methods.get_AudioLength(file_full_path);
+			CONS.PlayerActv.len_Audio = tmp;
+//			CONS.PlayerActv.len_Audio = Methods.get_AudioLength(file_full_path);
 			
 		} else {
 			
@@ -559,15 +535,31 @@ public class PlayerActv extends Activity {
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]", msg);
 			
-			return;
+			return false;
 			
 		}//if (tmp > 0)
 		
 		// Log
-		String msg_Log = "audio len => " + CONS.PlayActv.len_Audio;
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"audio len => %s (%s)", 
+				CONS.PlayerActv.len_Audio,
+				Methods.conv_MillSec_to_ClockLabel(CONS.PlayerActv.len_Audio)
+//				Methods.conv_MillSec_to_ClockLabel(CONS.PlayActv.len_Audio)
+				);
+		
+		Log.i("PlayerActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+//		String msg_Log = "audio len => " + CONS.PlayerActv.len_Audio;
 		Log.d("PlayerActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
+		
+		return true;
 		
 	}//_Setup_AudioLen
 
