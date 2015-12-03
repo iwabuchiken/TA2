@@ -138,12 +138,17 @@ public class ImportActv extends ListActivity {
 //		////////////////////////////////
 //		this._Setup_SetSelection();
 
-//		////////////////////////////////
-//
-//		// listeners
-//
-//		////////////////////////////////
-//		this._Setup_Listeners();
+		////////////////////////////////
+
+		// listeners
+
+		////////////////////////////////
+		///////////////////////////////////
+		//
+		// listeners: main
+		//
+		///////////////////////////////////
+		this._Setup_Listeners();
 //		
 //		this._Setup_Listeners_IBs();
 		
@@ -483,29 +488,36 @@ public class ImportActv extends ListActivity {
 		
 	}//onListItemClick
 
+	/*******************************
+	 * up to => notify the adapter
+	 *******************************/
 	private void
 	_ItemClick_SetPref_CurrentPosition(int position) {
 		// TODO Auto-generated method stub
 		Methods.set_Pref_Int(
 				this,
-				CONS.Pref.pname_ShowListActv,
-				CONS.Pref.pkey_ShowListActv_Current_Position,
+				CONS.Pref.pname_ImportActv,
+				CONS.Pref.pkey_ImportActv_Current_Position,
+//				CONS.Pref.pname_ShowListActv,
+//				CONS.Pref.pkey_ShowListActv_Current_Position,
 //				CONS.Pref.pkey_CurrentPosition,
 				position);
 		
 		// Log
 //		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition
-		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
+		String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_ImportActv
+//				String msg_log = "Pref: " + CONS.Pref.pkey_CurrentPosition_MainActv
 						+ " => "
 						+ "Set to: " + position;
 		
-		Log.d("MainActv.java" + "["
+		Log.d("ImportActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_log);
 		
-		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		CONS.ImportActv.adp_List_AudioMemos.notifyDataSetChanged();
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
 
-	}
+	}//_ItemClick_SetPref_CurrentPosition
 
 
 	private boolean 
@@ -539,7 +551,7 @@ public class ImportActv extends ListActivity {
 		// get adapter
 
 		////////////////////////////////
-		CONS.ImportActv.adp_List_Memos = new Adp_AudioMemoList(
+		CONS.ImportActv.adp_List_AudioMemos = new Adp_AudioMemoList(
 				
 						this,
 						R.layout.list_row_showlist,
@@ -550,7 +562,7 @@ public class ImportActv extends ListActivity {
 		/******************************
 			validate
 		 ******************************/
-		if (CONS.ImportActv.adp_List_Memos == null) {
+		if (CONS.ImportActv.adp_List_AudioMemos == null) {
 			
 			// Log
 //			String 
@@ -571,7 +583,7 @@ public class ImportActv extends ListActivity {
 		// set
 
 		////////////////////////////////
-		this.getListView().setAdapter(CONS.ImportActv.adp_List_Memos);
+		this.getListView().setAdapter(CONS.ImportActv.adp_List_AudioMemos);
 		
 		return true;
 		
@@ -583,31 +595,31 @@ public class ImportActv extends ListActivity {
 		
 		String msg_Log;
 		
-		////////////////////////////////
-
-		// keep the existing list
-
-		////////////////////////////////
-		if (CONS.ImportActv.list_Memos != null) {
-			
-			// Log
-			msg_Log = "list already exists => kept";
-			Log.d("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-			
-			return true;
-			
-		} else {
-			
-			// Log
-			msg_Log = "list doesn't exist => building a new one...";
-			Log.d("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
-
-		}
-		
+//		////////////////////////////////
+//
+//		// keep the existing list
+//
+//		////////////////////////////////
+//		if (CONS.ImportActv.list_Memos != null) {
+//			
+//			// Log
+//			msg_Log = "list already exists => kept";
+//			Log.d("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return true;
+//			
+//		} else {
+//			
+//			// Log
+//			msg_Log = "list doesn't exist => building a new one...";
+//			Log.d("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//
+//		}
+//		
 		////////////////////////////////
 
 		// list size
@@ -905,16 +917,16 @@ public class ImportActv extends ListActivity {
 	private void 
 	_Setup_Listeners() {
 		// TODO Auto-generated method stub
-		////////////////////////////////
-
-		// LL: base
-
-		////////////////////////////////
-		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_showlist_ll_base);
-		
-		ll_Base.setTag(Tags.SwipeTags.ACTV_SHOWLIST_BASE);
-		
-		ll_Base.setOnTouchListener(new STL(this));
+//		////////////////////////////////
+//
+//		// LL: base
+//
+//		////////////////////////////////
+//		LinearLayout ll_Base = (LinearLayout) findViewById(R.id.actv_showlist_ll_base);
+//		
+//		ll_Base.setTag(Tags.SwipeTags.ACTV_SHOWLIST_BASE);
+//		
+//		ll_Base.setOnTouchListener(new STL(this));
 
 		////////////////////////////////
 

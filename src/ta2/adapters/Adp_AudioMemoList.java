@@ -2,6 +2,7 @@ package ta2.adapters;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -9,10 +10,9 @@ import ta2.items.AudioMemo;
 import ta2.main.R;
 import ta2.utils.CONS;
 import ta2.utils.Methods;
-
-
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -241,10 +241,24 @@ public class Adp_AudioMemoList extends ArrayAdapter<AudioMemo> {
 		////////////////////////////////
 		int pref_Pos = Methods.get_Pref_Int(
 						(Activity)con,
-						CONS.Pref.pname_ShowListActv,
-						CONS.Pref.pkey_ShowListActv_Current_Position,
+						CONS.Pref.pname_ImportActv,
+						CONS.Pref.pkey_ImportActv_Current_Position,
+//						CONS.Pref.pname_ShowListActv,
+//						CONS.Pref.pkey_ShowListActv_Current_Position,
 		//				CONS.Pref.pkey_CurrentPosition,
 						inList_Pos);
+
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"pref_Pos = %d / inList_Pos = %d", pref_Pos, inList_Pos
+				);
+		
+		Log.i("Adp_AudioMemoList.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		if (pref_Pos != CONS.Pref.dflt_IntExtra_value) {
 			

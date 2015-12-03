@@ -629,6 +629,22 @@ public class CONS {
 		
 		////////////////////////////////
 		
+		// ImportActv
+		
+		////////////////////////////////
+		public static String pname_ImportActv = "pname_ImportActv"; 
+		
+		public static final String 
+		pkey_ImportActv_Filter_String = "pkey_ImportActv_Filter_String";
+		
+		public static final String 
+		pkey_ImportActv_Current_Position = "pkey_ImportActv_Current_Position";
+		
+		public static String 
+		pkey_CurrentPosition_ImportActv = "pkey_CurrentPosition_ImportActv";
+		
+		////////////////////////////////
+		
 		// PhotoActv
 		
 		////////////////////////////////
@@ -744,7 +760,7 @@ public class CONS {
 		
 		public static List<FilterHistory> list_FS;
 		
-		public static Adp_AudioMemoList adp_List_Memos = null;
+		public static Adp_AudioMemoList adp_List_AudioMemos = null;
 		
 		public static Adp_WordPatterns adp_List_WPs = null;
 		
