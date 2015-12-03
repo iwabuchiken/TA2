@@ -3,6 +3,7 @@ package ta2.main;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -138,27 +139,28 @@ public class PlayerActv extends Activity {
 		
 	}//private void _onCreate_ManagePrefs()
 
-	private void _onCreate_InitVars() {
-		// TODO Auto-generated method stub
-		
-		
-	}
+//	private void _onCreate_InitVars() {
+//		// TODO Auto-generated method stub
+//		
+//		
+//	}
 
-	private boolean _onCreate_Get_IntentValues() {
-		
-//		// Log
-//		String msg_Log = "_onCreate_Get_IntentValues";
-//		Log.d("PlayerActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", msg_Log);
-		
-		// TODO Auto-generated method stub
-		Intent i = this.getIntent();
-		
-
-		return true;
-
-	}
+//	private boolean _onCreate_Get_IntentValues() {
+//		
+////		// Log
+////		String msg_Log = "_onCreate_Get_IntentValues";
+////		Log.d("PlayerActv.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", msg_Log);
+//		
+//		// TODO Auto-generated method stub
+//		Intent i = this.getIntent();
+//		
+//		
+//
+//		return true;
+//
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -310,7 +312,7 @@ public class PlayerActv extends Activity {
 //			return;
 //			
 //		}
-//
+
 //		////////////////////////////////
 //
 //		// Prefs
@@ -324,7 +326,7 @@ public class PlayerActv extends Activity {
 //
 //		////////////////////////////////
 //		_onCreate_InitVars();
-//
+
 //		/******************************
 //			validate
 //		 ******************************/
@@ -343,19 +345,19 @@ public class PlayerActv extends Activity {
 //			
 //		}
 //
-//		////////////////////////////////
-//
-//		// get: memo
-//
-//		////////////////////////////////
-//		res = _Setup_Get_Memo();
-//		
-//		if (res == false) {
-//			
-//			return;
-//			
-//		}
-//		
+		////////////////////////////////
+
+		// get: memo
+
+		////////////////////////////////
+		res = _Setup_Get_Memo();
+		
+		if (res == false) {
+			
+			return;
+			
+		}
+		
 //		////////////////////////////////
 //
 //		// audio length
@@ -699,12 +701,14 @@ public class PlayerActv extends Activity {
 		// get memo
 
 		////////////////////////////////
-		CONS.PlayActv.memo = DBUtils.find_Memo_From_Id(this, id);
+		CONS.PlayerActv.audio_memo = DBUtils.find_AudioMemo_From_Id(this, id);
+//		CONS.PlayActv.memo = DBUtils.find_Memo_From_Id(this, id);
 		
 		/******************************
 			validate
 		 ******************************/
-		if (CONS.PlayActv.memo == null) {
+		if (CONS.PlayerActv.audio_memo == null) {
+//			if (CONS.PlayActv.memo == null) {
 			
 			// Log
 			String msg_Log = "can't find memo => " + id;
@@ -717,15 +721,20 @@ public class PlayerActv extends Activity {
 			return false;
 			
 		}		
-		
-		////////////////////////////////
 
-		// get: text
+//		//debug
+//		return false;
 
-		////////////////////////////////
-		String text = CONS.PlayActv.memo.getText();
+		///////////////////////////////////
+		//
+		// set file path
+		//
+		///////////////////////////////////
 		
-		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
+		String text = CONS.PlayerActv.audio_memo.getText();
+		
+		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayerMemo);
+//		Pattern p = Pattern.compile(CONS.RecActv.fmt_FileName_PlayMemo);
 		Matcher m = p.matcher(text);
 		
 		if (m.find()) {
@@ -734,42 +743,65 @@ public class PlayerActv extends Activity {
 //			CONS.PlayActv.fname_Audio = m.group(0);
 			
 			// reset audio path value
-			CONS.DB.dPath_Audio = CONS.DB.dPath_Data_Root + "/audio";
+			CONS.DB.dPath_Audio = "/mnt/sdcard/AllVoiceRecords";
+//			CONS.DB.dPath_Audio = CONS.DB.dPath_Data_Root + "/audio";
+			
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"CONS.PlayActv.fname_Audio => %s", CONS.PlayActv.fname_Audio
+					);
+			
+			Log.i("PlayerActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			//test
+			File f = new File(CONS.DB.dPath_Audio, CONS.PlayActv.fname_Audio);
+			
+			if (f.exists()) {
+				
+				// Log
+//				String msg_Log;
+			
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"file exists => %s", f.getAbsolutePath()
+						);
+				
+				Log.i("PlayerActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			} else {//if (f.exists())
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"file doesn't exist => %s", f.getAbsolutePath()
+						);
+				
+				Log.i("PlayerActv.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			}//if (f.exists())
+			
 			
 			return true;
 			
 		} else {
 			
-			///////////////////////////////////
-			//
-			// other pattern
-			//
-			///////////////////////////////////
-			p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
-			m = p.matcher(text);
-//			"^@(\\d{4}.+wav)"
+			// Log
+			String msg_Log = "can't get file name => " + text;
+			Log.e("PlayerActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
 			
-			if (m.find()) {
-//				if (m.matches()) {
-
-				CONS.PlayActv.fname_Audio = m.group(1);
+			Methods_dlg.dlg_ShowMessage(this, msg_Log, R.color.red);
 			
-				CONS.DB.dPath_Audio = CONS.DB.dPath_Audio__VoiceChanger;
-				
-				return true;
-				
-			} else {
-			
-				// Log
-				String msg_Log = "can't get file name => " + text;
-				Log.e("PlayerActv.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", msg_Log);
-				
-				Methods_dlg.dlg_ShowMessage(this, msg_Log, R.color.red);
-				
-				return false;
-			}			
+			return false;
 						
 		}
 		

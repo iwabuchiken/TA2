@@ -1087,9 +1087,8 @@ public class CONS {
 //		public static final String fmt_FileName_PhotoMemo = "^&(\\d+?)";
 		
 		public static final String fmt_FileName_PlayMemo = "^@(\\d{4}.+wav)";
-//		public static final String fmt_FileName_PlayMemo = "^@\\d{4}.+wav";
-//		public static final String fmt_FileName_PlayMemo = "^@\\d{4}";
-//		public static final String fmt_FileName_PlayMemo = "@\\d{4}";
+		
+		public static final String fmt_FileName_PlayerMemo = "^(レコード_\\d{4}.+mp3)";
 		
 		public static String fname_Generated_WavFile;
 		
@@ -1113,6 +1112,26 @@ public class CONS {
 		public static int playActv_task_Period = 1000;
 		
 	}
+	
+	public static class 
+	PlayerActv {
+		
+//		public static Memo memo;
+		public static AudioMemo audio_memo;
+		
+		public static String fname_Audio;
+		
+		public static MediaPlayer mp;
+		
+		public static SeekBar sb;
+		
+		public static TextView tvCurrentPosition;
+		
+		public static long len_Audio;
+		
+		public static int playActv_task_Period = 1000;
+		
+	}//PlayerActv
 	
 	public static class 
 	PrefActv {
