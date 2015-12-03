@@ -91,6 +91,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -118,6 +119,7 @@ import ta2.items.Memo;
 import ta2.items.TI;
 import ta2.items.WordPattern;
 import ta2.listeners.MP_OCmpL;
+import ta2.listeners.MP_OCmpL__PlayerActv;
 import ta2.listeners.dialog.DL;
 import ta2.main.ImageActv;
 import ta2.main.ImportActv;
@@ -6062,6 +6064,273 @@ public static String
 		
 	}//play_File(Activity actv, AI ai)
 
+	public static void
+	play_File__PlayerActv(Activity actv) {
+		
+		String msg_Log;
+		
+		////////////////////////////////
+		
+		// validate
+		
+		////////////////////////////////
+//		if (CONS.PlayerActv.mp == null) {
+		
+		CONS.PlayerActv.mp = new MediaPlayer();
+		
+		// Log
+		msg_Log = "mp => instantiated";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+//		}
+		
+		/*********************************
+		 * 2. OnCompletionListener
+		 *********************************/
+//		CONS.PlayerActv.mp = new MediaPlayer();
+		
+		try {
+			
+			CONS.PlayerActv.mp.setOnCompletionListener(new MP_OCmpL__PlayerActv(actv));
+//			CONS.PlayerActv.mp.setOnCompletionListener(new MP_OCmpL(actv));
+			
+			// Log
+			msg_Log = "setOnCompletionListener => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Log
+			msg_Log = "Exception";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "setOnCompletionListener => exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
+		
+		/*********************************
+		 * 3. Set data source
+		 *********************************/
+		CONS.PlayerActv.mp.reset();
+		
+		// Log
+		msg_Log = "mp => reset()";
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		String file_full_path = StringUtils.join(
+				new String[]{
+						CONS.DB.dPath_Audio,
+						CONS.PlayerActv.fname_Audio
+				},
+				File.separator);
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"CONS.DB.dPath_Audio => %s | CONS.PlayerActv.fname_Audio => %s", 
+				CONS.DB.dPath_Audio, 
+				CONS.PlayerActv.fname_Audio
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// Log
+		msg_Log = "file_full_path = " + file_full_path;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		try {
+			
+			CONS.PlayerActv.mp.setDataSource(file_full_path);
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data source => Set");
+			
+		} catch (IllegalArgumentException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			
+		} catch (IllegalStateException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+		}//try
+		
+		/*********************************
+		 * 4. Prepare mp
+		 *********************************/
+		try {
+			
+			CONS.PlayerActv.mp.prepare();
+			
+		} catch (IllegalStateException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+		}//try
+		
+		//debug
+		// Log
+		msg_Log = "getDuration() = " + CONS.PlayerActv.mp.getDuration();
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		/***************************************
+		 * Position set in the preference?
+		 ***************************************/
+		long pref_Position = 
+				Methods.get_Pref_Long(
+						actv,
+						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pkey_PlayActv_CurrentPosition,
+						CONS.Pref.dflt_LongExtra_value);
+		
+		// Log
+		msg_Log = "prefPosition = " + pref_Position;
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+//		
+//		//debug
+//		// Log
+//		msg_Log = "getDuration() = " + CONS.PlayerActv.mp.getDuration();
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+		if (pref_Position >= 0) {
+			
+			CONS.PlayerActv.mp.seekTo((int) pref_Position);
+			
+			// Log
+			msg_Log = "seekTo() => done";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}//if (prefPosition == condition)
+		
+//		/***************************************
+//		 * Prepare: Service
+//		 ***************************************/
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//		
+//		i.putExtra(
+//				CONS.Intent.iKey_PlayActv_TaskPeriod, 
+//				CONS.PlayerActv.playActv_task_Period);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "Starting service...");
+//		//
+//		actv.startService(i);
+		
+		/*********************************
+		 * 5. Start
+		 *********************************/
+		try {
+//			/*********************************
+//			 * 5. Start
+//			 *********************************/
+			CONS.PlayerActv.mp.start();
+			
+			// Log
+			msg_Log = "mp => started";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Log
+			msg_Log = "Exception";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String msg = "mp.start => exception";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// buttons
+		
+		////////////////////////////////
+		// stop
+		ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_play_ib_stop);
+		
+		ib_Stop.setImageResource(R.drawable.actv_rec_stop);
+		
+		ib_Stop.setEnabled(true);
+		
+		// play
+		ImageButton ib_Play = (ImageButton) actv.findViewById(R.id.actv_play_ib_play);
+		
+		ib_Play.setImageResource(R.drawable.actv_rec_rec_recording);
+		
+		ib_Play.setEnabled(false);
+		
+	}//play_File__PlayerActv
+	
 	public static void
 	play_File(Activity actv, String fpath) {
 		

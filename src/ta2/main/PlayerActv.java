@@ -197,9 +197,9 @@ public class PlayerActv extends Activity {
 		// release mp
 
 		////////////////////////////////
-		if (CONS.PlayActv.mp != null) {
+		if (CONS.PlayerActv.mp != null) {
 			
-			CONS.PlayActv.mp.release();
+			CONS.PlayerActv.mp.release();
 			
 			// Log
 			String msg_Log = "player => released";
@@ -595,7 +595,7 @@ public class PlayerActv extends Activity {
 		
 		////////////////////////////////
 		
-		// IB: stop
+		// IB: back
 		
 		////////////////////////////////
 		ImageButton ib_Back = (ImageButton) this.findViewById(R.id.actv_play_ib_back);
@@ -611,9 +611,9 @@ public class PlayerActv extends Activity {
 		// seekbar
 
 		////////////////////////////////
-		CONS.PlayActv.sb = (SeekBar) findViewById(R.id.actv_play_sb);
+		CONS.PlayerActv.sb = (SeekBar) findViewById(R.id.actv_play_sb);
 		
-		CONS.PlayActv.sb.setOnSeekBarChangeListener(
+		CONS.PlayerActv.sb.setOnSeekBarChangeListener(
 							new SBL(this, CONS.PlayerActv.sb));
 
 		////////////////////////////////
@@ -732,7 +732,8 @@ public class PlayerActv extends Activity {
 		
 		if (m.find()) {
 			
-			CONS.PlayActv.fname_Audio = m.group(1);
+			CONS.PlayerActv.fname_Audio = m.group(1);
+//			CONS.PlayActv.fname_Audio = m.group(1);
 //			CONS.PlayActv.fname_Audio = m.group(0);
 			
 			// reset audio path value
@@ -744,7 +745,7 @@ public class PlayerActv extends Activity {
 			
 			msg_Log = String.format(
 					Locale.JAPAN,
-					"CONS.PlayActv.fname_Audio => %s", CONS.PlayActv.fname_Audio
+					"CONS.PlayerActv.fname_Audio => %s", CONS.PlayerActv.fname_Audio
 					);
 			
 			Log.i("PlayerActv.java" + "["
@@ -752,7 +753,7 @@ public class PlayerActv extends Activity {
 					+ "]", msg_Log);
 			
 			//test
-			File f = new File(CONS.DB.dPath_Audio, CONS.PlayActv.fname_Audio);
+			File f = new File(CONS.DB.dPath_Audio, CONS.PlayerActv.fname_Audio);
 			
 			if (f.exists()) {
 				

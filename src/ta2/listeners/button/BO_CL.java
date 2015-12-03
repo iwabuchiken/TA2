@@ -253,6 +253,12 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PLAYER_PLAY: //------------------------------
+			
+			case_ACTV_PLAYER_PLAY();
+			
+			break;
+			
 		case ACTV_PLAT_STOP: //------------------------------
 			
 			case_ACTV_PLAT_STOP();
@@ -346,6 +352,15 @@ public class BO_CL implements OnClickListener {
 		
 	}//ACTV_PLAT_PLAY
 
+	private void 
+	case_ACTV_PLAYER_PLAY() {
+		// TODO Auto-generated method stub
+		
+		Methods.play_File__PlayerActv(actv);
+//		Methods.play_File(actv);
+		
+	}//case_ACTV_PLAYER_PLAY
+	
 	private void 
 	case_ACTV_REC_BACK() {
 		// TODO Auto-generated method stub
