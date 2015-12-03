@@ -378,12 +378,12 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		_Setup_Views();
 
-//		////////////////////////////////
-//
-//		// listeners
-//
-//		////////////////////////////////
-//		_Setup_Listeners();
+		////////////////////////////////
+
+		// listeners
+
+		////////////////////////////////
+		_Setup_Listeners();
 		
 	}//protected void onStart()
 
@@ -573,7 +573,8 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		ImageButton ib_Play = (ImageButton) this.findViewById(R.id.actv_play_ib_play);
 		
-		ib_Play.setTag(Tags.ButtonTags.ACTV_PLAY_PLAY);
+		ib_Play.setTag(Tags.ButtonTags.ACTV_PLAYER_PLAY);
+//		ib_Play.setTag(Tags.ButtonTags.ACTV_PLAY_PLAY);
 		
 		ib_Play.setOnTouchListener(new BO_TL(this));
 		
@@ -586,7 +587,7 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_ib_stop);
 		
-		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAT_STOP);
+		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAYER_STOP);
 		
 		ib_Stop.setOnTouchListener(new BO_TL(this));
 		
@@ -599,7 +600,7 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		ImageButton ib_Back = (ImageButton) this.findViewById(R.id.actv_play_ib_back);
 		
-		ib_Back.setTag(Tags.ButtonTags.ACTV_PLAY_BACK);
+		ib_Back.setTag(Tags.ButtonTags.ACTV_PLAYER_BACK);
 		
 		ib_Back.setOnTouchListener(new BO_TL(this));
 		
@@ -613,7 +614,7 @@ public class PlayerActv extends Activity {
 		CONS.PlayActv.sb = (SeekBar) findViewById(R.id.actv_play_sb);
 		
 		CONS.PlayActv.sb.setOnSeekBarChangeListener(
-							new SBL(this, CONS.PlayActv.sb));
+							new SBL(this, CONS.PlayerActv.sb));
 
 		////////////////////////////////
 
@@ -622,7 +623,7 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv);
 		
-		tv_Memo.setTag(Tags.ButtonTags.ACTV_PLAY_TV);
+		tv_Memo.setTag(Tags.ButtonTags.ACTV_PLAYER_TV);
 		
 		tv_Memo.setOnTouchListener(new BO_TL(this));
 		

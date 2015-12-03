@@ -90,6 +90,7 @@ public class BO_TL implements OnTouchListener {
 				
 			case ACTV_REC_STOP://----------------------------------------------------
 			case ACTV_PLAT_STOP://----------------------------------------------------
+			case ACTV_PLAYER_STOP://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_rec_stop);
@@ -100,6 +101,7 @@ public class BO_TL implements OnTouchListener {
 				
 			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_PLAY_PLAY://----------------------------------------------------
+			case ACTV_PLAYER_PLAY://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_rec_rec_recording);
@@ -120,6 +122,7 @@ public class BO_TL implements OnTouchListener {
 			case ACTV_MEMO_BACK://----------------------------------------------------
 			case ACTV_MEMO_EDIT_BACK://----------------------------------------------------
 			case ACTV_PLAY_BACK://----------------------------------------------------
+			case ACTV_PLAYER_BACK://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37_disabled);
@@ -288,6 +291,7 @@ public class BO_TL implements OnTouchListener {
 
 			case ACTV_REC_STOP://----------------------------------------------------
 			case ACTV_PLAT_STOP://----------------------------------------------------
+			case ACTV_PLAYER_STOP://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_rec_stop_not_in_use);
@@ -298,6 +302,7 @@ public class BO_TL implements OnTouchListener {
 				
 			case ACTV_REC_REC://----------------------------------------------------
 			case ACTV_PLAY_PLAY://----------------------------------------------------
+			case ACTV_PLAYER_PLAY://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_rec_rec);
@@ -318,6 +323,7 @@ public class BO_TL implements OnTouchListener {
 			case ACTV_MEMO_BACK://----------------------------------------------------
 			case ACTV_MEMO_EDIT_BACK://----------------------------------------------------
 			case ACTV_PLAY_BACK://----------------------------------------------------
+			case ACTV_PLAYER_BACK://----------------------------------------------------
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.actv_memo_ib_back_49x37);
