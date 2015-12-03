@@ -216,9 +216,9 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table exists => " + tableName);
 			
-			// debug
-			String msg_Toast = "Table exists => " + tableName;
-			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
+//			// debug
+//			String msg_Toast = "Table exists => " + tableName;
+//			Toast.makeText(actv, msg_Toast, Toast.LENGTH_SHORT).show();
 			
 			
 			return true;

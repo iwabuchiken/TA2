@@ -251,14 +251,14 @@ public class Adp_AudioMemoList extends ArrayAdapter<AudioMemo> {
 		// Log
 		String msg_Log;
 		
-		msg_Log = String.format(
-				Locale.JAPAN,
-				"pref_Pos = %d / inList_Pos = %d", pref_Pos, inList_Pos
-				);
-		
-		Log.i("Adp_AudioMemoList.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"pref_Pos = %d / inList_Pos = %d", pref_Pos, inList_Pos
+//				);
+//		
+//		Log.i("Adp_AudioMemoList.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		if (pref_Pos != CONS.Pref.dflt_IntExtra_value) {
 			

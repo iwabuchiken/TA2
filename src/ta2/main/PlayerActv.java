@@ -371,13 +371,13 @@ public class PlayerActv extends Activity {
 			
 		}
 
-//		////////////////////////////////
-//		
-//		// views
-//		
-//		////////////////////////////////
-//		_Setup_Views();
-//
+		////////////////////////////////
+		
+		// views
+		
+		////////////////////////////////
+		_Setup_Views();
+
 //		////////////////////////////////
 //
 //		// listeners
@@ -398,9 +398,8 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		TextView tv_Memo = (TextView) findViewById(R.id.actv_play_tv);
 		
-		tv_Memo.setText(CONS.PlayActv.memo.getText());
-		
-//		et_Memo.setSelection(CONS.PlayActv.memo.getText().length());
+		tv_Memo.setText(CONS.PlayerActv.audio_memo.getText());
+//		tv_Memo.setText(CONS.PlayActv.memo.getText());
 		
 //		////////////////////////////////
 //		
@@ -420,9 +419,10 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		TextView tv_Length = (TextView) findViewById(R.id.actv_play_tv_length);
 		
-		if (CONS.PlayActv.len_Audio >= 0) {
+		if (CONS.PlayerActv.len_Audio >= 0) {
+//			if (CONS.PlayActv.len_Audio >= 0) {
 			
-			tv_Length.setText(Methods.conv_MillSec_to_ClockLabel(CONS.PlayActv.len_Audio));
+			tv_Length.setText(Methods.conv_MillSec_to_ClockLabel(CONS.PlayerActv.len_Audio));
 			
 		} else {
 			
@@ -432,10 +432,10 @@ public class PlayerActv extends Activity {
 		
 		////////////////////////////////
 
-		// Current position
+		// get: Current position
 
 		////////////////////////////////
-		CONS.PlayActv.tvCurrentPosition = 
+		CONS.PlayerActv.tv_CurrentPosition = 
 				(TextView) findViewById(
 						R.id.actv_play_tv_current_position);
 

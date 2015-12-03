@@ -1125,7 +1125,7 @@ public class CONS {
 		
 		public static SeekBar sb;
 		
-		public static TextView tvCurrentPosition;
+		public static TextView tv_CurrentPosition;
 		
 		public static long len_Audio;
 		
