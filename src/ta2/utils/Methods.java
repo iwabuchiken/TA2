@@ -3725,10 +3725,10 @@ public static String
 		boolean res = DBUtils.updateData_generic_With_TimeLable(
 				actv, 
 				CONS.DB.tname_Audio_Files, 
-				CONS.PlayActv.memo.getDb_Id(), 
+				CONS.PlayerActv.audio_memo.getDb_Id(), 
 				CONS.DB.col_names_Audio_Files_full[3], 
 //				CONS.DB.tname_TA2, 
-//				CONS.PlayActv.memo.getDb_Id(), 
+//				CONS.PlayerActv.audio_memo.getDb_Id(), 
 //				CONS.DB.col_names_TA2_full[3], 
 				text);
 

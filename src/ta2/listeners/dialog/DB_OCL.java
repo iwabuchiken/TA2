@@ -1763,7 +1763,9 @@ public class DB_OCL implements OnClickListener {
 		// save memo
 		
 		////////////////////////////////
-		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		boolean res = Methods.update_Memo_PlayerActv(actv, d1);
+//		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+		
 //		boolean res = Methods.update_Memo_PlayerActv(actv, d1);
 //		int res = Methods.save_Memo(actv, d1, R.id.dlg_add_memos_et_content);
 //		int res = Methods.save_Memo(actv, R.id.actv_play_et);
