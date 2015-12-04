@@ -6717,6 +6717,143 @@ public static String
 		
 	}//stop_Player(Activity actv)
 
+	public static void
+	stop_Player__PlayerActv(Activity actv) {
+		
+		String msg_Log;
+		
+		// TODO Auto-generated method stub
+		if (CONS.PlayerActv.mp != null && CONS.PlayerActv.mp.isPlaying()) {
+			
+			int player_Pos = CONS.PlayerActv.mp.getCurrentPosition();
+			
+			////////////////////////////////
+			
+			// stop
+			
+			////////////////////////////////
+			CONS.PlayerActv.mp.stop();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Player => Stopped");
+			
+//			////////////////////////////////
+//
+//			// release
+//
+//			////////////////////////////////
+//			CONS.PlayerActv.mp.release();
+			
+			// Log
+			msg_Log = "player => released";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+//			/***************************************
+//			 * Stop: Service
+//			 ***************************************/
+//			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//			
+//			//
+////			i.putExtra("counter", timeLeft);
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "Stopping service...");
+//			
+//			//
+////			actv.startService(i);
+//			actv.stopService(i);
+			
+//			////////////////////////////////
+//
+//			// pref: stop position
+//
+//			////////////////////////////////
+//			boolean res = Methods.get_Pref_Boolean(
+//					actv, 
+//					CONS.Pref.pname_MainActv, 
+//					actv.getString(R.string.prefactv_key_resume_position), 
+//					false);
+//			
+//			if (res == true) {
+//				
+			boolean res = Methods.setPref_Long(
+					actv,
+					CONS.Pref.pname_PlayerActv,
+					//						CONS.Pref.pkey_PlayActv_position,
+					CONS.Pref.pkey_PlayerActv_CurrentPosition,
+					//						CONS.Pref.pkey_CurrentPosition,
+					player_Pos);
+
+			if (res == true) {
+				
+				// Log
+				msg_Log = "Position => set: " 
+						+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} else {
+				
+				// Log
+				msg_Log = "Position => not set: " 
+						+ Methods.conv_MillSec_to_ClockLabel(player_Pos);
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}//if (res == true)
+//				
+//			}//if (res == true)
+			
+			////////////////////////////////
+			
+			// buttons
+			
+			////////////////////////////////
+			// stop
+			ImageButton ib_Stop = (ImageButton) actv.findViewById(R.id.actv_play_ib_stop);
+			
+			ib_Stop.setImageResource(R.drawable.actv_rec_stop_not_in_use);
+			
+			ib_Stop.setEnabled(false);
+			
+			// play
+			ImageButton ib_Play = (ImageButton) actv.findViewById(R.id.actv_play_ib_play);
+			
+			ib_Play.setImageResource(R.drawable.actv_rec_rec);
+			
+			ib_Play.setEnabled(true);
+			
+			
+		} else if (CONS.PlayerActv.mp == null) {//if (mp.isPlaying())
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "CONS.PlayerActv.mp => null");
+			
+		} else if (!CONS.PlayerActv.mp.isPlaying()) {//if (mp.isPlaying())
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "CONS.PlayerActv.mp => Not playing");
+			
+		}//if (mp.isPlaying())	
+		
+	}//stop_Player__PlayerActv
+	
 	public static boolean
 	setPref_Long
 	(Activity actv, String pName, String pKey, long value) {

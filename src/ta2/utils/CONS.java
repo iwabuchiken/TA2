@@ -91,6 +91,17 @@ public class CONS {
 		public static String iKey_PlayActv_TaskPeriod
 											= "iKey_PlayActv_TaskPeriod";
 
+		////////////////////////////////
+		
+		// PlayerActv
+		
+		////////////////////////////////
+		public final static String iKey_PlayerActv_Memo_Id = "iKey_PlayerActv_Memo_Id";
+		
+		// Used in Service_ShowProgress
+		public static String iKey_PlayerActv_TaskPeriod
+		= "iKey_PlayerActv_TaskPeriod";
+		
 		
 		////////////////////////////////
 
@@ -667,6 +678,19 @@ public class CONS {
 		public static final String pkey_PlayActv_CurrentFileName = 
 											"pkey_PlayActv_CurrentFileName";
 
+		////////////////////////////////
+		
+		// PlayerActv.java
+		
+		////////////////////////////////
+		public static final String pname_PlayerActv = "pname_PlayerActv";
+		
+		public static final String pkey_PlayerActv_CurrentPosition = 
+				"pkey_PlayerActv_CurrentPosition";
+		
+		public static final String pkey_PlayerActv_CurrentFileName = 
+				"pkey_PlayerActv_CurrentFileName";
+		
 		////////////////////////////////
 
 		// LogActv

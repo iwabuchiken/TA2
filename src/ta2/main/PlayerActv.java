@@ -188,7 +188,7 @@ public class PlayerActv extends Activity {
 		/***************************************
 		 * Clear prefs
 		 ***************************************/
-//		boolean res = Methods.clearPref(this, CONS.Pref.pname_PlayActv);
+//		boolean res = Methods.clearPref(this, CONS.Pref.pname_PlayerActv);
 		
 		super.onDestroy();
 		
@@ -216,12 +216,14 @@ public class PlayerActv extends Activity {
 		////////////////////////////////
 		boolean res = Methods.setPref_Long(
 				this,
-				CONS.Pref.pname_PlayActv,
-				CONS.Pref.pkey_PlayActv_CurrentPosition,
+				CONS.Pref.pname_PlayerActv,
+				CONS.Pref.pkey_PlayerActv_CurrentPosition,
+//				CONS.Pref.pname_PlayerActv,
+//				CONS.Pref.pkey_PlayerActv_CurrentPosition,
 				CONS.Pref.dflt_LongExtra_value);
 		
 		// Log
-		String msg_Log = "pkey_PlayActv_CurrentPosition => cleared";
+		String msg_Log = "pkey_PlayerActv_CurrentPosition => cleared";
 		Log.d("PlayerActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
