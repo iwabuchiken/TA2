@@ -92,6 +92,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -135,6 +136,7 @@ import ta2.main.RecActv;
 import ta2.main.ShowListActv;
 import ta2.main.ShowLogActv;
 import ta2.services.Service_ShowProgress;
+import ta2.services.Service_ShowProgress__PlayerActv;
 import ta2.tasks.Task_AudioTrack;
 import ta2.tasks.Task_FTP;
 
@@ -6227,8 +6229,8 @@ public static String
 		long pref_Position = 
 				Methods.get_Pref_Long(
 						actv,
-						CONS.Pref.pname_PlayActv,
-						CONS.Pref.pkey_PlayActv_CurrentPosition,
+						CONS.Pref.pname_PlayerActv,
+						CONS.Pref.pkey_PlayerActv_CurrentPosition,
 						CONS.Pref.dflt_LongExtra_value);
 		
 		// Log
@@ -6256,27 +6258,28 @@ public static String
 			
 		}//if (prefPosition == condition)
 		
-//		/***************************************
-//		 * Prepare: Service
-//		 ***************************************/
+		/***************************************
+		 * Prepare: Service
+		 ***************************************/
+		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
 //		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-//		
-//		i.putExtra(
-//				CONS.Intent.iKey_PlayActv_TaskPeriod, 
-//				CONS.PlayerActv.playActv_task_Period);
-//		
-//		//
-////		i.putExtra("counter", timeLeft);
-//		
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "Starting service...");
-//		//
-//		actv.startService(i);
+		
+		i.putExtra(
+				CONS.Intent.iKey_PlayerActv_TaskPeriod, 
+				CONS.PlayerActv.playActv_task_Period);
+		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Starting service...");
+		//
+		actv.startService(i);
 		
 		/*********************************
 		 * 5. Start
@@ -6752,24 +6755,25 @@ public static String
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
 			
-//			/***************************************
-//			 * Stop: Service
-//			 ***************************************/
+			/***************************************
+			 * Stop: Service
+			 ***************************************/
+			Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
 //			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-//			
-//			//
-////			i.putExtra("counter", timeLeft);
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "Stopping service...");
-//			
-//			//
-////			actv.startService(i);
-//			actv.stopService(i);
+			
+			//
+//			i.putExtra("counter", timeLeft);
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Stopping service...");
+			
+			//
+//			actv.startService(i);
+			actv.stopService(i);
 			
 //			////////////////////////////////
 //
