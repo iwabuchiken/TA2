@@ -4633,6 +4633,9 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//delete_Memo
 
+	/*******************************
+	 * update data of dbId regarding ---> column 'colName' with the value 'colValue'
+	 *******************************/
 	public static boolean
 	updateData_generic_With_TimeLable
 	(Activity actv, 

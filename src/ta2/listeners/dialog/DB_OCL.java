@@ -479,6 +479,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV://------------------------------------------------
+			
+			case_DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV();
+			
+			break;
+			
 		case DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK://------------------------------------------------
 			
 			case_DLG_EDIT_MEMOS_ACTV_IMAGE_BT_OK();
@@ -1719,6 +1725,131 @@ public class DB_OCL implements OnClickListener {
 //		Methods.report_Save_Memos(actv, res);
 		
 	}//case_DLG_EDIT_MEMOS_BT_OK
+	
+	private void 
+	case_DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// validate: any text?
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		String tmp = et.getText().toString();
+		
+		if (tmp == null) {
+			
+			String msg = "Text => null";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+//			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.gold2);
+			
+			return;
+			
+		}
+		
+		if (tmp.length() < 1) {
+			
+			String msg = "No text";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// save memo
+		
+		////////////////////////////////
+		boolean res = Methods.update_Memo_PlayActv(actv, d1);
+//		boolean res = Methods.update_Memo_PlayerActv(actv, d1);
+//		int res = Methods.save_Memo(actv, d1, R.id.dlg_add_memos_et_content);
+//		int res = Methods.save_Memo(actv, R.id.actv_play_et);
+		
+//			-1	insertion => failed<br>
+//			-2	Exception<br>
+//			1	text => inserted<br>
+		
+//		////////////////////////////////
+//		
+//		// clear view?
+//		
+//		////////////////////////////////
+//		boolean pref = Methods.get_Pref_Boolean(
+//				actv, 
+//				CONS.Pref.pname_MainActv, 
+//				actv.getString(R.string.prefs_ClearView_WhenSaved_key), 
+//				false);
+//		
+//		if (pref == true) {
+//			
+//			et.setText("");
+//			
+//		}
+		
+		////////////////////////////////
+		
+		// closing
+		
+		////////////////////////////////
+		if (res == true) {
+			
+			d1.dismiss();
+			
+			TextView tv_Memo = (TextView) actv.findViewById(R.id.actv_play_tv);
+			
+			tv_Memo.setText(tmp);
+			
+			////////////////////////////////
+			
+			// update: CONS.PlayerActv.audio_memo
+			
+			////////////////////////////////
+			CONS.PlayerActv.audio_memo.setText(tmp);
+			
+//			////////////////////////////////
+//			
+//			// update list => ImportActv
+//			
+//			////////////////////////////////
+//			Memo m = Methods.find_Memo_from_ListView(actv, CONS.PlayerActv.audio_memo.getDb_Id());
+//			
+//			if (m != null) {
+//				
+//				m.setText(tmp);
+//				
+//			} else {
+//				
+//				// Log
+//				String msg_Log = "memo => null";
+//				Log.e("DB_OCL.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", msg_Log);
+//				
+//			}
+//			
+//			CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+//			
+//			// Log
+//			String msg_Log = "CONS.ShowListActv.adp_List_Memos => notified";
+//			Log.d("DB_OCL.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+			
+		} else {
+			
+			String msg = "Can't save memo";
+			Methods_dlg.dlg_ShowMessage_SecondDialog(actv, msg, d1);
+			
+		}
+		
+//		Methods.report_Save_Memos(actv, res);
+		
+	}//case_DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV
+	
 	
 	private void 
 	case_DLG_CONF_DROP_CREATE_TABLE_ADMIN_OK() {

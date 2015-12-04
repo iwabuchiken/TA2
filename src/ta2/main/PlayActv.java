@@ -3,6 +3,7 @@ package ta2.main;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,8 @@ import ta2.listeners.LOI_LCL;
 import ta2.listeners.SBL;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
+import ta2.services.Service_ShowProgress;
+import ta2.services.Service_ShowProgress__PlayerActv;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
 import ta2.utils.Methods;
@@ -747,7 +750,65 @@ public class PlayActv extends Activity {
 			****************************/
 //		Methods.stop_Player(this);
 		
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		if (CONS.PlayActv.i_Service_Progress__PlayActv == null) {
+
+			CONS.PlayActv.i_Service_Progress__PlayActv = 
+					new Intent((Context) this, Service_ShowProgress.class);
+
+		}//if (CONS.PlayerActv.i_Service_Progress == null)
 		
+//		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+		
+		//
+//		this.startService(i);
+		this.stopService(CONS.PlayActv.i_Service_Progress__PlayActv);
+//		actv.stopService(i);
+
+//		Intent i = new Intent((Context) this, Service_ShowProgress.class);
+////		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"service => stopping..."
+//				);
+//		
+//		Log.i("PlayActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		//
+////		actv.startService(i);
+//		this.stopService(i);
+
+
+		///////////////////////////////////
+		//
+		// finish
+		//
+		///////////////////////////////////
 		this.finish();
 		
 		overridePendingTransition(0, 0);

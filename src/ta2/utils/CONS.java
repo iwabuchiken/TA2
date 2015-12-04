@@ -1134,8 +1134,10 @@ public class CONS {
 		public static long len_Audio;
 		
 		public static int playActv_task_Period = 1000;
+
+		public static android.content.Intent i_Service_Progress__PlayActv;
 		
-	}
+	}//PlayActv
 	
 	public static class 
 	PlayerActv {
@@ -1154,6 +1156,8 @@ public class CONS {
 		public static long len_Audio;
 		
 		public static int playActv_task_Period = 1000;
+		
+		public static android.content.Intent i_Service_Progress__PlayerActv;
 		
 	}//PlayerActv
 	

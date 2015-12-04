@@ -93,6 +93,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -3684,6 +3685,63 @@ public static String
 		
 	}//update_Memo
 	
+	public static boolean 
+	update_Memo_PlayerActv
+	(Activity actv, Dialog d1) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_add_memos_et_content);
+		
+		////////////////////////////////
+		
+		// get text
+		
+		////////////////////////////////
+		String text = et.getText().toString();
+		
+//		////////////////////////////////
+//
+//		// update: memo
+//
+//		////////////////////////////////
+//		CONS.MemoEditActv.memo.setText(text);
+		
+		////////////////////////////////
+		
+		// save
+		
+		////////////////////////////////
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"dir",							// 4
+		
+		boolean res = DBUtils.updateData_generic_With_TimeLable(
+				actv, 
+				CONS.DB.tname_Audio_Files, 
+				CONS.PlayActv.memo.getDb_Id(), 
+				CONS.DB.col_names_Audio_Files_full[3], 
+//				CONS.DB.tname_TA2, 
+//				CONS.PlayActv.memo.getDb_Id(), 
+//				CONS.DB.col_names_TA2_full[3], 
+				text);
+
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return res;
+		
+	}//update_Memo_PlayerActv
+	
+	
 	/*********************************
 	 * REF=> http://www.searchman.info/tips/2640.html
 	 * 
@@ -5996,24 +6054,47 @@ public static String
 		/***************************************
 		 * Prepare: Service
 		 ***************************************/
-		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
-
-		i.putExtra(
-				CONS.Intent.iKey_PlayActv_TaskPeriod, 
-				CONS.PlayActv.playActv_task_Period);
+		CONS.PlayActv.i_Service_Progress__PlayActv = 
+				new Intent((Context) actv, Service_ShowProgress.class);
+		//Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+		//Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+		
+		CONS.PlayActv.i_Service_Progress__PlayActv.putExtra(
+		//	i.putExtra(
+			CONS.Intent.iKey_PlayActv_TaskPeriod, 
+			CONS.PlayActv.playActv_task_Period);
 		
 		//
-//		i.putExtra("counter", timeLeft);
+		//i.putExtra("counter", timeLeft);
 		
 		
 		// Log
 		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ ":"
-				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-				+ "]", "Starting service...");
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ ":"
+			+ Thread.currentThread().getStackTrace()[2].getMethodName()
+			+ "]", "Starting service...");
 		//
-		actv.startService(i);
+		actv.startService(CONS.PlayActv.i_Service_Progress__PlayActv);
+
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//
+//		i.putExtra(
+//				CONS.Intent.iKey_PlayActv_TaskPeriod, 
+//				CONS.PlayActv.playActv_task_Period);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "Starting service...");
+//		//
+//		actv.startService(i);
 
 		
 		try {
@@ -6261,10 +6342,13 @@ public static String
 		/***************************************
 		 * Prepare: Service
 		 ***************************************/
-		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+		CONS.PlayerActv.i_Service_Progress__PlayerActv = 
+							new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
 //		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
 		
-		i.putExtra(
+		CONS.PlayerActv.i_Service_Progress__PlayerActv.putExtra(
+//				i.putExtra(
 				CONS.Intent.iKey_PlayerActv_TaskPeriod, 
 				CONS.PlayerActv.playActv_task_Period);
 		
@@ -6279,7 +6363,8 @@ public static String
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "Starting service...");
 		//
-		actv.startService(i);
+		actv.startService(CONS.PlayerActv.i_Service_Progress__PlayerActv);
+//		actv.startService(i);
 		
 		/*********************************
 		 * 5. Start
@@ -6621,21 +6706,46 @@ public static String
 			/***************************************
 			 * Stop: Service
 			 ***************************************/
-			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+			if (CONS.PlayActv.i_Service_Progress__PlayActv == null) {
 
+				CONS.PlayActv.i_Service_Progress__PlayActv = 
+						new Intent((Context) actv, Service_ShowProgress.class);
+
+			}//if (CONS.PlayerActv.i_Service_Progress == null)
+			
+//			Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+			
 			//
 //			i.putExtra("counter", timeLeft);
-
+			
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ ":"
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", "Stopping service...");
-
+			
 			//
 //			actv.startService(i);
-			actv.stopService(i);
+			actv.stopService(CONS.PlayActv.i_Service_Progress__PlayActv);
+//			actv.stopService(i);
+			
+//			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//
+//			//
+////			i.putExtra("counter", timeLeft);
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "Stopping service...");
+//
+//			//
+////			actv.startService(i);
+//			actv.stopService(i);
 
 //			////////////////////////////////
 //
@@ -6758,7 +6868,14 @@ public static String
 			/***************************************
 			 * Stop: Service
 			 ***************************************/
-			Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+			if (CONS.PlayerActv.i_Service_Progress__PlayerActv == null) {
+
+				CONS.PlayerActv.i_Service_Progress__PlayerActv = 
+						new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+
+			}//if (CONS.PlayerActv.i_Service_Progress == null)
+			
+//			Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
 //			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
 			
 			//
@@ -6773,7 +6890,8 @@ public static String
 			
 			//
 //			actv.startService(i);
-			actv.stopService(i);
+			actv.stopService(CONS.PlayerActv.i_Service_Progress__PlayerActv);
+//			actv.stopService(i);
 			
 //			////////////////////////////////
 //
@@ -7095,7 +7213,34 @@ public static String
 		// get: position
 
 		////////////////////////////////
-		int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+		int currentPosition;
+//		int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+		
+		try {
+			
+			currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+
+			// Log
+			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"CONS.PlayActv.mp.getCurrentPosition() => Exception"
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+
+			
+			e.printStackTrace();
+			
+			return;
+			
+		}
 		
 //		TextView tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
 		if (CONS.PlayActv.tvCurrentPosition == null) {

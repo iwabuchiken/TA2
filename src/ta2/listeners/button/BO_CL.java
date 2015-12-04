@@ -1,7 +1,10 @@
 package ta2.listeners.button;
 
+import java.util.Locale;
+
 import ta2.items.Memo;
 import ta2.main.R;
+import ta2.services.Service_ShowProgress;
 import ta2.tasks.Task_AudioTrack;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
@@ -11,6 +14,7 @@ import ta2.utils.Tags;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -277,9 +281,21 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_PLAYER_BACK: //------------------------------
+			
+			case_ACTV_PLAYER_BACK();
+			
+			break;
+			
 		case ACTV_PLAY_TV: //------------------------------
 			
 			case_ACTV_PLAY_TV();
+			
+			break;
+			
+		case ACTV_PLAYER_TV: //------------------------------
+			
+			case_ACTV_PLAYER_TV();
 			
 			break;
 			
@@ -314,8 +330,70 @@ public class BO_CL implements OnClickListener {
 	}//case_ACTV_PLAY_TV
 
 	private void 
+	case_ACTV_PLAYER_TV() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_EditMemo__PlayerActv(actv);
+//		Methods_dlg.dlg_EditMemo(actv);
+		
+		
+	}//case_ACTV_PLAYER_TV
+	
+	
+	private void 
 	case_ACTV_PLAY_BACK() {
 		// TODO Auto-generated method stub
+
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		if (CONS.PlayActv.i_Service_Progress__PlayActv == null) {
+
+			CONS.PlayActv.i_Service_Progress__PlayActv = 
+					new Intent((Context) actv, Service_ShowProgress.class);
+
+		}//if (CONS.PlayerActv.i_Service_Progress == null)
+		
+//		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+		
+		//
+//		actv.startService(i);
+		actv.stopService(CONS.PlayActv.i_Service_Progress__PlayActv);
+//		actv.stopService(i);
+
+////		Intent i = new Intent((Context) this, Service_ShowProgress.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"service => stopping..."
+//				);
+//		
+//		Log.i("BO_CL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		//
+//		actv.startService(i);
+////		this.stopService(i);
+
 
 		////////////////////////////////
 
@@ -328,6 +406,73 @@ public class BO_CL implements OnClickListener {
 	
 	}
 
+	private void 
+	case_ACTV_PLAYER_BACK() {
+		// TODO Auto-generated method stub
+		
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		if (CONS.PlayerActv.i_Service_Progress__PlayerActv == null) {
+			
+			CONS.PlayerActv.i_Service_Progress__PlayerActv = 
+					new Intent((Context) actv, Service_ShowProgress.class);
+			
+		}//if (CONS.PlayerActv.i_Service_Progress == null)
+		
+//		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("BO_CL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+		
+		//
+//		actv.startService(i);
+		actv.stopService(CONS.PlayerActv.i_Service_Progress__PlayerActv);
+//		actv.stopService(i);
+		
+////		Intent i = new Intent((Context) this, Service_ShowProgress.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"service => stopping..."
+//				);
+//		
+//		Log.i("BO_CL.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		//
+//		actv.startService(i);
+////		this.stopService(i);
+		
+		
+		////////////////////////////////
+		
+		// finish
+		
+		////////////////////////////////
+		actv.finish();
+		
+		actv.overridePendingTransition(0, 0);
+		
+	}//case_ACTV_PLAYER_BACK
+	
+	
 	private void 
 	case_ACTV_PLAT_STOP() {
 		// TODO Auto-generated method stub

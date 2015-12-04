@@ -68,7 +68,35 @@ public class Task_Timer extends TimerTask {
 //										"!CONS.PlayActv.sb.isInTouchMode()");
 								"!CONS.PlayActv.sb.isPressed()");
 						
-						int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+						int currentPosition;
+//						int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+						
+						try {
+							
+							currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+
+							// Log
+							String msg_Log;
+							
+							msg_Log = String.format(
+									Locale.JAPAN,
+									"CONS.PlayActv.mp.getCurrentPosition() => Exception"
+									);
+							
+							Log.i("Task_Timer.java" + "["
+									+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+									+ "]", msg_Log);
+
+							
+							e.printStackTrace();
+							
+							return;
+							
+						}
+
 						
 						long length = CONS.PlayActv.len_Audio;
 //						long length = Methods.conv_ClockLabel_to_MillSec(

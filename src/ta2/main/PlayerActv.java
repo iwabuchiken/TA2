@@ -19,6 +19,7 @@ import ta2.listeners.SBL;
 import ta2.listeners.SBL__PlayerActv;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
+import ta2.services.Service_ShowProgress__PlayerActv;
 import ta2.utils.CONS;
 import ta2.utils.DBUtils;
 import ta2.utils.Methods;
@@ -835,8 +836,62 @@ public class PlayerActv extends Activity {
 		 * memo
 			****************************/
 //		Methods.stop_Player(this);
+
+		/***************************************
+		 * Stop: Service
+		 ***************************************/
+		if (CONS.PlayerActv.i_Service_Progress__PlayerActv == null) {
+
+			CONS.PlayerActv.i_Service_Progress__PlayerActv = 
+					new Intent((Context) this, Service_ShowProgress__PlayerActv.class);
+
+		}//if (CONS.PlayerActv.i_Service_Progress == null)
 		
+//		Intent i = new Intent((Context) actv, Service_ShowProgress__PlayerActv.class);
+//		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
 		
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+		
+		//
+//		this.startService(i);
+		this.stopService(CONS.PlayerActv.i_Service_Progress__PlayerActv);
+//		actv.stopService(i);
+
+//		Intent i = new Intent((Context) this, Service_ShowProgress__PlayerActv.class);
+////		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+//		
+//		//
+////		i.putExtra("counter", timeLeft);
+//		
+//		// Log
+//		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"service => stopping..."
+//				);
+//		
+//		Log.i("PlayerActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+//		
+//		//
+////		actv.startService(i);
+//		this.stopService(i);
+		
+		///////////////////////////////////
+		//
+		// finish
+		//
+		///////////////////////////////////
 		this.finish();
 		
 		overridePendingTransition(0, 0);

@@ -124,6 +124,8 @@ public class DB_OTL implements OnTouchListener {
 					
 				case DLG_CONF_DROP_CREATE_TABLE_AUDIO_FILES_OK:
 					
+				case DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV:
+					
 					v.setBackgroundColor(Color.GRAY);
 					
 					break;
@@ -200,6 +202,8 @@ public class DB_OTL implements OnTouchListener {
 			case DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_SHOWLOG_OK:
 				
 			case DLG_CONF_DROP_CREATE_TABLE_AUDIO_FILES_OK:
+				
+			case DLG_EDIT_MEMOS_BT_OK__PLAYER_ACTV:
 				
 					v.setBackgroundColor(Color.WHITE);
 					
