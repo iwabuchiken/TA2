@@ -37,7 +37,7 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 		
 		float length = (float) CONS.PlayerActv.len_Audio;
 //				(float) Methods.conv_ClockLabel_to_MillSec(
-//							CONS.PlayActv.ai.getLength());
+//							CONS.PlayerActv.ai.getLength());
 
 		// Log
 		msg_Log = "length => " + length;
@@ -47,10 +47,10 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 		
 		int seekedPosition = (int)
 				((float)progress * 1.000f / sb.getMax() * length);
-//		((float)progress * 1.000f / CONS.PlayActv.sb.getMax() * length);
+//		((float)progress * 1.000f / CONS.PlayerActv.sb.getMax() * length);
 //		int seekedPosition = (int)
 //				((float)progress * 1.000f / sb.getMax() 
-//						* (float)PlayActv.ai.getLength());
+//						* (float)PlayerActv.ai.getLength());
 		
 		// Log
 		msg_Log = "(double)progress / sb.getMax() = " 
@@ -98,7 +98,7 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 			
 		}//if (CONS.PlayerActv.tv_CurrentPosition == null)
 		
-//		CONS.PlayActv.tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+//		CONS.PlayerActv.tv_CurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
 		
 //		// Log
 //		msg_Log = "seekedPosition = " + seekedPosition
@@ -110,8 +110,8 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 //				+ "]", msg_Log);
 		
 //		// Log
-//		msg_Log = "CONS.PlayActv.tvCurrentPosition.getClass().getName() = "
-//					+ CONS.PlayActv.tvCurrentPosition.getClass().getName();
+//		msg_Log = "CONS.PlayerActv.tv_CurrentPosition.getClass().getName() = "
+//					+ CONS.PlayerActv.tv_CurrentPosition.getClass().getName();
 //		Log.d("SBL__PlayerActv.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
@@ -144,7 +144,7 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 				Methods.conv_MillSec_to_ClockLabel(seekedPosition));
 //		Methods.convert_intSec2Digits_lessThanHour(seekedPosition / 1000));
 
-		String current = (String) CONS.PlayActv.tvCurrentPosition.getText();
+		String current = (String) CONS.PlayerActv.tv_CurrentPosition.getText();
 		
 		// Log
 		msg_Log = "current time = " + current;
@@ -174,7 +174,7 @@ public class SBL__PlayerActv implements OnSeekBarChangeListener {
 				(long) ((float) seekBar.getProgress() * 1.000f / sb.getMax()
 							* (float) CONS.PlayerActv.len_Audio);
 //		* (float) Methods.conv_ClockLabel_to_MillSec(
-//				CONS.PlayActv.ai.getLength()));
+//				CONS.PlayerActv.ai.getLength()));
 
 		// Log
 		String msg_Log = "onStopTrackingTouch: seekedPosition = " + seekedPosition;

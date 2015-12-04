@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ta2.tasks.Task_Timer;
+import ta2.tasks.Task_Timer__PlayerActv;
 import ta2.utils.CONS;
 
 
@@ -111,7 +112,8 @@ public class Service_ShowProgress__PlayerActv extends Service {
 		
 		timer = new Timer();
 
-		timer.schedule(new Task_Timer(handler), 0, period);
+		timer.schedule(new Task_Timer__PlayerActv(handler), 0, period);
+//		timer.schedule(new Task_Timer(handler), 0, period);
 //		timer.schedule(
 //				new TimerTask(){
 //
@@ -119,7 +121,7 @@ public class Service_ShowProgress__PlayerActv extends Service {
 //					public void run() {
 //						
 //
-//						if (PlayActv.mp != null) {
+//						if (PlayerActv.mp != null) {
 //							
 //							handler.post(new Runnable(){
 //
@@ -128,15 +130,15 @@ public class Service_ShowProgress__PlayerActv extends Service {
 //									/***************************************
 //									 * Update: Progress label
 //									 ***************************************/
-////									PlayActv.updateProgressLabel(actv);
-//									new PlayActv().updateProgressLabel();
+////									PlayerActv.updateProgressLabel(actv);
+//									new PlayerActv().updateProgressLabel();
 //									
 //									/***************************************
 //									 * Update: Seekbar
 //									 ***************************************/
-//									if (PlayActv.mp != null
-////											&& !PlayActv.sb.isInTouchMode()) {
-//											&& !PlayActv.sb.isPressed()) {
+//									if (PlayerActv.mp != null
+////											&& !PlayerActv.sb.isInTouchMode()) {
+//											&& !PlayerActv.sb.isPressed()) {
 //										
 //										// Log
 //										Log.d("Service_ShowProgress__PlayerActv.java"
@@ -148,21 +150,21 @@ public class Service_ShowProgress__PlayerActv extends Service {
 //												+ Thread.currentThread()
 //														.getStackTrace()[2]
 //														.getMethodName() + "]",
-//												"PlayActv.mp != null && " +
-////												"!PlayActv.sb.isInTouchMode()");
-//												"!PlayActv.sb.isPressed()");
+//												"PlayerActv.mp != null && " +
+////												"!PlayerActv.sb.isInTouchMode()");
+//												"!PlayerActv.sb.isPressed()");
 //										
-//										int currentPosition = PlayActv.mp.getCurrentPosition();
-//										long length = PlayActv.ai.getLength();
+//										int currentPosition = PlayerActv.mp.getCurrentPosition();
+//										long length = PlayerActv.ai.getLength();
 //										
 //										int seekPositon = (int)
 ////													((currentPosition / length)
 //													(((float)currentPosition / length)
-//															* PlayActv.sb.getMax());
+//															* PlayerActv.sb.getMax());
 ////										
-//										PlayActv.sb.setProgress(seekPositon);
+//										PlayerActv.sb.setProgress(seekPositon);
 //										
-//									} else {//if (PlayActv.mp == null)
+//									} else {//if (PlayerActv.mp == null)
 //										
 //										// Log
 //										Log.d("Service_ShowProgress__PlayerActv.java"
@@ -176,7 +178,7 @@ public class Service_ShowProgress__PlayerActv extends Service {
 //														.getMethodName() + "]",
 //												"NO");
 //										
-//									}//if (PlayActv.mp == null)
+//									}//if (PlayerActv.mp == null)
 //									
 //								}//public void run() // Runnable
 //								
@@ -203,7 +205,7 @@ public class Service_ShowProgress__PlayerActv extends Service {
 		// TODO Auto-generated method stub
 		
 		int tmp = intent.getIntExtra(
-						CONS.Intent.iKey_PlayActv_TaskPeriod, 
+						CONS.Intent.iKey_PlayerActv_TaskPeriod, 
 //						CONS.Intent.iKey_PlayerActv_TaskPeriod, 
 						CONS.Intent.dflt_IntExtra_value);
 		

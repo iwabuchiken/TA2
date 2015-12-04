@@ -16,6 +16,7 @@ import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
 import ta2.listeners.SBL;
+import ta2.listeners.SBL__PlayerActv;
 import ta2.listeners.button.BO_CL;
 import ta2.listeners.button.BO_TL;
 import ta2.utils.CONS;
@@ -616,7 +617,8 @@ public class PlayerActv extends Activity {
 		CONS.PlayerActv.sb = (SeekBar) findViewById(R.id.actv_play_sb);
 		
 		CONS.PlayerActv.sb.setOnSeekBarChangeListener(
-							new SBL(this, CONS.PlayerActv.sb));
+							new SBL__PlayerActv(this, CONS.PlayerActv.sb));
+//		new SBL(this, CONS.PlayerActv.sb));
 
 		////////////////////////////////
 

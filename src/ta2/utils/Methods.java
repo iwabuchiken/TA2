@@ -7124,6 +7124,60 @@ public static String
 
 	}//update_ProgressLable
 
+	public static void 
+	update_ProgressLable__PlayerActv() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// validate
+		
+		////////////////////////////////
+		if (CONS.PlayerActv.mp == null) {
+			
+			// Log
+			String msg_Log = "CONS.PlayerActv.mp => null";
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return;
+			
+		}
+		
+		////////////////////////////////
+		
+		// get: position
+		
+		////////////////////////////////
+		int currentPosition = CONS.PlayerActv.mp.getCurrentPosition();
+		
+//		TextView tv_CurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+		if (CONS.PlayerActv.tv_CurrentPosition == null) {
+			
+			// Log
+			String msg_Log = "CONS.PlayerActv.tv_CurrentPosition => null";
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			CONS.PlayerActv.tv_CurrentPosition = 
+					(TextView) (new PlayerActv()).findViewById(R.id.actv_play_tv_current_position);
+//			(TextView) this.findViewById(R.id.actv_play_tv_current_position);
+			
+		}//if (CONS.PlayerActv.tv_CurrentPosition == null)
+//		CONS.PlayerActv.tv_CurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+		
+		////////////////////////////////
+		
+		// set: position
+		
+		////////////////////////////////
+		CONS.PlayerActv.tv_CurrentPosition.setText(
+				Methods.conv_MillSec_to_ClockLabel(currentPosition));
+//		Methods.convert_intSec2Digits_lessThanHour((int)currentPosition / 1000));
+		
+	}//update_ProgressLable__PlayerActv
+	
 
 	/******************************
 		filter memo list with a single keyword

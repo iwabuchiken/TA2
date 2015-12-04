@@ -8,11 +8,11 @@ import ta2.utils.Methods;
 import android.os.Handler;
 import android.util.Log;
 
-public class Task_Timer extends TimerTask {
+public class Task_Timer__PlayerActv extends TimerTask {
 
 	Handler handler;
 	
-	public Task_Timer(Handler handler) {
+	public Task_Timer__PlayerActv(Handler handler) {
 		// TODO Auto-generated constructor stub
 		
 		this.handler	= handler;
@@ -34,7 +34,7 @@ public class Task_Timer extends TimerTask {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", msg_Log);
 		
-		if (CONS.PlayActv.mp != null) {
+		if (CONS.PlayerActv.mp != null) {
 			
 			handler.post(new Runnable(){
 
@@ -43,16 +43,17 @@ public class Task_Timer extends TimerTask {
 					/***************************************
 					 * Update: Progress label
 					 ***************************************/
-//							PlayActv.updateProgressLabel(actv);
-//					new PlayActv().updateProgressLabel();
-					Methods.update_ProgressLable();
+//							PlayerActv.updateProgressLabel(actv);
+//					new PlayerActv().updateProgressLabel();
+					Methods.update_ProgressLable__PlayerActv();
+//					Methods.update_ProgressLable();
 					
 					/***************************************
 					 * Update: Seekbar
 					 ***************************************/
-					if (CONS.PlayActv.mp != null
-//									&& !CONS.PlayActv.sb.isInTouchMode()) {
-							&& !CONS.PlayActv.sb.isPressed()) {
+					if (CONS.PlayerActv.mp != null
+//									&& !CONS.PlayerActv.sb.isInTouchMode()) {
+							&& !CONS.PlayerActv.sb.isPressed()) {
 						
 						// Log
 						Log.d("Task_Timer.java"
@@ -64,24 +65,24 @@ public class Task_Timer extends TimerTask {
 								+ Thread.currentThread()
 										.getStackTrace()[2]
 										.getMethodName() + "]",
-								"CONS.PlayActv.mp != null && " +
-//										"!CONS.PlayActv.sb.isInTouchMode()");
-								"!CONS.PlayActv.sb.isPressed()");
+								"CONS.PlayerActv.mp != null && " +
+//										"!CONS.PlayerActv.sb.isInTouchMode()");
+								"!CONS.PlayerActv.sb.isPressed()");
 						
-						int currentPosition = CONS.PlayActv.mp.getCurrentPosition();
+						int currentPosition = CONS.PlayerActv.mp.getCurrentPosition();
 						
-						long length = CONS.PlayActv.len_Audio;
+						long length = CONS.PlayerActv.len_Audio;
 //						long length = Methods.conv_ClockLabel_to_MillSec(
-//								CONS.PlayActv.ai.getLength());
+//								CONS.PlayerActv.ai.getLength());
 						
 						int seekPositon = (int)
 //											((currentPosition / length)
 									(((float)currentPosition / length)
-											* CONS.PlayActv.sb.getMax());
+											* CONS.PlayerActv.sb.getMax());
 //								
-						CONS.PlayActv.sb.setProgress(seekPositon);
+						CONS.PlayerActv.sb.setProgress(seekPositon);
 						
-					} else {//if (CONS.PlayActv.mp == null)
+					} else {//if (CONS.PlayerActv.mp == null)
 						
 						// Log
 						Log.d("Task_Timer.java"
@@ -95,7 +96,7 @@ public class Task_Timer extends TimerTask {
 										.getMethodName() + "]",
 								"NO");
 						
-					}//if (CONS.PlayActv.mp == null)
+					}//if (CONS.PlayerActv.mp == null)
 					
 					
 					

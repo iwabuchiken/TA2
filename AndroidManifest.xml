@@ -60,6 +60,8 @@
 			android:theme="@style/CustomTheme"></activity>
         <service
 			android:name="ta2.services.Service_ShowProgress"></service>
+        <service
+			android:name="ta2.services.Service_ShowProgress__PlayerActv"></service>
         <activity
 			android:name=".PhotoActv"
 			android:screenOrientation="portrait"
