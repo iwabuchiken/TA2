@@ -2973,68 +2973,78 @@ public class DB_OCL implements OnClickListener {
 		Log.d("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
-//		
-//		
+		
+		///////////////////////////////////
+		//
+		// update: list
+		//
+		///////////////////////////////////
+		CONS.ImportActv.list_Audio_Memos.clear();
+		CONS.ImportActv.list_Audio_Memos.addAll(list_Audio_Memos);
 //		CONS.ShowListActv.list_Memos.clear();
 //		CONS.ShowListActv.list_Memos.addAll(list_Memos);
-//		
-//		////////////////////////////////
-//		
-//		// notify
-//		
-//		////////////////////////////////
+		
+		////////////////////////////////
+		
+		// notify
+		
+		////////////////////////////////
+		CONS.ImportActv.adp_List_AudioMemos.notifyDataSetChanged();
 //		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
-//		
-//		///////////////////////////////////
-//		//
-//		// update title
-//		//
-//		///////////////////////////////////
+		
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len_List = CONS.ImportActv.list_Audio_Memos.size();
 //		int len_List = list_Memos.size();
-//		
-//		String title = String.format(
-//				Locale.JAPAN,
-//				"ShowListActv (%d)", len_List
-//				);
-//		
-//		actv.setTitle(title);
-//		
-//		////////////////////////////////
-//		
-//		// dismiss
-//		
-//		////////////////////////////////
-//		d1.dismiss();
-//		
-//		////////////////////////////////
-//		
-//		// store: string --> pref
-//		
-//		////////////////////////////////
-//		boolean res = Methods.set_Pref_String(
-//				actv, 
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"%s (%d)", actv.getClass().getName(), len_List
+				);
+		
+		actv.setTitle(title);
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+		////////////////////////////////
+		
+		// store: string --> pref
+		
+		////////////////////////////////
+		boolean res = Methods.set_Pref_String(
+				actv, 
+				CONS.Pref.pname_ImportActv, 
+				CONS.Pref.pkey_ImportActv_Filter_String, 
 //				CONS.Pref.pname_MainActv, 
 //				CONS.Pref.pkey_ShowListActv_Filter_String, 
-//				input);
-//		
-//		if (res == true) {
-//			
-//			// Log
-//			msg_Log = "pref filter => set: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		} else {
-//			
-//			// Log
-//			msg_Log = "pref filter => not set: " + input;
-//			Log.d("DB_OCL.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", msg_Log);
-//			
-//		}
-//		
+				input);
+		
+		if (res == true) {
+			
+			// Log
+			msg_Log = "pref filter => set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		} else {
+			
+			// Log
+			msg_Log = "pref filter => not set: " + input;
+			Log.d("DB_OCL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+		}
+		
 //		////////////////////////////////
 //		
 //		// save: filter history
