@@ -7419,6 +7419,114 @@ public static String
 	}//filter_MemoList
 
 	/******************************
+		filter memo list with a single keyword
+	 ******************************/
+	public static List<AudioMemo>
+	filter_MemoList_Single_KW__ImportActv
+	(Activity actv, int id_Checked, EditText et) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// vars
+		
+		////////////////////////////////
+		String msg_Log;
+		
+		List<AudioMemo> list_Audio_Memos = new ArrayList<AudioMemo>();
+		
+		String keyword = et.getText().toString();
+		
+		////////////////////////////////
+		
+		// filter
+		
+		////////////////////////////////
+//		List<Memo> list_Audio_Memos_tmp = DBUtils.find_All_Memos(
+//							actv, 
+//							CONS.DB.col_names_TA2_full[0], 
+//							CONS.Enums.SortOrder.DESC.toString());
+		
+//		/******************************
+//			validate
+//		 ******************************/
+//		if (list_Audio_Memos_tmp == null) {
+//			
+//			// Log
+//			msg_Log = "list_Audio_Memos_tmp => null";
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return null;
+//			
+//		}
+		
+		if (id_Checked == R.id.dlg_filter_showlist_rb_not) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"radio button => NOT"
+					);
+			
+			Log.i("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			String text = null;
+			
+//			for (Memo memo : list_Audio_Memos_tmp) {
+			for (AudioMemo audio_memo : CONS.ImportActv.list_Audio_Memos) {
+//				for (AudioMemo memo : CONS.ShowListActv.list_Audio_Memos) {
+				
+				text = audio_memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					continue;
+					
+				}
+				
+				list_Audio_Memos.add(audio_memo);
+				
+			}
+			
+//			where = CONS.DB.col_names_TA2[0] + " NOT LIKE ?";
+			
+		} else {//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+			
+			String text = null;
+			
+//			for (Memo memo : list_Audio_Memos_tmp) {
+			for (AudioMemo audio_memo : CONS.ImportActv.list_Audio_Memos) {
+//				for (AudioMemo memo : CONS.ShowListActv.list_Audio_Memos) {
+				
+				text = audio_memo.getText();
+				
+				if (text.contains(keyword)) {
+					
+					list_Audio_Memos.add(audio_memo);
+					
+				}
+				
+			}
+//			where = CONS.DB.col_names_TA2[0] + " LIKE ?";
+			
+		}//if (id_Checked == R.id.dlg_filter_showlist_rb_not)
+		
+		////////////////////////////////
+		
+		// return
+		
+		////////////////////////////////
+		return list_Audio_Memos;
+		
+	}//filter_MemoList_Single_KW__ImportActv
+	
+	/******************************
 		filter ShowLog list with a single keyword
 	 ******************************/
 	public static List<LogItem>

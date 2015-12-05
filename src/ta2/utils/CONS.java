@@ -780,7 +780,7 @@ public class CONS {
 	public static class 
 	ImportActv {
 		
-		public static List<AudioMemo> list_Memos;
+		public static List<AudioMemo> list_Audio_Memos;
 		
 		public static List<FilterHistory> list_FS;
 		

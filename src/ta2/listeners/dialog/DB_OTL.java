@@ -131,6 +131,7 @@ public class DB_OTL implements OnTouchListener {
 					break;
 					
 				case DLG_FILTER_SHOWLIST_CLEAR:
+				case DLG_FILTER_ACTV_IMPORT_CLEAR:
 					
 					ib = (ImageButton) v;
 					ib.setImageResource(R.drawable.general_ib_clear_yellow_64x64_disabled);
@@ -138,6 +139,7 @@ public class DB_OTL implements OnTouchListener {
 					break;
 					
 				case DLG_FILTER_SHOWLIST_OK:
+				case DLG_FILTER_ACTV_IMPORT_OK:
 					
 					ib = (ImageButton) v;
 					ib.setImageResource(R.drawable.general_ib_ok_green_48x48_disabled);
@@ -145,6 +147,7 @@ public class DB_OTL implements OnTouchListener {
 					break;
 					
 				case DLG_FILTER_SHOWLIST_RESET:
+				case DLG_FILTER_ACTV_IMPORT_RESET:
 					
 					ib = (ImageButton) v;
 					ib.setImageResource(R.drawable.general_ib_cancel_red_64x64_disdabled);
@@ -210,6 +213,7 @@ public class DB_OTL implements OnTouchListener {
 					break;
 					
 			case DLG_FILTER_SHOWLIST_CLEAR:
+			case DLG_FILTER_ACTV_IMPORT_CLEAR:
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.general_ib_clear_yellow_64x64);
@@ -217,6 +221,7 @@ public class DB_OTL implements OnTouchListener {
 				break;
 				
 			case DLG_FILTER_SHOWLIST_OK:
+			case DLG_FILTER_ACTV_IMPORT_OK:
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.general_ib_ok_green_64x64);
@@ -224,6 +229,7 @@ public class DB_OTL implements OnTouchListener {
 				break;
 				
 			case DLG_FILTER_SHOWLIST_RESET:
+			case DLG_FILTER_ACTV_IMPORT_RESET:
 				
 				ib = (ImageButton) v;
 				ib.setImageResource(R.drawable.general_ib_cancel_red_64x64);

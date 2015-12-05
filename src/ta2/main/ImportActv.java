@@ -52,12 +52,12 @@ public class ImportActv extends ListActivity {
 		
 		boolean res;
 
-		///////////////////////////////////
-		//
-		// title
-		//
-		///////////////////////////////////
-		this._Setup_Set_Title();
+//		///////////////////////////////////
+//		//
+//		// title
+//		//
+//		///////////////////////////////////
+//		this._Setup_Set_Title();
 		
 		///////////////////////////////////
 		//
@@ -130,6 +130,12 @@ public class ImportActv extends ListActivity {
 		////////////////////////////////
 		res = _Setup_Adapter();
 
+		///////////////////////////////////
+		//
+		// title
+		//
+		///////////////////////////////////
+		this._Setup_Set_Title();
 		
 //		////////////////////////////////
 //		
@@ -390,9 +396,11 @@ public class ImportActv extends ListActivity {
 		///////////////////////////////////
 		int len = 0;
 		
-		if (CONS.ShowListActv.list_Memos != null) {
+		if (CONS.ImportActv.list_Audio_Memos != null) {
+//			if (CONS.ShowListActv.list_Memos != null) {
 
-			len = CONS.ShowListActv.list_Memos.size();
+			len = CONS.ImportActv.list_Audio_Memos.size();
+//			len = CONS.ShowListActv.list_Memos.size();
 
 		} else {//if (CONS.ShowListActv.list_Memos != null)
 			
@@ -530,7 +538,7 @@ public class ImportActv extends ListActivity {
 		//
 		///////////////////////////////////
 		Methods.sort_List__AudioMemos(
-				CONS.ImportActv.list_Memos, 
+				CONS.ImportActv.list_Audio_Memos, 
 				CONS.Enums.SortType.TEXT, 
 				CONS.Enums.SortOrder.DESC);
 
@@ -555,7 +563,7 @@ public class ImportActv extends ListActivity {
 				
 						this,
 						R.layout.list_row_showlist,
-						CONS.ImportActv.list_Memos
+						CONS.ImportActv.list_Audio_Memos
 				
 		);
 		
@@ -638,7 +646,7 @@ public class ImportActv extends ListActivity {
 		////////////////////////////////
 		if (pref_MemoList_Size != null) {
 			
-			CONS.ImportActv.list_Memos = 
+			CONS.ImportActv.list_Audio_Memos = 
 					DBUtils.find_All_Memos__ExternalAudios(
 								this, 
 								CONS.Enums.SortOrder.DESC, 
@@ -650,7 +658,7 @@ public class ImportActv extends ListActivity {
 			
 		} else {
 
-			CONS.ImportActv.list_Memos = 
+			CONS.ImportActv.list_Audio_Memos = 
 					DBUtils.find_All_Memos__ExternalAudios(this, CONS.Enums.SortOrder.DESC);
 			
 		}
@@ -658,7 +666,7 @@ public class ImportActv extends ListActivity {
 		/******************************
 			validate
 		 ******************************/
-		if (CONS.ImportActv.list_Memos == null) {
+		if (CONS.ImportActv.list_Audio_Memos == null) {
 			
 			// Log
 			msg_Log = "CONS.ImportActv.list_Memos => null";
@@ -674,7 +682,7 @@ public class ImportActv extends ListActivity {
 		} else {
 
 			// Log
-			msg_Log = "memo size => " + CONS.ImportActv.list_Memos.size();
+			msg_Log = "memo size => " + CONS.ImportActv.list_Audio_Memos.size();
 			Log.d("ImportActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", msg_Log);
@@ -1212,7 +1220,8 @@ public class ImportActv extends ListActivity {
 	case_OPT_Filter() {
 		// TODO Auto-generated method stub
 	
-		Methods_dlg.dlg_filter_ShowList(this);
+//		Methods_dlg.dlg_filter_ShowList(this);
+		Methods_dlg.dlg_filter_ShowList__ImportActv(this);
 		
 	}
 
