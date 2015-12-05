@@ -720,7 +720,19 @@ public class DOI_CL implements OnItemClickListener {
 			
 			Methods_dlg.conf_DropCreate_Table_Audio_Files(actv, d1, d2);
 			
-		}
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+			Methods_dlg.conf_DropCreate_Table_Generic(
+					actv, d1, d2,
+					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_AUDIOMEMO_OK,
+//					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_SHOWLOG_OK,
+					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
+					R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo, 
+//					R.string.dlg_actvmain_ops_Drop_Create_table_filter_history, 
+					CONS.DB.tname_FilterHistory_Audio_Memo);
+//			CONS.DB.tname_FilterHistory_ShowLog);
+					}
 
 		// Log
 		String msg_Log = "item => " + li.getText();

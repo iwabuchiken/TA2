@@ -1411,19 +1411,19 @@ public class Methods_dlg {
 //							.setTextColor_ID(R.color.red)
 //							.build());
 		
-		list.add(new ListItem.Builder()
-					.setText(actv.getString(
-							R.string.dlg_actvmain_ops_Drop_Create_table_filter_history))
-							.setIconID(R.drawable.menu_icon_admin_32x32_red)
-							.setTextColor_ID(R.color.red)
-							.build());
-		
-		list.add(new ListItem.Builder()
-					.setText(actv.getString(
-						R.string.dlg_actvmain_ops_Drop_Create_Table_FilterHistory_ShowLog))
-							.setIconID(R.drawable.menu_icon_admin_32x32_red)
-							.setTextColor_ID(R.color.red)
-							.build());
+//		list.add(new ListItem.Builder()
+//					.setText(actv.getString(
+//							R.string.dlg_actvmain_ops_Drop_Create_table_filter_history))
+//							.setIconID(R.drawable.menu_icon_admin_32x32_red)
+//							.setTextColor_ID(R.color.red)
+//							.build());
+//		
+//		list.add(new ListItem.Builder()
+//					.setText(actv.getString(
+//						R.string.dlg_actvmain_ops_Drop_Create_Table_FilterHistory_ShowLog))
+//							.setIconID(R.drawable.menu_icon_admin_32x32_red)
+//							.setTextColor_ID(R.color.red)
+//							.build());
 		
 //		list.add(new ListItem.Builder()
 //				.setText(actv.getString(
@@ -1439,13 +1439,20 @@ public class Methods_dlg {
 //						.setTextColor_ID(R.color.red)
 //						.build());
 		
+//		list.add(new ListItem.Builder()
+//				.setText(actv.getString(
+//						R.string.dlg_actvmain_ops_Drop_Create_table_Audio_Files))
+//						.setIconID(R.drawable.menu_icon_admin_32x32_red)
+//						.setTextColor_ID(R.color.red)
+//						.build());
+		
 		list.add(new ListItem.Builder()
 				.setText(actv.getString(
-						R.string.dlg_actvmain_ops_Drop_Create_table_Audio_Files))
+					R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo))
 						.setIconID(R.drawable.menu_icon_admin_32x32_red)
 						.setTextColor_ID(R.color.red)
 						.build());
-		
+
 		////////////////////////////////
 
 		// Adapter
