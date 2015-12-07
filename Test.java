@@ -1,14 +1,37 @@
+/*
+ * javac C:\WORKS\WS\Eclipse_Luna\TA2\Test.java
+ * 
+ * ref http://stackoverflow.com/questions/9395207/how-to-include-jar-files-with-java-file-and-compile-in-command-prompt answered Feb 22 '12 at 14:08
+ * javac -cp "commons-lang-2.1.jar" C:\WORKS\WS\Eclipse_Luna\TA2\Test.java
+ * java -cp C:\WORKS\WS\Eclipse_Luna\TA2 Test
+ * 
+ * #use -cp in java command
+ * #ref http://stackoverflow.com/questions/219585/setting-multiple-jars-in-java-classpath answered Oct 20 '08 at 20:32
+ * java -cp "C:\WORKS\WS\Eclipse_Luna\TA2;./*" Test
+ * 
+ */
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Locale;
+
+import org.apache.commons.lang.StringUtils;
+
+//import ta2.items.ListItem;
+//import ta2.main.R;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Test {
 	
 	public static void main(String[] args) {
 		
 //		System.out.println("yes");
+	
+		Test.test_Conv_FileName_2_TimeLabel();
 		
-		Test.test_Regex__Audio_File();
+//		Test.test_Regex__Audio_File();
 //		Test.test_Regex_Photo_Memo();
 		
 //		test_Regex();
@@ -17,7 +40,113 @@ public class Test {
 		
 	}
 	
-	public static void test_Regex() {
+	public static void 
+	test_Conv_FileName_2_TimeLabel() {
+		
+		String text  = "def Record_2015-12-06_08-18-04.mp3 abcde";
+//		String text  = "def Record_2015-12-05.mp3 abcde";
+		
+		Pattern p = Pattern.compile("^.+_(\\d{4}.+)\\.mp3");
+//		Pattern p = Pattern.compile("^.+_(\\d{4}.+mp3)");
+//		Pattern p = Pattern.compile("^(レコード_\\d{4}.+mp3)");
+//		p = Pattern.compile("^@recorded_(\\d{4}.+wav)");
+		Matcher m = p.matcher(text);
+//		"^@(\\d{4}.+wav)"
+		
+		if (m.find()) {
+//			if (m.matches()) {
+
+//			String msg;
+//			msg = String.format(Locale.JAPAN, "[%s : %d] m.groupCount() => %d", Thread
+//					.currentThread().getStackTrace()[1].getFileName(), Thread
+//					.currentThread().getStackTrace()[1].getLineNumber(), 
+//					m.groupCount()
+//					);
+//
+//			System.out.println(msg);
+//			
+////			String msg;
+//			msg = String.format(Locale.JAPAN, "[%s : %d] group(0) => %s", Thread
+//					.currentThread().getStackTrace()[1].getFileName(), Thread
+//					.currentThread().getStackTrace()[1].getLineNumber(), m.group(0));
+//
+//			System.out.println(msg);
+//			
+//			msg = String.format(Locale.JAPAN, "[%s : %d] group(1) => %s", Thread
+//					.currentThread().getStackTrace()[1].getFileName(), Thread
+//					.currentThread().getStackTrace()[1].getLineNumber(), m.group(1));
+//			
+//			System.out.println(msg);
+			
+			//			[Test.java : 51] m.groupCount() => 1
+			//			[Test.java : 60] group(0) => def Record_2015-12-06_08-18-04.mp3
+			//			[Test.java : 66] group(1) => 2015-12-06_08-18-04
+			
+//			file.lastModified()
+//			file = レコード_2015-12-06_08-18-04.mp3 (2015/12/06 08:18:36.000) comp = -2
+
+		} else {
+
+			String msg;
+			msg = String.format(Locale.JAPAN, "[%s : %d] no matches", Thread
+					.currentThread().getStackTrace()[1].getFileName(), Thread
+					.currentThread().getStackTrace()[1].getLineNumber());
+
+			System.out.println(msg);
+			
+			return;
+			
+		}		
+		
+		///////////////////////////////////
+		//
+		// convert
+		//
+		///////////////////////////////////
+		String orig = m.group(1);
+		
+		String msg;
+		msg = String.format(Locale.JAPAN, "[%s : %d] match 1 => %s", Thread
+				.currentThread().getStackTrace()[1].getFileName(), Thread
+				.currentThread().getStackTrace()[1].getLineNumber(), orig);
+
+		System.out.println(msg);
+
+		// tokens
+		String[] tokens = orig.split("_");
+		
+		String[] tokens_Date = tokens[0].split("-");
+		
+		String label_Date = StringUtils.join(tokens_Date, "/");
+
+		///////////////////////////////////
+		//
+		// label: time
+		//
+		///////////////////////////////////
+		String[] tokens_Time = tokens[1].split("-");
+		
+		String label_Time = StringUtils.join(tokens_Time, ":");
+		
+		label_Time = label_Time + ".000";
+		
+//		String msg;
+		msg = String.format(Locale.JAPAN, "[%s : %d] %s %s", Thread
+//				msg = String.format(Locale.JAPAN, "[%s : %d] label_Date => %s | time => %s", Thread
+				.currentThread().getStackTrace()[1].getFileName(), Thread
+				.currentThread().getStackTrace()[1].getLineNumber(), 
+				label_Date, label_Time);
+
+		System.out.println(msg);
+
+		
+		
+		
+	}//test_Conv_FileName_2_TimeLabel
+	
+	
+	public static void 
+	test_Regex() {
 		
 //		System.out.println("regex");
 		

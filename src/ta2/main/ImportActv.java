@@ -3,12 +3,14 @@ package ta2.main;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
 import ta2.adapters.Adp_AudioMemoList;
 import ta2.adapters.Adp_MemoList;
+import ta2.items.AudioMemo;
 import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
@@ -107,8 +109,10 @@ public class ImportActv extends ListActivity {
 		// insert data: audio files
 		//
 		///////////////////////////////////
-		_Setup_Update_Audio_Files_List();
+//		_Setup_Update_Audio_Files_List();
 //		_Setup_Insert_Audio_Files();
+		
+		this.find_NewFiles_For_UpdateList();
 		
 		////////////////////////////////
 
@@ -162,7 +166,8 @@ public class ImportActv extends ListActivity {
 		
 	}//onStart
 
-	private boolean _Setup_Update_Audio_Files_List() {
+	private boolean 
+	_Setup_Update_Audio_Files_List() {
 		// TODO Auto-generated method stub
 	
 		String msg_Log;
@@ -263,10 +268,60 @@ public class ImportActv extends ListActivity {
 		
 		///////////////////////////////////
 		//
-		// get: file name list
+		// get: last auto-update time
+		//
+		///////////////////////////////////
+		String targetColumn = CONS.DB.col_names_Audio_Files_full[3];	// "text"
+		AudioMemo am = DBUtils.find_AudioMemo__LatestRecord(this, targetColumn);
+		
+		String dateOf_LatestAM = Methods.conv_FileName_2_TimeLabel(this, am.getText());
+//		String dateOf_LatestAM = am.getCreated_at();
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"dateOf_LatestAM => %s", dateOf_LatestAM
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// get: file name list, files list
 		//
 		///////////////////////////////////
 		String[] listOf_AudioFile_Names = f.list();
+		
+		File[] listOf_AudioFiles = f.listFiles();
+		
+		int tmp_i;
+		
+		for (File file : listOf_AudioFiles) {
+			
+			// Log
+//			String msg_Log;
+			
+			tmp_i = Methods.conv_MillSec_to_TimeLabel(file.lastModified())
+						.compareToIgnoreCase(dateOf_LatestAM);
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"file = %s (%s) comp = %d", 
+					file.getName(), 
+					Methods.conv_MillSec_to_TimeLabel(file.lastModified()),
+					tmp_i
+					);
+			
+			Log.i("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);;
+			
+		}//for (File f : listOf_AudioFiles)
+		
 		
 		// Log
 //		String msg_Log;
@@ -347,7 +402,21 @@ public class ImportActv extends ListActivity {
 			 * valid: data exists
 			 *******************************/
 			res_i = DBUtils.isInDB_Audio_File(this, tmp_S);
+
+//			// Log
+////			String msg_Log;
+//			
+//			msg_Log = String.format(
+//					Locale.JAPAN,
+//					"tmp_S => %s (isIn = %d)", tmp_S, res_i
+////					"tmp_S => %s (isIn = %d)", tmp_S, res_i
+//					);
+//			
+//			Log.i("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
 			
+
 			// if 1 => record exists; next record
 			if (res_i == 1) {
 
@@ -369,8 +438,8 @@ public class ImportActv extends ListActivity {
 			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_S);
 			val.put(CONS.DB.col_names_Audio_Files_full[4], dpath);
 
-			// insert
-			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+//			// insert
+//			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
 			
 		}//for (int i = 0; i < listOf_AudioFile_Names; i++)
 		
@@ -384,6 +453,239 @@ public class ImportActv extends ListActivity {
 		return true;
 		
 	}//_Setup_Insert_Audio_Files
+	
+	/*******************************
+	 * @return
+	 * null	=> "dir doesn't exist"<br>
+	 * 			"no audio files"<br>
+	 *******************************/
+	private List<String> 
+	find_NewFiles_For_UpdateList() {
+		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
+		///////////////////////////////////
+		//
+		// update
+		//
+		///////////////////////////////////
+//		String msg_Log;
+		
+		String dpath = "/mnt/sdcard/AllVoiceRecords";
+		
+		File f = new File(dpath);
+		
+		/*******************************
+		 * validate: dir exists
+		 *******************************/
+		if (!f.exists()) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"dir doesn't exist => %s", f.getAbsolutePath()
+					);
+			
+			Log.e("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return null;
+			
+		}//if (!f.exists())
+		
+		///////////////////////////////////
+		//
+		// get: last auto-update time
+		//
+		///////////////////////////////////
+		String targetColumn = CONS.DB.col_names_Audio_Files_full[1];	// "created_at"
+//		String targetColumn = CONS.DB.col_names_Audio_Files_full[3];	// "text"
+		AudioMemo am = DBUtils.find_AudioMemo__LatestRecord(this, targetColumn);
+		
+		String dateOf_LatestAM = Methods.conv_FileName_2_TimeLabel(this, am.getText());
+//		String dateOf_LatestAM = am.getCreated_at();
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"dateOf_LatestAM => %s (text = %s", 
+				dateOf_LatestAM,
+				am.getText()
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// get: files list
+		//
+		///////////////////////////////////
+		File[] listOf_AudioFiles = f.listFiles();
+		
+		int tmp_i;
+		
+		for (File file : listOf_AudioFiles) {
+			
+			// Log
+//			String msg_Log;
+			
+			tmp_i = Methods.conv_MillSec_to_TimeLabel(file.lastModified())
+					.compareToIgnoreCase(dateOf_LatestAM);
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"file = %s (%s) comp = %d", 
+					file.getName(), 
+					Methods.conv_MillSec_to_TimeLabel(file.lastModified()),
+					tmp_i
+					);
+			
+			Log.i("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);;
+					
+		}//for (File f : listOf_AudioFiles)
+		
+		
+//		// Log
+////		String msg_Log;
+//		
+//		msg_Log = String.format(
+//				Locale.JAPAN,
+//				"audio files => %d", listOf_AudioFile_Names.length
+//				);
+//		
+//		Log.d("ImportActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
+		
+		/*******************************
+		 * valid: any entry
+		 *******************************/
+		int lenOf_AudioFiles = listOf_AudioFiles.length;
+//		int lenOf_AudioFiles = listOf_AudioFile_Names.length;
+		
+		if (lenOf_AudioFiles < 1) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"no audio files in => %s", f.getAbsolutePath()
+					);
+			
+			Log.e("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return null;
+			
+		}//if (lenOf_AudioFiles < 1)
+		
+//		/*******************************
+//		 * report
+//		 *******************************/
+//		for (int i = 0; i < lenOf_AudioFiles; i++) {
+//			
+//			// Log
+////			String msg_Log;
+//			
+//			msg_Log = String.format(
+//					Locale.JAPAN,
+//					"audio file => %s", listOf_AudioFile_Names[i]
+//					);
+//			
+//			Log.d("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);;
+//			
+//		}//for (int i = 0; i < lenOf_AudioFiles; i++)
+		
+//		///////////////////////////////////
+//		//
+//		// insert data
+//		//
+//		///////////////////////////////////
+//		boolean res_B;
+//		int res_i;
+//		
+//		String tmp_S = null;
+//		
+//		// ContentValues
+//		ContentValues val = new ContentValues();
+//		
+//		// Put values
+//		String time = null;
+////		String time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+//		
+//		for (int i = 0; i < lenOf_AudioFiles; i++) {
+//			
+//			tmp_S = listOf_AudioFile_Names[i];
+//			
+//			/*******************************
+//			 * valid: data exists
+//			 *******************************/
+//			res_i = DBUtils.isInDB_Audio_File(this, tmp_S);
+//			
+////			// Log
+//////			String msg_Log;
+////			
+////			msg_Log = String.format(
+////					Locale.JAPAN,
+////					"tmp_S => %s (isIn = %d)", tmp_S, res_i
+//////					"tmp_S => %s (isIn = %d)", tmp_S, res_i
+////					);
+////			
+////			Log.i("ImportActv.java" + "["
+////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////					+ "]", msg_Log);
+//			
+//			
+//			// if 1 => record exists; next record
+//			if (res_i == 1) {
+//				
+//				continue;
+//				
+//			}//if (res_i == 1)
+//			
+//			time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+//			
+////			android.provider.BaseColumns._ID,		// 0
+////			"created_at", "modified_at",			// 1,2
+////			
+////			"text",									// 3
+////			"dir",							// 4
+//			
+//			val.put(CONS.DB.col_names_Audio_Files_full[1], time);
+//			val.put(CONS.DB.col_names_Audio_Files_full[2], time);
+//			
+//			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_S);
+//			val.put(CONS.DB.col_names_Audio_Files_full[4], dpath);
+//			
+////			// insert
+////			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+//			
+//		}//for (int i = 0; i < listOf_AudioFile_Names; i++)
+//		
+////		DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+		
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+		return null;
+		
+	}//find_NewFiles_For_UpdateList
 	
 
 	private void 
@@ -689,6 +991,27 @@ public class ImportActv extends ListActivity {
 
 //			//test
 //			do_test();
+			
+			
+//			//test
+//			for (AudioMemo am : CONS.ImportActv.list_Audio_Memos) {
+//				
+//				// Log
+////				String msg_Log;
+//				
+//				msg_Log = String.format(
+//						Locale.JAPAN,
+//						"text => %s (file name = %s)", 
+//						am.getText(), 
+//						Methods.conv_FileName_2_TimeLabel(this, am.getText())
+//						);
+//				
+//				Log.i("ImportActv.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", msg_Log);;
+//				
+//			}//for (AudioMemo am : CONS.ImportActv.list_Audio_Memos)
+			
 			
 			return true;
 			

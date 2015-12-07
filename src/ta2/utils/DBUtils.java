@@ -1152,6 +1152,19 @@ public class DBUtils extends SQLiteOpenHelper{
 		///////////////////////////////////
 		Cursor c = null;
 		
+//		String where = CONS.DB.col_names_Audio_Files[0] + " LIKE ?" 
+//						+ " OR " 
+//						+ CONS.DB.col_names_Audio_Files[0] + " = ?";	//=> n.w.
+////		+ CONS.DB.col_names_Audio_Files[0] + " IS ?";		//=> n.w.
+////		String where = CONS.DB.col_names_Audio_Files[0] + " LIKE ? OR IS ?";
+////		String where = CONS.DB.col_names_Audio_Files[0] + " = ?";
+//		String[] args = new String[]{
+//				
+//				file_Name,
+//				file_Name
+//				
+//		};
+		
 		String where = CONS.DB.col_names_Audio_Files[0] + " LIKE ?";
 //		String where = CONS.DB.col_names_Audio_Files[0] + " = ?";
 		String[] args = new String[]{
@@ -5700,6 +5713,184 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//find_LastBK
 
+	/******************************
+	 * @param targetColumn sort by this variable
+		@return
+			null<br>
+			1. No DB file<br>
+			2. No such table<br>
+			3. query => Exception<br>
+			4. cursor => returned null<br>
+			5. cursor => no entry<br>
+	 ******************************/
+	public static AudioMemo 
+	find_AudioMemo__LatestRecord
+	(Activity actv, String targetColumn) {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// validate: DB file exists?
+		
+		////////////////////////////////
+		File dpath_DBFile = actv.getDatabasePath(CONS.DB.dbName);
+		
+		if (!dpath_DBFile.exists()) {
+			
+			String msg = "No DB file: " + CONS.DB.dbName;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// DB
+		
+		////////////////////////////////
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		////////////////////////////////
+		
+		// validate: table exists?
+		
+		////////////////////////////////
+		String tname = CONS.DB.tname_Audio_Files;
+//		String tname = CONS.DB.tname_Admin;
+		
+		boolean res = dbu.tableExists(rdb, tname);
+		
+		if (res == false) {
+			
+			String msg = "No such table: " + tname;
+			Methods_dlg.dlg_ShowMessage(actv, msg);
+			
+			rdb.close();
+			
+			return null;
+			
+		}
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		Cursor c = null;
+
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"dir",							// 4
+		
+//		String where = CONS.DB.col_names_Admin_full[3] + " = ?";
+//		String[] args = new String[]{
+//				
+//				CONS.DB.admin_LastBackup
+//		};
+		
+		String orderBy = targetColumn + " DESC";
+//		String orderBy = CONS.DB.col_names_Admin_full[0] + " ASC";
+		
+		try {
+			
+			c = rdb.query(
+					
+					tname,			// 1
+					CONS.DB.col_names_Audio_Files_full,	// 2
+//					CONS.DB.col_names_Admin_full,	// 2
+//					where, args,		// 3,4
+					null, null,		// 3,4
+					null, null,		// 5,6
+					orderBy,			// 7
+					null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		////////////////////////////////
+		
+		// build: AudioMemo instance
+		
+		////////////////////////////////
+		c.moveToFirst();
+		
+		AudioMemo am = new AudioMemo.Builder()
+		
+					.setDb_Id(c.getLong(0))
+					.setCreated_at(c.getString(1))
+					.setModified_at(c.getString(2))
+					
+					.setText(c.getString(3))
+					.setDir(c.getString(4))
+					
+					.build();
+
+		///////////////////////////////////
+		//
+		// close db
+		//
+		///////////////////////////////////
+		rdb.close();
+
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+		return am;
+		
+	}//find_LastBK
+	
 	/******************************
 	 * return the latest-entered record<br>
 	 * "latest" by db id

@@ -94,6 +94,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -3721,6 +3722,18 @@ public static String
 //		
 //		"text",									// 3
 //		"dir",							// 4
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"CONS.PlayerActv.audio_memo => %d", CONS.PlayerActv.audio_memo.getDb_Id()
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		boolean res = DBUtils.updateData_generic_With_TimeLable(
 				actv, 
@@ -9918,6 +9931,76 @@ public static String
 		return list_AudioMemos;
 		
 	}//sort_List__AudioMemos
+
+	/*******************************
+	 * convert file name to time label<br>
+	 * 	"Record_2015-12-06_08-18-04.mp3 abcde"
+	 * 		=> "2015/12/06 08:18:04.000"
+	 *******************************/
+	public static String 
+	conv_FileName_2_TimeLabel
+	(Activity actv, String file_Name) {
+
+		///////////////////////////////////
+		//
+		// matching
+		//
+		///////////////////////////////////
+		String text  = file_Name;
+//		String text  = "def Record_2015-12-06_08-18-04.mp3 abcde";
+//		String text  = "def Record_2015-12-05.mp3 abcde";
+		
+		Pattern p = Pattern.compile("^.+_(\\d{4}.+)\\.mp3");
+		Matcher m = p.matcher(text);
+		
+		if (!m.find()) {
+
+			String msg;
+			msg = String.format(Locale.JAPAN, "[%s : %d] no matches", Thread
+					.currentThread().getStackTrace()[1].getFileName(), Thread
+					.currentThread().getStackTrace()[1].getLineNumber());
+
+			System.out.println(msg);
+			
+			return null;
+			
+		}		
+		
+		///////////////////////////////////
+		//
+		// convert
+		//
+		///////////////////////////////////
+		String orig = m.group(1);
+		
+		// tokens
+		String[] tokens = orig.split("_");
+		
+		String[] tokens_Date = tokens[0].split("-");
+		
+		String label_Date = StringUtils.join(tokens_Date, "/");
+
+		///////////////////////////////////
+		//
+		// label: time
+		//
+		///////////////////////////////////
+		String[] tokens_Time = tokens[1].split("-");
+		
+		String label_Time = StringUtils.join(tokens_Time, ":");
+		
+		label_Time = label_Time + ".000";
+
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+		return String.format(
+				"%s %s", 
+				label_Date, label_Time);
+
+	}//conv_FileName_2_TimeLabel
 
 }//public class Methods
 

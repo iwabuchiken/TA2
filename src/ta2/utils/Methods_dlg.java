@@ -3437,6 +3437,9 @@ public class Methods_dlg {
 			m = p.matcher(text);
 //			"^@(\\d{4}.+wav)"
 			
+//			//test
+//			m.grou
+			
 			if (m.find()) {
 //				if (m.matches()) {
 				
