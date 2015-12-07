@@ -13,6 +13,8 @@ public class AudioMemo {
 	
 	String dir;
 	
+	String last_Modified;
+	
 	public AudioMemo(Builder builder) {
 		// TODO Auto-generated constructor stub
 		
@@ -25,10 +27,23 @@ public class AudioMemo {
 		this.text	= builder.text;
 		
 		this.dir	= builder.dir;
+		
+		this.last_Modified	= builder.last_Modified;
 
 	}
-
 	
+	public String getLast_Modified() {
+		return last_Modified;
+	}
+
+
+
+	public void setLast_Modified(String last_Modified) {
+		this.last_Modified = last_Modified;
+	}
+
+
+
 	public String getDir() {
 		return dir;
 	}
@@ -85,6 +100,8 @@ public class AudioMemo {
 
 		String dir;
 		
+		String last_Modified;
+		
 		public AudioMemo build() {
 			
 			return new AudioMemo(this);
@@ -92,6 +109,12 @@ public class AudioMemo {
 
 		
 		
+		public Builder setLast_Modified(String last_Modified) {
+			this.last_Modified = last_Modified; return this;
+		}
+
+
+
 		public Builder setDir(String dir) {
 			
 			this.dir = dir; return this;

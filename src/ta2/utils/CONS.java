@@ -535,6 +535,7 @@ public class CONS {
 			
 			"text",				// 0
 			"dir",		// 1
+			"last_modified",		// 2
 			
 		};
 		
@@ -546,12 +547,14 @@ public class CONS {
 			
 			"text",									// 3
 			"dir",							// 4
+			"last_modified",					// 5
 			
 		};
 
 		public static final String[] col_types_Audio_Files = {
 			
-			"TEXT", "TEXT"	// 0,1,2
+			"TEXT", "TEXT",	// 0,1
+			"TEXT"			// 2
 			
 		};
 		

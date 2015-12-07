@@ -2320,6 +2320,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			.setText(c.getString(3))
 			.setDir(c.getString(4))
 			
+			.setLast_Modified(c.getString(5))
+			
 			.build();
 			
 			list_Memos.add(am);
@@ -2715,6 +2717,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 			.setText(c.getString(3))
 			.setDir(c.getString(4))
+			
+			.setLast_Modified(c.getString(5))
 			
 			.build();
 			
@@ -5872,6 +5876,8 @@ public class DBUtils extends SQLiteOpenHelper{
 					
 					.setText(c.getString(3))
 					.setDir(c.getString(4))
+					
+					.setLast_Modified(c.getString(5))
 					
 					.build();
 

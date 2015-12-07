@@ -1,6 +1,7 @@
 package ta2.main;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -112,7 +113,20 @@ public class ImportActv extends ListActivity {
 //		_Setup_Update_Audio_Files_List();
 //		_Setup_Insert_Audio_Files();
 		
-		this.find_NewFiles_For_UpdateList();
+		res = this.find_NewFiles_For_UpdateList__V2();
+//		this.find_NewFiles_For_UpdateList();
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"'find_NewFiles_For_UpdateList__V2' returned => %s", res
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
 		
 		////////////////////////////////
 
@@ -686,6 +700,284 @@ public class ImportActv extends ListActivity {
 		return null;
 		
 	}//find_NewFiles_For_UpdateList
+	
+	/*******************************
+	 * @return
+	 * null	=> "dir doesn't exist"<br>
+	 * 			"no audio files"<br>
+	 *******************************/
+	private boolean 
+//	private List<String> 
+	find_NewFiles_For_UpdateList__V2() {
+		// TODO Auto-generated method stub
+		
+		String msg_Log;
+		
+		///////////////////////////////////
+		//
+		// update
+		//
+		///////////////////////////////////
+//		String msg_Log;
+		
+		String dpath = "/mnt/sdcard/AllVoiceRecords";
+		
+		File f = new File(dpath);
+		
+		/*******************************
+		 * validate: dir exists
+		 *******************************/
+		if (!f.exists()) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"dir doesn't exist => %s", f.getAbsolutePath()
+					);
+			
+			Log.e("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+//			return null;
+			
+		}//if (!f.exists())
+		
+		///////////////////////////////////
+		//
+		// get: last auto-update time
+		//
+		///////////////////////////////////
+		String targetColumn = CONS.DB.col_names_Audio_Files_full[5];	// "last_updated"
+//		String targetColumn = CONS.DB.col_names_Audio_Files_full[1];	// "created_at"
+//		String targetColumn = CONS.DB.col_names_Audio_Files_full[3];	// "text"
+		AudioMemo am = DBUtils.find_AudioMemo__LatestRecord(this, targetColumn);
+
+		String dateOf_LatestAM = null;
+		
+		if (am == null) {
+			
+			dateOf_LatestAM = "";
+			
+		} else {//if (am == null)
+			
+			dateOf_LatestAM = am.getLast_Modified();
+//			dateOf_LatestAM = Methods.conv_FileName_2_TimeLabel(this, am.getText());
+			
+		}//if (am == null)
+		
+//		//test
+//		dateOf_LatestAM = "2015/12/04";
+		
+//		dateOf_LatestAM = Methods.conv_FileName_2_TimeLabel(this, am.getText());
+//		String dateOf_LatestAM = Methods.conv_FileName_2_TimeLabel(this, am.getText());
+//		String dateOf_LatestAM = am.getCreated_at();
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"dateOf_LatestAM => %s (text = %s)", 
+				dateOf_LatestAM,
+				(am == null) ? "NULL" : am.getText()
+//				am.getText()
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// get: files list
+		//
+		///////////////////////////////////
+		File[] listOf_AudioFiles = f.listFiles();
+
+		/*******************************
+		 * valid: any entry
+		 *******************************/
+		int lenOf_AudioFiles = listOf_AudioFiles.length;
+//		int lenOf_AudioFiles = listOf_AudioFile_Names.length;
+		
+		if (lenOf_AudioFiles < 1) {
+			
+			// Log
+//			String msg_Log;
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"no audio files in => %s", f.getAbsolutePath()
+					);
+			
+			Log.e("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return false;
+//			return null;
+			
+		}//if (lenOf_AudioFiles < 1)
+
+		///////////////////////////////////
+		//
+		// filter
+		//
+		///////////////////////////////////
+		int tmp_i;
+		
+		List<File> listOf_AudioFiles_Filtered = new ArrayList<File>();
+//		List<String> listOf_AudioFile_Names = new ArrayList<String>();
+		
+		for (File file : listOf_AudioFiles) {
+			
+			// Log
+//			String msg_Log;
+			
+			tmp_i = Methods.conv_MillSec_to_TimeLabel(file.lastModified())
+					.compareToIgnoreCase(dateOf_LatestAM);
+			
+			msg_Log = String.format(
+					Locale.JAPAN,
+					"file = %s (%s) comp = %d", 
+					file.getName(), 
+					Methods.conv_MillSec_to_TimeLabel(file.lastModified()),
+					tmp_i
+					);
+			
+			Log.i("ImportActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+					
+			// filter
+			if (tmp_i > 0) {
+				
+				listOf_AudioFiles_Filtered.add(file);
+//				listOf_AudioFile_Names.add(file.getName());
+				
+			}//if (tmp_i > 0)
+			
+					
+		}//for (File f : listOf_AudioFiles)
+		
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"listOf_AudioFile_Names => %d", listOf_AudioFiles_Filtered.size()
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		///////////////////////////////////
+		//
+		// insert data
+		//
+		///////////////////////////////////
+		boolean res_B;
+		int res_i;
+		
+		String tmp_S = null;
+		
+		File tmp_File = null;
+		
+		// ContentValues
+		ContentValues val = new ContentValues();
+		
+		// Put values
+		String time = null;
+//		String time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+		lenOf_AudioFiles = listOf_AudioFiles_Filtered.size();
+//		lenOf_AudioFiles = listOf_AudioFile_Names.size();
+		
+		int numOf_Inserted = 0;
+		int numOf_NotInserted = 0;
+		
+		for (int i = 0; i < lenOf_AudioFiles; i++) {
+			
+			tmp_File = listOf_AudioFiles_Filtered.get(i);
+//			tmp_S = listOf_AudioFile_Names.get(i);
+			
+			time = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+			
+//			android.provider.BaseColumns._ID,		// 0
+//			"created_at", "modified_at",			// 1,2
+//			
+//			"text",									// 3
+//			"dir",							// 4
+			
+			val.put(CONS.DB.col_names_Audio_Files_full[1], time);
+			val.put(CONS.DB.col_names_Audio_Files_full[2], time);
+			
+			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_File.getName());
+//			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_S);
+			val.put(CONS.DB.col_names_Audio_Files_full[4], dpath);
+			
+			val.put(CONS.DB.col_names_Audio_Files_full[5], 
+						Methods.conv_MillSec_to_TimeLabel(tmp_File.lastModified()));
+			
+			// insert
+			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+			
+			// count
+			if (res_B == true) {
+				
+				numOf_Inserted += 1;
+				
+			} else {//if (res_B == true)
+				
+				numOf_NotInserted += 1;
+				
+			}//if (res_B == true)
+			
+			
+		}//for (int i = 0; i < listOf_AudioFile_Names; i++)
+		
+////		DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);
+		
+		///////////////////////////////////
+		//
+		// report
+		//
+		///////////////////////////////////
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"listOf_AudioFiles = %d / listOf_AudioFiles_Filtered = %d / numOf_Inserted = %d / numOf_NotInserted = %d", 
+				listOf_AudioFiles.length,
+				listOf_AudioFiles_Filtered.size(),
+				numOf_Inserted, numOf_NotInserted
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		///////////////////////////////////
+		//
+		// return
+		//
+		///////////////////////////////////
+//		return listOf_AudioFile_Names;
+//		return null;
+//		return true;
+		
+		return (listOf_AudioFiles_Filtered.size() == numOf_Inserted) ? 
+					true : false;
+		
+	}//find_NewFiles_For_UpdateList__V2
 	
 
 	private void 
