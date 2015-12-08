@@ -160,6 +160,7 @@ public class BO_CL implements OnClickListener {
 			break;
 			
 		case ACTV_SHOWLIST_BACK:
+		case ACTV_IMPORT_BACK:
 		case ACTV_PHOTO_BACK:
 		case ACTV_IMAGE_BACK:
 			
@@ -170,6 +171,12 @@ public class BO_CL implements OnClickListener {
 		case ACTV_SHOWLIST_TOP:
 			
 			case_ACTV_SHOWLIST_TOP();
+			
+			break;
+			
+		case ACTV_IMPORT_TOP:
+			
+			case_ACTV_IMPORT_TOP();
 			
 			break;
 			
@@ -185,6 +192,12 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_IMPORT_UP:
+			
+			case_ACTV_IMPORT_UP();
+			
+			break;
+			
 		case ACTV_PHOTO_UP:
 			
 			case_ACTV_PHOTO_UP();
@@ -197,6 +210,12 @@ public class BO_CL implements OnClickListener {
 			
 			break;
 			
+		case ACTV_IMPORT_DOWN:
+			
+			case_ACTV_IMPORT_DOWN();
+			
+			break;
+			
 		case ACTV_PHOTO_DOWN:
 			
 			case_ACTV_PHOTO_DOWN();
@@ -206,6 +225,12 @@ public class BO_CL implements OnClickListener {
 		case ACTV_SHOWLIST_BOTTOM:
 			
 			case_ACTV_SHOWLIST_BOTTOM();
+			
+			break;
+			
+		case ACTV_IMPORT_BOTTOM:
+			
+			case_ACTV_IMPORT_BOTTOM();
 			
 			break;
 			
@@ -709,6 +734,31 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void case_ACTV_IMPORT_BOTTOM() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ImportActv.list_Audio_Memos == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ImportActv.list_Audio_Memos = DBUtils.find_All_Memos__ExternalAudios(actv, CONS.Enums.SortOrder.DESC);
+
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int numOfGroups = CONS.ImportActv.list_Audio_Memos.size() / lv.getChildCount();
+		
+		int indexOfLastChild = lv.getChildCount() * numOfGroups;
+		
+		lv.setSelection(indexOfLastChild);
+		
+	}//case_ACTV_IMPORT_BOTTOM
+	
+	
 	private void 
 	case_ACTV_PHOTO_BOTTOM() {
 		// TODO Auto-generated method stub
@@ -740,7 +790,8 @@ public class BO_CL implements OnClickListener {
 		
 	}//case_ACTV_PHOTO_BOTTOM
 	
-	private void case_ACTV_SHOWLIST_DOWN() {
+	private void 
+	case_ACTV_SHOWLIST_DOWN() {
 		// TODO Auto-generated method stub
 		/******************************
 			validate: list
@@ -768,6 +819,35 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_ACTV_IMPORT_DOWN() {
+		// TODO Auto-generated method stub
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ImportActv.list_Audio_Memos == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ImportActv.list_Audio_Memos = DBUtils.find_All_Memos__ExternalAudios(actv, CONS.Enums.SortOrder.DESC);
+
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int new_Position = lv.getLastVisiblePosition();
+		
+		if((new_Position + lv.getChildCount()) 
+				> CONS.ImportActv.list_Audio_Memos.size()) {
+			
+			new_Position = CONS.ImportActv.list_Audio_Memos.size() - lv.getChildCount();
+			
+		}
+		
+		lv.setSelection(new_Position);
+		
+	}//case_ACTV_IMPORT_DOWN
+	
 	private void 
 	case_ACTV_PHOTO_DOWN() {
 		// TODO Auto-generated method stub
@@ -834,6 +914,46 @@ public class BO_CL implements OnClickListener {
 		
 	}
 
+	private void case_ACTV_IMPORT_UP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ImportActv.list_Audio_Memos == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ImportActv.list_Audio_Memos = 
+								DBUtils.find_All_Memos__ExternalAudios(
+											actv, 
+											CONS.Enums.SortOrder.DESC);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		int lastPos = lv.getLastVisiblePosition();
+		
+		int childCount = lv.getChildCount();
+		
+		int new_Position;
+		
+		if (lastPos - (childCount * 2) + 2 > 0) {
+			
+			new_Position = lastPos - (childCount * 2) + 2;
+			
+		} else {
+			
+			new_Position = 0;
+			
+		}
+		
+		lv.setSelection(new_Position);		
+		
+	}//case_ACTV_IMPORT_UP
+	
+	
 	private void 
 	case_ACTV_PHOTO_UP() {
 		// TODO Auto-generated method stub
@@ -897,6 +1017,27 @@ public class BO_CL implements OnClickListener {
 
 	}
 
+	private void case_ACTV_IMPORT_TOP() {
+		// TODO Auto-generated method stub
+		
+		/******************************
+			validate: list
+		 ******************************/
+		if (CONS.ImportActv.list_Audio_Memos == null) {
+			
+			//		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+			
+			CONS.ImportActv.list_Audio_Memos = DBUtils.find_All_Memos__ExternalAudios(actv, CONS.Enums.SortOrder.DESC);
+//			CONS.ImportActv.list_Audio_Memos = DBUtils.find_All_Memos(actv);
+			
+		}
+		
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		lv.setSelection(0);
+		
+	}//IMPORT_
+	
 	private void case_ACTV_PHOTO_TOP() {
 		// TODO Auto-generated method stub
 		

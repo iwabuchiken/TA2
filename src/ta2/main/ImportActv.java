@@ -174,7 +174,7 @@ public class ImportActv extends ListActivity {
 		///////////////////////////////////
 		this._Setup_Listeners();
 //		
-//		this._Setup_Listeners_IBs();
+		this._Setup_Listeners_IBs();
 		
 //		do_test();
 		
@@ -1576,7 +1576,7 @@ public class ImportActv extends ListActivity {
 		ImageButton bt_Back = 
 				(ImageButton) this.findViewById(R.id.actv_showlist_ib_back);
 		
-		bt_Back.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BACK);
+		bt_Back.setTag(Tags.ButtonTags.ACTV_IMPORT_BACK);
 		
 		bt_Back.setOnTouchListener(new BO_TL(this));
 		
@@ -1590,7 +1590,7 @@ public class ImportActv extends ListActivity {
 		ImageButton bt_Top = 
 				(ImageButton) this.findViewById(R.id.actv_showlist_ib_top);
 		
-		bt_Top.setTag(Tags.ButtonTags.ACTV_SHOWLIST_TOP);
+		bt_Top.setTag(Tags.ButtonTags.ACTV_IMPORT_TOP);
 		
 		bt_Top.setOnTouchListener(new BO_TL(this));
 		
@@ -1604,7 +1604,7 @@ public class ImportActv extends ListActivity {
 		ImageButton bt_Up = 
 				(ImageButton) this.findViewById(R.id.actv_showlist_ib_up);
 		
-		bt_Up.setTag(Tags.ButtonTags.ACTV_SHOWLIST_UP);
+		bt_Up.setTag(Tags.ButtonTags.ACTV_IMPORT_UP);
 		
 		bt_Up.setOnTouchListener(new BO_TL(this));
 		
@@ -1618,7 +1618,7 @@ public class ImportActv extends ListActivity {
 		ImageButton bt_Down = 
 				(ImageButton) this.findViewById(R.id.actv_showlist_ib_down);
 		
-		bt_Down.setTag(Tags.ButtonTags.ACTV_SHOWLIST_DOWN);
+		bt_Down.setTag(Tags.ButtonTags.ACTV_IMPORT_DOWN);
 		
 		bt_Down.setOnTouchListener(new BO_TL(this));
 		
@@ -1632,7 +1632,7 @@ public class ImportActv extends ListActivity {
 		ImageButton bt_Bottom = 
 				(ImageButton) this.findViewById(R.id.actv_showlist_ib_bottom);
 		
-		bt_Bottom.setTag(Tags.ButtonTags.ACTV_SHOWLIST_BOTTOM);
+		bt_Bottom.setTag(Tags.ButtonTags.ACTV_IMPORT_BOTTOM);
 		
 		bt_Bottom.setOnTouchListener(new BO_TL(this));
 		

@@ -425,6 +425,12 @@ public class DB_OCL implements OnClickListener {
 			
 			break;
 			
+		case DLG_FILTER_ACTV_IMPORT_CLEAR://------------------------------------------------
+			
+			case_DLG_FILTER_ACTV_IMPORT_CLEAR();
+			
+			break;
+			
 		case DLG_FILTER_SHOWLIST_OK://------------------------------------------------
 			
 			case_DLG_FILTER_SHOWLIST_OK_2();
@@ -442,6 +448,12 @@ public class DB_OCL implements OnClickListener {
 		case DLG_FILTER_SHOWLIST_RESET://------------------------------------------------
 			
 			case_DLG_FILTER_SHOWLIST_RESET();
+			
+			break;
+			
+		case DLG_FILTER_ACTV_IMPORT_RESET://------------------------------------------------
+			
+			case_DLG_FILTER_ACTV_IMPORT_RESET();
 			
 			break;
 			
@@ -2277,6 +2289,112 @@ public class DB_OCL implements OnClickListener {
 		
 	}//case_DLG_FILTER_SHOWLIST_RESET
 
+	private void 
+	case_DLG_FILTER_ACTV_IMPORT_RESET() {
+		// TODO Auto-generated method stub
+		
+		////////////////////////////////
+		
+		// list size
+		
+		////////////////////////////////
+		String pref_MemoList_Size = Methods.get_Pref_String(
+				actv, 
+				CONS.Pref.pname_MainActv, 
+				actv.getString(R.string.prefs_MemoList_Size_key), 
+				null);
+		
+		////////////////////////////////
+
+		// list
+
+		////////////////////////////////
+		List<AudioMemo> listOf_AudioMemos = new ArrayList<AudioMemo>();
+		
+		if (pref_MemoList_Size != null) {
+			
+			listOf_AudioMemos = 
+//					CONS.ImportActv.list_Audio_Memos = 
+					DBUtils.find_All_Memos__ExternalAudios(
+								actv, 
+								CONS.Enums.SortOrder.DESC, 
+								Integer.parseInt(pref_MemoList_Size));
+//			DBUtils.find_All_Memos(
+//					this, 
+//					CONS.Enums.SortOrder.DESC, 
+//					Integer.parseInt(pref_MemoList_Size));
+			
+		} else {
+
+			listOf_AudioMemos = 
+//					CONS.ImportActv.list_Audio_Memos = 
+					DBUtils.find_All_Memos__ExternalAudios(
+							actv, 
+							CONS.Enums.SortOrder.DESC);
+			
+		}
+		
+		////////////////////////////////
+		
+		// update: list
+		
+		////////////////////////////////
+		if (listOf_AudioMemos == null) {
+//			if (CONS.ImportActv.list_Audio_Memos == null) {
+//			if (list_Memos == null) {
+			
+			String msg = "Can't build list";
+			Methods_dlg.dlg_ShowMessage(actv, msg, R.color.red);
+			
+			return;
+			
+		}
+		
+		// Log
+		String msg_Log = "listOf_AudioMemos.size() => "
+						+ listOf_AudioMemos.size();
+		
+		Log.d("DB_OCL.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		
+		CONS.ImportActv.list_Audio_Memos.clear();
+		CONS.ImportActv.list_Audio_Memos.addAll(listOf_AudioMemos);
+//		CONS.ShowListActv.list_Memos.clear();
+//		CONS.ShowListActv.list_Memos.addAll(list_Memos);
+		
+		////////////////////////////////
+		
+		// notify
+		
+		////////////////////////////////
+		CONS.ImportActv.adp_List_AudioMemos.notifyDataSetChanged();
+//		CONS.ShowListActv.adp_List_Memos.notifyDataSetChanged();
+		
+		///////////////////////////////////
+		//
+		// update title
+		//
+		///////////////////////////////////
+		int len_List = CONS.ImportActv.list_Audio_Memos.size();
+		
+		String title = String.format(
+				Locale.JAPAN,
+				"ImportActv (%d)", len_List
+				);
+		
+		actv.setTitle(title);
+		
+		////////////////////////////////
+		
+		// dismiss
+		
+		////////////////////////////////
+		d1.dismiss();
+		
+	}//case_DLG_FILTER_ACTV_IMPORT_RESET
+	
 	@SuppressWarnings("unused")
 	private void 
 	case_DLG_FILTER_SHOWLIST_OK() {
@@ -3827,6 +3945,25 @@ public class DB_OCL implements OnClickListener {
 		
 	}
 
+	private void 
+	case_DLG_FILTER_ACTV_IMPORT_CLEAR() {
+		// TODO Auto-generated method stub
+		////////////////////////////////
+		
+		// view
+		
+		////////////////////////////////
+		EditText et = (EditText) d1.findViewById(R.id.dlg_filter_showlist_et_content);
+		
+		////////////////////////////////
+		
+		// clear
+		
+		////////////////////////////////
+		et.setText("");
+		
+	}//case_DLG_FILTER_ACTV_IMPORT_CLEAR
+	
 	private void 
 	case_DLG_CONF_DROP_TABLE_MEMOS_OK() {
 		// TODO Auto-generated method stub
