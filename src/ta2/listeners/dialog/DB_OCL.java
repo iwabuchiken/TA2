@@ -218,6 +218,8 @@ public class DB_OCL implements OnClickListener {
 		// Used for sound effect
 		boolean val;
 		
+		int res_i;
+		
 		// Log
 		Log.d("DB_OCL.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -226,6 +228,20 @@ public class DB_OCL implements OnClickListener {
 		//
 		switch (tag_name) {
 		
+		case DLG_CONF_DROP_CREATE_TABLE_BM_OK://-------------------
+//			(String tname, String[] colNames, String[] colTypes)
+			case_DLG_CONF_DROP_CREATE_TABLE_OK_generic(
+				
+					CONS.DB.tname_BM,
+					CONS.DB.col_names_BM,
+					CONS.DB.col_types_BM
+//					CONS.DB.tname_Audio_Files,
+//					CONS.DB.col_names_Audio_Files,
+//					CONS.DB.col_types_Audio_Files
+					);
+			
+			break;
+			
 		case DLG_CONF_DROP_CREATE_TABLE_AUDIO_FILES_OK://-------------------
 //			(String tname, String[] colNames, String[] colTypes)
 			case_DLG_CONF_DROP_CREATE_TABLE_OK_generic(
@@ -653,7 +669,18 @@ public class DB_OCL implements OnClickListener {
 			////////////////////////////////
 			if(d3 != null) d3.dismiss();
 			
-		}
+		}//switch(res)
+		
+		////////////////////////////////
+		
+		// message
+		
+		////////////////////////////////
+		Methods_dlg.dlg_ShowMessage(
+					actv, 
+					msg,
+					colorID
+		);
 	
 	}//case_DLG_CONF_DROP_CREATE_TABLE_OK_generic
 	

@@ -559,6 +559,44 @@ public class CONS {
 		};
 		
 		////////////////////////////////
+		
+		// Table: bm
+		
+		////////////////////////////////
+		public static final String tname_BM = "bm";
+		
+		public static final String[] col_names_BM = {
+			
+			"ta_id",			// 0
+			"position",			// 1
+			"ta_text",			// 2
+			
+		};
+		
+		public static final String[] col_names_BM_full = {
+			
+			//	0
+			android.provider.BaseColumns._ID,		// 0
+			"created_at", "modified_at",			// 1,2
+			
+			"ta_id",									// 3
+			"position",							// 4
+			"ta_text",					// 5
+			
+		};
+		
+		public static final String[] col_types_BM = {
+
+			"INTEGER",			// 0
+			"TEXT",			// 1
+			"TEXT",			// 2
+
+//			"TEXT", "TEXT",	// 0,1
+//			"TEXT"			// 2
+			
+		};
+		
+		////////////////////////////////
 
 		// Others
 

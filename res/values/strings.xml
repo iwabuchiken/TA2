@@ -119,6 +119,9 @@
    		<string name="dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo">
    		    							Drop/Create table: filter history: audio memo</string>
    		    							
+   		<string name="dlg_actvmain_ops_Drop_Create_table_BM">
+   		    							Drop/Create table: bm</string>
+   		    							
    		<string name="dlg_actvmain_ops_upload_db">
    		    							Upload DB</string>
 
