@@ -336,12 +336,12 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int actv_image_menu_add_photo_memo=0x7f07005d;
+        public static final int actv_image_menu_add_photo_memo=0x7f070060;
         /**   
          */
-        public static final int actv_play_bt_add_bm=0x7f07005e;
-        public static final int actv_play_bt_see_bm=0x7f07005f;
-        public static final int actv_play_tv_bm_label=0x7f070060;
+        public static final int actv_play_bt_add_bm=0x7f070061;
+        public static final int actv_play_bt_see_bm=0x7f070062;
+        public static final int actv_play_tv_bm_label=0x7f070063;
         public static final int app_name=0x7f070000;
         public static final int btn_lbl_memo_patterns=0x7f070020;
         /**  UI labels 
@@ -414,8 +414,8 @@ public final class R {
         public static final int generic_tv_view=0x7f07000c;
         /**  image_actv_menu.xml 
          */
-        public static final int image_actv_menu_add_memo=0x7f07005b;
-        public static final int image_actv_menu_add_patterns=0x7f07005c;
+        public static final int image_actv_menu_add_memo=0x7f07005e;
+        public static final int image_actv_menu_add_patterns=0x7f07005f;
         public static final int menu_main_Start_ImportActv=0x7f070028;
         public static final int menu_main_admin=0x7f070026;
         public static final int menu_main_horizontal_listview=0x7f070027;
@@ -430,25 +430,28 @@ public final class R {
          */
         public static final int menu_showlist_filter=0x7f070029;
         public static final int menu_showlist_filter_history=0x7f07002a;
-        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_key=0x7f070059;
-        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_summary=0x7f07005a;
-        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_title=0x7f070058;
-        public static final int prefs_Audio_Upload_Since_key=0x7f070055;
-        public static final int prefs_Audio_Upload_Since_summary=0x7f070056;
-        public static final int prefs_Audio_Upload_Since_title=0x7f070057;
+        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_key=0x7f07005c;
+        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_summary=0x7f07005d;
+        public static final int prefs_AudioFiles_From_RecorderApp_List_Auto_Update_title=0x7f07005b;
+        public static final int prefs_Audio_Upload_Since_key=0x7f070058;
+        public static final int prefs_Audio_Upload_Since_summary=0x7f070059;
+        public static final int prefs_Audio_Upload_Since_title=0x7f07005a;
         public static final int prefs_ClearView_WhenSaved_key=0x7f07004c;
         public static final int prefs_ClearView_WhenSaved_summary=0x7f07004d;
         public static final int prefs_ClearView_WhenSaved_titile=0x7f07004b;
-        public static final int prefs_MemoList_Size_ListPref_key=0x7f07004e;
+        public static final int prefs_MemoList_Size_ListPref_key=0x7f070051;
         public static final int prefs_MemoList_Size_key=0x7f070049;
         public static final int prefs_MemoList_Size_summary=0x7f07004a;
         public static final int prefs_MemoList_Size_titile=0x7f070048;
-        public static final int prefs_db_auto_backup_key=0x7f07004f;
-        public static final int prefs_db_auto_backup_summary=0x7f070050;
-        public static final int prefs_db_auto_backup_title=0x7f070051;
-        public static final int prefs_db_auto_upload_schedule_span_key=0x7f070052;
-        public static final int prefs_db_auto_upload_schedule_span_summary=0x7f070053;
-        public static final int prefs_db_auto_upload_schedule_span_title=0x7f070054;
+        public static final int prefs_Test_Mode_key=0x7f07004f;
+        public static final int prefs_Test_Mode_summary=0x7f070050;
+        public static final int prefs_Test_Mode_titile=0x7f07004e;
+        public static final int prefs_db_auto_backup_key=0x7f070052;
+        public static final int prefs_db_auto_backup_summary=0x7f070053;
+        public static final int prefs_db_auto_backup_title=0x7f070054;
+        public static final int prefs_db_auto_upload_schedule_span_key=0x7f070055;
+        public static final int prefs_db_auto_upload_schedule_span_summary=0x7f070056;
+        public static final int prefs_db_auto_upload_schedule_span_title=0x7f070057;
         public static final int prefs_sound_effect_key=0x7f070046;
         public static final int prefs_sound_effect_summary=0x7f070047;
         /**  pref: MainActv 

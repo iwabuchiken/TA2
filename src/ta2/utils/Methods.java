@@ -95,6 +95,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -10001,6 +10002,59 @@ public static String
 				label_Date, label_Time);
 
 	}//conv_FileName_2_TimeLabel
+
+	public static long
+	conv_ClockLabel_to_MillSec(String clockLabel)
+	{
+		
+		String[] tokens = clockLabel.split(":");
+		
+		/******************************
+			Validate
+		 ******************************/
+		if (tokens == null || tokens.length != 2) {
+
+			// Log
+			String msg_Log = "Label format => unknown: " + clockLabel;
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", msg_Log);
+			
+			return -1;
+			
+		}
+		
+		/******************************
+			Build: long number
+		 ******************************/
+		long mill_Min = Integer.parseInt(tokens[0]) * (60 * 1000);
+		long mill_Sec = Integer.parseInt(tokens[1]) * (1000);
+		
+		return mill_Min + mill_Sec;
+		
+//		SimpleDateFormat formatter = 
+//				new SimpleDateFormat("mm:ss"); // I assume d-M, you may refer to M-d for month-day instead.
+////		new SimpleDateFormat("d-M-yyyy hh:mm"); // I assume d-M, you may refer to M-d for month-day instead.
+//		Date date;
+//		try {
+//			
+//			date = formatter.parse(clockLabel);
+//			return date.getTime();
+//			
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			// Log
+//			String msg_Log = "Exception: " + e.toString();
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
+//			
+//			return -1;
+//			
+//		} // You will need try/catch around this
+//		long millis = date.getTime();
+		
+	}//conv_ClockLabel_to_MillSec(String clockLabel)
 
 }//public class Methods
 

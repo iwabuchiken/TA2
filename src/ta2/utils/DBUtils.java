@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ta2.items.AudioMemo;
+import ta2.items.BM;
 import ta2.items.FilterHistory;
 import ta2.items.Memo;
 import ta2.items.WordPattern;
@@ -6594,6 +6595,81 @@ public class DBUtils extends SQLiteOpenHelper{
 		return list_UHAs;
 		
 	}//find_All_UploadHistory_Audio
-	
+
+	public boolean 
+	insertData_BM(Activity actv, BM bm) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+		String tmp = Methods.conv_MillSec_to_TimeLabel(Methods.getMillSeconds_now());
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+			val.put("created_at", tmp);
+			
+			val.put("modified_at", tmp);
+			
+			val.put("position", bm.getPosition());
+			
+			val.put("ta_id", bm.getTa_id());
+			
+			val.put("ta_text", bm.getTa_text());
+			
+			// Insert data
+			long res = wdb.insert(CONS.DB.tname_BM, null, val);
+			
+			// Set as successful
+			if (res != -1) {
+				
+				wdb.setTransactionSuccessful();
+				
+				// Log
+				String msg_Log = "Insertion => successful: TA text = "
+						+ bm.getTa_text();
+				
+				Log.d("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			} else {
+
+				// Log
+				String msg_Log = "Insertion => failed: TA text = "
+								+ bm.getTa_text();
+				
+				Log.d("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", msg_Log);
+				
+			}
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			wdb.close();
+			
+			return true;
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
+			
+			return false;
+			
+		}//try
+		
+	}//public boolean insertData_bm(Activity actv, BM bm)
+
 }//public class DBUtils
 

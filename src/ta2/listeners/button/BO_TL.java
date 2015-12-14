@@ -46,6 +46,13 @@ public class BO_TL implements OnTouchListener {
 			
 			switch (tag) {
 
+			case ACTV_PLAYER_BT_SEE_BM:
+			case ACTV_PLAYER_BT_ADD_BM:
+				
+				v.setBackgroundColor(Color.GRAY);
+				
+				break;// case image_activity_next
+				
 			case ACTV_SHOWLOG_IB_BACK:
 				
 				ib = (ImageButton) v;
@@ -252,6 +259,13 @@ public class BO_TL implements OnTouchListener {
 			
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
+
+			case ACTV_PLAYER_BT_SEE_BM:
+			case ACTV_PLAYER_BT_ADD_BM:
+				
+				v.setBackgroundColor(Color.WHITE);
+				
+				break;// case image_activity_next
 
 			case ACTV_SHOWLOG_IB_UP://----------------------------------------------------
 				

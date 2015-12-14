@@ -645,91 +645,91 @@ public class DOI_CL implements OnItemClickListener {
 			
 			Methods_dlg.conf_Import_DB(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-		
-			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_import_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		
+//			Methods_dlg.conf_Import_Patterns(actv, d1, d2);
 		
 			////////////////////////////////
 
 			// columns
 
 			////////////////////////////////
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_AddColumn_Used(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_sql_add_col_used))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_AddColumn_Used(actv, d1, d2);
 			
 			////////////////////////////////
 
 			// tables
 
 			////////////////////////////////
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_create_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_create_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
 			
-			Methods_dlg.conf_CreateTable_Patterns(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_drop_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_drop_table_patterns))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_CreateTable_Memos(actv, d1, d2);
 			
-			Methods_dlg.conf_DropTable_Patterns(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropTable_Memos(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_create_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_db_ops_item_drop_create_tbl_admin))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_Admin(actv, d1, d2);
 			
-			Methods_dlg.conf_CreateTable_Memos(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_table_filter_history))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_FilterHistory(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_drop_table_memos))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_Table_FilterHistory_ShowLog))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_Generic(
+//					actv, d1, d2,
+//					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_SHOWLOG_OK,
+//					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
+//					R.string.dlg_actvmain_ops_Drop_Create_table_filter_history, 
+//					CONS.DB.tname_FilterHistory_ShowLog);
 			
-			Methods_dlg.conf_DropTable_Memos(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_table_Upload_History))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_UploadHistory(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_db_ops_item_drop_create_tbl_admin))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_table_Upload_History_Audio))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_UploadHistory_Audio(actv, d1, d2);
 			
-			Methods_dlg.conf_DropCreate_Table_Admin(actv, d1, d2);
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_table_Audio_Files))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//			
+//			Methods_dlg.conf_DropCreate_Table_Audio_Files(actv, d1, d2);
 			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_table_filter_history))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_DropCreate_Table_FilterHistory(actv, d1, d2);
-			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_Table_FilterHistory_ShowLog))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_DropCreate_Table_Generic(
-					actv, d1, d2,
-					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_SHOWLOG_OK,
-					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
-					R.string.dlg_actvmain_ops_Drop_Create_table_filter_history, 
-					CONS.DB.tname_FilterHistory_ShowLog);
-			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_table_Upload_History))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_DropCreate_Table_UploadHistory(actv, d1, d2);
-			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_table_Upload_History_Audio))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_DropCreate_Table_UploadHistory_Audio(actv, d1, d2);
-			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_table_Audio_Files))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-			
-			Methods_dlg.conf_DropCreate_Table_Audio_Files(actv, d1, d2);
-			
-		} else if (li.getText().equals(actv.getString(
-				R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
-
-			Methods_dlg.conf_DropCreate_Table_Generic(
-					actv, d1, d2,
-					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_AUDIOMEMO_OK,
-					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
-					R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo, 
-					CONS.DB.tname_FilterHistory_Audio_Memo);
-			
+//		} else if (li.getText().equals(actv.getString(
+//				R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+//
+//			Methods_dlg.conf_DropCreate_Table_Generic(
+//					actv, d1, d2,
+//					Tags.DialogTags.DLG_CONF_DROP_CREATE_TABLE_FILTER_HISTORY_AUDIOMEMO_OK,
+//					Tags.DialogTags.GENERIC_DISMISS_THIRD_DIALOG,
+//					R.string.dlg_actvmain_ops_Drop_Create_table_FilterHistory_AudioMemo, 
+//					CONS.DB.tname_FilterHistory_Audio_Memo);
+//			
 		} else if (li.getText().equals(actv.getString(
 				R.string.dlg_actvmain_ops_Drop_Create_table_BM))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
 			

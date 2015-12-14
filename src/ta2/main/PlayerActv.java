@@ -2,7 +2,9 @@ package ta2.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.comps.Comp_WP;
 import ta2.items.ListItem;
+import ta2.items.MI;
 import ta2.items.Memo;
 import ta2.listeners.LOI_CL;
 import ta2.listeners.LOI_LCL;
@@ -165,15 +168,93 @@ public class PlayerActv extends Activity {
 //	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		MenuInflater mi = getMenuInflater();
-//		mi.inflate(R.menu.menu_actv_play, menu);
-//		mi.inflate(R.menu.menu_actv_play, menu);
+	public boolean 
+	onCreateOptionsMenu(Menu menu) {
 
+		getMenuInflater().inflate(R.menu.menu_actv_main, menu);
+		
+		///////////////////////////////////
+		//
+		// init
+		//
+		///////////////////////////////////
+		CONS.MainActv.menu = menu;
+		
+		////////////////////////////////
+
+		// prep: data
+
+		////////////////////////////////
+		_onCreateOptionsMenu__Build_Data(menu);
+
+//		MenuInflater mi = getMenuInflater();
+////		mi.inflate(R.menu.menu_actv_play, menu);
+////		mi.inflate(R.menu.menu_actv_play, menu);
+//
 		return super.onCreateOptionsMenu(menu);
 		
 	}//public boolean onCreateOptionsMenu(Menu menu)
+
+	private void 
+	_onCreateOptionsMenu__Build_Data(Menu menu) {
+		// TODO Auto-generated method stub
+		List<MI> list_MIs = new ArrayList<MI>();
+		
+		///////////////////////////////////
+		//
+		// add items
+		//
+		///////////////////////////////////
+//		list_MIs.add(new MI.Builder()
+//					.setId_Item(R.id.menu_main_logout)
+//					.setId_Title(R.string.menu_main_logout)
+//					.setId_Icon(R.drawable.general_ib_ball_blue_48x48)
+//					.build()
+//		);
+
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_admin)
+				.setId_Title(R.string.menu_main_admin)
+				.setId_Icon(R.drawable.general_ib_ball_green_48x48)
+				.build()
+				);
+		
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_settings)
+				.setId_Title(R.string.action_settings)
+				.setId_Icon(R.drawable.general_ib_ball_yellow_48x48)
+				.build()
+				);
+		
+		list_MIs.add(new MI.Builder()
+				.setId_Item(R.id.menu_main_import_actv)
+				.setId_Title(R.string.menu_main_Start_ImportActv)
+				.setId_Icon(R.drawable.general_ib_ball_purple_48x48)
+				.build()
+				);
+		
+		///////////////////////////////////
+		//
+		// clear menu
+		//
+		///////////////////////////////////
+		CONS.MainActv.menu.clear();
+		
+		for (int i = 0; i < list_MIs.size(); i++) {
+//			for (int i = 0; i < list_Icons.size(); i++) {
+			
+			CONS.MainActv.menu
+				.add(
+					0, 
+					list_MIs.get(i).getId_Item(), 
+					2, 
+					list_MIs.get(i).getId_Title())
+				.setIcon(list_MIs.get(i).getId_Icon());
+			
+		}
+
+	}//_onCreateOptionsMenu__Build_Data
+
 
 	@Override
 	protected void onDestroy() {
@@ -241,21 +322,60 @@ public class PlayerActv extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
+
+		case R.id.menu_main_admin://--------------------
 			
-//		case R.id.menu_actv_play_admin_pattern://------------------------------------
-//			
-//			Methods_dlg.dlg_Admin_Patterns_PlayActv_Option(this);
-//			
-////			Methods_dlg.dlg_patterns(this);
-//			
-//			break;// case R.id.menu_actv_play_create_folder
+			case_OPT_Admin();
+//			this.logoutFromTwitter();
 			
+			break;
+			
+		case R.id.menu_main_settings://--------------------
+			
+			case_OPT_Settings();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		case R.id.menu_main_import_actv://--------------------
+			
+			case_OPT_Import_Actv();
+//			this.logoutFromTwitter();
+			
+			break;
+			
+		default://-------------------------------------
+			break;
+
 			
 		}//switch (item.getItemId())
 
 		
 		return super.onOptionsItemSelected(item);
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_OPT_Import_Actv() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_ImportActv(this);
+		
+	}//case_OPT_Import_Actv
+
+	private void case_OPT_Settings() {
+		// TODO Auto-generated method stub
+		
+		Methods.start_Activity_PrefActv(this);
+		
+	}
+
+
+	private void 
+	case_OPT_Admin() {
+		// TODO Auto-generated method stub
+		
+		Methods_dlg.dlg_ACTV_MAIN_Admin(this);
+		
+	}
 
 	@Override
 	protected void onPause() {
@@ -558,10 +678,10 @@ public class PlayerActv extends Activity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", msg_Log);
 
-//		String msg_Log = "audio len => " + CONS.PlayerActv.len_Audio;
-		Log.d("PlayerActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", msg_Log);
+////		String msg_Log = "audio len => " + CONS.PlayerActv.len_Audio;
+//		Log.d("PlayerActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", msg_Log);
 		
 		return true;
 		
@@ -634,39 +754,49 @@ public class PlayerActv extends Activity {
 		
 		tv_Memo.setOnClickListener(new BO_CL(this));
 		
+		////////////////////////////////
+
+		// "See bookmarks"
+
+		////////////////////////////////
+		Button btSeeBM = (Button) findViewById(R.id.actv_play_bt_see_bm);
+		
+		btSeeBM.setTag(Tags.ButtonTags.ACTV_PLAYER_BT_SEE_BM);
+//		btSeeBM.setTag(Tags.ButtonTags.actv_play_bt_see_bm);
+		
+		btSeeBM.setOnTouchListener(new BO_TL(this));
+		btSeeBM.setOnClickListener(new BO_CL(this, CONS.PlayerActv.audio_memo));
+//		btSeeBM.setOnClickListener(new BO_CL(this, CONS.PlayActv.ai));
+		
+		////////////////////////////////
+
+		// "Add bookmark"
+
+		////////////////////////////////
+		Button btAddBM = (Button) findViewById(R.id.actv_play_bt_add_bm);
+		
+		btAddBM.setTag(Tags.ButtonTags.ACTV_PLAYER_BT_ADD_BM);
+//		btAddBM.setTag(Tags.ButtonTags.actv_play_bt_add_bm);
+		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"CONS.PlayerActv.audio_memo => %s", CONS.PlayerActv.audio_memo.getText()
+				);
+		
+		Log.i("PlayerActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		btAddBM.setOnTouchListener(new BO_TL(this));
+		btAddBM.setOnClickListener(new BO_CL(this, CONS.PlayerActv.audio_memo));
+//		btAddBM.setOnClickListener(new BO_CL(this, CONS.PlayActv.ai));
+		
+
+		
 	}//_Setup_Listeners
-	
-//	private void 
-//	_Setup_Listeners_Memo() {
-//		// TODO Auto-generated method stub
-//		////////////////////////////////
-//		
-//		// IB: play
-//		
-//		////////////////////////////////
-//		ImageButton ib_Save = (ImageButton) this.findViewById(R.id.actv_play_ib_save);
-//		
-//		ib_Save.setTag(Tags.ButtonTags.ACTV_PLAY_SAVE);
-//		
-//		ib_Save.setOnTouchListener(new BO_TL(this));
-//		
-//		ib_Save.setOnClickListener(new BO_CL(this));
-//		
-//		////////////////////////////////
-//		
-//		// IB: clear
-//		
-//		////////////////////////////////
-//		ImageButton ib_Stop = (ImageButton) this.findViewById(R.id.actv_play_ib_clear);
-//		
-//		ib_Stop.setTag(Tags.ButtonTags.ACTV_PLAY_CLEAR);
-//		
-//		ib_Stop.setOnTouchListener(new BO_TL(this));
-//		
-//		ib_Stop.setOnClickListener(new BO_CL(this));
-//		
-//	}//_Setup_Listeners
-	
 
 	private boolean 
 	_Setup_Get_Memo() {

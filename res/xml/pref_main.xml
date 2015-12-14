@@ -94,4 +94,13 @@
 	</ListPreference>
 	 -->
 	 
+ 	<CheckBoxPreference
+        android:title="@string/prefs_Test_Mode_titile"
+        android:key="@string/prefs_Test_Mode_key"
+        android:summary="@string/prefs_Test_Mode_summary"
+        android:defaultValue="false"
+        
+        />
+	 
+	 
 </PreferenceScreen>

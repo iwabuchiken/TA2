@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import ta2.items.AudioMemo;
 import ta2.items.MI;
 import ta2.listeners.STL;
 import ta2.listeners.button.BO_CL;
@@ -182,6 +183,38 @@ public class MainActv extends Activity {
 	do_test() {
 		// TODO Auto-generated method stub
 	
+		///////////////////////////////////
+		//
+		// test mode?
+		//
+		///////////////////////////////////
+		boolean val = Methods.get_Pref_Boolean(
+				this, 
+				CONS.Pref.pname_MainActv, 
+				this.getString(R.string.prefs_Test_Mode_key), 
+				false);
+
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"test mode => %s", val
+				);
+		
+		Log.i("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		// if false => return
+		if (val == false) {
+
+			return;
+
+		}//if (val == false)
+		
+		this._test_D_30_V_4_2__Start_PlayerActv();
+		
 //		this._test_D_30_V_1_0__PlayOtherFile();
 //		this._test_D_24_V_2_1_PreviousDate();
 //		this._test_CV_update();
@@ -189,6 +222,22 @@ public class MainActv extends Activity {
 //		_test_PrefVal_SoundEffect();
 		
 	}
+
+	private void 
+	_test_D_30_V_4_2__Start_PlayerActv() {
+		// TODO Auto-generated method stub
+		
+		AudioMemo am = new AudioMemo.Builder()
+					
+					.setDb_Id(70)
+					.setText("レコード_2015-12-12_10-31-36.mp3")
+					.setDir("/mnt/sdcard/AllVoiceRecords")
+					
+					.build();
+		
+		Methods.start_Activity_PlayerActv(this, am);
+		
+	}//_test_D_30_V_4_2__Start_PlayerActv
 
 	private void _test_D_30_V_1_0__PlayOtherFile() {
 		// TODO Auto-generated method stub
