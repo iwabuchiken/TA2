@@ -1,3 +1,4 @@
+------------------------------------------ bm
 CREATE TABLE "bm" (
 
 	_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,3 +38,50 @@ INSERT INTO bm
 			title,
 			memo
 	FROM bm_old;
+
+------------------------------------------ audio_files
+CREATE TABLE "audio_files" (
+
+	_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	created_at TEXT,
+	modified_at TEXT,
+	
+	text TEXT,
+	file_name TEXT,
+	dir TEXT,
+	
+	last_modified TEXT
+	
+);
+
+DROP TABLE audio_files;
+DROP TABLE audio_files_old;
+
+ALTER TABLE audio_files RENAME TO audio_files_old;
+
+INSERT INTO audio_files 
+		(
+		
+			created_at,
+			modified_at,
+			
+			text,
+			
+			dir,
+			
+			last_modified
+			
+		) 
+	SELECT
+
+			created_at,
+			modified_at,
+			
+			text,
+			
+			dir,
+			
+			last_modified
+
+	FROM audio_files_old;
+

@@ -67,6 +67,7 @@ import android.widget.Toast;
 
 
 
+
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -10039,6 +10040,115 @@ public static String
 		Collections.sort(bm_List, bmComp);
 		
 	}//sort_List_ai_List
+
+	public static void 
+	add_FileName_2_Table_AudioFiles(Activity actv) {
+		// TODO Auto-generated method stub
+
+		///////////////////////////////////
+		//
+		// list of: texts
+		//
+		///////////////////////////////////
+		List<AudioMemo> listOf_am = 
+					DBUtils.find_All_Memos__ExternalAudios(
+								actv, 
+								CONS.Enums.SortOrder.DESC);
+		
+		///////////////////////////////////
+		//
+		// add file name
+		//
+		///////////////////////////////////
+		String text = null;
+		Pattern p = null;
+		Matcher m = null;
+		
+		String msg_Log;
+		
+		String where = android.provider.BaseColumns._ID + " = ?";
+		
+		String[] args = null;
+		
+		ContentValues val = null;
+		
+		int count = 0;
+		
+		boolean res_b;
+		
+		for (AudioMemo am : listOf_am) {
+			
+			text = am.getText();
+			
+			p = Pattern.compile("^(.+_\\d{4}.+\\.mp3)");
+//			p = Pattern.compile("^.+_(\\d{4}.+)\\.mp3");
+			m = p.matcher(text);
+			
+			if (!m.find()) {
+
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"no matches => %s", text
+						);
+				
+				Log.i("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				continue;
+				
+			} else {
+				
+				am.setFile_name(m.group(0));
+				
+				args = new String[]{
+						
+						String.valueOf(am.getDb_Id())
+						
+				};
+				
+				val = new ContentValues();
+				
+				val.put("file_name", m.group(0));
+				
+				res_b = DBUtils.updateData_generic_static(
+								actv, 
+								CONS.DB.tname_Audio_Files, 
+								val, 
+								where, args);
+				
+				// count
+				if (res_b == true) {
+
+					count += 1;
+
+				}//if (res_b == true)
+				
+			}
+			
+		}//for (AudioMemo am : listOf_am)
+		
+		///////////////////////////////////
+		//
+		// report
+		//
+		///////////////////////////////////
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"total ams => %d / file name entered => %d", listOf_am.size(), count
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+	}//add_FileName_2_Table_AudioFiles
 
 }//public class Methods
 

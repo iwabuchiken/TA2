@@ -1086,7 +1086,8 @@ public class PlayerActv extends Activity {
 							CONS.Pref.dflt_LongExtra_value);
 		
 		long length =
-				Methods.conv_ClockLabel_to_MillSec(CONS.PlayActv.ai.getLength());
+				Methods.conv_ClockLabel_to_MillSec(CONS.PlayerActv.audio_memo.getLength());
+//		Methods.conv_ClockLabel_to_MillSec(CONS.PlayActv.ai.getLength());
 		
 		int seekPositon = (int)
 //					((currentPosition / length)
@@ -1134,14 +1135,16 @@ public class PlayerActv extends Activity {
 		 ***************************************/
 		long currentPosition = Methods.conv_ClockLabel_to_MillSec(position);
 		long length =
-				Methods.conv_ClockLabel_to_MillSec(CONS.PlayActv.ai.getLength());
+				Methods.conv_ClockLabel_to_MillSec(CONS.PlayerActv.audio_memo.getLength());
+//		Methods.conv_ClockLabel_to_MillSec(CONS.PlayerActv.ai.getLength());
+//		Methods.conv_ClockLabel_to_MillSec(CONS.PlayerActv.ai.getLength());
 		
 		int seekPositon = (int)
 //					((currentPosition / length)
 					(((float)currentPosition / length)
-							* CONS.PlayActv.sb.getMax());
+							* CONS.PlayerActv.sb.getMax());
 //		
-		CONS.PlayActv.sb.setProgress(seekPositon);
+		CONS.PlayerActv.sb.setProgress(seekPositon);
 		
 		// Log
 		String msg_Log = "currentPosition = " + currentPosition

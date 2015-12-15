@@ -1359,17 +1359,17 @@ public class Methods_dlg {
 						.setTextColor_ID(R.color.black)
 						.build());
 		
-		////////////////////////////////
-
-		// columns
-
-		////////////////////////////////
-		list.add(new ListItem.Builder()
-						.setText(actv.getString(
-								R.string.dlg_actvmain_ops_sql_add_col_used))
-								.setIconID(R.drawable.menu_icon_admin_32x32_yellow)
-								.setTextColor_ID(R.color.black)
-								.build());
+//		////////////////////////////////
+//
+//		// columns
+//
+//		////////////////////////////////
+//		list.add(new ListItem.Builder()
+//						.setText(actv.getString(
+//								R.string.dlg_actvmain_ops_sql_add_col_used))
+//								.setIconID(R.drawable.menu_icon_admin_32x32_yellow)
+//								.setTextColor_ID(R.color.black)
+//								.build());
 		
 		////////////////////////////////
 
@@ -1460,6 +1460,12 @@ public class Methods_dlg {
 						.setTextColor_ID(R.color.red)
 						.build());
 		
+		list.add(new ListItem.Builder()
+				.setText(actv.getString(
+					R.string.dlg_actvmain_ops_Add_File_Name))
+						.setIconID(R.drawable.menu_icon_admin_32x32_green)
+						.setTextColor_ID(R.color.green4)
+						.build());
 		////////////////////////////////
 
 		// Adapter

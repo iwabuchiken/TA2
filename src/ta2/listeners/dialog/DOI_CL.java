@@ -741,6 +741,11 @@ public class DOI_CL implements OnItemClickListener {
 					CONS.DB.tname_BM);
 //			CONS.DB.tname_FilterHistory_Audio_Memo);
 			
+		} else if (li.getText().equals(actv.getString(
+				R.string.dlg_actvmain_ops_Add_File_Name))) {//if (choice.equals(actv.getString(R.string.generic_tv_delete))))
+
+			Methods.add_FileName_2_Table_AudioFiles(actv);
+			
 		}
 
 		// Log

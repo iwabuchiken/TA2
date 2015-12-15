@@ -11,9 +11,13 @@ public class AudioMemo {
 
 	String text;
 	
+	String file_name;
+	
 	String dir;
 	
 	String last_Modified;
+	
+	String length;
 	
 	public AudioMemo(Builder builder) {
 		// TODO Auto-generated constructor stub
@@ -30,8 +34,28 @@ public class AudioMemo {
 		
 		this.last_Modified	= builder.last_Modified;
 
+		this.length	= builder.length;
+		
+		this.file_name	= builder.file_name;
+		
 	}
 	
+	public String getFile_name() {
+		return file_name;
+	}
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
+	}
+
 	public String getLast_Modified() {
 		return last_Modified;
 	}
@@ -101,6 +125,10 @@ public class AudioMemo {
 		String dir;
 		
 		String last_Modified;
+
+		String length;
+
+		String file_name;
 		
 		public AudioMemo build() {
 			
@@ -109,6 +137,18 @@ public class AudioMemo {
 
 		
 		
+		public Builder setFile_name(String file_name) {
+			this.file_name = file_name; return this;
+		}
+
+
+
+		public Builder setLength(String length) {
+			this.length = length; return this;
+		}
+
+
+
 		public Builder setLast_Modified(String last_Modified) {
 			this.last_Modified = last_Modified; return this;
 		}
