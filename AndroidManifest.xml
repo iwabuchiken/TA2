@@ -93,6 +93,7 @@
             
         </activity>
         <activity android:name=".PlayerActv" android:screenOrientation="portrait" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".BMActv" android:screenOrientation="portrait"></activity>
         
         
     </application>

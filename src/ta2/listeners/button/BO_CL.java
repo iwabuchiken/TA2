@@ -5,6 +5,7 @@ import java.util.Locale;
 import ta2.items.AudioMemo;
 import ta2.items.BM;
 import ta2.items.Memo;
+import ta2.main.BMActv;
 import ta2.main.R;
 import ta2.services.Service_ShowProgress;
 import ta2.tasks.Task_AudioTrack;
@@ -116,6 +117,12 @@ public class BO_CL implements OnClickListener {
 		//
 		switch (tag) {
 
+		case ACTV_PLAYER_BT_SEE_BM://-----------------------------------------------------------------------------
+			
+			case_ACTV_PLAYER_BT_SEE_BM();
+			
+			break;
+			
 		case ACTV_PLAYER_BT_ADD_BM://-----------------------------------------------------------------------------
 			
 			case_ACTV_PLAYER_BT_ADD_BM();
@@ -370,6 +377,70 @@ public class BO_CL implements OnClickListener {
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void 
+	case_ACTV_PLAYER_BT_SEE_BM() {
+//		case_PlayerActv_See_BM() {
+		// TODO Auto-generated method stub
+
+		/***************************************
+		 * Validate: Any bookmarks?
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+//		long numOfBM = dbu.getNumOfEntries(actv, CONS.DB.tname_BM);
+		long numOfBM = dbu.getNumOfEntries_BM(
+								actv, 
+//								CONS.DB.tname_BM, 
+								this.audio_memo.getDb_Id());
+//		long numOfBM = dbu.getNumOfEntries_BM(actv, CONS.DB.tname_BM, ai.getDb_id());
+		
+		if (numOfBM < 1) {
+			
+			// Log
+			Log.d("BO_CL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "numOfBM < 1");
+			
+			// debug
+			Toast.makeText(actv, "No bookmarks", Toast.LENGTH_LONG).show();
+			
+			return;
+			
+		} else {//if (numOfBM == condition)
+			
+			// Log
+			Log.d("BO_CL.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "numOfBM=" + numOfBM);
+			
+		}//if (numOfBM == condition)
+		
+		/***************************************
+		 * Intent
+		 ***************************************/
+		Intent i = new Intent();
+		
+		i.setClass(actv, BMActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+//		i.putExtra("ai_dbId", ai.getDb_id());
+		i.putExtra(CONS.Intent.iKey_BMActv_AI_Id, this.audio_memo.getDb_Id());
+//		i.putExtra(CONS.Intent.iKey_BMActv_AI_Id, ai.getDb_id());
+//		i.putExtra(CONS.Intent.bmactv_key_ai_id, ai.getDb_id());
+		
+//		i.putExtra(CONS.Intent.iKey_BMActv_TableName, ai.getTable_name());
+//		i.putExtra(CONS.Intent.bmactv_key_table_name, ai.getTable_name());
+		
+//		actv.startActivity(i);
+		actv.startActivityForResult(i, CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS);
+
+	}//case_ACTV_PLAYER_BT_SEE_BM
 
 	private void 
 	case_ACTV_PLAYER_BT_ADD_BM() {

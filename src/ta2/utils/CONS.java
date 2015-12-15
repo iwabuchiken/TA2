@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ta2.adapters.Adp_AudioMemoList;
+import ta2.adapters.Adp_BMList;
 import ta2.adapters.Adp_FHs;
 import ta2.adapters.Adp_LogFileList;
 import ta2.adapters.Adp_MemoList;
@@ -12,6 +13,7 @@ import ta2.adapters.Adp_ShowLogFile_List;
 import ta2.adapters.Adp_TIList;
 import ta2.adapters.Adp_WordPatterns;
 import ta2.items.AudioMemo;
+import ta2.items.BM;
 import ta2.items.FilterHistory;
 import ta2.items.ListItem;
 import ta2.items.LogItem;
@@ -110,7 +112,18 @@ public class CONS {
 		////////////////////////////////
 		public static final String iKey_LogActv_LogFileName =
 													"iKey_LogActv_LogFileName";
+	
+		////////////////////////////////
+
+		// BMActv
+
+		////////////////////////////////
+		public static String iKey_BMActv_AI_Id = "bmactv_key_ai_id";
+//		public static String bmactv_key_ai_id = "bmactv_key_ai_id";
 		
+		public static String iKey_BMActv_TableName = "bmactv_key_table_name";
+		
+		public static String iKey_BMActv_Position = "bmactv_key_position";
 
 	}//public static class Intent
 	
@@ -570,7 +583,9 @@ public class CONS {
 			"ta_id",			// 0
 			"position",			// 1
 			"ta_text",			// 2
-			
+
+			"title",			// 3
+			"memo",				// 4
 		};
 		
 		public static final String[] col_names_BM_full = {
@@ -579,10 +594,13 @@ public class CONS {
 			android.provider.BaseColumns._ID,		// 0
 			"created_at", "modified_at",			// 1,2
 			
-			"ta_id",									// 3
-			"position",							// 4
+			"ta_id",					// 3
+			"position",					// 4
 			"ta_text",					// 5
 			
+			"title",			// 6
+			"memo",				// 7
+
 		};
 		
 		public static final String[] col_types_BM = {
@@ -591,8 +609,10 @@ public class CONS {
 			"TEXT",			// 1
 			"TEXT",			// 2
 
+			"TEXT",			// 3
+			"TEXT"			// 4
+			
 //			"TEXT", "TEXT",	// 0,1
-//			"TEXT"			// 2
 			
 		};
 		
@@ -785,6 +805,22 @@ public class CONS {
 
 		public static String pkey_ShowLogActv_Filter_String =
 									"pkey_ShowLogActv_Filter_String";
+
+		////////////////////////////////
+		
+		// BMActv
+		
+		////////////////////////////////
+		public static SharedPreferences prefs_BMActv;
+		
+		public static String pname_BMActv = "bm_activity";
+		
+		public static String pkey_CurrentPosition_BMActv
+							= "pkey_CurrentPosition_BMActv";
+		
+		public static String pkey_LastVisiblePosition_BMActv
+							= "pkey_LastVisiblePosition_BMActv";
+
 
 	}//Pref
 
@@ -1137,7 +1173,7 @@ public class CONS {
 		// Sort order
 		public static enum SortOrder {
 			
-				ASC, DESC,
+				ASC, DESC, DEC,
 				
 		};
 
@@ -1333,6 +1369,22 @@ public class CONS {
 		
 		public static List<String> list_RawLines = null;
 		
+	}
+
+	public static class BMActv {
+		
+//		public static AI ai;
+		public static AudioMemo am;
+		
+		public static List<BM> bmList;
+		
+		public static enum SortOrder {
+			
+			POSITION,
+			
+		}
+		
+		public static Adp_BMList aAdapter;
 	}
 
 }//public class CONS

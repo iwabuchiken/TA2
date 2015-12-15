@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical" >
+
+    
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/actv_bm_tv_file_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:padding="3dp"
+        android:text="@string/generic_tv_no_data"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+    
+    <LinearLayout
+        android:id="@+id/actv_bm_LL_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/actv_bm_ib_top"
+            style="@style/v1_ib"
+            android:src="@drawable/ifm8_thumb_top_50x50" />
+
+        <ImageButton
+            android:id="@+id/actv_bm_ib_up"
+            style="@style/v1_ib"
+            android:src="@drawable/actv_al_up_50x50" />
+
+        <ImageButton
+            android:id="@+id/actv_bm_ib_back"
+            style="@style/v1_ib"
+            android:src="@drawable/actv_al_back_50x50" />
+
+        <ImageButton
+            android:id="@+id/actv_bm_ib_down"
+            style="@style/v1_ib"
+            android:src="@drawable/actv_al_down_50x50" />
+
+        <ImageButton
+            android:id="@+id/actv_bm_ib_bottom"
+            style="@style/v1_ib"
+            android:src="@drawable/ifm8_thumb_bottom_50x50" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/actv_bm_ll_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/black"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/actv_bm_bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:focusable="false"
+            android:text="@string/generic_bt_back"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

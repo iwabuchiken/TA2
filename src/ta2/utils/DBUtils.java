@@ -1509,8 +1509,13 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public int getNumOfEntries(Activity actv, String table_name)
 
+	/*******************************
+	 * @return -1 => query exception
+	 *******************************/
 	public int
-	getNumOfEntries_BM(Activity actv, String table_name, long aiDbId) {
+	getNumOfEntries_BM
+	(Activity actv, long ta_id) {
+//		(Activity actv, String table_name, long aiDbId) {
 		/*********************************
 		 * memo
 		 *********************************/
@@ -1518,10 +1523,12 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 		SQLiteDatabase rdb = this.getReadableDatabase();
 
-		String sql = "SELECT * FROM " + table_name
+		String sql = "SELECT * FROM " + CONS.DB.tname_BM
+//				String sql = "SELECT * FROM " + table_name
 					+ " WHERE "
-					+ "ai_id = "
-					+ aiDbId;
+					+ "ta_id = "
+//					+ "ai_id = "
+					+ ta_id;
 		
 		Cursor c = null;
 		
@@ -6670,6 +6677,256 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 		
 	}//public boolean insertData_bm(Activity actv, BM bm)
+
+	/*******************************
+	 * @return
+	 * null	=> Query exception<br>
+	 * 			Query returned null<br>
+	 * 			no entry<br>
+	 *******************************/
+	public List<BM> 
+	get_BMList(Activity actv, long aiDbId) {
+		
+		SQLiteDatabase rdb = this.getReadableDatabase();
+		
+		Cursor c = null;
+		
+//		col_names_BM_full
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		"ai_id", "position",					// 3,4
+//		"title", "memo", "aiTableName"			// 5,6,7
+		
+		try {
+			
+			c = rdb.query(
+					CONS.DB.tname_BM,
+//							CONS.DBAdmin.col_purchaseSchedule,
+//							CONS.DB.cols_bm,
+					CONS.DB.col_names_BM_full,
+//							CONS.DB.cols_bm_full,
+//							CONS.DB.cols_bm[0], new String[]{String.valueOf(aiDbId)},
+					CONS.DB.col_names_BM_full[3] + " = ?", 
+//							CONS.DB.col_names_BM_full[0] + " = ?", 
+					new String[]{String.valueOf(aiDbId)},
+					null, null, null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+		c.moveToFirst();
+		
+		List<BM> bmList = new ArrayList<BM>();
+		
+//		col_names_BM_full
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"ta_id",					// 3
+//		"position",					// 4
+//		"ta_text",					// 5
+//		
+//		"title",			// 6
+//		"memo",				// 7
+		
+		for (int i = 0; i < c.getCount(); i++) {
+//			"ai_id", "position", "title", "memo", "aiTableName"
+			BM bm = new BM.Builder()
+			
+			.setDbId(c.getLong(0))
+			.setCreated_at(c.getString(1))
+			.setModified_at(c.getString(2))
+			
+			.setTa_id(c.getLong(c.getColumnIndex("ta_id")))
+			.setPosition(c.getString(c.getColumnIndex("position")))
+			.setTa_text(c.getString(c.getColumnIndex("ta_text")))
+			
+			.setTitle(c.getString(c.getColumnIndex("title")))
+			.setMemo(c.getString(c.getColumnIndex("memo")))
+			
+//			.setAiId(c.getLong(c.getColumnIndex("ai_id")))
+//			.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
+			
+//			.setDbId(c.getLong(c.getColumnIndex(
+//					android.provider.BaseColumns._ID)))
+//				.setDbId(c.getLong(c.getColumnIndex(CONS.DB.cols_bm_full[0])))
+					.build();
+			
+			bmList.add(bm);
+			
+			c.moveToNext();
+			
+		}//for (int i = 0; i < c.getCount(); i++)
+		
+		
+		rdb.close();
+		
+		return bmList;
+		
+	}//public List<BM> getBMList(Activity actv)
+
+	public static AudioMemo
+//	public static AI
+	find_AI_ById
+	(Activity actv, long db_Id) {
+//		(Activity actv, long db_Id, String table_Name) {
+		
+		DBUtils dbu = new DBUtils(actv, CONS.DB.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		Cursor c = null;
+		
+		////////////////////////////////
+		
+		// Query
+		
+		////////////////////////////////
+		String where = CONS.DB.col_names_Audio_Files_full[0] + " = ?";
+//		String where = CONS.DB.col_names_CM7_full[0] + " = ?";
+		
+		String[] args = new String[]{String.valueOf(db_Id)};
+		
+		try {
+			
+			c = rdb.query(
+					CONS.DB.tname_Audio_Files,			// 1
+//					CONS.DB.tname_CM7,			// 1
+//					table_Name,			// 1
+					CONS.DB.col_names_Audio_Files_full,	// 2
+//					CONS.DB.col_names_CM7_full,	// 2
+					where, args,		// 3,4
+					null, null,		// 5,6
+					null,			// 7
+					null);
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", e.toString());
+			
+			rdb.close();
+			
+			return null;
+			
+		}//try
+		
+		/***************************************
+		 * Validate
+		 * 	Cursor => Null?
+		 * 	Entry => 0?
+		 ***************************************/
+		if (c == null) {
+			
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Query failed");
+			
+			rdb.close();
+			
+			return null;
+			
+		} else if (c.getCount() < 1) {//if (c == null)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "No entry in the table");
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c == null)
+		
+		/***************************************
+		 * Build list
+		 ***************************************/
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		"dir",							// 4
+//		"last_modified",					// 5
+
+		c.moveToFirst();
+		
+		AudioMemo am = new AudioMemo.Builder()
+//		AI ai = new AI.Builder()
+		
+				.setDb_Id(c.getLong(0))
+				.setCreated_at(c.getString(1))
+				.setModified_at(c.getString(2))
+				
+				.setText(c.getString(3))
+				.setDir(c.getString(4))
+				
+				.setLast_Modified(c.getString(5))
+		
+				.build();
+
+		rdb.close();
+		
+		return am;
+		
+	}//find_AI
 
 }//public class DBUtils
 

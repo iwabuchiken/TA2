@@ -67,35 +67,6 @@ import android.widget.Toast;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Apache
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -115,8 +86,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ta2.comps.Comp_AudioMemos;
+import ta2.comps.Comp_BM;
 import ta2.comps.Comp_WP;
 import ta2.items.AudioMemo;
+import ta2.items.BM;
 import ta2.items.FilterHistory;
 import ta2.items.LogItem;
 import ta2.items.Memo;
@@ -10055,6 +10028,17 @@ public static String
 //		long millis = date.getTime();
 		
 	}//conv_ClockLabel_to_MillSec(String clockLabel)
+
+	public static void sort_List_BM_List
+	(List<BM> bm_List, 
+			final CONS.Enums.SortType sortType, 
+			final CONS.Enums.SortOrder sortOrder) {
+		
+		Comp_BM bmComp = new Comp_BM(bm_List, sortType, sortOrder);
+		
+		Collections.sort(bm_List, bmComp);
+		
+	}//sort_List_ai_List
 
 }//public class Methods
 

@@ -12,6 +12,9 @@ public class BM {
 	long		ta_id;
 	String	ta_text;
 	
+	String	title;
+	String	memo;
+	
 	public BM() {
 		
 	}
@@ -27,9 +30,32 @@ public class BM {
 		this.ta_id		= builder.ta_id;
 		this.ta_text	= builder.ta_text;
 		
+		this.title		= builder.title;
+		this.memo		= builder.memo;
+		
 	}//public BM(Builder builder)
 
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setTa_id(long ta_id) {
+		this.ta_id = ta_id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	public String getCreated_at() {
 		return created_at;
 	}
@@ -89,7 +115,10 @@ public class BM {
 		
 		long		ta_id;
 		String	ta_text;
-		
+
+		String	title;
+		String	memo;
+
 		public BM build() {
 			return new BM(this);
 		}
@@ -116,6 +145,17 @@ public class BM {
 
 		public Builder setTa_text(String ta_text) {
 			this.ta_text = ta_text; return this;
+		}
+
+		
+		public Builder setTitle(String title) {
+			this.title = title; return this;
+		}
+
+		public Builder setMemo(String memo) {
+			
+			this.memo = memo; return this;
+			
 		}
 
 	}//public static class Builder

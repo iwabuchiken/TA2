@@ -17,7 +17,10 @@
 	    
 	    <string name="generic_tv_play">Play</string>
 	    <string name="generic_tv_view">View</string>
-	    
+
+	    <string name="generic_tv_no_data">No data</string>
+	    <string name="generic_bt_back">Back</string>
+	    	    
     	<string name="generic_notice">Notice</string>
     	<string name="generic_Reset">Reset</string>
     
