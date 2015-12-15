@@ -1034,8 +1034,129 @@ public class PlayerActv extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
-		
+		if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS) {
+
+			if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK) {
+				
+				onActivityResult_BM_OK(data);
+				
+			} else if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_CANCEL) {//if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK)
+				
+				onActivityResult_BM_Cancel();
+				
+			}//if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK)
+			
+			
+		} else {//if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS)
+			
+			// Log
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "request code => " + requestCode);
+			
+		}//if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS)
+
 	}//onActivityResult(int requestCode, int resultCode, Intent data)
+
+	private void 
+	onActivityResult_BM_Cancel() {
+		// TODO Auto-generated method stub
+		// Log
+		Log.d("PlayActv.java"
+				+ "["
+				+ Thread.currentThread().getStackTrace()[2]
+						.getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2]
+						.getMethodName() + "]", "Cancelled");
+		
+		////////////////////////////////
+
+		// Reset: SeekBar
+
+		////////////////////////////////
+		
+		
+//		long currentPosition = Methods.conv_ClockLabel_to_MillSec(position);
+		long currentPosition = Methods.get_Pref_Long(this, 
+							CONS.Pref.pname_PlayActv, 
+							CONS.Pref.pkey_PlayActv_CurrentPosition, 
+							CONS.Pref.dflt_LongExtra_value);
+		
+		long length =
+				Methods.conv_ClockLabel_to_MillSec(CONS.PlayActv.ai.getLength());
+		
+		int seekPositon = (int)
+//					((currentPosition / length)
+					(((float)currentPosition / length)
+							* CONS.PlayActv.sb.getMax());
+//		
+		CONS.PlayActv.sb.setProgress(seekPositon);
+
+
+	}
+
+	private void
+	onActivityResult_BM_OK(Intent data) {
+		// TODO Auto-generated method stub
+		String position = data.getStringExtra(CONS.Intent.iKey_BMActv_Position);
+//		long position = data.getLongExtra(CONS.Intent.iKey_BMActv_Position, -1);
+		
+		long aiDbId = data.getLongExtra(
+							CONS.Intent.iKey_BMActv_AI_Id,
+							CONS.Intent.dflt_LongExtra_value);
+		
+		String aiTableName = data.getStringExtra(
+						CONS.Intent.iKey_BMActv_TableName);
+
+		/***************************************
+		 * Set: Preference
+		 ***************************************/
+		boolean res = 
+				Methods.setPref_Long(
+						this,
+						CONS.Pref.pname_PlayActv,
+//						CONS.Pref.pkey_PlayActv_position,
+						CONS.Pref.pkey_PlayActv_CurrentPosition,
+//						CONS.Pref.pkey_CurrentPosition,
+						Methods.conv_ClockLabel_to_MillSec(position));
+		// Log
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Position => Stored in a preference");
+
+		/***************************************
+		 * Set: Seekbar
+		 ***************************************/
+		long currentPosition = Methods.conv_ClockLabel_to_MillSec(position);
+		long length =
+				Methods.conv_ClockLabel_to_MillSec(CONS.PlayActv.ai.getLength());
+		
+		int seekPositon = (int)
+//					((currentPosition / length)
+					(((float)currentPosition / length)
+							* CONS.PlayActv.sb.getMax());
+//		
+		CONS.PlayActv.sb.setProgress(seekPositon);
+		
+		// Log
+		String msg_Log = "currentPosition = " + currentPosition
+						+ " // "
+						+ "seekPositon = " + seekPositon
+						+ " // "
+						+ "length = " + length
+						;
+		
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+
+		
+	}//onActivityResult_BM_OK(Intent data)
 
 	
 }//public class PlayActv extends Activity

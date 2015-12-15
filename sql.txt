@@ -1,0 +1,39 @@
+CREATE TABLE "bm" (
+
+	_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	created_at TEXT,
+	modified_at TEXT,
+	ta_id INTEGER,
+	position TEXT,
+	ta_text TEXT,
+	title TEXT,
+	memo TEXT,
+	audio_length	TEXT
+	
+);
+
+DROP TABLE bm;
+
+ALTER TABLE bm RENAME TO bm_old;
+
+INSERT INTO bm 
+		(
+			created_at,
+			modified_at,
+			ta_id,
+			position,
+			ta_text,
+			title,
+			memo,
+			
+			audio_length
+		) 
+	SELECT
+			created_at,
+			modified_at,
+			ta_id,
+			position,
+			ta_text,
+			title,
+			memo
+	FROM bm_old;
