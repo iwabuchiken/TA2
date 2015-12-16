@@ -751,7 +751,8 @@ public class ImportActv extends ListActivity {
 		// get: last auto-update time
 		//
 		///////////////////////////////////
-		String targetColumn = CONS.DB.col_names_Audio_Files_full[5];	// "last_updated"
+		String targetColumn = CONS.DB.col_names_Audio_Files_full[6];	// "last_updated"
+//		String targetColumn = CONS.DB.col_names_Audio_Files_full[5];	// "last_updated"
 //		String targetColumn = CONS.DB.col_names_Audio_Files_full[1];	// "created_at"
 //		String targetColumn = CONS.DB.col_names_Audio_Files_full[3];	// "text"
 		AudioMemo am = DBUtils.find_AudioMemo__LatestRecord(this, targetColumn);
@@ -841,17 +842,17 @@ public class ImportActv extends ListActivity {
 			tmp_i = Methods.conv_MillSec_to_TimeLabel(file.lastModified())
 					.compareToIgnoreCase(dateOf_LatestAM);
 			
-			msg_Log = String.format(
-					Locale.JAPAN,
-					"file = %s (%s) comp = %d", 
-					file.getName(), 
-					Methods.conv_MillSec_to_TimeLabel(file.lastModified()),
-					tmp_i
-					);
-			
-			Log.i("ImportActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", msg_Log);
+//			msg_Log = String.format(
+//					Locale.JAPAN,
+//					"file = %s (%s) comp = %d", 
+//					file.getName(), 
+//					Methods.conv_MillSec_to_TimeLabel(file.lastModified()),
+//					tmp_i
+//					);
+//			
+//			Log.i("ImportActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", msg_Log);
 					
 			// filter
 			if (tmp_i > 0) {
@@ -916,14 +917,25 @@ public class ImportActv extends ListActivity {
 //			"text",									// 3
 //			"dir",							// 4
 			
+//			android.provider.BaseColumns._ID,		// 0
+//			"created_at", "modified_at",			// 1,2
+//			
+//			"text",									// 3
+//			
+//			"file_name",							// 4
+//			"dir",									// 5
+//			
+//			"last_modified",						// 6
+
 			val.put(CONS.DB.col_names_Audio_Files_full[1], time);
 			val.put(CONS.DB.col_names_Audio_Files_full[2], time);
 			
 			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_File.getName());
 //			val.put(CONS.DB.col_names_Audio_Files_full[3], tmp_S);
-			val.put(CONS.DB.col_names_Audio_Files_full[4], dpath);
+			val.put(CONS.DB.col_names_Audio_Files_full[4], tmp_File.getName());
+			val.put(CONS.DB.col_names_Audio_Files_full[5], dpath);
 			
-			val.put(CONS.DB.col_names_Audio_Files_full[5], 
+			val.put(CONS.DB.col_names_Audio_Files_full[6], 
 						Methods.conv_MillSec_to_TimeLabel(tmp_File.lastModified()));
 			
 			// insert

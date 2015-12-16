@@ -2321,16 +2321,26 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 			AudioMemo am = new AudioMemo.Builder()
 			
-			.setDb_Id(c.getLong(0))
-			.setCreated_at(c.getString(1))
-			.setModified_at(c.getString(2))
-			
-			.setText(c.getString(3))
-			.setDir(c.getString(4))
-			
-			.setLast_Modified(c.getString(5))
-			
-			.build();
+				.setDb_Id(c.getLong(0))
+				.setCreated_at(c.getString(1))
+				.setModified_at(c.getString(2))
+	
+				.setText(c.getString(c.getColumnIndex("text")))
+				
+				.setDir(c.getString(c.getColumnIndex("file_name")))
+				.setDir(c.getString(c.getColumnIndex("dir")))
+	//			.setText(c.getString(3))
+	//			.setDir(c.getString(4))
+				
+				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
+	//			.setLast_Modified(c.getString(5))
+	
+	//			.setText(c.getString(3))
+	//			.setDir(c.getString(4))
+	//			
+	//			.setLast_Modified(c.getString(5))
+				
+				.build();
 			
 			list_Memos.add(am);
 			
@@ -2712,7 +2722,17 @@ public class DBUtils extends SQLiteOpenHelper{
 //		
 //		"text",									// 3
 //		"dir",							// 4
-		
+
+//		android.provider.BaseColumns._ID,		// 0
+//		"created_at", "modified_at",			// 1,2
+//		
+//		"text",									// 3
+//		
+//		"file_name",							// 4
+//		"dir",									// 5
+//		
+//		"last_modified",						// 6
+
 		List<AudioMemo> list_Memos = new ArrayList<AudioMemo>();
 		
 		while(c.moveToNext()) {
@@ -2723,10 +2743,15 @@ public class DBUtils extends SQLiteOpenHelper{
 			.setCreated_at(c.getString(1))
 			.setModified_at(c.getString(2))
 			
-			.setText(c.getString(3))
-			.setDir(c.getString(4))
+			.setText(c.getString(c.getColumnIndex("text")))
 			
-			.setLast_Modified(c.getString(5))
+			.setDir(c.getString(c.getColumnIndex("file_name")))
+			.setDir(c.getString(c.getColumnIndex("dir")))
+//			.setText(c.getString(3))
+//			.setDir(c.getString(4))
+			
+			.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
+//			.setLast_Modified(c.getString(5))
 			
 			.build();
 			
@@ -3865,9 +3890,18 @@ public class DBUtils extends SQLiteOpenHelper{
 					.setDb_Id(c.getLong(0))
 					.setCreated_at(c.getString(1))
 					.setModified_at(c.getString(2))
-					
-					.setText(c.getString(3))
-					.setDir(c.getString(4))
+
+				.setText(c.getString(c.getColumnIndex("text")))
+				
+				.setDir(c.getString(c.getColumnIndex("file_name")))
+				.setDir(c.getString(c.getColumnIndex("dir")))
+	//			.setText(c.getString(3))
+	//			.setDir(c.getString(4))
+				
+				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
+
+//					.setText(c.getString(3))
+//					.setDir(c.getString(4))
 					
 					.build();
 		
@@ -5881,11 +5915,20 @@ public class DBUtils extends SQLiteOpenHelper{
 					.setDb_Id(c.getLong(0))
 					.setCreated_at(c.getString(1))
 					.setModified_at(c.getString(2))
+
+				.setText(c.getString(c.getColumnIndex("text")))
+				
+				.setDir(c.getString(c.getColumnIndex("file_name")))
+				.setDir(c.getString(c.getColumnIndex("dir")))
+	//			.setText(c.getString(3))
+	//			.setDir(c.getString(4))
+				
+				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 					
-					.setText(c.getString(3))
-					.setDir(c.getString(4))
-					
-					.setLast_Modified(c.getString(5))
+//					.setText(c.getString(3))
+//					.setDir(c.getString(4))
+//					
+//					.setLast_Modified(c.getString(5))
 					
 					.build();
 
@@ -6914,11 +6957,20 @@ public class DBUtils extends SQLiteOpenHelper{
 				.setDb_Id(c.getLong(0))
 				.setCreated_at(c.getString(1))
 				.setModified_at(c.getString(2))
+
+				.setText(c.getString(c.getColumnIndex("text")))
 				
-				.setText(c.getString(3))
-				.setDir(c.getString(4))
+				.setDir(c.getString(c.getColumnIndex("file_name")))
+				.setDir(c.getString(c.getColumnIndex("dir")))
+	//			.setText(c.getString(3))
+	//			.setDir(c.getString(4))
 				
-				.setLast_Modified(c.getString(5))
+				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
+				
+//				.setText(c.getString(3))
+//				.setDir(c.getString(4))
+//				
+//				.setLast_Modified(c.getString(5))
 		
 				.build();
 
