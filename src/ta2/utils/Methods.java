@@ -10150,5 +10150,178 @@ public static String
 		
 	}//add_FileName_2_Table_AudioFiles
 
+	public static void 
+	add_Audio_Length(Activity actv) {
+		// TODO Auto-generated method stub
+		
+		///////////////////////////////////
+		//
+		// list: AudioMemos
+		//
+		///////////////////////////////////
+//		List<AudioMemo> list_Memos = new ArrayList<AudioMemo>();
+		List<AudioMemo> listOf_Memos = DBUtils.find_All_Memos__ExternalAudios(
+								actv, 
+								CONS.Enums.SortOrder.DESC);
+
+		String fullpath = null;
+
+		String msg_Log;
+
+		String s_Length = null;
+		
+		boolean res_b;
+		
+		long audio_length;
+		
+		int count = 0;
+		
+		for (AudioMemo audioMemo : listOf_Memos) {
+
+			///////////////////////////////////
+			//
+			// valid: length not yet
+			//
+			///////////////////////////////////
+			// if the memo already has a length
+			if (audioMemo.getLength() != null) {
+//				if (audioMemo.getLength() != null ||
+//						audioMemo.getLength() != "") {
+
+				
+				if (audioMemo.getLength() != "") {
+					
+					// Log
+//				String msg_Log;
+					
+					msg_Log = String.format(
+							Locale.JAPAN,
+							"audio length already => %s (length = %s)", 
+							audioMemo.getFile_name(),
+							audioMemo.getLength()
+							);
+					
+					Log.i("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", msg_Log);
+					
+					continue;
+					
+				}//if (audioMemo.getLength() != null ||)
+				
+			}//if (audioMemo.getLength() != null ||)
+			
+			
+			fullpath = audioMemo.getDir() + "/" + audioMemo.getFile_name();
+			
+			// validate
+			if (!new File(fullpath).exists()) {
+
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"file doesn't exist => %s", fullpath
+						);
+				
+				Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				continue;
+
+			}//if (!new File(fullpath).exists())
+
+			// get length
+			audio_length = Methods.get_AudioLength(fullpath);
+			
+			if (audio_length < 0) {
+				
+				s_Length = "-1";
+				
+			} else {//if (audio_length < 0)
+				
+				s_Length = Methods.conv_MillSec_to_ClockLabel(audio_length);
+				
+			}//if (audio_length < 0)
+			
+			
+//			s_Length = Methods.conv_MillSec_to_ClockLabel(Methods.get_AudioLength(fullpath));
+//			s_Length = Methods.conv_MillSec_to_ClockLabel(Methods.get_AudioLength(fullpath));
+			
+//			"text",				// 0
+//			
+//			"file_name",		// 1
+//			"dir",				// 2
+//			
+//			"last_modified",	// 3
+//			
+//			"audio_length",		// 4
+
+			res_b = DBUtils.updateData_generic_With_TimeLable(
+							actv, 
+							CONS.DB.tname_Audio_Files, 
+							audioMemo.getDb_Id(), 
+							CONS.DB.col_names_Audio_Files[4], 
+							s_Length);
+			
+			// report
+			if (res_b == true) {
+				
+				// Log
+//				String msg_Log;
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"audio length added => %s", fullpath
+						);
+				
+				Log.i("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+				// count
+				count += 1;
+				
+			} else {//if (res_b == true)
+				
+				msg_Log = String.format(
+						Locale.JAPAN,
+						"audio length NOT added => %s", fullpath
+						);
+				
+				Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", msg_Log);
+				
+			}//if (res_b == true)
+			
+			
+		}//for (AudioMemo audioMemo : listOf_Memos)
+		
+		///////////////////////////////////
+		//
+		// report
+		//
+		///////////////////////////////////
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"listOf_Memos => %d / length added => %d", listOf_Memos.size(), count
+				);
+		
+		Log.i("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
+		Methods.write_Log(actv, msg_Log,
+				Thread.currentThread().getStackTrace()[2].getFileName(), 
+				Thread.currentThread().getStackTrace()[2].getLineNumber());
+
+	}//add_Audio_Length
+
 }//public class Methods
 

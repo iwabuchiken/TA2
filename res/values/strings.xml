@@ -134,11 +134,14 @@
    		<string name="dlg_actvmain_ops_sql_add_col_used">
    		    							Add column: used</string>
    		
+   		<string name="dlg_db_ops_item_drop_create_tbl_admin">
+   		    							Drop/Create table: admin</string>
+   		
    		<string name="dlg_actvmain_ops_Add_File_Name">
    		    							Add file name: "audio_files"</string>
    		
-   		<string name="dlg_db_ops_item_drop_create_tbl_admin">
-   		    							Drop/Create table: admin</string>
+   		<string name="dlg_actvmain_ops_Add_Audio_Length">
+   		    							Add audio length</string>
    		
    	<!-- pref: MainActv -->
 	   	<string name="prefs_sound_effect_titile">

@@ -1466,6 +1466,13 @@ public class Methods_dlg {
 //						.setIconID(R.drawable.menu_icon_admin_32x32_green)
 //						.setTextColor_ID(R.color.green4)
 //						.build());
+		
+		list.add(new ListItem.Builder()
+				.setText(actv.getString(
+					R.string.dlg_actvmain_ops_Add_Audio_Length))
+						.setIconID(R.drawable.menu_icon_admin_32x32_green)
+						.setTextColor_ID(R.color.green4)
+						.build());
 		////////////////////////////////
 
 		// Adapter

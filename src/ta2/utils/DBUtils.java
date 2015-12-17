@@ -2327,7 +2327,7 @@ public class DBUtils extends SQLiteOpenHelper{
 	
 				.setText(c.getString(c.getColumnIndex("text")))
 				
-				.setDir(c.getString(c.getColumnIndex("file_name")))
+				.setFile_name(c.getString(c.getColumnIndex("file_name")))
 				.setDir(c.getString(c.getColumnIndex("dir")))
 	//			.setText(c.getString(3))
 	//			.setDir(c.getString(4))
@@ -2335,7 +2335,7 @@ public class DBUtils extends SQLiteOpenHelper{
 				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 	//			.setLast_Modified(c.getString(5))
 	
-				.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
+				.setLength(c.getString(c.getColumnIndex("audio_length")))
 				
 	//			.setText(c.getString(3))
 	//			.setDir(c.getString(4))
