@@ -553,6 +553,8 @@ public class CONS {
 			
 			"last_modified",	// 3
 			
+			"audio_length",		// 4
+			
 		};
 		
 		public static final String[] col_names_Audio_Files_full = {
@@ -568,6 +570,8 @@ public class CONS {
 			
 			"last_modified",						// 6
 			
+			"audio_length",							// 7
+			
 		};
 
 		public static final String[] col_types_Audio_Files = {
@@ -576,6 +580,7 @@ public class CONS {
 			"TEXT",		// 1
 			"TEXT",		// 2
 			"TEXT",		// 3
+			"TEXT",		// 4
 			
 		};
 		

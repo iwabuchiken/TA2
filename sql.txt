@@ -1,3 +1,6 @@
+sqlite3 C:\WORKS\WS\Eclipse_Luna\TA2
+
+
 ------------------------------------------ bm
 CREATE TABLE "bm" (
 
@@ -50,7 +53,9 @@ CREATE TABLE "audio_files" (
 	file_name TEXT,
 	dir TEXT,
 	
-	last_modified TEXT
+	last_modified TEXT,
+	
+	audio_length	TEXT
 	
 );
 

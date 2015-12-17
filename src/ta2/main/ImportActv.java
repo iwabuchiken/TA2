@@ -904,6 +904,10 @@ public class ImportActv extends ListActivity {
 		int numOf_Inserted = 0;
 		int numOf_NotInserted = 0;
 		
+		String fileFullPath = null;
+		
+		File fAudio = null;		// audio length
+		
 		for (int i = 0; i < lenOf_AudioFiles; i++) {
 			
 			tmp_File = listOf_AudioFiles_Filtered.get(i);
@@ -937,6 +941,18 @@ public class ImportActv extends ListActivity {
 			
 			val.put(CONS.DB.col_names_Audio_Files_full[6], 
 						Methods.conv_MillSec_to_TimeLabel(tmp_File.lastModified()));
+			
+			// audio length
+			fAudio = new File(dpath, tmp_File.getName());
+			
+			if (fAudio.exists() == true) {
+
+				val.put(CONS.DB.col_names_Audio_Files_full[7], 
+						Methods.conv_MillSec_to_ClockLabel(
+								Methods.get_AudioLength(
+										fAudio.getAbsolutePath())));
+
+			}//if (fAudio.exists() == true)
 			
 			// insert
 			res_B = DBUtils.insert_Data_generic(this, CONS.DB.tname_Audio_Files, val);

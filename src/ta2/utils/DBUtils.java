@@ -2335,6 +2335,8 @@ public class DBUtils extends SQLiteOpenHelper{
 				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 	//			.setLast_Modified(c.getString(5))
 	
+				.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
+				
 	//			.setText(c.getString(3))
 	//			.setDir(c.getString(4))
 	//			
@@ -2732,6 +2734,8 @@ public class DBUtils extends SQLiteOpenHelper{
 //		"dir",									// 5
 //		
 //		"last_modified",						// 6
+//		
+//		"audio_length",							// 7
 
 		List<AudioMemo> list_Memos = new ArrayList<AudioMemo>();
 		
@@ -2752,6 +2756,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 			.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 //			.setLast_Modified(c.getString(5))
+			
+			.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
 			
 			.build();
 			
@@ -3900,6 +3906,8 @@ public class DBUtils extends SQLiteOpenHelper{
 				
 				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 
+				.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
+				
 //					.setText(c.getString(3))
 //					.setDir(c.getString(4))
 					
@@ -5925,6 +5933,8 @@ public class DBUtils extends SQLiteOpenHelper{
 				
 				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
 					
+				.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
+				
 //					.setText(c.getString(3))
 //					.setDir(c.getString(4))
 //					
@@ -6966,6 +6976,8 @@ public class DBUtils extends SQLiteOpenHelper{
 	//			.setDir(c.getString(4))
 				
 				.setLast_Modified(c.getString(c.getColumnIndex("last_modified")))
+		
+				.setLast_Modified(c.getString(c.getColumnIndex("audio_length")))
 				
 //				.setText(c.getString(3))
 //				.setDir(c.getString(4))
