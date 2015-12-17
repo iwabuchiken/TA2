@@ -1109,6 +1109,18 @@ public class PlayerActv extends Activity {
 							CONS.Intent.iKey_BMActv_AI_Id,
 							CONS.Intent.dflt_LongExtra_value);
 		
+		// Log
+		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"aiDbId => %d", aiDbId
+				);
+		
+		Log.i("PlayerActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		String aiTableName = data.getStringExtra(
 						CONS.Intent.iKey_BMActv_TableName);
 
@@ -1118,9 +1130,10 @@ public class PlayerActv extends Activity {
 		boolean res = 
 				Methods.setPref_Long(
 						this,
-						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pname_PlayerActv,
 //						CONS.Pref.pkey_PlayActv_position,
-						CONS.Pref.pkey_PlayActv_CurrentPosition,
+						CONS.Pref.pkey_PlayerActv_CurrentPosition,
+//						CONS.Pref.pkey_PlayActv_CurrentPosition,
 //						CONS.Pref.pkey_CurrentPosition,
 						Methods.conv_ClockLabel_to_MillSec(position));
 		// Log
@@ -1147,7 +1160,9 @@ public class PlayerActv extends Activity {
 		CONS.PlayerActv.sb.setProgress(seekPositon);
 		
 		// Log
-		String msg_Log = "currentPosition = " + currentPosition
+//		String msg_Log;
+		
+		msg_Log = "currentPosition = " + currentPosition
 						+ " // "
 						+ "seekPositon = " + seekPositon
 						+ " // "

@@ -755,6 +755,19 @@ public class ImportActv extends ListActivity {
 //		String targetColumn = CONS.DB.col_names_Audio_Files_full[5];	// "last_updated"
 //		String targetColumn = CONS.DB.col_names_Audio_Files_full[1];	// "created_at"
 //		String targetColumn = CONS.DB.col_names_Audio_Files_full[3];	// "text"
+		
+		// Log
+//		String msg_Log;
+		
+		msg_Log = String.format(
+				Locale.JAPAN,
+				"target column => %s", targetColumn
+				);
+		
+		Log.i("ImportActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", msg_Log);
+		
 		AudioMemo am = DBUtils.find_AudioMemo__LatestRecord(this, targetColumn);
 
 		String dateOf_LatestAM = null;
